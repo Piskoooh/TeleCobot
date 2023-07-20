@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/RosDemo.unity
+    guid: 78ca00928758f4dbf9d459950a254bed
+  - enabled: 0
     path: Assets/Scenes/FusionHostModeTutorial.unity
     guid: 47a8219fa6b544796b5dfe84b9dc3ede
   m_configObjects:
