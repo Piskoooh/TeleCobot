@@ -25,6 +25,8 @@
 
 # Visual Studio cache directory
 .vs/
+.vsconfig
+
 
 # Gradle cache directory
 .gradle/
@@ -89,6 +91,7 @@ crashlytics-build.properties
 
 # gitignore for ROS
 
+.vscode/
 devel/
 logs/
 build/
@@ -140,3 +143,11 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+
+ROS/create3_ros1_ws/
+ROS/create3_ros2_ws/
+ROS/ros1_bridge_ws/
+ROS/interbotix_ws/src/create3_sim_ros1/
+ROS/interbotix_ws/src/interbotix_ros_core/
+ROS/interbotix_ws/src/interbotix_ros_rovers/
+ROS/interbotix_ws/src/interbotix_ros_toolboxes/

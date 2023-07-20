@@ -1,0 +1,7 @@
+[submodule "ROS/interbotix_ws/src/ROS-TCP-Endpoint"]
+	path = ROS/interbotix_ws/src/ROS-TCP-Endpoint
+	url = git@github.com:Unity-Technologies/ROS-TCP-Endpoint.git
+[submodule "ROS/interbotix_ws/src/moveit_msgs"]
+	path = ROS/interbotix_ws/src/moveit_msgs
+	url = git@github.com:ros-planning/moveit_msgs.git
+	branch = 0.11.4
