@@ -1,7 +1,7 @@
-# Human&RobotsRemoteCollaborationSystemUsingLocobots
+# Human & Robots Remote Collaboration System Using Locobots
 This system allows to remote control a cobot (works with ROS Noetic) using openXR interface.
 # Demo
-In this project file, we can remote control Locobot wx200 from Trossen Robotics.
+In this repository, we can remote control Locobot wx200 from Trossen Robotics through VR Interface. 
 
 # Features
 The remote operator can immerse to high fidelity shared environment in third person perspective.  
@@ -10,77 +10,96 @@ Also, the commands to Locobot is declarative.
 Note that we only support controlling physical robot, not in simulational environment(ex. using docker). We expect your contribution of creating a docker file that enables using robots in containers (especially locobots).
 
 # Getting Started
-## Hardware Setup
+Follow 5 steps for getting started with this project.
+1. Prepare hardwares.
+2. Setup ROS packages in Locobot.
+3. Setup Unity Project in Locobot.
+4. Setup Unity Project in Remote Computer 1
+5. Start Collaborating
+
+## Hardware Requirements
+2 hardwares are necessary for the collaboration.  
+Additionaly, preparing 1 more hardware is better for developments.
 ### Remote Computer 1
 * Computer for Remote Operator in remote location. This computer conntects to locobot via [photon cloud]() .  
-* OS: Windows 11  
-* Unity version: 2022.3.4f1  
+  * OS: Windows 11  
+  * Unity version: 2022.3.4f1
+  * Head Mounted Display: Vive Pro (Developed with OpenVR Plugins, you can use other HMDs but not checked.)
 
 ### Collaboration Robot
-* OS: Ubuntu 20.04  
-* Unity version: 2022.3.4f1  
-* Model of Robot: [Locobot wx200](https://www.trossenrobotics.com/locobot-wx200.aspx) with create3 (developed by [Trossen Robotics](https://www.trossenrobotics.com/))  
-* Software: [interbotix_ros_rovers](https://github.com/Interbotix/interbotix_ros_rovers)(developed by [Trossen Robotics](https://www.trossenrobotics.com/))  
-* ROS version: Noetic (1.16.0)  
+* [Locobot wx200](https://www.trossenrobotics.com/locobot-wx200.aspx) with create3 & RPLIDAR(developed by [Trossen Robotics](https://www.trossenrobotics.com/))  
+  * OS: Ubuntu 20.04  
+  * Unity version: 2022.3.4f1  
+  * Software: [interbotix_ros_rovers](https://github.com/Interbotix/interbotix_ros_rovers)(developed by [Trossen Robotics](https://www.trossenrobotics.com/))  
+  * ROS version: Noetic (1.16.0)  
 
 ### Remote Computer 2
 * Computer in local location. This computer connects to locobot using ssh. Used in developing, not in collaborating. It means this computer is not necessary for remote collaboration.    
 * Follow the [instructions](https://docs.trossenrobotics.com/interbotix_xslocobots_docs/ros_interface/ros1/software_setup.html#requirements) in locobot docummentation for remote development.
+  * OS: same with locobot NUC.
 
 ## Software Setup
-### 1. Open Projectfile in UnityEditor
+### Step 1. Clone repository 
 Clone this repository into your remote computer **and** locobot's NUC.  
-Open each project file via unity editor.
-    
-### 2. Import Assets
-When you first open the projectfile, compile error will occur because of unimported assets. Enter unity editor in SafeMode. Then import the .unitypackage file shown bellow.
+>**Warning**  
+!! This repository includes submodules !!  
+!! Therefore do not forget to tag `recursive` in terminal !!
 
-#### Photon Fusion
-Go to Photon Fusion [SDK&Release Notes](https://doc.photonengine.com/fusion/current/getting-started/sdk-download).
-Then download FusionSDK.
->**Note**
-Before pressing download button, create Photon Account or login to PhotonService if you have one.  
-The SDK version which we imported was "v1.1.7 stable" during the development of this projectfile. 
+Command which clone repo with submodules.
+```
+git clone --recursive {url of this repository}
+```
+<details><summary>When you already clone the repo without submodule, check here.</summary>
+Command for installing submodule.
 
-Go to [Photon Dashboard](https://dashboard.photonengine.com/) and create your photon cloud app. Select "Fusion" for Photon SDK.  
-Copy your new AppID. Go to Unity Editor and open `Asstets/Photon/Fusion/Resources/PhotonAppSetings`. Paste your AppID that you copied to "AppidFusion".
+```
+git submodule update --init --recursive
+```
 
-If all .unitypackage file is imported, unity editor will exit SafeMode.
+</details>
 
-### 3. Import other Packages
-Usually, these packages are imporetd automatically via PackageManager.  
->**Note**
-If error occur related to the package shown below, please delete `[NameOfYourProjectFile]/Library/PackageCache/` and reopen the project file in unity.
+### Step 2. ROS package setup in locobot
+[Click here](https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots/tree/master/ROS) for setting up ROS packages in Locobot.
 
-    "com.unity.addressables": "1.21.14",
-    "com.unity.robotics.urdf-importer": "https://github.com/Unity-Technologies/URDF-Importer.git?path=/com.unity.robotics.urdf-importer",
-    "com.unity.textmeshpro": "3.0.6",
-    "com.unity.xr.interaction.toolkit": "2.4.0",
+### Step 3. Unity project setup in locobot
+[Click here](https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots/tree/master/UnityProject) for setting up unity projects in Locobot.
 
-### 4. Build project file in locobot's NUC
-Build the project. Set the path to Home.  
+### Step 4. Unity project setup in remote computer 1
+[Click here](https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots/tree/master/UnityProject) for setting up unity projects in your remote computer.
 
+### Step 5. Start collaborating
+Now all of the setup is complete!!  
+Let's start collaborating with locobot remotely!  
+~~For detail, [click here]() !!~~
+>**<h4>More detail will be added soon.**
+
+
+---
 # Usage
 TBD
 
+---
 # Note
 For detailed information of locoobot, please check [locobot documentation](https://docs.trossenrobotics.com/interbotix_xslocobots_docs/index.html) supported by [Trossen Robotics](https://www.trossenrobotics.com/).
 
+---
 # Author
 Kohta Seki (Master Student in Waseda University)
 
+---
 # Licence
 TBD
 
+---
 # Acknowledgments
 TBD
 
-<details><summary>Open Source Licences</summary>
+<details><summary><h2>Open Source Licences</h2></summary>
     
-* [Interbotix_Ros_Core](https://github.com/Interbotix/interbotix_ros_core/tree/noetic)(noetic)
-* [Interbotix_Ros_Rovers](https://github.com/Interbotix/interbotix_ros_rovers/tree/noetic)(noetic)
-* [Interbotix_Ros_Toolboxes](https://github.com/Interbotix/interbotix_ros_core/tree/noetic)(noetic)
-* [MoveIt Msgs](https://github.com/ros-planning/moveit_msgs/tree/0.11.4)(v.0.11.4)
-* [Unity-Robotcs-Hub](https://github.com/Unity-Technologies/Unity-Robotics-Hub)(v.0.7.0)
+* [Interbotix_Ros_Core](https://github.com/Interbotix/interbotix_ros_core/tree/noetic) (noetic)
+* [Interbotix_Ros_Rovers](https://github.com/Interbotix/interbotix_ros_rovers/tree/noetic) (noetic)
+* [Interbotix_Ros_Toolboxes](https://github.com/Interbotix/interbotix_ros_core/tree/noetic) (noetic)
+* [MoveIt Msgs](https://github.com/ros-planning/moveit_msgs/tree/0.11.4) (v.0.11.4)
+* [Unity-Robotcs-Hub](https://github.com/Unity-Technologies/Unity-Robotics-Hub) (v.0.7.0)
 
 </details> 
