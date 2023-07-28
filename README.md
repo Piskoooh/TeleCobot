@@ -59,13 +59,13 @@ git submodule update --init --recursive
 </details>
 
 ### Step 2. ROS package setup in locobot
-[Click here](https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots/tree/master/ROS) for setting up ROS packages in Locobot.
+[Click here](/ROS/README.md) for setting up ROS packages in Locobot.
 
 ### Step 3. Unity project setup in locobot
-[Click here](https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots/tree/master/UnityProject) for setting up unity projects in Locobot.
+[Click here](/UnityProject/README.md) for setting up unity projects in Locobot.
 
 ### Step 4. Unity project setup in remote computer 1
-[Click here](https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots/tree/master/UnityProject) for setting up unity projects in your remote computer.
+[Click here](/UnityProject/README.md) for setting up unity projects in your remote computer.
 
 ### Step 5. Start collaborating
 Now all of the setup is complete!!  
