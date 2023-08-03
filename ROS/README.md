@@ -15,9 +15,9 @@ cd HumanRobotsRemoteCollaborationSystemUsingLocobots/ROS/
 ```
 ### 2.3 Follow the terminal.  
 >**Note**  
-Check the installation summary, if it's selecting the right "ROS distrobusion", "base model" (Create3 or Kobuki), and "installing directory".  
-
+Check the installation summary, if it's selecting the right "ROS distribusion", "base model" (Create3 or Kobuki), and "installing directory".  
 If it's correct, press `y` and it's not, press any other key.  
+
 The terminal will require Login Password. After authenication, the install process will start.  
 It will take about 30min. 
 >**Note**  
