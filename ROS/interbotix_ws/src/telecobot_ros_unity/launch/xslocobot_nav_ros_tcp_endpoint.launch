@@ -1,0 +1,34 @@
+<launch>
+    <arg name="robot_model"                       default=""/>
+    <arg name="robot_name"                        default="locobot"/>
+    <arg name="use_lidar"                         default="false"/>
+    <arg name="use_rviz"                          default="false"/>
+    <arg name="base_type"                         default="$(optenv INTERBOTIX_XSLOCOBOT_BASE_TYPE create3)"/> <!-- 'kobuki', 'create3' -->
+    <arg name="localization"                      default="false"/>
+    <arg name="rtabmap_args"                      default=""/>
+    <arg name="camera_tilt_angle"                 default="0.2618"/>
+    <arg name="launch_driver"                     default="true"/>
+
+    <arg name="tcp_ip"                            default="0.0.0.0"/>
+    <arg name="tcp_port"                          default="10000"/>
+
+    <!-- Interbotix Navigation -->
+    <include file="$(find interbotix_xslocobot_nav)/launch/xslocobot_nav.launch">
+        <arg name="robot_model"             value="$(arg robot_model)"/>
+        <arg name="robot_name"              value="$(arg robot_name)"/>
+        <arg name="localization"            value="$(arg localization)"/>
+        <arg name="rtabmap_args"            value="$(arg rtabmap_args)"/>
+        <arg name="use_lidar"               value="$(arg use_lidar)"/>
+        <arg name="launch_driver"           value="$(arg launch_driver)"/>
+        <arg name="camera_tilt_angle"       value="$(arg camera_tilt_angle)"/>
+
+    </include>
+
+    <!-- ROS-TCP-Endpoint -->
+    <include file="$(find ros_tcp_endpoint)/launch/endpoint.launch">
+        <arg name="tcp_ip"                 value="$(arg tcp_ip)"/>
+        <arg name="tcp_port"               value="$(arg tcp_port)"/>
+    </include>
+
+
+</launch>
