@@ -3,7 +3,12 @@ guid: 5643d61ef689716a58386a4555c4bc48
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ABS (Black)
+    second: {fileID: 2100000, guid: cd84b965fc65baa4182e2f4f0e88346b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
