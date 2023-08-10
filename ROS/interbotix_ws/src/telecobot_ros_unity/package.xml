@@ -1,0 +1,9 @@
+<package format="2">
+  <name>telecobot_ros_unity</name>
+  <version>1.0.0</version>
+  <description>
+  This package launches the Unity simulation of the Telecobot. 
+  </description>
+  <maintainer email="kota_0823_0225@ruri.waseda.jp">Kohta Seki</maintainer>
+  <license>BSD</license>
+</package>
