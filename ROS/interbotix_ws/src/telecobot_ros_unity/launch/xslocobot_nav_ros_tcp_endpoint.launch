@@ -1,4 +1,7 @@
 <launch>
+
+    <rosparam param="use_sim_time">true</rosparam>
+
     <arg name="robot_model"                       default=""/>
     <arg name="robot_name"                        default="locobot"/>
     <arg name="use_lidar"                         default="false"/>
@@ -21,6 +24,8 @@
         <arg name="use_lidar"               value="$(arg use_lidar)"/>
         <arg name="launch_driver"           value="$(arg launch_driver)"/>
         <arg name="camera_tilt_angle"       value="$(arg camera_tilt_angle)"/>
+        <arg name="use_rviz"                value="$(arg use_rviz)"/>
+
 
     </include>
 
@@ -30,5 +35,13 @@
         <arg name="tcp_port"               value="$(arg tcp_port)"/>
     </include>
 
+    <include file="$(find interbotix_xslocobot_joy)/launch/xslocobot_joy.launch">
+        <arg name="robot_model"             value="$(arg robot_model)"/>
+        <arg name="robot_name"              value="$(arg robot_name)"/>
+        <arg name="use_lidar"               value="$(arg use_lidar)"/>
+        <arg name="use_rviz"                value="$(arg use_rviz)"/>
+        <arg name="base_type"               value="$(arg base_type)"/>
+        <arg name="launch_driver"           value="false"/>
+    </include>
 
 </launch>
