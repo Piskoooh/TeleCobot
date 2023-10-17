@@ -57,7 +57,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
   FILES
-  telecobotMoveitJoints.msg
+  TelecobotMoveitJoints.msg
 )
 
 generate_messages(

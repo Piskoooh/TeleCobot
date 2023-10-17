@@ -8,11 +8,11 @@ import moveit_commander
 from sensor_msgs.msg import JointState
 from moveit_msgs.msg import RobotState
 from moveit_msgs.msg import RobotTrajectory
-from telecobot_ros_unity.msg import telecobotMoveitJoints
+from telecobot_ros_unity.msg import TelecobotMoveitJoints
 
 class telecobotMover:
     def __init__(self,subTopicName, pubTopicName):
-        self.sub=rospy.Subscriber(subTopicName, telecobotMoveitJoints, self.callback)
+        self.sub=rospy.Subscriber(subTopicName, TelecobotMoveitJoints, self.callback)
         self.pub=rospy.Publisher(pubTopicName, RobotTrajectory, queue_size=1)
         self.move_group = moveit_commander.MoveGroupCommander("arm")
         self.joint_state = JointState()
