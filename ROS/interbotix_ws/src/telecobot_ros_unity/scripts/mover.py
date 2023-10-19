@@ -8,12 +8,12 @@ import moveit_commander
 from sensor_msgs.msg import JointState
 from moveit_msgs.msg import RobotState
 from moveit_msgs.msg import RobotTrajectory
-from telecobot_ros_unity.msg import TelecobotMoveitJoints
+from telecobot_ros_unity.msg import TelecobotTrackingTarget
 from moveit_commander.conversions import pose_to_list
 
 class telecobotMover:
     def __init__(self,subTopicName, pubTopicName):
-        self.sub=rospy.Subscriber(subTopicName, TelecobotMoveitJoints, self.callback)
+        self.sub=rospy.Subscriber(subTopicName, TelecobotTrackingTarget, self.callback)
         self.pub=rospy.Publisher(pubTopicName, RobotTrajectory, queue_size=1)
         self.move_group = moveit_commander.MoveGroupCommander("interbotix_arm")
         self.joint_state = JointState()
@@ -45,31 +45,44 @@ class telecobotMover:
         print("")
 
     def callback(self, msg):
-        # plan=self.plan_trajectory(self.move_group,msg.goal_pose,msg.joints)
-        # self.move_group.execute(plan[1],wait=True)
-        # self.move_group.stop()
-        # self.move_group.clear_pose_targets()
+        start_joints=msg.joints
+                # ターゲットとエンドエフェクタの誤差を計算
+        delta = abs(msg.end_effector_pose.position.x - msg.goal_pose.position.x) \
+              + abs(msg.end_effector_pose.position.y - msg.goal_pose.position.y) \
+              + abs(msg.end_effector_pose.position.z - msg.goal_pose.position.z) \
+              + abs(msg.end_effector_pose.orientation.x - msg.goal_pose.orientation.x) \
+              + abs(msg.end_effector_pose.orientation.y - msg.goal_pose.orientation.y) \
+              + abs(msg.end_effector_pose.orientation.z - msg.goal_pose.orientation.z) \
+              + abs(msg.end_effector_pose.orientation.w - msg.goal_pose.orientation.w)
+        
+        print("delta: ", delta)
+        print("goal_pose: ", msg.goal_pose)
+        print("end_effector_pose: ", msg.end_effector_pose)
+        print("joints: ", msg.joints)
+        
+        if delta >0.02:
+          # plan=self.plan_trajectory(self.move_group,msg.goal_pose,msg.joints)
+          # self.move_group.execute(plan[1],wait=True)
+          # self.move_group.stop()
+          # self.move_group.clear_pose_targets()
+          self.move_group.set_pose_target(msg.goal_pose)
 
-        self.move_group.set_pose_target(msg.goal_pose)
+          ## Now, we call the planner to compute the plan and execute it.
+          plan = self.move_group.go(wait=True)
+          # Calling `stop()` ensures that there is no residual movement
+          self.move_group.stop()
+          # It is always good to clear your targets after planning with poses.
+          # Note: there is no equivalent function for clear_joint_value_targets()
+          self.move_group.clear_pose_targets()
 
-        ## Now, we call the planner to compute the plan and execute it.
-        plan = self.move_group.go(wait=True)
-        # Calling `stop()` ensures that there is no residual movement
-        self.move_group.stop()
-        # It is always good to clear your targets after planning with poses.
-        # Note: there is no equivalent function for clear_joint_value_targets()
-        self.move_group.clear_pose_targets()
+          if plan:
+              print("success>>")
+              # self.pub.publish(plan[1])
+          else:
+              print("fail>>")
 
-
-        if type(plan) is tuple:
-            print("success>>")
-        else:
-            print("fail>>")
-
-        # self.pub.publish(plan[1])
-
-        current_pose = self.move_group.get_current_pose().pose
-        return all_close(msg.goal_pose, current_pose, 0.01)
+          current_pose = self.move_group.get_current_pose().pose
+          return all_close(msg.goal_pose, current_pose, 0.01)
     
     def plan_trajectory(self,move_group,pose_target,start_joints):
         self.joint_state.position = start_joints
@@ -106,8 +119,8 @@ def all_close(goal, actual, tolerance):
 
 def main():
     moveit_commander.roscpp_initialize(sys.argv)
-    rospy.init_node('telecobot_mover')
-    node=telecobotMover("/telecobot_joints","/moveit_response")
+    rospy.init_node('telecobot_tracker')
+    node=telecobotMover("/telecobot_tracking","/moveit_response")
     rospy.spin()
 
 if __name__ == "__main__":
