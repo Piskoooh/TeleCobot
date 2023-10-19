@@ -45,20 +45,20 @@ class telecobotMover:
         print("")
 
     def callback(self, msg):
-        # plan=self.plan_trajectory(self.move_group,msg.goal_pose,msg.joints)
-        # self.move_group.execute(plan[1],wait=True)
-        # self.move_group.stop()
-        # self.move_group.clear_pose_targets()
-
-        self.move_group.set_pose_target(msg.goal_pose)
-
-        ## Now, we call the planner to compute the plan and execute it.
-        plan = self.move_group.go(wait=True)
-        # Calling `stop()` ensures that there is no residual movement
+        plan=self.plan_trajectory(self.move_group,msg.goal_pose,msg.joints)
+        self.move_group.execute(plan[1],wait=True)
         self.move_group.stop()
-        # It is always good to clear your targets after planning with poses.
-        # Note: there is no equivalent function for clear_joint_value_targets()
         self.move_group.clear_pose_targets()
+
+        # self.move_group.set_pose_target(msg.goal_pose)
+
+        # ## Now, we call the planner to compute the plan and execute it.
+        # plan = self.move_group.go(wait=True)
+        # # Calling `stop()` ensures that there is no residual movement
+        # self.move_group.stop()
+        # # It is always good to clear your targets after planning with poses.
+        # # Note: there is no equivalent function for clear_joint_value_targets()
+        # self.move_group.clear_pose_targets()
 
 
         if type(plan) is tuple:
