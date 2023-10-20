@@ -65,6 +65,7 @@ class telecobotMover:
           # self.move_group.execute(plan[1],wait=True)
           # self.move_group.stop()
           # self.move_group.clear_pose_targets()
+         
           self.move_group.set_pose_target(msg.goal_pose)
 
           ## Now, we call the planner to compute the plan and execute it.
@@ -84,16 +85,16 @@ class telecobotMover:
           current_pose = self.move_group.get_current_pose().pose
           return all_close(msg.goal_pose, current_pose, 0.01)
     
-    def plan_trajectory(self,move_group,pose_target,start_joints):
-        self.joint_state.position = start_joints
-        self.robot_state.joint_state = self.joint_state
-        self.move_group.set_start_state(self.robot_state)
+    # def plan_trajectory(self,move_group,pose_target,start_joints):
+    #     self.joint_state.position = start_joints
+    #     self.robot_state.joint_state = self.joint_state
+    #     self.move_group.set_start_state(self.robot_state)
 
-        self.pose_goal.position=pose_target.position
-        self.pose_goal.orientation=pose_target.orientation
-        self.move_group.set_joint_value_target(self.pose_goal,True)
+    #     self.pose_goal.position=pose_target.position
+    #     self.pose_goal.orientation=pose_target.orientation
+    #     self.move_group.set_joint_value_target(self.pose_goal,True)
 
-        return self.move_group.plan()
+    #     return self.move_group.plan()
     
 def all_close(goal, actual, tolerance):
   """
