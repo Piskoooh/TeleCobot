@@ -4,7 +4,7 @@ using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.BuiltinInterfaces;
 using RosMessageTypes.Rosgraph;
 
-public class ROSClockPublisher : MonoBehaviour
+public class PubRosClock : MonoBehaviour
 {
     [SerializeField]
     RosClock.ClockMode m_ClockMode;
@@ -25,7 +25,7 @@ public class ROSClockPublisher : MonoBehaviour
 
     void OnValidate()
     {
-        var clocks = FindObjectsOfType<ROSClockPublisher>();
+        var clocks = FindObjectsOfType<PubRosClock>();
         if (clocks.Length > 1)
         {
             Debug.LogWarning("Found too many clock publishers in the scene, there should only be one!");
