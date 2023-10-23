@@ -26,14 +26,21 @@ public class PubTargetEndEffector : MonoBehaviour
 
     private ROSConnection m_Ros;
     private TelecobotTrackingTargetMsg jointMsg;
+    public bool isConnected=false;
 
-    void Start()
+    public void OnRosConnect()
     {
         m_Ros = ROSConnection.GetOrCreateInstance();
         m_Ros.RegisterPublisher<TelecobotTrackingTargetMsg>(TopicName);
         jointMsg = new TelecobotTrackingTargetMsg();
+        isConnected = true;
 
         m_LastPublishTimeSeconds = RosClock.time + PublishPeriodSeconds;
+    }
+
+    public void OnRosDisconnected()
+    {
+        isConnected = false;
     }
 
     public void Publish()
@@ -70,9 +77,12 @@ public class PubTargetEndEffector : MonoBehaviour
     //常にパブリッシュし続ける
     private void Update()
     {
-        if (ShouldPublishMessage)
+        if (isConnected)
         {
-            Publish();
+            if (ShouldPublishMessage)
+            {
+                Publish();
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ public class SubMoveitResponce : MonoBehaviour
     public ArticulationBody[] jointArticulationBodies;
     private ROSConnection m_Ros;
 
-    void Start()
+    public void OnRosConnect()
     {
         m_Ros = ROSConnection.GetOrCreateInstance();
 
@@ -51,5 +51,10 @@ public class SubMoveitResponce : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.1f);
+    }
+
+    public void UnSub()
+    {
+        m_Ros.Unsubscribe(TopicName);
     }
 }

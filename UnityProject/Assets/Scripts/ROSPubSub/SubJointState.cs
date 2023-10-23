@@ -23,7 +23,7 @@ public class SubJointState : MonoBehaviour
     public string topicName = "/locobot/joint_states";
     private ROSConnection ros;
 
-    void Start()
+    public void OnRosConnect()
     {
         ros = ROSConnection.GetOrCreateInstance();
         ros.Subscribe<JointStateMsg>(topicName, GetJointPositions);
