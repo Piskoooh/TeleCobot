@@ -30,7 +30,7 @@ public class PubROSTransformTree : MonoBehaviour
 
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
-    public bool isConnected = false;
+    private bool isConnected = false;
 
     // Start is called before the first frame update
     public void OnRosConnect()

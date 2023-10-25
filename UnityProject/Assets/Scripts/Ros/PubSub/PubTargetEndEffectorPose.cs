@@ -26,7 +26,7 @@ public class PubTargetEndEffector : MonoBehaviour
 
     private ROSConnection m_Ros;
     private TelecobotTrackingTargetMsg jointMsg;
-    public bool isConnected=false;
+    private bool isConnected=false;
 
     public void OnRosConnect()
     {

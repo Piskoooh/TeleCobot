@@ -23,7 +23,7 @@ public class PubRosClock : MonoBehaviour
 
     bool ShouldPublishMessage => RosClock.FrameStartTimeInSeconds - PublishPeriodSeconds > m_LastPublishTimeSeconds;
 
-    public bool isConnected = false;
+    private bool isConnected = false;
 
     void OnValidate()
     {

@@ -35,11 +35,12 @@ namespace URV
 
         public void OnRosConnect()
         {
+            //Debug.Log("OnRosConnect in visualization topic tab called");
             m_FillTexture = VisualizationUtils.MakeTexture(16, 16, new Color(0.125f, 0.19f, 0.25f));
 
             m_Connection = ROSConnection.GetOrCreateInstance();
             HudPanel.RegisterTab(this, (int)HudTabOrdering.Topics);
-            HudPanel.RegisterTab(new URV.VisualizationLayoutTab(this), (int)HudTabOrdering.Layout);
+            HudPanel.RegisterTab(new VisualizationLayoutTab(this), (int)HudTabOrdering.Layout);
             LoadLayout();
             m_Connection.ListenForTopics(OnNewTopic, notifyAllExistingTopics: true);
         }
