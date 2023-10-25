@@ -30,8 +30,10 @@ public class PubROSTransformTree : MonoBehaviour
 
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
+    private bool isConnected = false;
+
     // Start is called before the first frame update
-    void Start()
+    public void OnRosConnect()
     {
         if (m_RootGameObject == null)
         {
@@ -44,6 +46,11 @@ public class PubROSTransformTree : MonoBehaviour
         m_TransformRoot = new TransformTreeNode(m_RootGameObject);
         m_ROS.RegisterPublisher<TFMessageMsg>(k_TfTopic);
         m_LastPublishTimeSeconds = RosClock.time + PublishPeriodSeconds;
+    }
+
+    public void OnRosDisconnected()
+    {
+        isConnected = false;
     }
 
     static void PopulateTFList(List<TransformStampedMsg> tfList, TransformTreeNode tfNode)
@@ -97,12 +104,15 @@ public class PubROSTransformTree : MonoBehaviour
         m_LastPublishTimeSeconds = RosClock.FrameStartTimeInSeconds;
     }
 
-    void Update()
+    //常にパブリッシュし続ける
+    private void Update()
     {
-        if (ShouldPublishMessage)
+        if (isConnected)
         {
-            PublishMessage();
+            if (ShouldPublishMessage)
+            {
+                PublishMessage();
+            }
         }
-
     }
 }

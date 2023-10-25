@@ -23,6 +23,8 @@ public class PubRosClock : MonoBehaviour
 
     bool ShouldPublishMessage => RosClock.FrameStartTimeInSeconds - PublishPeriodSeconds > m_LastPublishTimeSeconds;
 
+    private bool isConnected = false;
+
     void OnValidate()
     {
         var clocks = FindObjectsOfType<PubRosClock>();
@@ -47,11 +49,16 @@ public class PubRosClock : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Awake()
+    public void OnRosConnect()
     {
         SetClockMode(m_ClockMode);
         m_ROS = ROSConnection.GetOrCreateInstance();
         m_ROS.RegisterPublisher<ClockMsg>("/clock");
+    }
+
+    public void OnRosDisconnected()
+    {
+        isConnected = false;
     }
 
     void PublishMessage()
@@ -66,11 +73,15 @@ public class PubRosClock : MonoBehaviour
         m_ROS.Publish("/clock", clockMsg);
     }
 
-    void Update()
+    //常にパブリッシュし続ける
+    private void Update()
     {
-        if (ShouldPublishMessage)
+        if (isConnected)
         {
-            PublishMessage();
+            if (ShouldPublishMessage)
+            {
+                PublishMessage();
+            }
         }
     }
 }
