@@ -24,6 +24,13 @@ public class PubRosClock : MonoBehaviour
     bool ShouldPublishMessage => RosClock.FrameStartTimeInSeconds - PublishPeriodSeconds > m_LastPublishTimeSeconds;
 
     private bool isConnected = false;
+    bool flag;
+
+    void Start()
+    {
+        isConnected = false;
+        flag = false;
+    }
 
     void OnValidate()
     {
@@ -53,7 +60,11 @@ public class PubRosClock : MonoBehaviour
     {
         SetClockMode(m_ClockMode);
         m_ROS = ROSConnection.GetOrCreateInstance();
-        m_ROS.RegisterPublisher<ClockMsg>("/clock");
+        if (flag == false)
+        {
+            m_ROS.RegisterPublisher<ClockMsg>("/clock");
+            flag = true;
+        }
     }
 
     public void OnRosDisconnected()

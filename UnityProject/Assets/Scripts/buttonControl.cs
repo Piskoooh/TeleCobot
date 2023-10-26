@@ -1,18 +1,157 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class buttonControl : MonoBehaviour
 {
+    public Button sleepButton, homeButton, trackButton, pickButton;
+    public CanvasGroup armUI, baseUI;
+    public PubTelecobotArmControl pubTelecobotArmControl;
+
+    public GameObject targetPrefab;
+    public GameObject visualIndicatorPrefab;
+
+    private GameObject targetObject;
+    private GameObject visualIndicator;
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        sleepButton.onClick.AddListener(() => slpbtn());
+        homeButton.onClick.AddListener(() => hombtn());
+        trackButton.onClick.AddListener(() => trcbtn());
+        pickButton.onClick.AddListener(() => pictrgbtn());
+
+    }
+    //?????????????????
+    void slpbtn()
+    {
+        pubTelecobotArmControl.armControlMode = ArmControlMode.Sleep;
     }
 
-    // Update is called once per frame
-    void Update()
+    void hombtn()
     {
-        
+        pubTelecobotArmControl.armControlMode = ArmControlMode.Home;
+    }
+
+    void trcbtn()
+    {
+        pubTelecobotArmControl.armControlMode = ArmControlMode.TrackTarget;
+        CreateOrResetTargetObject();
+    }
+
+    void pictrgbtn()
+    {
+        PickTarget();
+    }
+
+    void VisualRange()
+    {
+        // ??????????Cube???????????
+        visualIndicator = Instantiate(visualIndicatorPrefab, pubTelecobotArmControl.armBaseLink.transform.position, Quaternion.identity);
+        // armBaseLinkObject?????????????
+        visualIndicator.transform.parent = pubTelecobotArmControl.armBaseLink.transform;
+        // ?????????????
+        visualIndicator.transform.localPosition = new Vector3(0, 0, 0); // ?????
+    }
+
+    void CreateOrResetTargetObject()
+    {
+        Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
+        Vector3 endEffectorPosition = pubTelecobotArmControl.endEffector.transform.position;
+        Vector3 direction = endEffectorPosition - armBaseLinkPosition;
+        if (direction.magnitude <= 0.55f && endEffectorPosition.z > armBaseLinkPosition.z &&  endEffectorPosition.y > 0)
+        {
+            if (targetObject == null)
+            {
+                targetObject = Instantiate(targetPrefab, endEffectorPosition, Quaternion.identity); //create
+            }
+            else
+            {
+                targetObject.transform.position = endEffectorPosition; //reset
+            }
+            trackButton.GetComponentInChildren<TMP_Text>().text = "Reset Target";
+            if (visualIndicator == null)
+            {
+                VisualRange();
+            }
+        }
+        else
+        {
+            Debug.Log("End effector is outside the specified range or with invalid y value.\nDirection Magnitude: " + direction.magnitude+"\nReturn to Home Position.");
+            trackButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
+
+            hombtn();
+        }
+    }
+
+    void PickTarget()
+    {
+        if (targetObject == null)
+        {
+            Debug.Log("Target Object does not exist.");
+            CreateOrResetTargetObject();
+        }
+        else
+        {
+            Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
+            Vector3 direction = targetObject.transform.position - armBaseLinkPosition;
+            if (direction.magnitude <= 0.55f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
+            {
+                pubTelecobotArmControl.target = targetObject;
+            }
+            else
+            {
+                Debug.Log("Cannot set target outside the specified range or with invalid y value.\nDirection Magnitude: " + direction.magnitude);
+            }
+        }
+    }
+
+
+    //Update?????interactable???
+    private void Update()
+    {
+        switch (pubTelecobotArmControl.armControlMode)
+        {
+            case ArmControlMode.Sleep:
+                sleepButton.interactable = false;
+                homeButton.interactable = true;
+                trackButton.interactable = false;
+                pickButton.interactable = false;
+                baseUI.interactable = true;
+                if (targetObject != null) Destroy(targetObject);
+                if (visualIndicator != null) Destroy(visualIndicator);
+                break;
+            case ArmControlMode.Home:
+                sleepButton.interactable = true;
+                homeButton.interactable = false;
+                trackButton.interactable = true;
+                pickButton.interactable = false;
+                baseUI.interactable = false;
+                if (targetObject != null) Destroy(targetObject);
+                if (visualIndicator != null) Destroy(visualIndicator);
+                break;
+            case ArmControlMode.TrackTarget:
+                sleepButton.interactable = true;
+                homeButton.interactable = true;
+                trackButton.interactable = true;
+                pickButton.interactable = true;
+                baseUI.interactable = false;
+                if (visualIndicator != null)
+                {
+                    Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
+                    Vector3 direction = targetObject.transform.position - armBaseLinkPosition;
+                    if (direction.magnitude <= 0.55f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
+                    {
+                        visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(0.2f, 1f, 0f, 0.2f);
+                    }
+                    else visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(1f, 0f, 0.5f, 0.2f);
+                }
+                    break;
+        }
+
     }
 }
