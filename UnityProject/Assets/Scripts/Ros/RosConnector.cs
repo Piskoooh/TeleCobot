@@ -14,6 +14,7 @@ public class RosConnector : MonoBehaviour
 
     public TMP_Text punConnectionStatusText, rosConnectionStatusText;
     public Button punConnectButton, rosConnectButton;
+    public CanvasGroup rosUIs;
 
     public VisualizationTopicsTab visualizationTopicsTab;
     public SubJointState subJointState;
@@ -21,6 +22,7 @@ public class RosConnector : MonoBehaviour
     public PubRosClock pubRosClock;
     public PubROSTransformTree pubROSTransformTree;
     public PubTargetEndEffector pubTargetEndEffector;
+    public PubTelecobotArmControl pubTelecobotArmControl;
 
     private void Start()
     {
@@ -28,7 +30,8 @@ public class RosConnector : MonoBehaviour
         rosConnectionStatusText.text = "Ros : Not Connected";
         punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
         rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        rosConnectButton.enabled = false;
+        rosConnectButton.interactable = false;
+        rosUIs.interactable = false;
         punConnected = false;
         rosConnected = false;
         punConnectButton.onClick.AddListener(() => punButton());
@@ -71,7 +74,7 @@ public class RosConnector : MonoBehaviour
         punConnected = true;
         punConnectionStatusText.text = "Photon : Connected";
         punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
-        rosConnectButton.enabled = true;
+        rosConnectButton.interactable = true;
 
     }
 
@@ -98,7 +101,7 @@ public class RosConnector : MonoBehaviour
         {
             DisconnectFromROS();
         }
-        rosConnectButton.enabled = false;
+        rosConnectButton.interactable = false;
         punConnected = false;
         punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
         punConnectionStatusText.text = "Photon : Disconnected";
@@ -141,6 +144,7 @@ public class RosConnector : MonoBehaviour
         rosConnected = true;
         rosConnectionStatusText.text = "ROS : Connected";
         rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        rosUIs.interactable = true;
 
         //visualization
         visualizationTopicsTab.OnRosConnect();
@@ -151,7 +155,8 @@ public class RosConnector : MonoBehaviour
         //publish
         pubRosClock.OnRosConnect();
         pubROSTransformTree.OnRosConnect();
-        pubTargetEndEffector.OnRosConnect();
+        //pubTargetEndEffector.OnRosConnect();
+        pubTelecobotArmControl.OnRosConnect();
 
     }
 
@@ -165,6 +170,7 @@ public class RosConnector : MonoBehaviour
                 rosConnected = false;
                 rosConnectionStatusText.text = "ROS : Disconnected";
                 rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
+                rosUIs.interactable = false;
             }
             catch (Exception e)
             {
