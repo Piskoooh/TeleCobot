@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
@@ -56,9 +57,15 @@ public class RosConnector : MonoBehaviour
             {
                 ros = ROSConnection.GetOrCreateInstance();
                 // ROSへの接続処理を行う
-                rosConnected = true;
-                rosConnectionStatusText.text = "ROS : Connected";
+                try
+                {
+                ros.Connect();
                 OnRosConnect();
+                }
+                catch (Exception e)
+                {
+                    rosConnectionStatusText.text = "ROS : Failed to Connect:" + e.Message;
+                }
             }
             else
             {
@@ -71,6 +78,8 @@ public class RosConnector : MonoBehaviour
     public void OnRosConnect() //ROS接続された時に呼び出される関数
                                //接続直後にPub/Subするメッセージはここで起動する
     {
+        rosConnected = true;
+        rosConnectionStatusText.text = "ROS : Connected";
         visualizationTopicsTab.OnRosConnect();
         subJointState.OnRosConnect();
 
@@ -83,13 +92,20 @@ public class RosConnector : MonoBehaviour
     {
         if (rosConnected)
         {
-            ros.Disconnect();
-            rosConnected = false;
-            punConnectionStatusText.text = "ROS : Disconnected";
+            try
+            {
+                ros.Disconnect();
+                rosConnected = false;
+                rosConnectionStatusText.text = "ROS : Disconnected";
+            }
+            catch(Exception e)
+            {
+                rosConnectionStatusText.text = "ROS : Failed to Disconnect:" + e.Message;
+            }
         }
         else
         {
-            rosConnectionStatusText.text = "ROS : Not connected";
+            rosConnectionStatusText.text = "ROS : Already Disconnected";
         }
     }
 

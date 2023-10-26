@@ -32,6 +32,12 @@ namespace URV
         }
         SortMode m_SortMode;
         Texture2D m_FillTexture;
+        bool flag;
+
+        void Start()
+        {
+            flag = false;
+        }
 
         public void OnRosConnect()
         {
@@ -39,8 +45,12 @@ namespace URV
             m_FillTexture = VisualizationUtils.MakeTexture(16, 16, new Color(0.125f, 0.19f, 0.25f));
 
             m_Connection = ROSConnection.GetOrCreateInstance();
-            HudPanel.RegisterTab(this, (int)HudTabOrdering.Topics);
-            HudPanel.RegisterTab(new VisualizationLayoutTab(this), (int)HudTabOrdering.Layout);
+            if (flag == false)
+            {
+                HudPanel.RegisterTab(this, (int)HudTabOrdering.Topics);
+                HudPanel.RegisterTab(new VisualizationLayoutTab(this), (int)HudTabOrdering.Layout);
+                flag = true;
+            }
             LoadLayout();
             m_Connection.ListenForTopics(OnNewTopic, notifyAllExistingTopics: true);
         }
@@ -60,7 +70,7 @@ namespace URV
         void IHudTab.OnGUI(HudPanel hud)
         {
             m_Connection.RefreshTopicsList();
-            Debug.Log("refreshTopiclist called");
+            //Debug.Log("refreshTopiclist called");
 
             GUILayout.BeginHorizontal();
             bool showPrompt = (GUI.GetNameOfFocusedControl() != "topic_filter" && m_TopicFilter == "");
@@ -258,5 +268,6 @@ namespace URV
         {
             SaveLayout();
         }
+
     }
 }

@@ -31,6 +31,13 @@ public class PubROSTransformTree : MonoBehaviour
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
     private bool isConnected = false;
+    bool flag;
+
+    void Start()
+    {
+        isConnected = false;
+        flag = false;
+    }
 
     // Start is called before the first frame update
     public void OnRosConnect()
@@ -44,7 +51,11 @@ public class PubROSTransformTree : MonoBehaviour
         m_ROS = ROSConnection.GetOrCreateInstance();
         m_RootGameObject.name = "locobot"+m_RootGameObject.name;
         m_TransformRoot = new TransformTreeNode(m_RootGameObject);
-        m_ROS.RegisterPublisher<TFMessageMsg>(k_TfTopic);
+        if (flag == false)
+        {
+            m_ROS.RegisterPublisher<TFMessageMsg>(k_TfTopic);
+            flag = true;
+        }
         m_LastPublishTimeSeconds = RosClock.time + PublishPeriodSeconds;
     }
 
