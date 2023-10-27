@@ -39,23 +39,29 @@ public class buttonControl : MonoBehaviour
 
     void trcbtn()
     {
-        pubTelecobotArmControl.armControlMode = ArmControlMode.TrackTarget;
+        pubTelecobotArmControl.armControlMode = ArmControlMode.PlaceTarget;
         CreateOrResetTargetObject();
+        if (visualIndicator == null)
+        {
+            VisualRange();
+        }
     }
 
     void pictrgbtn()
     {
+        pubTelecobotArmControl.armControlMode = ArmControlMode.PublishTarget;
         PickTarget();
     }
 
     void VisualRange()
     {
         // ??????????Cube???????????
-        visualIndicator = Instantiate(visualIndicatorPrefab, pubTelecobotArmControl.armBaseLink.transform.position, Quaternion.identity);
+        visualIndicator = Instantiate(visualIndicatorPrefab, pubTelecobotArmControl.armBaseLink.transform.position, Quaternion.Euler(0f,0f,0f));
         // armBaseLinkObject?????????????
         visualIndicator.transform.parent = pubTelecobotArmControl.armBaseLink.transform;
         // ?????????????
-        visualIndicator.transform.localPosition = new Vector3(0, 0, 0); // ?????
+        visualIndicator.transform.localPosition = new Vector3(0f, 0f, 0f); // ?????
+        visualIndicator.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     void CreateOrResetTargetObject()
@@ -63,27 +69,22 @@ public class buttonControl : MonoBehaviour
         Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
         Vector3 endEffectorPosition = pubTelecobotArmControl.endEffector.transform.position;
         Vector3 direction = endEffectorPosition - armBaseLinkPosition;
-        if (direction.magnitude <= 0.55f && endEffectorPosition.z > armBaseLinkPosition.z &&  endEffectorPosition.y > 0)
+        Vector3 instatiatePosition = armBaseLinkPosition + new Vector3(0f, 0.1f, 0.3f);
+        if (direction.magnitude <= 0.5f && endEffectorPosition.z > armBaseLinkPosition.z &&  endEffectorPosition.y > 0)
         {
             if (targetObject == null)
             {
-                targetObject = Instantiate(targetPrefab, endEffectorPosition, Quaternion.identity); //create
+                targetObject = Instantiate(targetPrefab, instatiatePosition, Quaternion.identity); //create
             }
             else
             {
-                targetObject.transform.position = endEffectorPosition; //reset
+                targetObject.transform.position = instatiatePosition; //reset
             }
             trackButton.GetComponentInChildren<TMP_Text>().text = "Reset Target";
-            if (visualIndicator == null)
-            {
-                VisualRange();
-            }
         }
         else
         {
             Debug.Log("End effector is outside the specified range or with invalid y value.\nDirection Magnitude: " + direction.magnitude+"\nReturn to Home Position.");
-            trackButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
-
             hombtn();
         }
     }
@@ -93,21 +94,25 @@ public class buttonControl : MonoBehaviour
         if (targetObject == null)
         {
             Debug.Log("Target Object does not exist.");
-            CreateOrResetTargetObject();
         }
         else
         {
             Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
             Vector3 direction = targetObject.transform.position - armBaseLinkPosition;
-            if (direction.magnitude <= 0.55f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
+            if (direction.magnitude <= 0.5f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
             {
-                pubTelecobotArmControl.target = targetObject;
+                pubTelecobotArmControl.target = targetObject.transform;
+                pubTelecobotArmControl.PublishTransform();
+                trcbtn();
+                return;
             }
             else
             {
                 Debug.Log("Cannot set target outside the specified range or with invalid y value.\nDirection Magnitude: " + direction.magnitude);
             }
         }
+        CreateOrResetTargetObject();
+
     }
 
 
@@ -124,6 +129,7 @@ public class buttonControl : MonoBehaviour
                 baseUI.interactable = true;
                 if (targetObject != null) Destroy(targetObject);
                 if (visualIndicator != null) Destroy(visualIndicator);
+                trackButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
                 break;
             case ArmControlMode.Home:
                 sleepButton.interactable = true;
@@ -133,8 +139,9 @@ public class buttonControl : MonoBehaviour
                 baseUI.interactable = false;
                 if (targetObject != null) Destroy(targetObject);
                 if (visualIndicator != null) Destroy(visualIndicator);
+                trackButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
                 break;
-            case ArmControlMode.TrackTarget:
+            case ArmControlMode.PlaceTarget:
                 sleepButton.interactable = true;
                 homeButton.interactable = true;
                 trackButton.interactable = true;
@@ -144,13 +151,20 @@ public class buttonControl : MonoBehaviour
                 {
                     Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
                     Vector3 direction = targetObject.transform.position - armBaseLinkPosition;
-                    if (direction.magnitude <= 0.55f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
+                    if (direction.magnitude <= 0.5f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
                     {
                         visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(0.2f, 1f, 0f, 0.2f);
                     }
                     else visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(1f, 0f, 0.5f, 0.2f);
                 }
-                    break;
+                break;
+            case ArmControlMode.PublishTarget:
+                sleepButton.interactable = true;
+                homeButton.interactable = true;
+                trackButton.interactable = true;
+                pickButton.interactable = true;
+                baseUI.interactable = false;
+                break;
         }
 
     }
