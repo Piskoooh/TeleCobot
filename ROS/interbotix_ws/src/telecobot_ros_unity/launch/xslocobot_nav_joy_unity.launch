@@ -1,7 +1,4 @@
 <launch>
-
-    <rosparam param="use_sim_time">true</rosparam>
-
     <arg name="robot_model"                       default="locobot_wx200"/>
     <arg name="robot_name"                        default="locobot"/>
     <arg name="use_lidar"                         default="true"/>
@@ -15,6 +12,7 @@
     <arg name="database_path"                     default="~/.ros/rtabmap.db"/>
     <arg name="camera_tilt_angle"                 default="0.2618"/>
     <arg name="launch_driver"                     default="true"/>
+    <arg name="connect_unity"                     default="true"/>
 
     <arg name="tcp_ip"                            default="0.0.0.0"/>
     <arg name="tcp_port"                          default="10000"/>
@@ -37,10 +35,12 @@
     </include>
 
     <!-- ROS-TCP-Endpoint -->
-    <include file="$(find ros_tcp_endpoint)/launch/endpoint.launch">
+    <include if="$(arg connect_unity)" file="$(find ros_tcp_endpoint)/launch/endpoint.launch">
         <arg name="tcp_ip"                 value="$(arg tcp_ip)"/>
         <arg name="tcp_port"               value="$(arg tcp_port)"/>
     </include>
+
+    <rosparam if="$(arg connect_unity)" param="use_sim_time">true</rosparam>
 
     <include file="$(find interbotix_xslocobot_joy)/launch/xslocobot_joy.launch">
         <arg name="robot_model"             value="$(arg robot_model)"/>
