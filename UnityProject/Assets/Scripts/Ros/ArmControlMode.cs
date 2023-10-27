@@ -6,6 +6,6 @@ public enum ArmControlMode
 {
     Sleep=0,
     Home=1,
-
-    TrackTarget=100,
+    PlaceTarget=100,
+    PublishTarget=101,
 }

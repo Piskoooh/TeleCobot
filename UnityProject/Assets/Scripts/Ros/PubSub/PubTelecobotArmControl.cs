@@ -17,7 +17,7 @@ public class PubTelecobotArmControl : MonoBehaviour
     [HideInInspector]
     public ArmControlMode armControlMode;
     [HideInInspector]
-    public GameObject target = null;
+    public Transform target = null;
 
     [SerializeField]
     double m_PublishRateHz = 1f;
@@ -37,6 +37,7 @@ public class PubTelecobotArmControl : MonoBehaviour
     {
         isConnected = false;
         flag = false;
+        armControlMode = ArmControlMode.Home;
     }
 
     public void OnRosConnect()
@@ -62,39 +63,41 @@ public class PubTelecobotArmControl : MonoBehaviour
     {
         // Unity上で選択されているモードをMsgに入力
         armMsg.arm_control_mode = (int)armControlMode;
-        // 目標追従モードの場合はarm_control_mode以外のMsgを入力
-        if (armMsg.arm_control_mode == ((int)ArmControlMode.TrackTarget))
-        {
-            // 現在の間接角度を格納
-            for (var i = 0; i < jointArticulationBodies.Length; i++)
-            {
-                armMsg.joints[i] = jointArticulationBodies[i].GetPosition();
-            }
-            // 目標位置を格納
-            if (target != null)
-            {
-                armMsg.goal_pose = new PoseMsg
-                {
-                    //position = target.transform.position.To<FLU>(),
-                    position = target.transform.localPosition.To<FLU>(),
-                    //orientation = Quaternion.Euler(target.transform.eulerAngles.x,
-                    //                               target.transform.eulerAngles.y,
-                    //                               target.transform.eulerAngles.z).To<FLU>()
-                    orientation = Quaternion.Euler(90, target.transform.eulerAngles.y, 0).To<FLU>()
-                };
-            };
-            // エンドエフェクタの位置を格納
-            armMsg.end_effector_pose = new PoseMsg
-            {
-                position = endEffector.transform.position.To<FLU>(),
-                orientation = Quaternion.Euler(endEffector.transform.eulerAngles.x,
-                                               endEffector.transform.eulerAngles.y,
-                                               endEffector.transform.eulerAngles.z).To<FLU>()
-            };
-        }
 
         m_Ros.Publish(TopicName, armMsg);
         m_LastPublishTimeSeconds = RosClock.FrameStartTimeInSeconds;
+    }
+
+    public void PublishTransform()
+    {
+        armMsg.arm_control_mode = (int)ArmControlMode.PublishTarget;
+        // 現在の間接角度を格納
+        for (var i = 0; i < jointArticulationBodies.Length; i++)
+        {
+            armMsg.joints[i] = jointArticulationBodies[i].GetPosition();
+        }
+        // 目標位置を格納
+        if (target != null)
+        {
+            armMsg.goal_pose = new PoseMsg
+            {
+                //position = target.transform.position.To<FLU>(),
+                position = target.localPosition.To<FLU>(),
+                //orientation = Quaternion.Euler(target.transform.eulerAngles.x,
+                //                               target.transform.eulerAngles.y,
+                //                               target.transform.eulerAngles.z).To<FLU>()
+                orientation = Quaternion.Euler(90, target.eulerAngles.y, 0).To<FLU>()
+            };
+        };
+        // エンドエフェクタの位置を格納
+        armMsg.end_effector_pose = new PoseMsg
+        {
+            position = endEffector.transform.position.To<FLU>(),
+            orientation = Quaternion.Euler(endEffector.transform.eulerAngles.x,
+                                            endEffector.transform.eulerAngles.y,
+                                            endEffector.transform.eulerAngles.z).To<FLU>()
+        };
+        m_Ros.Publish(TopicName, armMsg);
     }
 
     //常にパブリッシュし続ける
