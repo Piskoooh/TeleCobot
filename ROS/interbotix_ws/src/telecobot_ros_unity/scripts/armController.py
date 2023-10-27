@@ -56,7 +56,14 @@ class telecobotArmController:
         elif(msg.arm_control_mode==1):
            print("arm_control_mode: ", msg.arm_control_mode)
            self.locobot.arm.go_to_home_pose(1.5,0.75)
+
         elif(msg.arm_control_mode==100):
+           print("arm_control_mode: ", msg.arm_control_mode)
+           print("Waiting for Unity side to send goal pose...")
+
+        elif(msg.arm_control_mode==101):
+          print("arm_control_mode: ", msg.arm_control_mode)
+          print("Received goal pose from Unity side...")
           start_joints=msg.joints
                   # ターゲットとエンドエフェクタの誤差を計算
           delta = abs(msg.end_effector_pose.position.x - msg.goal_pose.position.x) \
