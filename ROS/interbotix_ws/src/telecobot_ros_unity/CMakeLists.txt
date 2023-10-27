@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_runtime
   moveit_msgs
   rospy
+  interbotix_xs_modules
 )
 
 ## System dependencies are found with CMake's conventions
@@ -57,6 +58,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
   FILES
+  TelecobotArmControl.msg
   TelecobotMoveitJoints.msg
   TelecobotTrackingTarget.msg
 )
