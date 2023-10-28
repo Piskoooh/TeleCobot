@@ -29,6 +29,20 @@ namespace Telecobot.Control
         [Tooltip("Color to highlight the currently selected join")]
         public Color highLightColor = new Color(1.0f, 0, 0, 1.0f);
 
+
+        private ArticulationBody wA1;
+        private ArticulationBody wA2;
+
+        public float maxLinearSpeed = 2; //  m/s
+        public float maxRotationalSpeed = 1;//
+        public float wheelRadius = 0.033f; //meters
+        public float trackWidth = 0.288f; // meters Distance between tyres
+        public float forceLimitBase = 10;
+        public float dampingBase = 10;
+
+        public float ROSTimeout = 0.5f;
+        private float lastCmdReceived = 0f;
+
         void Start()
         {
             previousIndex = selectedIndex = 1;
@@ -37,151 +51,94 @@ namespace Telecobot.Control
             int defDyanmicVal = 10;
             foreach (ArticulationBody joint in articulationChain)
             {
+                //次回用メモ：wheelは条件分岐でWheelControlを作成する。
+                //WheelControlスクリプトを作成する。内容はAGVControlの必要な部分を切り取る。
+                //ROSConnectionは別で実行？JointControlはSubJointStateでUpdeteされてる？
+
                 joint.gameObject.AddComponent<JointControl>();
                 joint.jointFriction = defDyanmicVal;
                 joint.angularDamping = defDyanmicVal;
                 ArticulationDrive currentDrive = joint.xDrive;
                 currentDrive.forceLimit = forceLimit;
                 joint.xDrive = currentDrive;
-            }
-            DisplaySelectedJoint(selectedIndex);
-            StoreJointColors(selectedIndex);
-        }
 
-        void SetSelectedJointIndex(int index)
-        {
-            if (articulationChain.Length > 0) 
-            {
-                selectedIndex = (index + articulationChain.Length) % articulationChain.Length;
+                //wA1 = wheel1.GetComponent<ArticulationBody>();
+                //wA2 = wheel2.GetComponent<ArticulationBody>();
+                //SetParameters(wA1);
+                //SetParameters(wA2);
+                //ros = ROSConnection.GetOrCreateInstance();
+                //ros.Subscribe<TwistMsg>("cmd_vel", ReceiveROSCmd);
             }
         }
 
-        void Update()
-        {
-            bool SelectionInput1 = Keyboard.current.rightArrowKey.wasPressedThisFrame;
-            bool SelectionInput2 = Keyboard.current.leftArrowKey.wasPressedThisFrame;
 
-            SetSelectedJointIndex(selectedIndex); // to make sure it is in the valid range
-            UpdateDirection(selectedIndex);
+        //void ReceiveROSCmd(TwistMsg cmdVel)
+        //{
+        //    rosLinear = (float)cmdVel.linear.x;
+        //    rosAngular = (float)cmdVel.angular.z;
+        //    lastCmdReceived = Time.time;
+        //}
 
-            if (SelectionInput2)
-            {
-                SetSelectedJointIndex(selectedIndex - 1);
-                Highlight(selectedIndex);
-            }
-            else if (SelectionInput1)
-            {
-                SetSelectedJointIndex(selectedIndex + 1);
-                Highlight(selectedIndex);
-            }
+        //private void SetParameters(ArticulationBody joint)
+        //{
+        //    ArticulationDrive drive = joint.xDrive;
+        //    drive.forceLimit = forceLimitBase;
+        //    drive.damping = dampingBase;
+        //    joint.xDrive = drive;
+        //}
 
-            UpdateDirection(selectedIndex);
-        }
+        //private void SetSpeed(ArticulationBody joint, float wheelSpeed = float.NaN)
+        //{
+        //    ArticulationDrive drive = joint.xDrive;
+        //    if (float.IsNaN(wheelSpeed))
+        //    {
+        //        drive.targetVelocity = ((2 * maxLinearSpeed) / wheelRadius) * Mathf.Rad2Deg * (int)direction;
+        //    }
+        //    else
+        //    {
+        //        drive.targetVelocity = wheelSpeed;
+        //    }
+        //    joint.xDrive = drive;
+        //}
 
-        /// <summary>
-        /// Highlights the color of the robot by changing the color of the part to a color set by the user in the inspector window
-        /// </summary>
-        /// <param name="selectedIndex">Index of the link selected in the Articulation Chain</param>
-        private void Highlight(int selectedIndex)
-        {
-            if (selectedIndex == previousIndex || selectedIndex < 0 || selectedIndex >= articulationChain.Length) 
-            {
-                return;
-            }
+        //private void ROSUpdate()
+        //{
+        //    if (Time.time - lastCmdReceived > ROSTimeout)
+        //    {
+        //        rosLinear = 0f;
+        //        rosAngular = 0f;
+        //    }
+        //    RobotInput(rosLinear, -rosAngular);
+        //}
 
-            // reset colors for the previously selected joint
-            ResetJointColors(previousIndex);
-
-            // store colors for the current selected joint
-            StoreJointColors(selectedIndex);
-
-            DisplaySelectedJoint(selectedIndex);
-            Renderer[] rendererList = articulationChain[selectedIndex].transform.GetChild(0).GetComponentsInChildren<Renderer>();
-
-            // set the color of the selected join meshes to the highlight color
-            foreach (var mesh in rendererList)
-            {
-                MaterialExtensions.SetMaterialColor(mesh.material, highLightColor);
-            }
-        }
-
-        void DisplaySelectedJoint(int selectedIndex)
-        {
-            if (selectedIndex < 0 || selectedIndex >= articulationChain.Length) 
-            {
-                return;
-            }
-            selectedJoint = articulationChain[selectedIndex].name + " (" + selectedIndex + ")";
-        }
-
-        /// <summary>
-        /// Sets the direction of movement of the joint on every update
-        /// </summary>
-        /// <param name="jointIndex">Index of the link selected in the Articulation Chain</param>
-        private void UpdateDirection(int jointIndex)
-        {
-            if (jointIndex < 0 || jointIndex >= articulationChain.Length) 
-            {
-                return;
-            }
-
-            float moveDirection = Keyboard.current[Key.UpArrow].isPressed ? 1 :
-                                  Keyboard.current[Key.DownArrow].isPressed ? -1 : 0;
-            JointControl current = articulationChain[jointIndex].GetComponent<JointControl>();
-            if (previousIndex != jointIndex)
-            {
-                JointControl previous = articulationChain[previousIndex].GetComponent<JointControl>();
-                previous.direction = RotationDirection.None;
-                previousIndex = jointIndex;
-            }
-
-            if (current.controltype != control) 
-            {
-                UpdateControlType(current);
-            }
-
-            if (moveDirection > 0)
-            {
-                current.direction = RotationDirection.Positive;
-            }
-            else if (moveDirection < 0)
-            {
-                current.direction = RotationDirection.Negative;
-            }
-            else
-            {
-                current.direction = RotationDirection.None;
-            }
-        }
-
-        /// <summary>
-        /// Stores original color of the part being highlighted
-        /// </summary>
-        /// <param name="index">Index of the part in the Articulation chain</param>
-        private void StoreJointColors(int index)
-        {
-            Renderer[] materialLists = articulationChain[index].transform.GetChild(0).GetComponentsInChildren<Renderer>();
-            prevColor = new Color[materialLists.Length];
-            for (int counter = 0; counter < materialLists.Length; counter++)
-            {
-                prevColor[counter] = MaterialExtensions.GetMaterialColor(materialLists[counter]);
-            }
-        }
-
-        /// <summary>
-        /// Resets original color of the part being highlighted
-        /// </summary>
-        /// <param name="index">Index of the part in the Articulation chain</param>
-        private void ResetJointColors(int index)
-        {
-            Renderer[] previousRendererList = articulationChain[index].transform.GetChild(0).GetComponentsInChildren<Renderer>();
-            for (int counter = 0; counter < previousRendererList.Length; counter++)
-            {
-                MaterialExtensions.SetMaterialColor(previousRendererList[counter].material, prevColor[counter]);
-            }
-        }
-
-        public void UpdateControlType(JointControl joint)
+        //private void RobotInput(float speed, float rotSpeed) // m/s and rad/s
+        //{
+        //    if (speed > maxLinearSpeed)
+        //    {
+        //        speed = maxLinearSpeed;
+        //    }
+        //    if (rotSpeed > maxRotationalSpeed)
+        //    {
+        //        rotSpeed = maxRotationalSpeed;
+        //    }
+        //    float wheel1Rotation = (speed / wheelRadius);
+        //    float wheel2Rotation = wheel1Rotation;
+        //    float wheelSpeedDiff = ((rotSpeed * trackWidth) / wheelRadius);
+        //    if (rotSpeed != 0)
+        //    {
+        //        wheel1Rotation = (wheel1Rotation + (wheelSpeedDiff / 1)) * Mathf.Rad2Deg;
+        //        wheel2Rotation = (wheel2Rotation - (wheelSpeedDiff / 1)) * Mathf.Rad2Deg;
+        //    }
+        //    else
+        //    {
+        //        wheel1Rotation *= Mathf.Rad2Deg;
+        //        wheel2Rotation *= Mathf.Rad2Deg;
+        //    }
+        //    SetSpeed(wA1, wheel1Rotation);
+        //    SetSpeed(wA2, wheel2Rotation);
+        //}
+    
+    public void UpdateControlType(JointControl joint)
         {
             joint.controltype = control;
             if (control == ControlType.PositionControl)
