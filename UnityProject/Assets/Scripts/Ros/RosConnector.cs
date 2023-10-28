@@ -23,6 +23,7 @@ public class RosConnector : MonoBehaviour
     public PubROSTransformTree pubROSTransformTree;
     public PubTargetEndEffector pubTargetEndEffector;
     public PubTelecobotArmControl pubTelecobotArmControl;
+    public PubTelecobotBaseControl pubTelecobotBaseControl;
 
     private void Start()
     {
@@ -171,6 +172,13 @@ public class RosConnector : MonoBehaviour
                 rosConnectionStatusText.text = "ROS : Disconnected";
                 rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
                 rosUIs.interactable = false;
+
+                pubRosClock.OnRosDisconnected();
+                pubROSTransformTree.OnRosDisconnected();
+                pubTargetEndEffector.OnRosDisconnected();
+                pubTelecobotArmControl.OnRosDisconnected();
+                pubTelecobotBaseControl.OnRosDisconnected();
+
             }
             catch (Exception e)
             {
