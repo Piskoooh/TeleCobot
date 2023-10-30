@@ -18,7 +18,7 @@ public class RosConnector : MonoBehaviour
 
     public VisualizationTopicsTab visualizationTopicsTab;
     public SubJointState subJointState;
-    public SubMoveitResponce subMoveitResponce;
+    public SubCmdVel subCmdVel;
     public PubRosClock pubRosClock;
     public PubROSTransformTree pubROSTransformTree;
     public PubTargetEndEffector pubTargetEndEffector;
@@ -44,7 +44,7 @@ public class RosConnector : MonoBehaviour
     IEnumerator DummyPhotonConect()
     {
         punConnectionStatusText.text = "Photon : Connecting";
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         OnPhotonConnect();
     }
 
@@ -152,6 +152,7 @@ public class RosConnector : MonoBehaviour
 
         //subscribe
         subJointState.OnRosConnect();
+        subCmdVel.OnRosConnect();
 
         //publish
         pubRosClock.OnRosConnect();

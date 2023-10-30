@@ -1801,8 +1801,7 @@ GameObject:
   - component: {fileID: 1078192542}
   - component: {fileID: 1078192550}
   - component: {fileID: 1078192545}
-  - component: {fileID: 1078192552}
-  - component: {fileID: 1078192548}
+  - component: {fileID: 1078192553}
   - component: {fileID: 1078192544}
   - component: {fileID: 1078192546}
   - component: {fileID: 1078192549}
@@ -1886,24 +1885,6 @@ MonoBehaviour:
   - map
   - odom
   m_RootGameObject: {fileID: 3941671300331692275}
---- !u!114 &1078192548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078192540}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39679ddaa351d4f1ba211c6e16fba262, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jointArticulationBodies:
-  - {fileID: 1811905421320154098}
-  - {fileID: 2209228459114105475}
-  - {fileID: 5231943205905850507}
-  - {fileID: 2682052583977088328}
-  - {fileID: 1290329165056890485}
 --- !u!114 &1078192549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1944,7 +1925,7 @@ MonoBehaviour:
   rosUIs: {fileID: 585416142}
   visualizationTopicsTab: {fileID: 1667113388}
   subJointState: {fileID: 1078192545}
-  subMoveitResponce: {fileID: 1078192548}
+  subCmdVel: {fileID: 1078192553}
   pubRosClock: {fileID: 1078192544}
   pubROSTransformTree: {fileID: 1078192546}
   pubTargetEndEffector: {fileID: 1078192549}
@@ -1973,22 +1954,27 @@ MonoBehaviour:
   armControlMode: 0
   target: {fileID: 0}
   m_PublishRateHz: 0.5
---- !u!114 &1078192552
+--- !u!114 &1078192553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078192540}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07b10809798003f8d8854cbeecece74f, type: 3}
+  m_Script: {fileID: 11500000, guid: 89408f59c04924137ad235ea18679773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topicName: /tf
-  Robot: {fileID: 0}
-  odom: {fileID: 1909010756}
-  isDebug: 1
+  left_wheel_joint: {fileID: 4660378537118893051}
+  right_wheel_joint: {fileID: 8058593280854555576}
+  topicName: /mobile_base/cmd_vel
+  maxLinearSpeed: 2
+  maxRotationalSpeed: 1
+  wheelRadius: 0.033
+  trackWidth: 0.288
+  dampingBase: 10
+  ROSTimeout: 0.5
 --- !u!1 &1181766228
 GameObject:
   m_ObjectHideFlags: 0
@@ -19622,8 +19608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d261377a684843ca87ceb595d8b5baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedJoint: 
-  selectedIndex: 0
   control: 0
   stiffness: 10000
   damping: 100
@@ -19631,14 +19615,6 @@ MonoBehaviour:
   speed: 5
   torque: 100
   acceleration: 5
-  highLightColor: {r: 1, g: 0, b: 0, a: 1}
-  maxLinearSpeed: 2
-  maxRotationalSpeed: 1
-  wheelRadius: 0.033
-  trackWidth: 0.288
-  forceLimitBase: 10
-  dampingBase: 10
-  ROSTimeout: 0.5
 --- !u!4 &5510759231624294088
 Transform:
   m_ObjectHideFlags: 0
