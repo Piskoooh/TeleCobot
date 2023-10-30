@@ -44,22 +44,6 @@ public class SubJointState : MonoBehaviour
 
     }
 
-    //private void Update()
-    //{
-    //    ros.Subscribe<JointStateMsg>(topicName,GetJointPositions);
-    //}
-
-    void Callback(JointStateMsg msg)
-    {
-        for (int i = 0; i < 12; i++)
-        {
-            //Debug.Log(msg.name[i]);
-            ArticulationDrive aDrive = articulationBodies[i].xDrive;
-            aDrive.target = Mathf.Rad2Deg * (float)msg.position[i];
-            articulationBodies[i].xDrive = aDrive;
-        }
-    }
-
     private void GetJointPositions(JointStateMsg sensorMsg)
     {
         StartCoroutine(SetJointValues(sensorMsg));
@@ -69,9 +53,19 @@ public class SubJointState : MonoBehaviour
         for (int i = 0; i < message.name.Length; i++)
         {
             var joint1XDrive = articulationBodies[i].xDrive;
-            joint1XDrive.target = (float)(message.position[i]) * Mathf.Rad2Deg;
-            articulationBodies[i].xDrive = joint1XDrive;
-            //Debug.Log("message.name:" +message.name[i] + "  joint1XDrive.target:"+ joint1XDrive.target);
+            if (i > 1) //skip wheel joints.
+            {
+                if (i == 8 || i == 9)//finger joints
+                {
+                    joint1XDrive.target = (float)(message.position[i]);
+                }
+                else
+                {
+                    joint1XDrive.target = (float)(message.position[i]) * Mathf.Rad2Deg;
+                }
+                articulationBodies[i].xDrive = joint1XDrive;
+                Debug.Log("message.name:" +message.name[i] + "  joint1XDrive.target:"+ joint1XDrive.target);
+            }
         }
 
         yield return new WaitForSeconds(0.0f);
