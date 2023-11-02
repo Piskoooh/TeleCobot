@@ -18,11 +18,12 @@ public class RosConnector : MonoBehaviour
 
     public VisualizationTopicsTab visualizationTopicsTab;
     public SubJointState subJointState;
-    public SubMoveitResponce subMoveitResponce;
+    public SubCmdVel subCmdVel;
     public PubRosClock pubRosClock;
     public PubROSTransformTree pubROSTransformTree;
     public PubTargetEndEffector pubTargetEndEffector;
     public PubTelecobotArmControl pubTelecobotArmControl;
+    public PubTelecobotBaseControl pubTelecobotBaseControl;
 
     private void Start()
     {
@@ -43,7 +44,7 @@ public class RosConnector : MonoBehaviour
     IEnumerator DummyPhotonConect()
     {
         punConnectionStatusText.text = "Photon : Connecting";
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         OnPhotonConnect();
     }
 
@@ -151,6 +152,7 @@ public class RosConnector : MonoBehaviour
 
         //subscribe
         subJointState.OnRosConnect();
+        subCmdVel.OnRosConnect();
 
         //publish
         pubRosClock.OnRosConnect();
@@ -171,6 +173,13 @@ public class RosConnector : MonoBehaviour
                 rosConnectionStatusText.text = "ROS : Disconnected";
                 rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
                 rosUIs.interactable = false;
+
+                pubRosClock.OnRosDisconnected();
+                pubROSTransformTree.OnRosDisconnected();
+                pubTargetEndEffector.OnRosDisconnected();
+                pubTelecobotArmControl.OnRosDisconnected();
+                pubTelecobotBaseControl.OnRosDisconnected();
+
             }
             catch (Exception e)
             {

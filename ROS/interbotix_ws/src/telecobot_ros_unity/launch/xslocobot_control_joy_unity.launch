@@ -1,7 +1,5 @@
 <launch>
-    <rosparam param="use_sim_time">true</rosparam>
-
-    <arg name="robot_model"                       default=""/>
+    <arg name="robot_model"                       default="locobot_wx200"/>
     <arg name="robot_name"                        default="locobot"/>
     <arg name="use_camera"                        default="true"/>
     <arg name="use_lidar"                         default="true"/>
@@ -10,16 +8,18 @@
     <arg name="external_urdf_loc"                 default=""/>
     <arg name="base_type"                         default="$(optenv INTERBOTIX_XSLOCOBOT_BASE_TYPE create3)"/> <!-- 'kobuki', 'create3' -->
     <arg name="use_base"                          default="true"/>
-
+    <arg name="connect_unity"                     default="true"/>
 
     <arg name="tcp_ip"                            default="0.0.0.0"/>
     <arg name="tcp_port"                          default="10000"/>
 
     <!-- ROS-TCP-Endpoint -->
-    <include file="$(find ros_tcp_endpoint)/launch/endpoint.launch">
+    <include if="$(arg connect_unity)" file="$(find ros_tcp_endpoint)/launch/endpoint.launch">
         <arg name="tcp_ip"                 value="$(arg tcp_ip)"/>
         <arg name="tcp_port"               value="$(arg tcp_port)"/>
     </include>
+
+    <!-- <rosparam if="$(arg connect_unity)" param="use_sim_time">true</rosparam> -->
 
     <!-- Interbotix Control -->
     <include file="$(find interbotix_xslocobot_control)/launch/xslocobot_control.launch">

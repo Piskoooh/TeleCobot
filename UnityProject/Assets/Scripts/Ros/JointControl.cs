@@ -21,18 +21,17 @@ namespace Telecobot.Control
             direction = 0;
             controller = (Controller)this.GetComponentInParent(typeof(Controller));
             joint = this.GetComponent<ArticulationBody>();
-            controller.UpdateControlType(this);
+            //controller.UpdateControlType(this);
             speed = controller.speed;
             torque = controller.torque;
             acceleration = controller.acceleration;
         }
 
-        void FixedUpdate(){
-
+        void FixedUpdate()
+        {
             speed = controller.speed;
             torque = controller.torque;
             acceleration = controller.acceleration;
-
 
             if (joint.jointType != ArticulationJointType.FixedJoint)
             {
