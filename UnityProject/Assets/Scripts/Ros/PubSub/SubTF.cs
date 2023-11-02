@@ -16,11 +16,10 @@ using RosQuaternion = Unity.Robotics.ROSTCPConnector.ROSGeometry.Quaternion<Unit
 public class SubTF : MonoBehaviour
 {
     [SerializeField] private string topicName = "/tf";
+    //[SerializeField] private string topicName2 = "/mobile_base/tf";
 
     [SerializeField] GameObject Robot;
-    [SerializeField] GameObject odom;
-    [SerializeField] private bool isDebug = false;
-
+    //[SerializeField] GameObject odom;
 
     private UrdfLink[] UrdfLinkChain;
 
@@ -29,15 +28,13 @@ public class SubTF : MonoBehaviour
     private Transform[] robotLinkPositions;
 
     // Start is called before the first frame update
-    void Start()
+    public void OnRosConnect()
     {
         if (Robot == null)
             Robot = GameObject.FindGameObjectWithTag("robot");
 
-        if (!isDebug)
-            Debug.unityLogger.logEnabled = false;
-
         ROSConnection.GetOrCreateInstance().Subscribe<Tf>(topicName, TfUpdate);
+        //ROSConnection.GetOrCreateInstance().Subscribe<Tf>(topicName2, OdomTfUpdate);
         UrdfLinkChain = Robot.GetComponentsInChildren<UrdfLink>();
 
         numRobotLinks =UrdfLinkChain.Length;
@@ -51,7 +48,7 @@ public class SubTF : MonoBehaviour
             Debug.Log($"robotLinkPositions{i} : {robotLinkPositions[i].name}");
         }
 
-        //Debug.Log(robotLinkPositions[1].name + " " + robotLinkPositions[1].localPosition + " " + robotLinkPositions[1].rotation);
+        Debug.Log(robotLinkPositions[1].name + " " + robotLinkPositions[1].localPosition + " " + robotLinkPositions[1].rotation);
     }
 
     /// <summary>
@@ -77,20 +74,16 @@ public class SubTF : MonoBehaviour
     {
         for (int i = 0; i < tfMessage.transforms.Length; i++)
         {
-            Debug.Log(tfMessage.transforms[i].child_frame_id);
+            //Debug.Log(tfMessage.transforms[i].child_frame_id);
             switch (tfMessage.transforms[i].child_frame_id)
             {
                 case "locobot/base_footprint":
-                    robotLinkPositions[0].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[0].rotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    //robotLinkPositions[0].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    //robotLinkPositions[0].rotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/base_link":
-                    //robotLinkPositions[1].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    //robotLinkPositions[1].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
-                    break;
-                case "locobot/odom":
-                    odom.transform.localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    odom.transform.localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[1].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[1].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/gripper_link":
                     robotLinkPositions[18].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
@@ -113,8 +106,8 @@ public class SubTF : MonoBehaviour
                     robotLinkPositions[15].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/right_wheel":
-                    //robotLinkPositions[46].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    //robotLinkPositions[46].rotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[46].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[46].rotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/right_finger_link":
                     robotLinkPositions[23].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
@@ -125,8 +118,8 @@ public class SubTF : MonoBehaviour
                     robotLinkPositions[5].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/left_wheel":
-                    //robotLinkPositions[48].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    //robotLinkPositions[48].rotation= translateRot(tfMessage.transforms[i].transform.rotation,tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[48].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[48].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/left_finger_link":
                     robotLinkPositions[24].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
@@ -134,14 +127,21 @@ public class SubTF : MonoBehaviour
                     break;
                 case "locobot/gripper_prop_link":
                     robotLinkPositions[26].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[26].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[26].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/forearm_link":
                     robotLinkPositions[16].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[16].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[16].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
             }
         }
+    }
+
+    void OdomTfUpdate(Tf tfMessage)
+    {
+        Debug.Log("recived odom tf");
+        //odom.transform.localPosition = translatePos(tfMessage.transforms[0].transform.translation, tfMessage.transforms[0].child_frame_id);
+        //odom.transform.localRotation = translateRot(tfMessage.transforms[0].transform.rotation, tfMessage.transforms[0].child_frame_id);
     }
 
     // 座標変換
