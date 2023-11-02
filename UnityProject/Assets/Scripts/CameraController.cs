@@ -6,36 +6,39 @@ public class CameraController : MonoBehaviour
     public float movementSpeed = 5.0f;
     public float mouseSensitivity = 2.0f;
     public float zoomSpeed = 2.0f;
-    public float minZoomDistance = 2.0f;
-    public float maxZoomDistance = 10.0f;
+    public float minZoomFOV = 40.0f;
+    public float maxZoomFOV = 60.0f;
 
+    public float verticalRotationLimit = 60.0f;
+    private float currentVerticalAngle = 0.0f;
     private Vector2 moveInput;
     private Vector2 lookInput;
     private float zoomInput;
     private bool mouseClicking = false;
 
-    private void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = value.Get<Vector2>();
+        moveInput = context.ReadValue<Vector2>();
     }
 
-    private void OnLook(InputValue value)
+    public void OnLook(InputAction.CallbackContext context)
     {
-        lookInput = value.Get<Vector2>() * mouseSensitivity;
+        lookInput = context.ReadValue<Vector2>() * mouseSensitivity;
+
     }
 
-    private void OnZoom(InputValue value)
+    public void OnZoom(InputAction.CallbackContext context)
     {
-        zoomInput = value.Get<Vector2>().y;
+        zoomInput = context.ReadValue<Vector2>().y;
     }
 
-    private void OnClick(InputValue value)
+    public void OnClick(InputAction.CallbackContext context)
     {
-        if (value.isPressed)
+        if (context.action.triggered)
         {
-            mouseClicking = true;
+            mouseClicking = context.ReadValueAsButton();
         }
-        else
+        else if (context.canceled)
         {
             mouseClicking = false;
         }
@@ -48,13 +51,18 @@ public class CameraController : MonoBehaviour
 
         if (mouseClicking)
         {
-            Vector3 rotation = new Vector3(-lookInput.y, lookInput.x, 0);
-            transform.eulerAngles += rotation;
+            float horizontal = lookInput.x;
+            float vertical = lookInput.y;
+
+            transform.Rotate(Vector3.up, horizontal);
+
+            currentVerticalAngle -= vertical;
+            currentVerticalAngle = Mathf.Clamp(currentVerticalAngle, -verticalRotationLimit, verticalRotationLimit);
+            transform.localEulerAngles = new Vector3(currentVerticalAngle, transform.localEulerAngles.y, 0);
         }
 
-        float zoomAmount = zoomInput * zoomSpeed * Time.deltaTime;
-        Vector3 currentPos = transform.position;
-        currentPos.y = Mathf.Clamp(currentPos.y - zoomAmount, minZoomDistance, maxZoomDistance);
-        transform.position = currentPos;
+        float zoomAmount = -zoomInput * zoomSpeed * Time.deltaTime;
+        Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - zoomAmount, minZoomFOV, maxZoomFOV);
+
     }
 }
