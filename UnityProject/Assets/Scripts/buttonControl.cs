@@ -70,7 +70,7 @@ public class buttonControl : MonoBehaviour
         Vector3 endEffectorPosition = pubTelecobotArmControl.endEffector.transform.position;
         Vector3 direction = endEffectorPosition - armBaseLinkPosition;
         Vector3 instatiatePosition = armBaseLinkPosition + new Vector3(0f, 0.1f, 0.3f);
-        if (direction.magnitude <= 0.5f && endEffectorPosition.z > armBaseLinkPosition.z &&  endEffectorPosition.y > 0)
+        if (direction.magnitude <= 0.5f && endEffectorPosition.z > armBaseLinkPosition.z /*&&  endEffectorPosition.y > 0*/ )
         {
             if (targetObject == null)
             {
@@ -99,7 +99,7 @@ public class buttonControl : MonoBehaviour
         {
             Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
             Vector3 direction = targetObject.transform.position - armBaseLinkPosition;
-            if (direction.magnitude <= 0.5f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
+            if (direction.magnitude <= 0.5f && targetObject.transform.position.z > armBaseLinkPosition.z /*&& targetObject.transform.position.y > 0*/)
             {
                 pubTelecobotArmControl.target = targetObject.transform;
                 pubTelecobotArmControl.PublishTransform();

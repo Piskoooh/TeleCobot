@@ -72,10 +72,10 @@ public class PubTelecobotArmControl : MonoBehaviour
     {
         armMsg.arm_control_mode = (int)ArmControlMode.PublishTarget;
         // 現在の間接角度を格納
-        for (var i = 0; i < jointArticulationBodies.Length; i++)
-        {
-            armMsg.joints[i] = jointArticulationBodies[i].GetPosition();
-        }
+        //for (var i = 0; i < jointArticulationBodies.Length; i++)
+        //{
+        //    armMsg.joints[i] = jointArticulationBodies[i].GetPosition();
+        //}
         // 目標位置を格納
         if (target != null)
         {
