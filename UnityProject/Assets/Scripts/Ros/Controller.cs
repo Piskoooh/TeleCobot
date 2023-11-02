@@ -18,6 +18,9 @@ namespace Telecobot.Control
         public float torque = 100f; // Units: Nm or N
         public float acceleration = 5f;// Units: m/s^2 / degree/s^2
 
+        public float dampingBase = 10;
+        public float forceLimitBase = 10;
+
 
         void Start()
         {
@@ -26,12 +29,36 @@ namespace Telecobot.Control
             int defDyanmicVal = 10;
             foreach (ArticulationBody joint in articulationChain)
             {
-                joint.jointFriction = defDyanmicVal;
-                joint.angularDamping = defDyanmicVal;
                 ArticulationDrive drive = joint.xDrive;
-                drive.forceLimit = forceLimit;
-                drive.stiffness = stiffness;
-                drive.damping = damping;
+                if (joint.name == "/left_wheel" || joint.name == "/right_wheel")
+                {
+                    joint.linearDamping = 0.05f;
+                    drive.damping = dampingBase;
+                    joint.linearDamping = 50;
+                    joint.angularDamping = 10;
+                    //drive.forceLimit = forceLimitBase;
+                }
+                else if (joint.name == "/pan_link" || joint.name == "/tilt_link" || joint.name == "/right_finger_link" || joint.name == "/left_finger_link") 
+                {
+                    drive.stiffness = stiffness;
+                    drive.damping = damping;
+
+                    joint.jointFriction = defDyanmicVal;
+                    joint.angularDamping = defDyanmicVal;
+                    drive.forceLimit = forceLimit;
+                }
+                else if (joint.name == "front_caster")
+                {
+                    return;
+                }
+                else
+                {
+                    drive.stiffness = stiffness;
+                    drive.damping = damping;
+                    joint.jointFriction = defDyanmicVal;
+                    joint.angularDamping = defDyanmicVal;
+                }
+
                 joint.xDrive = drive;
             }
         }
