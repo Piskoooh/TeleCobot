@@ -11,7 +11,6 @@ public class PubTelecobotArmControl : MonoBehaviour
     private static readonly string TopicName = "/telecobot_arm_control";
     private static readonly Quaternion PickOrientation = Quaternion.Euler(0, 0, 0);
 
-    public UrdfJointRevolute[] jointArticulationBodies;
     public GameObject endEffector;
     public GameObject armBaseLink;
     [HideInInspector]
@@ -71,11 +70,6 @@ public class PubTelecobotArmControl : MonoBehaviour
     public void PublishTransform()
     {
         armMsg.arm_control_mode = (int)ArmControlMode.PublishTarget;
-        // 現在の間接角度を格納
-        //for (var i = 0; i < jointArticulationBodies.Length; i++)
-        //{
-        //    armMsg.joints[i] = jointArticulationBodies[i].GetPosition();
-        //}
         // 目標位置を格納
         if (target != null)
         {

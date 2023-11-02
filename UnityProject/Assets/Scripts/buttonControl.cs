@@ -66,19 +66,22 @@ public class buttonControl : MonoBehaviour
 
     void CreateOrResetTargetObject()
     {
-        Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
-        Vector3 endEffectorPosition = pubTelecobotArmControl.endEffector.transform.position;
+        Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.localPosition;
+        Vector3 endEffectorPosition = pubTelecobotArmControl.endEffector.transform.localPosition;
         Vector3 direction = endEffectorPosition - armBaseLinkPosition;
-        Vector3 instatiatePosition = armBaseLinkPosition + new Vector3(0f, 0.1f, 0.3f);
         if (direction.magnitude <= 0.5f && endEffectorPosition.z > armBaseLinkPosition.z /*&&  endEffectorPosition.y > 0*/ )
         {
             if (targetObject == null)
             {
-                targetObject = Instantiate(targetPrefab, instatiatePosition, Quaternion.identity); //create
+                targetObject = Instantiate(targetPrefab, pubTelecobotArmControl.armBaseLink.transform.position, Quaternion.Euler(0f, 0f, 0f)); //create
+                targetObject.transform.parent = pubTelecobotArmControl.armBaseLink.transform;
+                targetObject.transform.localPosition = new Vector3(0f, 0.1f, 0.3f);
+                targetObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
             else
             {
-                targetObject.transform.position = instatiatePosition; //reset
+                targetObject.transform.localPosition = new Vector3(0f, 0.1f, 0.3f);
+                targetObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
             trackButton.GetComponentInChildren<TMP_Text>().text = "Reset Target";
         }
@@ -97,9 +100,9 @@ public class buttonControl : MonoBehaviour
         }
         else
         {
-            Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
-            Vector3 direction = targetObject.transform.position - armBaseLinkPosition;
-            if (direction.magnitude <= 0.5f && targetObject.transform.position.z > armBaseLinkPosition.z /*&& targetObject.transform.position.y > 0*/)
+            Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.localPosition;
+            Vector3 direction = targetObject.transform.localPosition - armBaseLinkPosition;
+            if (direction.magnitude <= 0.5f && targetObject.transform.localPosition.z > armBaseLinkPosition.z /*&& targetObject.transform.position.y > 0*/)
             {
                 pubTelecobotArmControl.target = targetObject.transform;
                 pubTelecobotArmControl.PublishTransform();
@@ -149,9 +152,9 @@ public class buttonControl : MonoBehaviour
                 baseUI.interactable = false;
                 if (visualIndicator != null)
                 {
-                    Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.position;
-                    Vector3 direction = targetObject.transform.position - armBaseLinkPosition;
-                    if (direction.magnitude <= 0.5f && targetObject.transform.position.z > armBaseLinkPosition.z && targetObject.transform.position.y > 0)
+                    Vector3 armBaseLinkPosition = pubTelecobotArmControl.armBaseLink.transform.localPosition;
+                    Vector3 direction = targetObject.transform.localPosition - armBaseLinkPosition;
+                    if (direction.magnitude <= 0.5f && targetObject.transform.localPosition.z > armBaseLinkPosition.z /*&& targetObject.transform.position.y > 0*/)
                     {
                         visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(0.2f, 1f, 0f, 0.2f);
                     }

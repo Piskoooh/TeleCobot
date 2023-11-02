@@ -14,14 +14,12 @@ namespace RosMessageTypes.Telecobot_ros_unity
         public override string RosMessageName => k_RosMessageName;
 
         public int arm_control_mode;
-        public double[] joints;
         public Geometry.PoseMsg end_effector_pose;
         public Geometry.PoseMsg goal_pose;
 
         public TelecobotArmControlMsg()
         {
             this.arm_control_mode = 0;
-            this.joints = new double[5];
             this.end_effector_pose = new Geometry.PoseMsg();
             this.goal_pose = new Geometry.PoseMsg();
         }
@@ -29,7 +27,6 @@ namespace RosMessageTypes.Telecobot_ros_unity
         public TelecobotArmControlMsg(int arm_control_mode, double[] joints, Geometry.PoseMsg end_effector_pose, Geometry.PoseMsg goal_pose)
         {
             this.arm_control_mode = arm_control_mode;
-            this.joints = joints;
             this.end_effector_pose = end_effector_pose;
             this.goal_pose = goal_pose;
         }
@@ -39,7 +36,6 @@ namespace RosMessageTypes.Telecobot_ros_unity
         private TelecobotArmControlMsg(MessageDeserializer deserializer)
         {
             deserializer.Read(out this.arm_control_mode);
-            deserializer.Read(out this.joints, sizeof(double), 5);
             this.end_effector_pose = Geometry.PoseMsg.Deserialize(deserializer);
             this.goal_pose = Geometry.PoseMsg.Deserialize(deserializer);
         }
@@ -47,7 +43,6 @@ namespace RosMessageTypes.Telecobot_ros_unity
         public override void SerializeTo(MessageSerializer serializer)
         {
             serializer.Write(this.arm_control_mode);
-            serializer.Write(this.joints);
             serializer.Write(this.end_effector_pose);
             serializer.Write(this.goal_pose);
         }
@@ -56,7 +51,6 @@ namespace RosMessageTypes.Telecobot_ros_unity
         {
             return "TelecobotArmControlMsg: " +
             "\narm_control_mode: " + arm_control_mode.ToString() +
-            "\njoints: " + System.String.Join(", ", joints.ToList()) +
             "\nend_effector_pose: " + end_effector_pose.ToString() +
             "\ngoal_pose: " + goal_pose.ToString();
         }
