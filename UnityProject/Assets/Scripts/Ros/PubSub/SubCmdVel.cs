@@ -88,9 +88,7 @@ public class SubCmdVel : MonoBehaviour
 
     private void KeyBoardUpdate()
     {
-        float moveDirection = Keyboard.current[Key.W].isPressed ? 1 :
-                              Keyboard.current[Key.S].isPressed ? -1 :
-                              Keyboard.current[Key.UpArrow].isPressed ? 1 :
+        float moveDirection = Keyboard.current[Key.UpArrow].isPressed ? 1 :
                               Keyboard.current[Key.DownArrow].isPressed ? -1 : 0;
         float inputSpeed;
         float inputRotationSpeed;
@@ -107,9 +105,7 @@ public class SubCmdVel : MonoBehaviour
             inputSpeed = 0;
         }
 
-        float turnDirection = Keyboard.current[Key.D].isPressed ? 1 :
-                              Keyboard.current[Key.A].isPressed ? -1 :
-                              Keyboard.current[Key.RightArrow].isPressed ? 1 :
+        float turnDirection = Keyboard.current[Key.RightArrow].isPressed ? 1 :
                               Keyboard.current[Key.LeftArrow].isPressed ? -1 : 0;
         if (turnDirection > 0)
         {
