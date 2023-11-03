@@ -9838,7 +9838,7 @@ MonoBehaviour:
     m_ActionId: 238f00a8-69de-4929-b652-60b122c2168f
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: LocalUser
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 1959007425}
@@ -13077,6 +13077,7 @@ GameObject:
   - component: {fileID: 1078192544}
   - component: {fileID: 1078192546}
   - component: {fileID: 1078192551}
+  - component: {fileID: 1078192554}
   m_Layer: 0
   m_Name: ROSManager
   m_TagString: Untagged
@@ -13175,7 +13176,7 @@ MonoBehaviour:
   rosUIs: {fileID: 585416142}
   visualizationTopicsTab: {fileID: 1667113388}
   subJointState: {fileID: 1078192545}
-  subCmdVel: {fileID: 0}
+  subCmdVel: {fileID: 1078192553}
   pubRosClock: {fileID: 1078192544}
   pubROSTransformTree: {fileID: 1078192546}
   pubTargetEndEffector: {fileID: 0}
@@ -13216,7 +13217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89408f59c04924137ad235ea18679773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
+  mode: 0
   left_wheel_joint: {fileID: 1316775345}
   right_wheel_joint: {fileID: 900900019}
   topicName: /mobile_base/cmd_vel
@@ -13227,6 +13228,24 @@ MonoBehaviour:
   linarSpeedCoefficient: 0
   angularSpeedCoefficient: 0
   ROSTimeout: 0.5
+--- !u!114 &1078192554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078192540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14734f995bccb4fb890d6a260cee1c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jointArticulationBodies: []
+  endEffector: {fileID: 0}
+  BaseLink: {fileID: 1795156358}
+  baseControlMode: 0
+  target: {fileID: 0}
+  m_PublishRateHz: 1
 --- !u!1 &1088231728
 GameObject:
   m_ObjectHideFlags: 0
