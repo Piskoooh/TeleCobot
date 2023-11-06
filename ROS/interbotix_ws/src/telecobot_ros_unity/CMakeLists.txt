@@ -61,6 +61,7 @@ add_message_files(
   TelecobotArmControl.msg
   TelecobotMoveitJoints.msg
   TelecobotTrackingTarget.msg
+  TelecobotUnityControl.msg
 )
 
 generate_messages(

@@ -1,0 +1,206 @@
+<launch>
+    <!-- Common Launch File Arguments -->
+        <arg name="robot_model"                       default="locobot_wx200"/>
+        <arg name="use_nav"                           default="false"/>
+        <arg name="use_perception"                    default="false"/>
+        <arg name="use_armtag"                        default="false"/>
+        <arg name="use_static_transform_pub"          default="false"/>
+        <arg name="use_sim"                           default="true"/>
+        <arg name="use_joy"                           default="false"/>
+        <arg name="connect_unity"                     default="true"/>
+
+    <!-- interbotix_xslocobot_control Launch File Arguments -->
+        <arg name="robot_name"                        default="locobot"/>
+        <arg name="show_gripper_bar"                  default="true"/>
+        <arg name="show_gripper_fingers"              default="true"/>
+        <arg name="external_urdf_loc"                 default=""/>
+        <arg name="use_rviz"                          default="false"/>
+        <arg name="rviz_frame"                        default="$(arg robot_name)/base_link"/>
+        <arg name="use_base"                          default="$(arg use_nav)"/>
+        <arg name="use_dock"                          default="false"/>
+        <arg name="use_lidar"                         default="false"/>
+        <arg name="show_lidar"                        default="$(arg use_lidar)"/>
+        <arg name="use_camera"                        default="$(eval arg('use_nav') or arg('use_perception'))"/>
+        <arg name="filters"                           default="pointcloud"/>
+        <arg name="align_depth"                       default="$(arg use_nav)"/>
+        <arg name="color_fps"                         default="30"/>
+        <arg name="color_width"                       default="640"/>
+        <arg name="color_height"                      default="480"/>
+        <arg name="depth_fps"                         default="30"/>
+        <arg name="depth_width"                       default="640"/>
+        <arg name="depth_height"                      default="480"/>
+        <arg name="load_configs"                      default="true"/>
+
+    <!-- interbotix_xslocobot_nav Launch File Arguments -->
+        <arg name="localization"                      default="false"/>
+        <arg name="rtabmap_args"                      default=""/>
+        <arg name="use_rtabmapviz"                    default="false"/>
+        <arg name="rtabmapviz_args"                   default=""/>
+        <arg name="database_path"                     default="~/.ros/rtabmap.db"/>
+        <arg name="camera_tilt_angle"                 default="0.2618"/>
+    
+    <!-- interbotix_xslocobot_perception Launch File Arguments -->
+    <!-- pointcloud filtering Arguments -->
+        <arg name="filter_ns"                         default="$(arg robot_name)/pc_filter"/>
+        <arg name="filter_params"                     default="$(find interbotix_xslocobot_perception)/config/filter_params.yaml"/>
+        <arg name="use_pointcloud_tuner_gui"          default="false"/>
+        <arg name="enable_pipeline"                   default="$(arg use_pointcloud_tuner_gui)"/>
+        <arg name="cloud_topic"                       default="/$(arg robot_name)/camera/depth/color/points"/>
+
+    <!-- ar tag Arguments -->
+        <arg name="tag_family"                        default="tagStandard41h12"/>
+        <arg name="standalone_tags"                   default="$(find interbotix_perception_modules)/config/tags.yaml"/>
+        <arg name="camera_frame"                      default="$(arg robot_name)/camera_color_optical_frame"/>
+        <arg name="apriltag_ns"                       default="$(arg robot_name)/apriltag"/>
+        <arg name="camera_color_topic"                default="$(arg robot_name)/camera/color/image_raw"/>
+        <arg name="camera_info_topic"                 default="$(arg robot_name)/camera/color/camera_info"/>
+        <arg name="armtag_ns"                         default="$(arg robot_name)/armtag"/>
+        <arg name="ref_frame"                         default="$(arg robot_name)/base_link"/>
+        <arg name="arm_base_frame"                    default="$(arg robot_name)/plate_link"/>
+        <arg name="arm_tag_frame"                     default="$(arg robot_name)/ar_tag_link"/>
+        <arg name="use_armtag_tuner_gui"              default="false"/>
+        <arg name="position_only"                     default="true"/>
+
+    <!-- static transform pub Arguments -->
+        <arg name="load_transforms"                   default="true"/>
+        <arg name="transform_filepath"                default="$(find interbotix_xslocobot_perception)/config/static_transforms.yaml"/>
+
+    <!-- interbotix_xslocobot_joy Launch File Arguments -->
+        <arg name="base_type"                         default="$(optenv INTERBOTIX_XSLOCOBOT_BASE_TYPE create3)"/>
+        <arg name="threshold"                         default="0.75"/>
+        <arg name="controller"                        default="ps4"/>
+    
+    <!-- interbotix_xslocobot_moveit Launch File Arguments -->
+        <arg name="external_srdf_loc"                 default=""/>
+        <arg name="dof"                               default="5"/>
+        <arg name="use_fake"                          default="$(arg use_sim)"/>
+
+    <!-- ROS-TCP-Endpoint Launch file Arguments -->
+        <arg name="tcp_ip"                            default="0.0.0.0"/>
+        <arg name="tcp_port"                          default="10000"/>
+
+    <!-- Launch File -->
+    <include file="$(find interbotix_xslocobot_control)/launch/xslocobot_control.launch">
+        <arg name="robot_model"                       value="$(arg robot_model)"/>
+        <arg name="robot_name"                        value="$(arg robot_name)"/>
+        <arg name="show_gripper_bar"                  value="$(arg show_gripper_bar)"/>
+        <arg name="show_gripper_fingers"              value="$(arg show_gripper_fingers)"/>
+        <arg name="external_urdf_loc"                 value="$(arg external_urdf_loc)"/>
+        <arg name="use_rviz"                          value="$(arg use_rviz)"/>
+        <arg name="rviz_frame"                        value="$(arg rviz_frame)"/>
+        <arg name="use_camera"                        value="$(arg use_camera)"/>
+        <arg name="use_lidar"                         value="$(arg use_lidar)"/>
+        <arg name="use_base"                          value="$(arg use_base)"/>
+        <arg name="use_dock"                          value="$(arg use_dock)"/>
+        <arg name="filters"                           value="$(arg filters)"/>
+        <arg name="align_depth"                       value="$(arg align_depth)"/>
+        <arg name="color_fps"                         value="$(arg color_fps)"/>
+        <arg name="color_width"                       value="$(arg color_width)"/>
+        <arg name="color_height"                      value="$(arg color_height)"/>
+        <arg name="depth_fps"                         value="$(arg depth_fps)"/>
+        <arg name="depth_width"                       value="$(arg depth_width)"/>
+        <arg name="depth_height"                      value="$(arg depth_height)"/>
+        <arg name="load_configs"                      value="$(arg load_configs)"/>
+        <arg name="use_sim"                           value="$(arg use_sim)"/>
+    </include>
+
+    <include if="$(arg use_nav)" file="$(find interbotix_xslocobot_nav)/launch/xslocobot_nav.launch">
+        <arg name="robot_model"                       value="$(arg robot_model)"/>
+        <arg name="robot_name"                        value="$(arg robot_name)"/>
+        <arg name="use_lidar"                         value="$(arg use_lidar)"/>
+        <arg name="localization"                      value="$(arg localization)"/>
+        <arg name="rtabmap_args"                      value="$(arg rtabmap_args)"/>
+        <arg name="use_rtabmapviz"                    value="$(arg use_rtabmapviz)"/>
+        <arg name="rtabmapviz_args"                   value="$(arg rtabmapviz_args)"/>
+        <arg name="database_path"                     value="$(arg database_path)"/>
+        <arg name="camera_tilt_angle"                 value="$(arg camera_tilt_angle)"/>
+        <arg name="launch_driver"                     value="false"/>
+    </include>
+
+    <include if="$(arg use_perception)" file="$(find interbotix_xslocobot_perception)/launch/xslocobot_perception.launch">
+        <arg name="robot_model"                       value="$(arg robot_model)"/>
+        <arg name="robot_name"                        value="$(arg robot_name)"/>
+        <arg name="launch_driver"                     value="false"/>
+
+        <arg name="filter_ns"                         value="$(arg filter_ns)"/>
+        <arg name="filter_params"                     value="$(arg filter_params)"/>
+        <arg name="enable_pipeline"                   value="$(arg enable_pipeline)"/>
+        <arg name="cloud_topic"                       value="$(arg cloud_topic)"/>
+        <arg name="use_pointcloud_tuner_gui"          value="$(arg use_pointcloud_tuner_gui)"/>
+
+        <arg name="use_armtag"                        value="$(arg use_armtag)"/>
+        <arg name="tag_family"                        value="$(arg tag_family)"/>
+        <arg name="standalone_tags"                   value="$(arg standalone_tags)"/>
+        <arg name="camera_frame"                      value="$(arg camera_frame)"/>
+        <arg name="apriltag_ns"                       value="$(arg apriltag_ns)"/>
+        <arg name="camera_color_topic"                value="$(arg camera_color_topic)"/>
+        <arg name="camera_info_topic"                 value="$(arg camera_info_topic)"/>
+        <arg name="armtag_ns"                         value="$(arg armtag_ns)"/>
+        <arg name="ref_frame"                         value="$(arg ref_frame)"/>
+        <arg name="arm_base_frame"                    value="$(arg arm_base_frame)"/>
+        <arg name="arm_tag_frame"                     value="$(arg arm_tag_frame)"/>
+        <arg name="use_armtag_tuner_gui"              value="$(arg use_armtag_tuner_gui)"/>
+        <arg name="position_only"                     value="$(arg position_only)"/>
+
+        <arg name="use_static_transform_pub"          value="$(arg use_static_transform_pub)"/>
+        <arg name="load_transforms"                   value="$(arg load_transforms)"/>
+        <arg name="transform_filepath"                value="$(arg transform_filepath)"/>
+    </include>
+
+    <include if="$(arg use_joy)" file="$(find interbotix_xslocobot_joy)/launch/xslocobot_joy.launch">
+        <arg name="robot_model"             value="$(arg robot_model)"/>
+        <arg name="robot_name"              value="$(arg robot_name)"/>
+        <arg name="use_rviz"                value="$(arg use_rviz)"/>
+        <arg name="rviz_frame"              value="$(arg rviz_frame)"/>
+        <arg name="use_base"                value="$(arg use_base)"/>
+        <arg name="base_type"               value="$(arg base_type)"/>
+        <arg name="use_lidar"               value="$(arg use_lidar)"/>
+        <arg name="use_camera"              value="$(arg use_camera)"/>
+        <arg name="threshold"               value="$(arg threshold)"/>
+        <arg name="controller"              value="$(arg controller)"/>
+        <arg name="launch_driver"           value="false"/>
+    </include>
+
+    <include file="$(find interbotix_xslocobot_moveit)/launch/move_group.launch" ns="$(arg robot_name)">
+        <arg name="robot_model"                       value="$(arg robot_model)"/>
+        <arg name="robot_name"                        value="$(arg robot_name)"/>
+        <arg name="show_lidar"                        value="$(arg show_lidar)"/>
+        <arg name="external_srdf_loc"                 value="$(arg external_srdf_loc)"/>
+        <arg name="dof"                               value="$(arg dof)"/>
+        <arg name="use_camera"                        value="$(arg use_camera)"/>
+        <arg name="fake_execution"                    value="$(arg use_fake)"/>
+        <arg name="publish_monitored_planning_scene"  value="true" />
+    </include>
+
+    <include if="$(arg connect_unity)" file="$(find ros_tcp_endpoint)/launch/endpoint.launch">
+        <arg name="tcp_ip"                 value="$(arg tcp_ip)"/>
+        <arg name="tcp_port"               value="$(arg tcp_port)"/>
+    </include>
+
+    <!-- ROS node-->
+    <rosparam file="$(find interbotix_xslocobot_ros_control)/config/$(arg dof)dof_controllers.yaml" command="load" ns="$(arg robot_name)"/>
+    <rosparam file="$(find interbotix_xslocobot_ros_control)/config/hardware.yaml" command="load" ns="$(arg robot_name)"/> -->
+    <node
+        name="controller_spawner"
+        pkg="controller_manager"
+        type="controller_manager"
+        respawn="false"
+        output="screen"
+        ns="$(arg robot_name)"
+        args="spawn arm_controller gripper_controller"/>
+    <node
+        name="xs_hardware_interface"
+        pkg="interbotix_xs_ros_control"
+        type="xs_hardware_interface"
+        output="screen"
+        ns="$(arg robot_name)"/>
+    <node if="$(arg connect_unity)" name="telecobot_controller" pkg="telecobot_ros_unity" type="telecobotController.py" 
+        respawn="false" output="screen" ns="$(arg robot_name)">
+        <rosparam command="load"                      file="$(find interbotix_xslocobot_moveit_interface)/config/$(arg robot_model).yaml"/>
+        <param name="robot_model"                     value="$(arg robot_model)"/>
+        <param name="use_base"                        value="$(arg use_base)"/>
+        <param name="base_type"                       value="$(arg base_type)"/>
+        <remap from="/attached_collision_object"      to="/$(arg robot_name)/attached_collision_object"/>
+        <remap from="/collision_object"               to="/$(arg robot_name)/collision_object"/>
+    </node>
+</launch>
