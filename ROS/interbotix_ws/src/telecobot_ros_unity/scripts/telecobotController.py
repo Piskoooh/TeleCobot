@@ -137,9 +137,9 @@ def all_close(goal, actual, tolerance):
 def main():
     moveit_commander.roscpp_initialize(sys.argv)
     rospy.init_node('telecobot_controller')
-    unityController=telecobotUnityController("/unity_controller","/telecobot_responce")
+    unityControl=telecobotUnityController("/unity_control","/telecobot_responce")
     while not rospy.is_shutdown():
-        unityController.rate.sleep()
+        unityControl.rate.sleep()
 
 if __name__ == '__main__':
     main()
