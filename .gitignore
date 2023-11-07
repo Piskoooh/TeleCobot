@@ -142,7 +142,6 @@ qtcreator-*
 .#*
 
 # Catkin custom files
-CATKIN_IGNORE
 
 ROS/create3_ros1_ws/
 ROS/create3_ros2_ws/

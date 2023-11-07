@@ -8,15 +8,15 @@
 [submodule "UnityProject/Assets/Pcx-RosPointcloud2"]
 	path = UnityProject/Assets/Pcx-RosPointcloud2
 	url = https://github.com/Piskoooh/Pcx-RosPointcloud2.git
-[submodule "ROS/interbotix_ws/src/interbotix_ros_toolboxes"]
-	path = ROS/interbotix_ws/src/interbotix_ros_toolboxes
-	url = https://github.com/Piskoooh/interbotix_ros_toolboxes.git
+[submodule "ROS/interbotix_ws/src/interbotix_ros_core"]
+	path = ROS/interbotix_ws/src/interbotix_ros_core
+	url = https://github.com/Piskoooh/interbotix_ros_core.git
 	branch = noetic
 [submodule "ROS/interbotix_ws/src/interbotix_ros_rovers"]
 	path = ROS/interbotix_ws/src/interbotix_ros_rovers
 	url = https://github.com/Piskoooh/interbotix_ros_rovers.git
 	branch = noetic
-[submodule "ROS/interbotix_ws/src/interbotix_ros_core"]
-	path = ROS/interbotix_ws/src/interbotix_ros_core
-	url = https://github.com/Piskoooh/interbotix_ros_core.git
+[submodule "ROS/interbotix_ws/src/interbotix_ros_toolboxes"]
+	path = ROS/interbotix_ws/src/interbotix_ros_toolboxes
+	url = https://github.com/Piskoooh/interbotix_ros_toolboxes.git
 	branch = noetic
