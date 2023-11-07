@@ -22,8 +22,9 @@ public class RosConnector : MonoBehaviour
     //public SubCmdVel subCmdVel;
     public PubRosClock pubRosClock;
     //public PubROSTransformTree pubROSTransformTree;
-    public PubTelecobotArmControl pubTelecobotArmControl;
-    public PubTelecobotBaseControl pubTelecobotBaseControl;
+    //public PubTelecobotArmControl pubTelecobotArmControl;
+    //public PubTelecobotBaseControl pubTelecobotBaseControl;
+    public PubUnityControl pubUnityControl;
 
     public bool isDebug = true;
 
@@ -170,9 +171,9 @@ public class RosConnector : MonoBehaviour
         //publish
         pubRosClock.OnRosConnect();
         //pubROSTransformTree.OnRosConnect();
-        pubTelecobotArmControl.OnRosConnect();
+        //pubTelecobotArmControl.OnRosConnect();
         //pubTelecobotBaseControl.OnRosConnect();
-
+        pubUnityControl.OnRosConnect();
     }
 
     public void DisconnectFromROS()　//ROSから切断するために呼び出す関数
@@ -192,8 +193,9 @@ public class RosConnector : MonoBehaviour
                 //Stop publish
                 pubRosClock.OnRosDisconnected();
                 //pubROSTransformTree.OnRosDisconnected();
-                pubTelecobotArmControl.OnRosDisconnected();
-                pubTelecobotBaseControl.OnRosDisconnected();
+                //pubTelecobotArmControl.OnRosDisconnected();
+                //pubTelecobotBaseControl.OnRosDisconnected();
+                pubUnityControl.OnRosDisconnected();
 
             }
             catch (Exception e)
