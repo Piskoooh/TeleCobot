@@ -148,7 +148,4 @@ ROS/create3_ros1_ws/
 ROS/create3_ros2_ws/
 ROS/ros1_bridge_ws/
 ROS/interbotix_ws/src/create3_sim_ros1/
-ROS/interbotix_ws/src/interbotix_ros_core/
-ROS/interbotix_ws/src/interbotix_ros_rovers/
-ROS/interbotix_ws/src/interbotix_ros_toolboxes/
 UnityProject/Assets/Maps

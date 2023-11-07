@@ -325,15 +325,15 @@ function install_locobot_ros1() {
     echo "Interbotix LoCoBot ROS 1 packages already installed!"
   else
     echo -e "${GRN}Installing ROS 1 packages for the Interbotix LoCoBot...${OFF}"
-    cd "$INSTALL_PATH"/src
-    git submodule add -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_core.git
-    git submodule add -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_rovers.git
-    git submodule add -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_toolboxes.git
-    rm                                                                                              \
-      interbotix_ros_core/interbotix_ros_xseries/CATKIN_IGNORE                                      \
-      interbotix_ros_toolboxes/interbotix_xs_toolbox/CATKIN_IGNORE                                  \
-      interbotix_ros_toolboxes/interbotix_perception_toolbox/CATKIN_IGNORE                          \
-      interbotix_ros_toolboxes/interbotix_common_toolbox/interbotix_moveit_interface/CATKIN_IGNORE
+    # cd "$INSTALL_PATH"/src
+    # git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_core.git
+    # git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_rovers.git
+    # git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_toolboxes.git
+    # rm                                                                                              \
+    #   interbotix_ros_core/interbotix_ros_xseries/CATKIN_IGNORE                                      \
+    #   interbotix_ros_toolboxes/interbotix_xs_toolbox/CATKIN_IGNORE                                  \
+    #   interbotix_ros_toolboxes/interbotix_perception_toolbox/CATKIN_IGNORE                          \
+    #   interbotix_ros_toolboxes/interbotix_common_toolbox/interbotix_moveit_interface/CATKIN_IGNORE
     cd interbotix_ros_core/interbotix_ros_xseries/interbotix_xs_sdk
     sudo cp 99-interbotix-udev.rules /etc/udev/rules.d/
     sudo udevadm control --reload-rules && sudo udevadm trigger
@@ -352,92 +352,92 @@ function install_locobot_ros1() {
   fi
 }
 
-function install_locobot_ros2() {
-  if source /opt/ros/"$ROS_DISTRO_TO_INSTALL"/setup.bash 2>/dev/null && \
-     source "$INSTALL_PATH"/install/setup.bash 2>/dev/null && \
-     ros2 pkg list | grep -q interbotix_;
-  then
-    echo "Interbotix LoCoBot ROS 2 packages already installed!"
-  else
-    echo -e "${GRN}Installing ROS 2 packages for the Interbotix LoCoBot...${OFF}"
-    cd "$INSTALL_PATH"/src
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_core.git
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_rovers.git
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_toolboxes.git
-    # TODO(lsinterbotix) remove below when moveit_visual_tools is available in apt repo
-    git clone https://github.com/ros-planning/moveit_visual_tools.git -b ros2
-    # TODO(lsinterbotix) remove below when sllidar_ros2 is available in ROS index
-    git clone https://github.com/Slamtec/sllidar_ros2.git
-    # remove IGNOREs from perception and moveit_interface packages
-    rm                                                                                                  \
-      interbotix_ros_toolboxes/interbotix_perception_toolbox/COLCON_IGNORE                              \
-      interbotix_ros_toolboxes/interbotix_common_toolbox/interbotix_moveit_interface/COLCON_IGNORE      \
-      interbotix_ros_toolboxes/interbotix_common_toolbox/interbotix_moveit_interface_msgs/COLCON_IGNORE
-    cd interbotix_ros_core
-    git submodule update --init interbotix_ros_xseries/dynamixel_workbench_toolbox
-    git submodule update --init interbotix_ros_xseries/interbotix_xs_driver
-    cd interbotix_ros_xseries/interbotix_xs_sdk
-    sudo cp 99-interbotix-udev.rules /etc/udev/rules.d/
-    sudo udevadm control --reload-rules && sudo udevadm trigger
-    cd "$INSTALL_PATH"
-    rosdep install --from-paths src --ignore-src -r -y --rosdistro="$ROS_DISTRO_TO_INSTALL"
-    if colcon build; then
-      echo -e "${GRN}${BOLD}Interbotix LoCoBot ROS 2 packages built successfully!${NORM}${OFF}"
-      echo "source $INSTALL_PATH/install/setup.bash" >> ~/.bashrc
-      source "$INSTALL_PATH"/install/setup.bash
-    else
-      failed "Failed to build ROS 2 packages for the Interbotix LoCoBot."
-    fi
-  fi
-}
+# function install_locobot_ros2() {
+#   if source /opt/ros/"$ROS_DISTRO_TO_INSTALL"/setup.bash 2>/dev/null && \
+#      source "$INSTALL_PATH"/install/setup.bash 2>/dev/null && \
+#      ros2 pkg list | grep -q interbotix_;
+#   then
+#     echo "Interbotix LoCoBot ROS 2 packages already installed!"
+#   else
+#     echo -e "${GRN}Installing ROS 2 packages for the Interbotix LoCoBot...${OFF}"
+#     cd "$INSTALL_PATH"/src
+#     git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_core.git
+#     git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_rovers.git
+#     git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_toolboxes.git
+#     # TODO(lsinterbotix) remove below when moveit_visual_tools is available in apt repo
+#     git clone https://github.com/ros-planning/moveit_visual_tools.git -b ros2
+#     # TODO(lsinterbotix) remove below when sllidar_ros2 is available in ROS index
+#     git clone https://github.com/Slamtec/sllidar_ros2.git
+#     # remove IGNOREs from perception and moveit_interface packages
+#     rm                                                                                                  \
+#       interbotix_ros_toolboxes/interbotix_perception_toolbox/COLCON_IGNORE                              \
+#       interbotix_ros_toolboxes/interbotix_common_toolbox/interbotix_moveit_interface/COLCON_IGNORE      \
+#       interbotix_ros_toolboxes/interbotix_common_toolbox/interbotix_moveit_interface_msgs/COLCON_IGNORE
+#     cd interbotix_ros_core
+#     git submodule update --init interbotix_ros_xseries/dynamixel_workbench_toolbox
+#     git submodule update --init interbotix_ros_xseries/interbotix_xs_driver
+#     cd interbotix_ros_xseries/interbotix_xs_sdk
+#     sudo cp 99-interbotix-udev.rules /etc/udev/rules.d/
+#     sudo udevadm control --reload-rules && sudo udevadm trigger
+#     cd "$INSTALL_PATH"
+#     rosdep install --from-paths src --ignore-src -r -y --rosdistro="$ROS_DISTRO_TO_INSTALL"
+#     if colcon build; then
+#       echo -e "${GRN}${BOLD}Interbotix LoCoBot ROS 2 packages built successfully!${NORM}${OFF}"
+#       echo "source $INSTALL_PATH/install/setup.bash" >> ~/.bashrc
+#       source "$INSTALL_PATH"/install/setup.bash
+#     else
+#       failed "Failed to build ROS 2 packages for the Interbotix LoCoBot."
+#     fi
+#   fi
+# }
 
-function install_kobuki_ros1() {
-  # Install ROS 1 packages for the Kobuki base
-  echo -e "${GRN}Installing Kobuki ROS 1 packages...${OFF}"
-  cd "$INSTALL_PATH"/src
-  # no noetic branch - install from melodic branch source instead
-  git clone https://github.com/yujinrobot/kobuki -b melodic
-  sudo apt-get install -yq liborocos-kdl-dev
-  git clone https://github.com/yujinrobot/yujin_ocs.git
-  cd yujin_ocs
-  # Remove unused packages from yujin_ocs repo
-  sudo rm -rf                       \
-    yocs_ar_marker_tracking         \
-    yocs_ar_pair_approach           \
-    yocs_ar_pair_tracking           \
-    yocs_diff_drive_pose_controller \
-    yocs_joyop                      \
-    yocs_keyop                      \
-    yocs_localization_manager       \
-    yocs_math_toolkit               \
-    yocs_navi_toolkit               \
-    yocs_navigator                  \
-    yocs_rapps                      \
-    yocs_safety_controller          \
-    yocs_virtual_sensor             \
-    yocs_waypoint_provider          \
-    yocs_waypoints_navi             \
-    yujin_ocs
-  cd ..
-}
+# function install_kobuki_ros1() {
+#   # Install ROS 1 packages for the Kobuki base
+#   echo -e "${GRN}Installing Kobuki ROS 1 packages...${OFF}"
+#   cd "$INSTALL_PATH"/src
+#   # no noetic branch - install from melodic branch source instead
+#   git clone https://github.com/yujinrobot/kobuki -b melodic
+#   sudo apt-get install -yq liborocos-kdl-dev
+#   git clone https://github.com/yujinrobot/yujin_ocs.git
+#   cd yujin_ocs
+#   # Remove unused packages from yujin_ocs repo
+#   sudo rm -rf                       \
+#     yocs_ar_marker_tracking         \
+#     yocs_ar_pair_approach           \
+#     yocs_ar_pair_tracking           \
+#     yocs_diff_drive_pose_controller \
+#     yocs_joyop                      \
+#     yocs_keyop                      \
+#     yocs_localization_manager       \
+#     yocs_math_toolkit               \
+#     yocs_navi_toolkit               \
+#     yocs_navigator                  \
+#     yocs_rapps                      \
+#     yocs_safety_controller          \
+#     yocs_virtual_sensor             \
+#     yocs_waypoint_provider          \
+#     yocs_waypoints_navi             \
+#     yujin_ocs
+#   cd ..
+# }
 
-function install_kobuki_ros2() {
-  # Install ROS 2 packages for the Kobuki base
-  if [ -d "$INSTALL_PATH/src/kobuki_core" ]; then
-    :
-  else
-    echo -e "${GRN}Installing Kobuki ROS 2 packages...${OFF}"
-    cd "$INSTALL_PATH"/src
-    git clone https://github.com/kobuki-base/kobuki_core.git
-    git clone https://github.com/kobuki-base/velocity_smoother.git
-    git clone https://github.com/kobuki-base/cmd_vel_mux.git
-    git clone https://github.com/kobuki-base/kobuki_ros_interfaces.git
-    git clone https://github.com/kobuki-base/kobuki_ros.git
-    git clone https://github.com/stonier/ecl_lite.git
-    git clone https://github.com/stonier/ecl_core.git
-    git clone -b release/1.2.x https://github.com/stonier/sophus.git
-  fi
-}
+# function install_kobuki_ros2() {
+#   # Install ROS 2 packages for the Kobuki base
+#   if [ -d "$INSTALL_PATH/src/kobuki_core" ]; then
+#     :
+#   else
+#     echo -e "${GRN}Installing Kobuki ROS 2 packages...${OFF}"
+#     cd "$INSTALL_PATH"/src
+#     git clone https://github.com/kobuki-base/kobuki_core.git
+#     git clone https://github.com/kobuki-base/velocity_smoother.git
+#     git clone https://github.com/kobuki-base/cmd_vel_mux.git
+#     git clone https://github.com/kobuki-base/kobuki_ros_interfaces.git
+#     git clone https://github.com/kobuki-base/kobuki_ros.git
+#     git clone https://github.com/stonier/ecl_lite.git
+#     git clone https://github.com/stonier/ecl_core.git
+#     git clone -b release/1.2.x https://github.com/stonier/sophus.git
+#   fi
+# }
 
 function install_create3_ros1() {
   # Install packages required to run the Create 3 using ROS 1, including ros1_bridge.
