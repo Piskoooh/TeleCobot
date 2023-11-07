@@ -77,9 +77,9 @@ public class SubTF : MonoBehaviour
             //Debug.Log(tfMessage.transforms[i].child_frame_id);
             switch (tfMessage.transforms[i].child_frame_id)
             {
-                case "locobot/base_footprint":
-                    //robotLinkPositions[0].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    //robotLinkPositions[0].rotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                case "locobot/odom":
+                    robotLinkPositions[0].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    robotLinkPositions[0].rotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/base_link":
                     robotLinkPositions[1].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
