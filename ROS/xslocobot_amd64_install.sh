@@ -3,7 +3,7 @@
 # USAGE: ./xslocobot_amd64_install.sh [-h][-d DISTRO][-p PATH][-b BASE_TYPE][-n]
 #
 # Install the Interbotix X-Series LoCoBot packages and their dependencies.
-# the default directory is edited.(https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots.git)
+# the default directory is edited.(https://github.com/Piskoooh/TeleCobot.git)
 set -e
 
 OFF='\033[0m'
@@ -30,11 +30,11 @@ JAMMY_VALID_DISTROS=('humble')
 VALID_BASE_TYPES=('kobuki' 'create3')
 
 NONINTERACTIVE=false
-DISTRO_SET_FROM_CL=false
+DISTRO_SET_FROM_CL=falsegit
 
-#Edited the path to install.(https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots.git)
+#Edited the path to install.(https://github.com/Piskoooh/TeleCobot.git.)
 #from this line.
-ROOT_PATH=~/HumanRobotsRemoteCollaborationSystemUsingLocobots/ROS
+ROOT_PATH=~/TeleCobot/ROS
 INSTALL_PATH=$ROOT_PATH/interbotix_ws
 APRILTAG_WS=$ROOT_PATH/apriltag_ws
 BRIDGE_WS=$ROOT_PATH/ros1_bridge_ws
@@ -58,7 +58,7 @@ Options:
                   your Ubuntu version.
 
   -p PATH         Sets the absolute install location for the Interbotix workspace. If not specified,
-                  the Interbotix workspace directory will default to '~/HumanRobotsRemoteCollaborationSystemUsingLocobots/ROS/interbotix_ws'.
+                  the Interbotix workspace directory will default to '~/TeleCobot/ROS/interbotix_ws'.
 
   -b BASE_TYPE    Sets the base type for the robot, either 'kobuki' or 'create3'. If not specified,
                   the default of 'create3' will be used. Note that the Create 3 is not compatible with
@@ -326,9 +326,9 @@ function install_locobot_ros1() {
   else
     echo -e "${GRN}Installing ROS 1 packages for the Interbotix LoCoBot...${OFF}"
     cd "$INSTALL_PATH"/src
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_core.git
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_rovers.git
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_toolboxes.git
+    git submodule add -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_core.git
+    git submodule add -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_rovers.git
+    git submodule add -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_toolboxes.git
     rm                                                                                              \
       interbotix_ros_core/interbotix_ros_xseries/CATKIN_IGNORE                                      \
       interbotix_ros_toolboxes/interbotix_xs_toolbox/CATKIN_IGNORE                                  \
@@ -361,9 +361,9 @@ function install_locobot_ros2() {
   else
     echo -e "${GRN}Installing ROS 2 packages for the Interbotix LoCoBot...${OFF}"
     cd "$INSTALL_PATH"/src
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_core.git
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_rovers.git
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_toolboxes.git
+    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_core.git
+    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_rovers.git
+    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Piskoooh/interbotix_ros_toolboxes.git
     # TODO(lsinterbotix) remove below when moveit_visual_tools is available in apt repo
     git clone https://github.com/ros-planning/moveit_visual_tools.git -b ros2
     # TODO(lsinterbotix) remove below when sllidar_ros2 is available in ROS index
@@ -550,7 +550,7 @@ function setup_env_vars_ros2() {
   fi
 }
 
-#Function for Changing the directory to install.(https://github.com/Piskoooh/HumanRobotsRemoteCollaborationSystemUsingLocobots.git)
+#Function for Changing the directory to install.(https://github.com/Piskoooh/TeleCobot.git)
 #from this line.
 function change_directory_paths(){
   echo -e "${GRN}${BOLD}Root Directory of WorkSpace is is Changed to $1"
@@ -614,8 +614,10 @@ if [ "$NONINTERACTIVE" = false ]; then
   echo -e "${BLU}${BOLD}INSTALLATION SUMMARY:"
   echo -e "\tROS Distribution:           ROS ${ROS_VERSION_TO_INSTALL} ${ROS_DISTRO_TO_INSTALL}"
   echo -e "\tBase Type:                  ${BASE_TYPE}"
-  echo -e "\tInstallation path:          ${INSTALL_PATH}"
-  echo -e "\nIs this correct?\n${PROMPT}${NORM}${OFF}\c"
+  echo -e "\tInstallation path:          ${INSTALL_PATH}${NORM}${OFF}"
+  echo -e "\n${RED}${BOLD} Telecobot was developed with ROS1 Noetic, Create3 base and Ubuntu20.04. If you want to use other version, please check the compatibility of the packages."
+  echo -e "\nNOTE: If any of the above information is incorrect, exit now with Ctrl+C!${NORM}${OFF}"
+  echo -e "${BLU}${BOLD}\nIs this correct?\n${PROMPT}${NORM}${OFF}\c"
   read -r resp
 
   if [[ $resp == [yY] || $resp == [yY][eE][sS] ]]; then
