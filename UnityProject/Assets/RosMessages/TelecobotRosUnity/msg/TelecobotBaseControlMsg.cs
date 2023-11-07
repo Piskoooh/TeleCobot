@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Unity.Robotics.ROSTCPConnector.MessageGeneration;
 
-namespace RosMessageTypes.Telecobot_ros_unity
+namespace RosMessageTypes.TelecobotRosUnity
 {
     [Serializable]
     public class TelecobotBaseControlMsg : Message

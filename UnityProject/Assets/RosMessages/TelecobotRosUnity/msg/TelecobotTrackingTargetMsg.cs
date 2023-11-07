@@ -5,47 +5,53 @@ using System.Collections.Generic;
 using System.Text;
 using Unity.Robotics.ROSTCPConnector.MessageGeneration;
 
-namespace RosMessageTypes.Telecobot_ros_unity
+namespace RosMessageTypes.TelecobotRosUnity
 {
     [Serializable]
-    public class TelecobotMoveitJointsMsg : Message
+    public class TelecobotTrackingTargetMsg : Message
     {
-        public const string k_RosMessageName = "telecobot_ros_unity/TelecobotMoveitJoints";
+        public const string k_RosMessageName = "telecobot_ros_unity/TelecobotTrackingTarget";
         public override string RosMessageName => k_RosMessageName;
 
         public double[] joints;
+        public Geometry.PoseMsg end_effector_pose;
         public Geometry.PoseMsg goal_pose;
 
-        public TelecobotMoveitJointsMsg()
+        public TelecobotTrackingTargetMsg()
         {
             this.joints = new double[5];
+            this.end_effector_pose = new Geometry.PoseMsg();
             this.goal_pose = new Geometry.PoseMsg();
         }
 
-        public TelecobotMoveitJointsMsg(double[] joints, Geometry.PoseMsg goal_pose)
+        public TelecobotTrackingTargetMsg(double[] joints, Geometry.PoseMsg end_effector_pose, Geometry.PoseMsg goal_pose)
         {
             this.joints = joints;
+            this.end_effector_pose = end_effector_pose;
             this.goal_pose = goal_pose;
         }
 
-        public static TelecobotMoveitJointsMsg Deserialize(MessageDeserializer deserializer) => new TelecobotMoveitJointsMsg(deserializer);
+        public static TelecobotTrackingTargetMsg Deserialize(MessageDeserializer deserializer) => new TelecobotTrackingTargetMsg(deserializer);
 
-        private TelecobotMoveitJointsMsg(MessageDeserializer deserializer)
+        private TelecobotTrackingTargetMsg(MessageDeserializer deserializer)
         {
             deserializer.Read(out this.joints, sizeof(double), 5);
+            this.end_effector_pose = Geometry.PoseMsg.Deserialize(deserializer);
             this.goal_pose = Geometry.PoseMsg.Deserialize(deserializer);
         }
 
         public override void SerializeTo(MessageSerializer serializer)
         {
             serializer.Write(this.joints);
+            serializer.Write(this.end_effector_pose);
             serializer.Write(this.goal_pose);
         }
 
         public override string ToString()
         {
-            return "TelecobotMoveitJointsMsg: " +
+            return "TelecobotTrackingTargetMsg: " +
             "\njoints: " + System.String.Join(", ", joints.ToList()) +
+            "\nend_effector_pose: " + end_effector_pose.ToString() +
             "\ngoal_pose: " + goal_pose.ToString();
         }
 
