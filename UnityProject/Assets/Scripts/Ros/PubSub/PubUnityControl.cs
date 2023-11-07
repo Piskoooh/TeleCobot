@@ -24,7 +24,6 @@ public class PubUnityControl : MonoBehaviour
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
     private ROSConnection ros;
-    private LocobotJoyMsg joyMsg;
     private TelecobotUnityControlMsg controlMsg;
 
 
@@ -44,11 +43,9 @@ public class PubUnityControl : MonoBehaviour
         ros = ROSConnection.GetOrCreateInstance();
         if (flag == false)
         {
-            ros.RegisterPublisher<LocobotJoyMsg>(ControlTopic); //ROSメッセージを確認する
             ros.RegisterPublisher<TelecobotUnityControlMsg>(ControlTopic);
             flag = true;
         }
-        joyMsg = new LocobotJoyMsg();
         controlMsg = new TelecobotUnityControlMsg();
         isConnected = true;
         m_LastPublishTimeSeconds = RosClock.time + PublishPeriodSeconds;
@@ -66,10 +63,10 @@ public class PubUnityControl : MonoBehaviour
         //arm
         // Check the pose_cmd
         if (inputMng.armHomePose)
-            joyMsg.pose_cmd = LocobotJoyMsg.HOME_POSE;
+            controlMsg.pose_cmd = LocobotJoyMsg.HOME_POSE;
         else if (inputMng.armSleepPose)
-            joyMsg.pose_cmd = LocobotJoyMsg.SLEEP_POSE;
-        else joyMsg.pose_cmd = 0;
+            controlMsg.pose_cmd = LocobotJoyMsg.SLEEP_POSE;
+        else controlMsg.pose_cmd = 0;
 
 
         //turret
@@ -78,10 +75,10 @@ public class PubUnityControl : MonoBehaviour
 
         //gripper
 
-        //if (prevJoyMsg != joyMsg)
+        //if (prevJoyMsg != controlMsg)
         
             Debug.LogWarning("PublishedJoyMsg!!");
-            ros.Publish(ControlTopic, joyMsg);
+            ros.Publish(ControlTopic, controlMsg);
         
         m_LastPublishTimeSeconds = RosClock.FrameStartTimeInSeconds;
     }
@@ -89,8 +86,6 @@ public class PubUnityControl : MonoBehaviour
     //LocobotBase(Create3)
     public void PubMoveToPose()
     {
-        controlMsg.cmd_id=0;
-
         ros.Publish(ControlTopic, controlMsg);
 
     }
@@ -98,14 +93,11 @@ public class PubUnityControl : MonoBehaviour
     //LocobotArm
     public void PubEeGoalPose()
     {
-        controlMsg.cmd_id=1;
-
         ros.Publish(ControlTopic, controlMsg);
     }
 
     public void PubEeMoveitPose(Transform target)
     {
-        controlMsg.cmd_id=2;
         controlMsg.goal_pose = new PoseMsg
         {
             position = target.localPosition.To<FLU>(),
@@ -126,25 +118,21 @@ public class PubUnityControl : MonoBehaviour
     //LocobotCore
     public void PubTorqueEnable()
     {
-        controlMsg.cmd_id = 127;
         ros.Publish(ControlTopic, controlMsg);
     }
 
     public void PubTorqueDisable()
     {
-        controlMsg.cmd_id = 126;
         ros.Publish(ControlTopic, controlMsg);
     }
 
     public void PubSmartMotorReboot()
     {
-        controlMsg.cmd_id= 125;
         ros.Publish(ControlTopic, controlMsg);
     }
 
     public void PubAllMotorReboot()
     {
-        controlMsg.cmd_id=124;
         ros.Publish(ControlTopic, controlMsg);
     }
 
