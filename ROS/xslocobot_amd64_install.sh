@@ -334,7 +334,7 @@ function install_locobot_ros1() {
     #   interbotix_ros_toolboxes/interbotix_xs_toolbox/CATKIN_IGNORE                                  \
     #   interbotix_ros_toolboxes/interbotix_perception_toolbox/CATKIN_IGNORE                          \
     #   interbotix_ros_toolboxes/interbotix_common_toolbox/interbotix_moveit_interface/CATKIN_IGNORE
-    cd interbotix_ros_core/interbotix_ros_xseries/interbotix_xs_sdk
+    cd "$INSTALL_PATH"/src/interbotix_ros_core/interbotix_ros_xseries/interbotix_xs_sdk
     sudo cp 99-interbotix-udev.rules /etc/udev/rules.d/
     sudo udevadm control --reload-rules && sudo udevadm trigger
     cd "$INSTALL_PATH"
@@ -391,35 +391,35 @@ function install_locobot_ros1() {
 #   fi
 # }
 
-# function install_kobuki_ros1() {
-#   # Install ROS 1 packages for the Kobuki base
-#   echo -e "${GRN}Installing Kobuki ROS 1 packages...${OFF}"
-#   cd "$INSTALL_PATH"/src
-#   # no noetic branch - install from melodic branch source instead
-#   git clone https://github.com/yujinrobot/kobuki -b melodic
-#   sudo apt-get install -yq liborocos-kdl-dev
-#   git clone https://github.com/yujinrobot/yujin_ocs.git
-#   cd yujin_ocs
-#   # Remove unused packages from yujin_ocs repo
-#   sudo rm -rf                       \
-#     yocs_ar_marker_tracking         \
-#     yocs_ar_pair_approach           \
-#     yocs_ar_pair_tracking           \
-#     yocs_diff_drive_pose_controller \
-#     yocs_joyop                      \
-#     yocs_keyop                      \
-#     yocs_localization_manager       \
-#     yocs_math_toolkit               \
-#     yocs_navi_toolkit               \
-#     yocs_navigator                  \
-#     yocs_rapps                      \
-#     yocs_safety_controller          \
-#     yocs_virtual_sensor             \
-#     yocs_waypoint_provider          \
-#     yocs_waypoints_navi             \
-#     yujin_ocs
-#   cd ..
-# }
+function install_kobuki_ros1() {
+  # Install ROS 1 packages for the Kobuki base
+  echo -e "${GRN}Installing Kobuki ROS 1 packages...${OFF}"
+  cd "$INSTALL_PATH"/src
+  # no noetic branch - install from melodic branch source instead
+  git clone https://github.com/yujinrobot/kobuki -b melodic
+  sudo apt-get install -yq liborocos-kdl-dev
+  git clone https://github.com/yujinrobot/yujin_ocs.git
+  cd yujin_ocs
+  # Remove unused packages from yujin_ocs repo
+  sudo rm -rf                       \
+    yocs_ar_marker_tracking         \
+    yocs_ar_pair_approach           \
+    yocs_ar_pair_tracking           \
+    yocs_diff_drive_pose_controller \
+    yocs_joyop                      \
+    yocs_keyop                      \
+    yocs_localization_manager       \
+    yocs_math_toolkit               \
+    yocs_navi_toolkit               \
+    yocs_navigator                  \
+    yocs_rapps                      \
+    yocs_safety_controller          \
+    yocs_virtual_sensor             \
+    yocs_waypoint_provider          \
+    yocs_waypoints_navi             \
+    yujin_ocs
+  cd ..
+}
 
 # function install_kobuki_ros2() {
 #   # Install ROS 2 packages for the Kobuki base
@@ -664,17 +664,17 @@ if [[ $ROS_VERSION_TO_INSTALL == 1 ]]; then
   fi
   install_locobot_ros1
   setup_env_vars_ros1
-elif [[ $ROS_VERSION_TO_INSTALL == 2 ]]; then
-  install_ros2
-  install_perception_ros2
-  if [[ $BASE_TYPE == 'kobuki' ]]; then
-    install_kobuki_ros2
-  elif [[ $BASE_TYPE == 'create3' ]]; then
-    install_create3_ros2
-  fi
-  install_locobot_ros2
-  setup_env_vars_ros2
-  config_rmw
+# elif [[ $ROS_VERSION_TO_INSTALL == 2 ]]; then
+#   install_ros2
+#   install_perception_ros2
+#   if [[ $BASE_TYPE == 'kobuki' ]]; then
+#     install_kobuki_ros2
+#   elif [[ $BASE_TYPE == 'create3' ]]; then
+#     install_create3_ros2
+#   fi
+#   install_locobot_ros2
+#   setup_env_vars_ros2
+#   config_rmw
 else
   failed "Something went wrong."
 fi
