@@ -14,7 +14,7 @@ public class PubTelecobotArmControl : MonoBehaviour
     public GameObject endEffector;
     public GameObject armBaseLink;
     [HideInInspector]
-    public ArmControlMode armControlMode;
+    public SemiAutoMaticCommands armControlMode;
     [HideInInspector]
     public Transform target = null;
 
@@ -36,7 +36,7 @@ public class PubTelecobotArmControl : MonoBehaviour
     {
         isConnected = false;
         flag = false;
-        armControlMode = ArmControlMode.Home;
+        armControlMode = SemiAutoMaticCommands.Home;
     }
 
     public void OnRosConnect()
@@ -69,7 +69,7 @@ public class PubTelecobotArmControl : MonoBehaviour
 
     public void PublishTransform()
     {
-        armMsg.arm_control_mode = (int)ArmControlMode.PublishTarget;
+        armMsg.arm_control_mode = (int)SemiAutoMaticCommands.PublishTarget;
         // 目標位置を格納
         if (target != null)
         {
