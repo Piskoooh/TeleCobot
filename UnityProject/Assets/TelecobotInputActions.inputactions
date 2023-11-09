@@ -954,12 +954,12 @@
             "actions": [
                 {
                     "name": "GripperPwm",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "8c3a9878-0909-43cf-8cee-816d3424e6b2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "GripperOpen",
@@ -1071,21 +1071,21 @@
                 },
                 {
                     "name": "EndEffectorPitch",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "104227ed-4882-400b-b41b-1d1d435f9a56",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "CameraUpDown(Tilt)",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "248c47e1-9e4c-490a-90e9-75c75f198ac7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1106,7 +1106,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "GripperPwm",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1117,7 +1117,7 @@
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "GripperPwm",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1128,7 +1128,7 @@
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "GripperOpen",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1139,7 +1139,7 @@
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "GripperClose",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1161,7 +1161,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "WaistRotate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1172,7 +1172,7 @@
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "WaistRotate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1183,7 +1183,7 @@
                     "path": "<Gamepad>/leftStickPress",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "ArmSleepPose",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1194,7 +1194,7 @@
                     "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "ArmHomePose",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1205,7 +1205,7 @@
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "PanTiltHome",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1216,7 +1216,7 @@
                     "path": "<SwitchProControllerHID>/home",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "SwitchMode",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1238,7 +1238,7 @@
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorZ(FrontBack)",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1249,7 +1249,7 @@
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorZ(FrontBack)",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1271,7 +1271,7 @@
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorY(UpDown)",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1282,7 +1282,7 @@
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorY(UpDown)",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1304,7 +1304,7 @@
                     "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "BaseX",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1315,7 +1315,7 @@
                     "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "BaseX",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1337,7 +1337,7 @@
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "BaseRotate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1348,7 +1348,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "BaseRotate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1370,7 +1370,7 @@
                     "path": "<Gamepad>/rightStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorRoll",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1381,7 +1381,7 @@
                     "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorRoll",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1403,7 +1403,7 @@
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorPitch",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1414,7 +1414,7 @@
                     "path": "<Gamepad>/rightStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "EndEffectorPitch",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1436,7 +1436,7 @@
                     "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "CameraUpDown(Tilt)",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -1447,7 +1447,7 @@
                     "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "CameraUpDown(Tilt)",
                     "isComposite": false,
                     "isPartOfComposite": true
