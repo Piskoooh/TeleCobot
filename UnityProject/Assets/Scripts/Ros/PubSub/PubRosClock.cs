@@ -4,6 +4,9 @@ using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.BuiltinInterfaces;
 using RosMessageTypes.Rosgraph;
 
+//時間を管理するスクリプト。
+//Pubするスピード(Hz)を設定している”Scripts/ROS”配下のPubで始まるスクリプトがこのスクリプトを参照する。
+//また、ROS側でuse_time_sim=trueとするとこのスクリプトで発行される時間を参照するようになる。
 public class PubRosClock : MonoBehaviour
 {
     [SerializeField]
