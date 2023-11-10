@@ -1962,7 +1962,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnGripperPwm
+        m_MethodName: OnGripperPwmInc
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2090,7 +2090,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeZ
+        m_MethodName: OnEeX
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2106,7 +2106,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeY
+        m_MethodName: OnEeZ
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2198,6 +2198,86 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 248c47e1-9e4c-490a-90e9-75c75f198ac7
     m_ActionName: LocobotJoy/CameraUpDown(Tilt)[/SwitchProControllerHID/dpad/left,/SwitchProControllerHID1/dpad/left,/SwitchProControllerHID2/dpad/left,/SwitchProControllerHID4/dpad/left,/SwitchProControllerHID/dpad/right,/SwitchProControllerHID1/dpad/right,/SwitchProControllerHID2/dpad/right,/SwitchProControllerHID4/dpad/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnRebootError
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fd1dda4a-0b84-4dad-999c-9e9e2ea06d72
+    m_ActionName: LocobotJoy/RebootError[/SwitchProControllerHID/leftStickPress,/SwitchProControllerHID/rightStickPress,/SwitchProControllerHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnRebootAll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3c7e3cc4-56cc-4fee-8570-22f3c0b073d6
+    m_ActionName: LocobotJoy/RebootAll[/SwitchProControllerHID/leftStickPress,/SwitchProControllerHID/rightStickPress,/SwitchProControllerHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnTorqueEnable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6616c010-0dc9-43de-acd6-6b4aaa5c9190
+    m_ActionName: LocobotJoy/TorqueEnable[/SwitchProControllerHID/leftStickPress,/SwitchProControllerHID/rightStickPress,/SwitchProControllerHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnTorqueDisable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 545f064f-a31f-49b6-a1be-625620c977b3
+    m_ActionName: LocobotJoy/TorqueDisable[/SwitchProControllerHID/leftStickPress,/SwitchProControllerHID/rightStickPress,/SwitchProControllerHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnGripperPwmDec
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3c98b6f9-f860-49e4-9587-8c25b17c2c1c
+    m_ActionName: LocobotJoy/GripperPwmInc1[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotJoy
@@ -2234,16 +2314,21 @@ MonoBehaviour:
   speedDec: 0
   speedCourse: 0
   speedFine: 0
+  gripperPwmInc: 0
+  gripperPwmDec: 0
   gripperOpen: 0
   gripperClose: 0
   armHomePose: 0
   armSleepPose: 0
   panTiltHome: 0
   switchMode: 0
-  gripperPwm: 0
+  rebootError: 0
+  rebootAll: 0
+  torqueEnable: 0
+  torqueDisable: 0
   waistRotate: 0
+  eeX: 0
   eeZ: 0
-  eeY: 0
   baseX: 0
   baseRotate: 0
   eeRoll: 0
@@ -2343,6 +2428,7 @@ MonoBehaviour:
   m_ClockMode: 0
   m_LastSetClockMode: 0
   m_PublishRateHz: 100
+  rosConnector: {fileID: 1078192550}
 --- !u!114 &1078192555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2358,6 +2444,7 @@ MonoBehaviour:
   endEffector: {fileID: 961835952691241314}
   arm_base_link: {fileID: 1016561068}
   inputMng: {fileID: 931117680}
+  rosConnector: {fileID: 1078192550}
 --- !u!1 &1181766228
 GameObject:
   m_ObjectHideFlags: 0

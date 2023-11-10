@@ -13,16 +13,6 @@ public class PubUnityControl : MonoBehaviour
 
     public InputManager inputMng;
 
-    //LocobotPCが直接通信しているJoy(PS4のコントローラ)では更新スピードを変更できるようになっているが、
-    //Unity側の実装はボタン配置を変更する関係で更新スピードの変更ボタンを廃止。
-    //更新スピードを25Hzで固定
-    //確認していないけどPS4のコントローラでロボット側のみの更新スピードを変更すると挙動が変になる可能性あり。
-    //ロボット側は再起動すればデフォの25Hzに戻る。
-    double m_PublishRateHz = 25f;
-    double m_LastPublishTimeSeconds;
-    double PublishPeriodSeconds => 1.0f / m_PublishRateHz;
-    bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
-
     private ROSConnection ros;
     private TelecobotUnityControlMsg controlMsg;
     [SerializeField]
@@ -48,7 +38,6 @@ public class PubUnityControl : MonoBehaviour
             flag = true;
         }
         controlMsg = new TelecobotUnityControlMsg();
-        m_LastPublishTimeSeconds = RosClock.time + PublishPeriodSeconds;
     }
 
     public void OnRosDisconnected()
@@ -77,7 +66,7 @@ public class PubUnityControl : MonoBehaviour
         controlMsg.base_x_cmd = inputMng.baseX * MAX_BASE_X;
 
         // Check the base_theta_cmd
-        controlMsg.base_theta_cmd = -1.0*inputMng.baseRotate /* 2.0*/ * MAX_BASE_THETA;
+        controlMsg.base_theta_cmd = -1.0 * inputMng.baseRotate * MAX_BASE_THETA;
 
         // Check the pan_cmd
         //if (inputMng.pan > 0)
@@ -123,10 +112,10 @@ public class PubUnityControl : MonoBehaviour
 
         // Check the ee_pitch_cmd
         if (inputMng.eePitch > 0)
-            controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_UP;
-        else if (inputMng.eePitch < 0)
             controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_DOWN;
-        else controlMsg.ee_pitch_cmd=0;
+        else if (inputMng.eePitch < 0)
+            controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_UP;
+        else controlMsg.ee_pitch_cmd = 0;
 
         // Check the waist_cmd
         if (inputMng.waistRotate > 0)
@@ -150,9 +139,9 @@ public class PubUnityControl : MonoBehaviour
         else controlMsg.pose_cmd = 0;
 
         // Check the gripper_pwm_cmd
-        if (inputMng.gripperPwm > 0)
+        if (inputMng.gripperPwmInc)
             controlMsg.gripper_pwm_cmd = TelecobotUnityControlMsg.GRIPPER_PWM_INC;
-        else if (inputMng.gripperPwm < 0)
+        else if (inputMng.gripperPwmDec)
             controlMsg.gripper_pwm_cmd = TelecobotUnityControlMsg.GRIPPER_PWM_DEC;
         else controlMsg.gripper_pwm_cmd = 0;
 
@@ -172,8 +161,6 @@ public class PubUnityControl : MonoBehaviour
 
         //Debug.LogWarning("PublishedJoyMsg!!");
         ros.Publish(ControlTopic, controlMsg);
-        
-        m_LastPublishTimeSeconds = RosClock.FrameStartTimeInSeconds;
     }
 
     //LocobotBase(Create3)
@@ -205,28 +192,6 @@ public class PubUnityControl : MonoBehaviour
                                             endEffector.transform.eulerAngles.y,
                                             endEffector.transform.eulerAngles.z).To<FLU>()
         };
-        ros.Publish(ControlTopic, controlMsg);
-    }
-
-    //LocobotCore
-    public void PubTorqueEnable()
-    {
-        ros.Publish(ControlTopic, controlMsg);
-    }
-
-    public void PubTorqueDisable()
-    {
-        ros.Publish(ControlTopic, controlMsg);
-    }
-
-    public void PubSmartMotorReboot()
-    {
-        ros.Publish(ControlTopic, controlMsg);
-    }
-
-    public void PubAllMotorReboot()
-    {
-        ros.Publish(ControlTopic, controlMsg);
     }
 
     // Update is called once per frame
@@ -234,10 +199,7 @@ public class PubUnityControl : MonoBehaviour
     {
         if (rosConnector.rosConnection==RosConnection.Connect)
         {
-            if (ShouldPublishMessage)
-            {
-                PublishJoy();
-            }
+            PublishJoy();
         }
     }
 }

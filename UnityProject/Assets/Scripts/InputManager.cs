@@ -8,22 +8,35 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     [HideInInspector]
-    public bool speedInc,speedDec,speedCourse,speedFine,gripperOpen, gripperClose,
-        armHomePose, armSleepPose, panTiltHome, switchMode;
+    public bool speedInc, speedDec, speedCourse, speedFine,gripperPwmInc,gripperPwmDec, gripperOpen, gripperClose,
+        armHomePose, armSleepPose, panTiltHome, switchMode, rebootError, rebootAll, torqueEnable, torqueDisable;
 
     [HideInInspector]
-    public float gripperPwm, waistRotate, eeZ, eeY, baseX, baseRotate, eeRoll, eePitch, pan, tilt;
+    public float waistRotate, eeX, eeZ, baseX, baseRotate, eeRoll, eePitch, pan, tilt;
 
-    public void OnGripperPwm(InputAction.CallbackContext context)
+    public void OnGripperPwmInc(InputAction.CallbackContext context)
     {
-        Debug.Log("OnGripperPwm called");
+        Debug.Log("OnGripperPwmInc called");
         if (context.action.triggered)
         {
-            gripperPwm = context.ReadValue<float>();
+            gripperPwmInc = context.ReadValueAsButton();
         }
         else if (context.canceled)
         {
-            gripperPwm = 0;
+            gripperPwmInc = false;
+        }
+    }
+
+    public void OnGripperPwmDec(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnGripperPwmDec called");
+        if (context.action.triggered)
+        {
+            gripperPwmDec = context.ReadValueAsButton();
+        }
+        else if (context.canceled)
+        {
+            gripperPwmDec = false;
         }
     }
 
@@ -105,19 +118,6 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void OnSwitchMode(InputAction.CallbackContext context)
-    {
-        Debug.Log("OnSwitchMode called");
-        if (context.action.triggered)
-        {
-            switchMode = context.ReadValueAsButton();
-        }
-        else if (context.canceled)
-        {
-            switchMode = false;
-        }
-    }
-
     public void OnEeZ(InputAction.CallbackContext context)
     {
         Debug.Log("OnEeZ called");
@@ -131,16 +131,16 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void OnEeY(InputAction.CallbackContext context)
+    public void OnEeX(InputAction.CallbackContext context)
     {
-        Debug.Log("OnEeY called");
+        Debug.Log("OnEeX called");
         if (context.action.triggered)
         {
-            eeY = context.ReadValue<float>();
+            eeX = context.ReadValue<float>();
         }
         else if (context.canceled)
         {
-            eeY = 0;
+            eeX = 0;
         }
     }
 
@@ -206,6 +206,71 @@ public class InputManager : MonoBehaviour
         else if (context.canceled)
         {
             tilt = 0;
+        }
+    }
+
+    public void OnSwitchMode(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnSwitchMode called");
+        if (context.action.triggered)
+        {
+            switchMode = context.ReadValueAsButton();
+        }
+        else if (context.canceled)
+        {
+            switchMode = false;
+        }
+    }
+
+    public void OnRebootError(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnRebootError called");
+        if (context.action.triggered)
+        {
+            rebootError= context.ReadValueAsButton();
+        }
+        else if (context.canceled)
+        {
+            rebootError = false;
+        }
+    }
+
+    public void OnRebootAll(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnRebootAll called");
+        if (context.action.triggered)
+        {
+            rebootAll = context.ReadValueAsButton();
+        }
+        else if (context.canceled)
+        {
+            rebootAll = false;
+        }
+    }
+
+    public void OnTorqueEnable(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnTorqueEnable called");
+        if (context.action.triggered)
+        {
+            torqueEnable = context.ReadValueAsButton();
+        }
+        else if (context.canceled)
+        {
+            torqueEnable = false;
+        }
+    }
+
+    public void OnTorqueDisable(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnTorqueDisable called");
+        if (context.action.triggered)
+        {
+            torqueDisable = context.ReadValueAsButton();
+        }
+        else if (context.canceled)
+        {
+            torqueDisable = false;
         }
     }
 }
