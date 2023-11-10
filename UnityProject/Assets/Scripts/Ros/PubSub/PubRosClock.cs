@@ -21,17 +21,17 @@ public class PubRosClock : MonoBehaviour
     double m_LastPublishTimeSeconds;
 
     ROSConnection m_ROS;
+    [SerializeField]
+    RosConnector rosConnector;
 
     double PublishPeriodSeconds => 1.0f / m_PublishRateHz;
 
     bool ShouldPublishMessage => RosClock.FrameStartTimeInSeconds - PublishPeriodSeconds > m_LastPublishTimeSeconds;
 
-    private bool isConnected = false;
     bool flag;
 
     void Start()
     {
-        isConnected = false;
         flag = false;
     }
 
@@ -72,7 +72,7 @@ public class PubRosClock : MonoBehaviour
 
     public void OnRosDisconnected()
     {
-        isConnected = false;
+
     }
 
     void PublishMessage()
@@ -90,7 +90,7 @@ public class PubRosClock : MonoBehaviour
     //常にパブリッシュし続ける
     private void Update()
     {
-        if (isConnected)
+        if (rosConnector.rosConnection==RosConnection.Connect)
         {
             if (ShouldPublishMessage)
             {
