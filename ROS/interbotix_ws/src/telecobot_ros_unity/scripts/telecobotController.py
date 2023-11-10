@@ -89,27 +89,27 @@ class telecobotUnityController:
         # ここからはCoreの関数を呼び出すコマンドを記載
         if(msg.motor_cmd==TelecobotUnityControl.ENABLE_TORQUE):
             print("Recived torque_enable from Unity side...")
-            self.locobot.core.robot_torque_enable("group",self.locobot.arm_group_name,enable=True)
-            self.locobot.core.robot_torque_enable("group",self.locobot.turret_group_name,enable=True)
-            self.locobot.core.robot_torque_enable("group",self.locobot.gripper_name,enable=True)
+            self.locobot.dxl.robot_torque_enable("group",self.locobot.arm.group_name,enable=True)
+            self.locobot.dxl.robot_torque_enable("group",self.locobot.camera.group_name,enable=True)
+            self.locobot.dxl.robot_torque_enable("single","gripper",enable=True)
         elif(msg.motor_cmd==TelecobotUnityControl.DISABLE_TORQUE):
             print("Recived torque_disable from Unity side...")
-            self.locobot.core.robot_torque_enable("group",self.locobot.arm_group_name,enable=False)
-            self.locobot.core.robot_torque_enable("group",self.locobot.turret_group_name,enable=False)
-            self.locobot.core.robot_torque_enable("group",self.locobot.gripper_name,enable=False)
+            self.locobot.dxl.robot_torque_enable("group",self.locobot.arm.group_name,enable=False)
+            self.locobot.dxl.robot_torque_enable("group",self.locobot.camera.group_name,enable=False)
+            self.locobot.dxl.robot_torque_enable("single","gripper",enable=False)
 
         if(msg.reboot_cmd==TelecobotUnityControl.REBOOT_ERROR_MOTOR):
             print("Recived robot_reboot_motors(smart) from Unity side...")
             print("Start to smart reboot...")
-            self.locobot.core.robot_reboot_motors("group",self.locobot.arm_group_name,enable=True,smart_reboot=True)
-            self.locobot.core.robot_reboot_motors("group",self.locobot.turret_group_name,enable=True,smart_reboot=True)
-            self.locobot.core.robot_reboot_motors("group",self.locobot.gripper_name,enable=True,smart_reboot=True)
+            self.locobot.dxl.robot_reboot_motors("group",self.locobot.arm.group_name,enable=True,smart_reboot=True)
+            self.locobot.dxl.robot_reboot_motors("group",self.locobot.camera.group_name,enable=True,smart_reboot=True)
+            self.locobot.dxl.robot_reboot_motors("single","gripper",enable=True,smart_reboot=True)
         elif(msg.reboot_cmd==TelecobotUnityControl.REBOOT_ALL_MOTOR):
             print("Recived robot_reboot_motors(all) from Unity side...")
             print("Start to reboot all motors...")
-            self.locobot.core.robot_reboot_motors("group",self.locobot.arm_group_name,enable=True,smart_reboot=False)
-            self.locobot.core.robot_reboot_motors("group",self.locobot.turret_group_name,enable=True,smart_reboot=False)
-            self.locobot.core.robot_reboot_motors("group",self.locobot.gripper_name,enable=True,smart_reboot=False)
+            self.locobot.dxl.robot_reboot_motors("group",self.locobot.arm.group_name,enable=True,smart_reboot=False)
+            self.locobot.dxl.robot_reboot_motors("group",self.locobot.camera.group_name,enable=True,smart_reboot=False)
+            self.locobot.dxl.robot_reboot_motors("single","gripper",enable=True,smart_reboot=False)
         
         # check base_reset_odom_cmd
         if (msg.base_reset_odom_cmd == TelecobotUnityControl.RESET_ODOM and self.use_base):
