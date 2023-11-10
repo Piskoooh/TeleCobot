@@ -17,12 +17,22 @@ public class RosConnector : MonoBehaviour
     public CanvasGroup rosUIs;
 
     public VisualizationTopicsTab visualizationTopicsTab;
-    public SubJointState subJointState;
-    public SubMoveitResponce subMoveitResponce;
+    public SubTF subTF;
+    //public SubJointState subJointState;
+    //public SubCmdVel subCmdVel;
     public PubRosClock pubRosClock;
-    public PubROSTransformTree pubROSTransformTree;
-    public PubTargetEndEffector pubTargetEndEffector;
-    public PubTelecobotArmControl pubTelecobotArmControl;
+    //public PubROSTransformTree pubROSTransformTree;
+    //public PubTelecobotArmControl pubTelecobotArmControl;
+    //public PubTelecobotBaseControl pubTelecobotBaseControl;
+    public PubUnityControl pubUnityControl;
+
+    public bool isDebug = true;
+
+    private void Awake()
+    {
+        if (!isDebug)
+            Debug.unityLogger.logEnabled = false;
+    }
 
     private void Start()
     {
@@ -43,7 +53,7 @@ public class RosConnector : MonoBehaviour
     IEnumerator DummyPhotonConect()
     {
         punConnectionStatusText.text = "Photon : Connecting";
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         OnPhotonConnect();
     }
 
@@ -74,6 +84,7 @@ public class RosConnector : MonoBehaviour
         punConnected = true;
         punConnectionStatusText.text = "Photon : Connected";
         punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        punConnectButton.interactable = true;
         rosConnectButton.interactable = true;
 
     }
@@ -101,6 +112,7 @@ public class RosConnector : MonoBehaviour
         {
             DisconnectFromROS();
         }
+        punConnectButton.interactable = true;
         rosConnectButton.interactable = false;
         punConnected = false;
         punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
@@ -144,20 +156,24 @@ public class RosConnector : MonoBehaviour
         rosConnected = true;
         rosConnectionStatusText.text = "ROS : Connected";
         rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        punConnectButton.interactable = true;
+        rosConnectButton.interactable = true;
         rosUIs.interactable = true;
 
         //visualization
         visualizationTopicsTab.OnRosConnect();
 
         //subscribe
-        subJointState.OnRosConnect();
+        subTF.OnRosConnect();
+        //subJointState.OnRosConnect();
+        //subCmdVel.OnRosConnect();
 
         //publish
         pubRosClock.OnRosConnect();
-        pubROSTransformTree.OnRosConnect();
-        //pubTargetEndEffector.OnRosConnect();
-        pubTelecobotArmControl.OnRosConnect();
-
+        //pubROSTransformTree.OnRosConnect();
+        //pubTelecobotArmControl.OnRosConnect();
+        //pubTelecobotBaseControl.OnRosConnect();
+        pubUnityControl.OnRosConnect();
     }
 
     public void DisconnectFromROS()　//ROSから切断するために呼び出す関数
@@ -171,6 +187,16 @@ public class RosConnector : MonoBehaviour
                 rosConnectionStatusText.text = "ROS : Disconnected";
                 rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
                 rosUIs.interactable = false;
+                punConnectButton.interactable = true;
+                rosConnectButton.interactable = true;
+
+                //Stop publish
+                pubRosClock.OnRosDisconnected();
+                //pubROSTransformTree.OnRosDisconnected();
+                //pubTelecobotArmControl.OnRosDisconnected();
+                //pubTelecobotBaseControl.OnRosDisconnected();
+                pubUnityControl.OnRosDisconnected();
+
             }
             catch (Exception e)
             {
@@ -185,11 +211,15 @@ public class RosConnector : MonoBehaviour
 
     public void punButton()
     {
+        punConnectButton.interactable = false;
+        rosConnectButton.interactable = false;
         if (punConnected == false) ConnectToPun();
         else DisconnectFromPun();
     }
     public void rosButton()
     {
+        punConnectButton.interactable = false;
+        rosConnectButton.interactable = false;
         if (rosConnected == false) ConnectToROS();
         else DisconnectFromROS();
     }

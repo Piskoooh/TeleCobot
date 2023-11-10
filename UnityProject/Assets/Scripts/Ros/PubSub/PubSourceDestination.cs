@@ -1,5 +1,5 @@
 using RosMessageTypes.Geometry;
-using RosMessageTypes.Telecobot_ros_unity;
+using RosMessageTypes.TelecobotRosUnity;
 using Unity.Robotics.ROSTCPConnector;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using Unity.Robotics.UrdfImporter;

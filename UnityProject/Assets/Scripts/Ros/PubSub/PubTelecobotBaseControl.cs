@@ -6,15 +6,16 @@ using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using Unity.Robotics.UrdfImporter;
 using UnityEngine;
 
-public class PubTelecobotArmControl : MonoBehaviour
+public class PubTelecobotBaseControl : MonoBehaviour
 {
-    private static readonly string TopicName = "/telecobot_arm_control";
+    private static readonly string TopicName = "/telecobot_base_control";
     private static readonly Quaternion PickOrientation = Quaternion.Euler(0, 0, 0);
 
+    public UrdfJointRevolute[] jointArticulationBodies;
     public GameObject endEffector;
-    public GameObject armBaseLink;
+    public GameObject BaseLink;
     [HideInInspector]
-    public ArmControlMode armControlMode;
+    public BaseControlMode baseControlMode;
     [HideInInspector]
     public Transform target = null;
 
@@ -28,7 +29,7 @@ public class PubTelecobotArmControl : MonoBehaviour
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
     private ROSConnection m_Ros;
-    private TelecobotArmControlMsg armMsg;
+    private TelecobotBaseControlMsg baseMsg;
     private bool isConnected=false;
     bool flag;
 
@@ -36,7 +37,7 @@ public class PubTelecobotArmControl : MonoBehaviour
     {
         isConnected = false;
         flag = false;
-        armControlMode = ArmControlMode.Home;
+        baseControlMode = BaseControlMode.Sleep;
     }
 
     public void OnRosConnect()
@@ -44,10 +45,10 @@ public class PubTelecobotArmControl : MonoBehaviour
         m_Ros = ROSConnection.GetOrCreateInstance();
         if (flag == false)
         {
-            m_Ros.RegisterPublisher<TelecobotArmControlMsg>(TopicName);
+            m_Ros.RegisterPublisher<TelecobotBaseControlMsg>(TopicName);
             flag = true;
         }
-        armMsg = new TelecobotArmControlMsg();
+        baseMsg = new TelecobotBaseControlMsg();
         isConnected = true;
 
         m_LastPublishTimeSeconds = RosClock.time + PublishPeriodSeconds;
@@ -61,37 +62,29 @@ public class PubTelecobotArmControl : MonoBehaviour
     public void Publish()
     {
         // Unity上で選択されているモードをMsgに入力
-        armMsg.arm_control_mode = (int)armControlMode;
+        baseMsg.base_control_mode = (int)baseControlMode;
 
-        m_Ros.Publish(TopicName, armMsg);
+        m_Ros.Publish(TopicName, baseMsg);
         m_LastPublishTimeSeconds = RosClock.FrameStartTimeInSeconds;
     }
 
     public void PublishTransform()
     {
-        armMsg.arm_control_mode = (int)ArmControlMode.PublishTarget;
+        baseMsg.base_control_mode = (int)ArmControlMode.PublishTarget;
+
         // 目標位置を格納
         if (target != null)
         {
-            armMsg.goal_pose = new PoseMsg
+            baseMsg.goal = new PoseMsg
             {
                 //position = target.transform.position.To<FLU>(),
-                position = target.localPosition.To<FLU>(),
-                //orientation = Quaternion.Euler(target.transform.eulerAngles.x,
-                //                               target.transform.eulerAngles.y,
-                //                               target.transform.eulerAngles.z).To<FLU>()
-                orientation = Quaternion.Euler(90, target.eulerAngles.y, 0).To<FLU>()
+                position = target.position.To<FLU>(),
+                orientation = Quaternion.Euler(target.transform.eulerAngles.x,
+                                               target.transform.eulerAngles.y,
+                                               target.transform.eulerAngles.z).To<FLU>()
             };
         };
-        // エンドエフェクタの位置を格納
-        armMsg.end_effector_pose = new PoseMsg
-        {
-            position = endEffector.transform.position.To<FLU>(),
-            orientation = Quaternion.Euler(endEffector.transform.eulerAngles.x,
-                                            endEffector.transform.eulerAngles.y,
-                                            endEffector.transform.eulerAngles.z).To<FLU>()
-        };
-        m_Ros.Publish(TopicName, armMsg);
+        m_Ros.Publish(TopicName, baseMsg);
     }
 
     //常にパブリッシュし続ける
