@@ -1,5 +1,6 @@
 
-//UI????????????????????????????
+//場合分け管理のためにenumを使用
+//定数に名称を付与
 
 public enum PhotonConnection
 {
@@ -22,8 +23,10 @@ public enum ControlMode
     Unkown=999
 }
 
-public enum SemiAutoMaticCommands
+public enum SemiAutomaticCommands
 {
+    Disable=999,
+    Available=888,
     //ArmPose
     Sleep=10,
     Home=11,

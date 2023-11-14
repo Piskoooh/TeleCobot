@@ -21,7 +21,7 @@ public class buttonControl : MonoBehaviour
     private GameObject visualIndicator;
 
     //各モードを名称で管理できるようにするようにenumを定義。
-    private SemiAutoMaticCommands semiAutoCmd;
+    private SemiAutomaticCommands semiAutoCmd;
     
     // Start is called before the first frame update
     void Start()
@@ -38,18 +38,18 @@ public class buttonControl : MonoBehaviour
     
     void sleepbtnPressed()
     {
-        semiAutoCmd = SemiAutoMaticCommands.Sleep;
+        semiAutoCmd = SemiAutomaticCommands.Sleep;
     }
 
     void homebtnPressed()
     {
-        semiAutoCmd = SemiAutoMaticCommands.Home;
+        semiAutoCmd = SemiAutomaticCommands.Home;
 
     }
 
     void setPosebtnPressed()
     {
-        semiAutoCmd = SemiAutoMaticCommands.PlaceTarget;
+        semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
         CreateOrResetTargetObject();
         if (visualIndicator == null)
         {
@@ -59,7 +59,7 @@ public class buttonControl : MonoBehaviour
 
     void pubPosebtnPressed()
     {
-        semiAutoCmd = SemiAutoMaticCommands.PublishTarget;
+        semiAutoCmd = SemiAutomaticCommands.PublishTarget;
         PickTarget();
     }
 
@@ -112,7 +112,7 @@ public class buttonControl : MonoBehaviour
             if (direction.magnitude <= 0.5f && targetObject.transform.localPosition.z > armBaseLinkPosition.z /*&& targetObject.transform.position.y > 0*/)
             {
                 var target = targetObject.transform;
-                pubUnityControl.PubEeMoveitPose(target);
+                pubUnityControl.PubMoveitPose();
                 setPosebtnPressed();
                 return;
             }
@@ -131,7 +131,7 @@ public class buttonControl : MonoBehaviour
     {
         switch (semiAutoCmd)
         {
-            case SemiAutoMaticCommands.Sleep:
+            case SemiAutomaticCommands.Sleep:
                 sleepButton.interactable = false;
                 homeButton.interactable = true;
                 setPoseButton.interactable = false;
@@ -141,7 +141,7 @@ public class buttonControl : MonoBehaviour
                 if (visualIndicator != null) Destroy(visualIndicator);
                 setPoseButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
                 break;
-            case SemiAutoMaticCommands.Home:
+            case SemiAutomaticCommands.Home:
                 sleepButton.interactable = true;
                 homeButton.interactable = false;
                 setPoseButton.interactable = true;
@@ -151,7 +151,7 @@ public class buttonControl : MonoBehaviour
                 if (visualIndicator != null) Destroy(visualIndicator);
                 setPoseButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
                 break;
-            case SemiAutoMaticCommands.PlaceTarget:
+            case SemiAutomaticCommands.PlaceTarget:
                 sleepButton.interactable = true;
                 homeButton.interactable = true;
                 setPoseButton.interactable = true;
@@ -168,7 +168,7 @@ public class buttonControl : MonoBehaviour
                     else visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(1f, 0f, 0.5f, 0.2f);
                 }
                 break;
-            case SemiAutoMaticCommands.PublishTarget:
+            case SemiAutomaticCommands.PublishTarget:
                 sleepButton.interactable = true;
                 homeButton.interactable = true;
                 setPoseButton.interactable = true;
