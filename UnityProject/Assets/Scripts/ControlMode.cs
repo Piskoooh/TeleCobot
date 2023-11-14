@@ -7,17 +7,21 @@ public enum PhotonConnection
     Connect=1,
     Disconnect=0,
 }
+
 public enum RosConnection
 {
     Connect=1,
     Disconnect=0,
 }
+
 public enum ControlMode
 {
     //How to Control Locobot?
     ManualControl = 900,
     SemiAutomaticControl = 801,
+    Unkown=999
 }
+
 public enum SemiAutoMaticCommands
 {
     //ArmPose

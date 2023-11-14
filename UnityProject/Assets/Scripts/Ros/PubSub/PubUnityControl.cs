@@ -1,6 +1,5 @@
 using RosMessageTypes.Geometry;
 using RosMessageTypes.TelecobotRosUnity;
-using RosMessageTypes.InterbotixXs;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
@@ -45,7 +44,7 @@ public class PubUnityControl : MonoBehaviour
 
     }
 
-    //連続でPubしたいメッセージ
+    //コントローラなどの入力デバイスからの入力内容に応じてPubするメッセージを変更
     public void PublishJoy()
     {
         // Check the speed_cmd
@@ -159,6 +158,26 @@ public class PubUnityControl : MonoBehaviour
             controlMsg.motor_cmd = TelecobotUnityControlMsg.DISABLE_TORQUE;
         else controlMsg.motor_cmd = 0;
 
+        // Check the base_cmd
+        if (inputMng.moveBase)
+        {
+            controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
+            //controlMsg.pose_data=(x,y,yaw)
+        }
+
+        // Check the arm_cmd
+        if (inputMng.cartesian)
+        {
+            controlMsg.arm_cmd = TelecobotUnityControlMsg.SET_EE_CARTESIAN_TRAJECTORY;
+            //controlMsg.pose_data=(x,y,z,roll,pitch)
+        }
+        else if (inputMng.moveit)
+        {
+            controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVEIT;
+            //PubEeMoveitPose();
+        }
+
+        // After checking all cmds publish all msg to /unity_control topic.
         //Debug.LogWarning("PublishedJoyMsg!!");
         ros.Publish(ControlTopic, controlMsg);
     }
@@ -166,16 +185,14 @@ public class PubUnityControl : MonoBehaviour
     //LocobotBase(Create3)
     public void PubMoveToPose()
     {
-        ros.Publish(ControlTopic, controlMsg);
 
     }
 
     //LocobotArm
     public void PubEeGoalPose()
     {
-        ros.Publish(ControlTopic, controlMsg);
-    }
 
+    }
     public void PubEeMoveitPose(Transform target)
     {
         controlMsg.goal_pose = new PoseMsg
