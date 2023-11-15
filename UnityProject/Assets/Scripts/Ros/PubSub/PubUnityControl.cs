@@ -227,22 +227,17 @@ public class PubUnityControl : MonoBehaviour
         }
 
         // Check the base_cmd or arm_cmd
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishGoal)
+        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishGoal&&inputMng.setGoalOrTarget)
         {
-            if (inputMng.setGoalOrTarget)
-            {
-                controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
-                //controlMsg.pose_data=(x,y,yaw)
-                Debug.LogWarning("Method for publishing goal pose data is not implemented.");
-            }
+            controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
+            //controlMsg.pose_data=(x,y,yaw)
+            Debug.LogWarning("Method for publishing goal pose data is not implemented.");
         }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)
+        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget&&inputMng.setGoalOrTarget)
         {
-            if (inputMng.setGoalOrTarget)
-            {
-                controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVEIT;
-                uIMng.PickTarget();
-            }
+            //controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVEIT;
+            controlMsg.arm_cmd = TelecobotUnityControlMsg.SET_EE_CARTESIAN_TRAJECTORY;
+            uIMng.PickTarget();
         }
         else Debug.LogWarning("Unknown commands. somting went wrong.");
     }
@@ -254,16 +249,28 @@ public class PubUnityControl : MonoBehaviour
     }
 
     //LocobotArm
-    public void PubEeGoalPose()
+    public void PubTargetPose()
     {
-
+        //Eeの変化量をPub
+        var displacementPose = uIMng.eeGripper.transform.position - endEffector.transform.position;
+        var displacementAngle = uIMng.eeGripper.transform.eulerAngles - endEffector.transform.eulerAngles;
+        controlMsg.pose_data=new double[5];
+        controlMsg.pose_data[0] = displacementPose.z;
+        controlMsg.pose_data[1] = 0;
+        controlMsg.pose_data[2] = displacementPose.y;
+        //-180~180に正規化
+        var rotX = (Mathf.Repeat(displacementAngle.z + 180, 360) - 180);
+        var rotZ= (Mathf.Repeat(displacementAngle.y + 180, 360) - 180) * -1;
+        //度をラジアンに変換しPub
+        controlMsg.pose_data[3] = Mathf.Deg2Rad * rotX;
+        controlMsg.pose_data[4] = Mathf.Deg2Rad * rotZ;
     }
     public void PubMoveitPose()
     {
         controlMsg.goal_pose = new PoseMsg
         {
-            position = uIMng.target.transform.localPosition.To<FLU>(),
-            orientation = Quaternion.Euler(90, uIMng.target.transform.eulerAngles.y, 0).To<FLU>()
+            position = uIMng.eeGripper.transform.localPosition.To<FLU>(),
+            orientation = Quaternion.Euler(90, uIMng.eeGripper.transform.eulerAngles.y, 0).To<FLU>()
         };
         
         // エンドエフェクタの位置を格納
@@ -281,7 +288,7 @@ public class PubUnityControl : MonoBehaviour
     {
         if (rosConnector.rosConnection==RosConnection.Connect)
         {
-            if (ShouldPublishMessage)
+            //if (ShouldPublishMessage)
             {
                 //共通操作のコマンド変化をチェック
                 PublishCmd();

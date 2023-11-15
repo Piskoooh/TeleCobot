@@ -250,10 +250,10 @@ MonoBehaviour:
   rosConnection_Text: {fileID: 1591832010}
   punConnectButton: {fileID: 553302617}
   rosConnectButton: {fileID: 1761263311}
-  targetPrefab: {fileID: 2656951029731348493, guid: 404d68f252e184e6a9e4204837c65a20, type: 3}
+  targetPrefab: {fileID: 5476155048807204260, guid: 370e9b4a21e8346bc973e21bd41d0ecf, type: 3}
   visualIndicatorPrefab: {fileID: 7954621867942882770, guid: ffee025e323114bb898036a550891c75, type: 3}
-  target: {fileID: 0}
   visualIndicator: {fileID: 0}
+  eeGripper: {fileID: 0}
 --- !u!1 &124430261
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 67.1
+  m_fontSize: 44.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -519,8 +519,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 400, y: 75}
+  m_AnchoredPosition: {x: 0, y: -30}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &553302615
 GameObject:
@@ -1529,7 +1529,7 @@ MonoBehaviour:
     m_ActionName: LocobotSemiAuto/MoveTargetX2[/Keyboard/e,/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: LocobotManual
+  m_DefaultActionMap: LocobotSemiAuto
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &931117679

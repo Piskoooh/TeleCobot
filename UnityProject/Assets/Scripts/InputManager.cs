@@ -315,7 +315,7 @@ public class InputManager : MonoBehaviour
     public void OnMoveBase(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveBase called");
-        if (context.started)
+        if (context.performed)
         {
             moveBase = context.ReadValueAsButton();
             semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
@@ -326,7 +326,7 @@ public class InputManager : MonoBehaviour
     public void OnMoveArm(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveArm called");
-        if (context.started)
+        if (context.performed)
         {
             moveArm = context.ReadValueAsButton();
             semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
@@ -339,14 +339,13 @@ public class InputManager : MonoBehaviour
         Debug.Log("OnSetGoalOrTarget called");
         if (context.performed)
         {
+            setGoalOrTarget = context.ReadValueAsButton();
             if (semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
             {
-                setGoalOrTarget = context.ReadValueAsButton();
                 semiAutoCmd = SemiAutomaticCommands.PublishGoal;
             }
             else if (semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
             {
-                setGoalOrTarget = context.ReadValueAsButton();
                 semiAutoCmd = SemiAutomaticCommands.PublishTarget;
             }
             else Debug.LogWarning("Goal or Target is not set in the scene. Press 'Dpad-up' to set base goal or 'Dpad-down' to set arm target.");
