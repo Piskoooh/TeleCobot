@@ -11,12 +11,13 @@ public class InputManager : MonoBehaviour
     [HideInInspector]
     public bool speedInc, speedDec, speedCourse, speedFine, gripperPwmInc, gripperPwmDec, gripperOpen, gripperClose,
         armHomePose, armSleepPose, panTiltHome, rebootError, rebootAll, torqueEnable, torqueDisable,
-        moveBase, cartesian, moveit;
+        moveBase, moveArm, setGoalOrTarget;
 
     [HideInInspector]
-    public float waistRotate, eeX, eeZ, baseX, baseRotate, eeRoll, eePitch, pan, tilt;
+    public float baseX, baseRotate, waistRotate, eeX, eeZ, eeRoll, eePitch, pan, tilt, targetX, targetY, targetZ;
 
     public ControlMode controlMode=ControlMode.ManualControl;
+    public SemiAutomaticCommands semiAutoCmd = SemiAutomaticCommands.Disable;
     public PlayerInput playerInput;
     InputActionMap manual;
     InputActionMap semiAuto;
@@ -30,10 +31,12 @@ public class InputManager : MonoBehaviour
         if (currentActionMap == manual)
         {
             controlMode = ControlMode.ManualControl;
+            semiAutoCmd = SemiAutomaticCommands.Disable;
         }
         else if (currentActionMap == semiAuto)
         {
             controlMode = ControlMode.SemiAutomaticControl;
+            semiAutoCmd = SemiAutomaticCommands.Home;
         }
         else controlMode = ControlMode.Unkown;
     }
@@ -67,7 +70,7 @@ public class InputManager : MonoBehaviour
     public void OnGripperOpen(InputAction.CallbackContext context)
     {
         Debug.Log("OnGripperOpen called");
-        if (context.started)
+        if (context.performed)
         {
             gripperOpen = context.ReadValueAsButton();
         }
@@ -80,7 +83,7 @@ public class InputManager : MonoBehaviour
     public void OnGripperClose(InputAction.CallbackContext context)
     {
         Debug.Log("OnGripperClose called");
-        if (context.started)
+        if (context.performed)
         {
             gripperClose = context.ReadValueAsButton();
         }
@@ -93,7 +96,7 @@ public class InputManager : MonoBehaviour
     public void OnWaistRotate(InputAction.CallbackContext context)
     {
         Debug.Log("OnWaistRotate called");
-        if (context.started)
+        if (context.performed)
         {
             waistRotate = context.ReadValue<float>();
         }
@@ -106,9 +109,10 @@ public class InputManager : MonoBehaviour
     public void OnArmHomePose(InputAction.CallbackContext context)
     {
         Debug.Log("OnArmHomePose called");
-        if (context.started)
+        if (context.performed)
         {
             armHomePose = context.ReadValueAsButton();
+            if (controlMode == ControlMode.SemiAutomaticControl) semiAutoCmd = SemiAutomaticCommands.Home;
         }
         else if (context.canceled)
         {
@@ -119,9 +123,10 @@ public class InputManager : MonoBehaviour
     public void OnArmSleepPose(InputAction.CallbackContext context)
     {
         Debug.Log("OnArmSleepPose called");
-        if (context.started)
+        if (context.performed)
         {
             armSleepPose = context.ReadValueAsButton();
+            if (controlMode == ControlMode.SemiAutomaticControl) semiAutoCmd = SemiAutomaticCommands.Sleep;
         }
         else if (context.canceled)
         {
@@ -132,7 +137,7 @@ public class InputManager : MonoBehaviour
     public void OnPanTiltHome(InputAction.CallbackContext context)
     {
         Debug.Log("OnPanTiltHome called");
-        if (context.started)
+        if (context.performed)
         {
             panTiltHome = context.ReadValueAsButton();
         }
@@ -236,7 +241,7 @@ public class InputManager : MonoBehaviour
     public void OnRebootError(InputAction.CallbackContext context)
     {
         Debug.Log("OnRebootError called");
-        if (context.started)
+        if (context.performed)
         {
             rebootError= context.ReadValueAsButton();
         }
@@ -249,7 +254,7 @@ public class InputManager : MonoBehaviour
     public void OnRebootAll(InputAction.CallbackContext context)
     {
         Debug.Log("OnRebootAll called");
-        if (context.started)
+        if (context.performed)
         {
             rebootAll = context.ReadValueAsButton();
         }
@@ -262,7 +267,7 @@ public class InputManager : MonoBehaviour
     public void OnTorqueEnable(InputAction.CallbackContext context)
     {
         Debug.Log("OnTorqueEnable called");
-        if (context.started)
+        if (context.performed)
         {
             torqueEnable = context.ReadValueAsButton();
         }
@@ -275,7 +280,7 @@ public class InputManager : MonoBehaviour
     public void OnTorqueDisable(InputAction.CallbackContext context)
     {
         Debug.Log("OnTorqueDisable called");
-        if (context.started)
+        if (context.performed)
         {
             torqueDisable = context.ReadValueAsButton();
         }
@@ -290,17 +295,19 @@ public class InputManager : MonoBehaviour
     public void OnSwitchMode(InputAction.CallbackContext context)
     {
         Debug.Log("OnSwitchMode called");
-        if (context.started)
+        if (context.performed)
         {
             if (controlMode == ControlMode.ManualControl && playerInput.currentActionMap == manual)
             {
                 controlMode = ControlMode.SemiAutomaticControl;
                 playerInput.SwitchCurrentActionMap("LocobotSemiAuto");
+                semiAutoCmd = SemiAutomaticCommands.Home;
             }
             else if (controlMode == ControlMode.SemiAutomaticControl && playerInput.currentActionMap == semiAuto)
             {
                 controlMode = ControlMode.ManualControl;
                 playerInput.SwitchCurrentActionMap("LocobotManual");
+                semiAutoCmd = SemiAutomaticCommands.Disable;
             }
         }
     }
@@ -308,30 +315,84 @@ public class InputManager : MonoBehaviour
     public void OnMoveBase(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveBase called");
+        if (context.started)
+        {
+            moveBase = context.ReadValueAsButton();
+            semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
+        }
+        else if (context.canceled) moveBase = false;
     }
 
     public void OnMoveArm(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveArm called");
+        if (context.started)
+        {
+            moveArm = context.ReadValueAsButton();
+            semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
+        }
+        else if (context.canceled) moveArm = false;
     }
 
-    public void OnPubGoal(InputAction.CallbackContext context)
+    public void OnSetGoalOrTarget(InputAction.CallbackContext context)
     {
-        Debug.Log("OnSetGoal called");
+        Debug.Log("OnSetGoalOrTarget called");
+        if (context.performed)
+        {
+            if (semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
+            {
+                setGoalOrTarget = context.ReadValueAsButton();
+                semiAutoCmd = SemiAutomaticCommands.PublishGoal;
+            }
+            else if (semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
+            {
+                setGoalOrTarget = context.ReadValueAsButton();
+                semiAutoCmd = SemiAutomaticCommands.PublishTarget;
+            }
+            else Debug.LogWarning("Goal or Target is not set in the scene. Press 'Dpad-up' to set base goal or 'Dpad-down' to set arm target.");
+        }
+        else if (context.canceled)
+        {
+            setGoalOrTarget = false;
+        }
     }
 
     public void OnMoveTargetX(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveTargetX called");
+        if (context.performed)
+        {
+            targetX = context.ReadValue<float>();
+        }
+        else if (context.canceled)
+        {
+            targetX = 0;
+        }
     }
 
     public void OnMoveTargetY(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveTargetY called");
+        if (context.performed)
+        {
+            targetY = context.ReadValue<float>();
+        }
+        else if (context.canceled)
+        {
+            targetY = 0;
+        }
     }
 
     public void OnMoveTargetZ(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveTargetZ called");
+        if (context.performed)
+        {
+            targetZ = context.ReadValue<float>();
+        }
+        else if (context.canceled)
+        {
+            targetZ = 0;
+        }
     }
 }
