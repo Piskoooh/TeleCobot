@@ -19,8 +19,21 @@ public class UIManager : MonoBehaviour
     public GameObject visualIndicatorPrefab;
     [HideInInspector]
     public GameObject visualIndicator, eeGripper;
+    [HideInInspector]
+    public LocalArrow localArrow;
+    public float targetMoveSpeed=0.5f, targetRotateSpeed=0.5f;
     GameObject target;
     Pose pose;
+
+    Transform baseLinkTf => pubUnityControl.base_link.transform;
+    Transform armBaseLinkTf => pubUnityControl.arm_base_link.transform;
+    Transform endEffectorTf => pubUnityControl.endEffector.transform;
+
+    Vector2 b_a => new Vector2(armBaseLinkTf.transform.position.x - baseLinkTf.transform.position.x, armBaseLinkTf.transform.position.z - baseLinkTf.transform.position.z);
+    Vector2 b_aN => b_a.normalized;
+    Vector2 a_ee => new Vector2(endEffectorTf.transform.position.x - armBaseLinkTf.transform.position.x, endEffectorTf.transform.position.z - armBaseLinkTf.transform.position.z);
+    Vector2 a_eg => new Vector2(eeGripper.transform.position.x - armBaseLinkTf.transform.position.x, eeGripper.transform.position.z - armBaseLinkTf.transform.position.z);
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +43,6 @@ public class UIManager : MonoBehaviour
         punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
         rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
         rosConnectButton.interactable = false;
-        pose = new Pose();
     }
 
     /// <summary>
@@ -53,15 +65,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void CreateOrResetTarget()
     {
-        var baseLinkTf = pubUnityControl.base_link.transform;
-        var armBaseLinkTf = pubUnityControl.arm_base_link.transform;
-        var endEffectorTf = pubUnityControl.endEffector.transform;
-
-        Vector2 b_a = new Vector2(armBaseLinkTf.transform.position.x - baseLinkTf.transform.position.x, armBaseLinkTf.transform.position.z - baseLinkTf.transform.position.z);
-        Vector2 b_aN = b_a.normalized;
-        Vector2 e_a = new Vector2(endEffectorTf.transform.position.x - armBaseLinkTf.transform.position.x, endEffectorTf.transform.position.z - armBaseLinkTf.transform.position.z);
-
-        float angle = Vector2.Angle(e_a, b_aN);
+        float angle = Vector2.Angle(a_ee, b_aN);
 
         Vector3 direction = endEffectorTf.position - armBaseLinkTf.position;
         if (direction.magnitude < 0.55f && 90 > angle &&  pubUnityControl.endEffector.transform.position.y > 0 )
@@ -81,6 +85,7 @@ public class UIManager : MonoBehaviour
             resetPose.position = new Vector3(baseLinkTf.position.x + 0.5f * b_aN.x, baseLinkTf.position.y + 0.1f, baseLinkTf.position.z + 0.5f * b_aN.y);
             resetPose.rotation = baseLinkTf.rotation;
             pose = new Pose(resetPose.position,resetPose.rotation);
+            AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
         }
         else
         {
@@ -100,14 +105,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            var baseLinkTf = pubUnityControl.base_link.transform;
-            var armBaseLinkTf = pubUnityControl.arm_base_link.transform;
-
-            Vector2 b_a = new Vector2(armBaseLinkTf.transform.position.x - baseLinkTf.transform.position.x, armBaseLinkTf.transform.position.z - baseLinkTf.transform.position.z);
-            Vector2 b_aN = b_a.normalized;
-            Vector2 t_a = new Vector2(eeGripper.transform.position.x - armBaseLinkTf.transform.position.x, eeGripper.transform.position.z - armBaseLinkTf.transform.position.z);
-
-            float angle = Vector2.Angle(t_a, b_aN);
+            float angle = Vector2.Angle(a_eg, b_aN);
 
             Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
             if (direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0)
@@ -158,19 +156,12 @@ public class UIManager : MonoBehaviour
                 
                 break;
             case SemiAutomaticCommands.PlaceTarget:
+
                 if (visualIndicator != null)
                 {
-                    var baseLinkTf = pubUnityControl.base_link.transform;
-                    var armBaseLinkTf = pubUnityControl.arm_base_link.transform;
+                    float angle = Vector2.Angle(a_eg, b_aN);
 
-                    Vector2 b_a = new Vector2(armBaseLinkTf.transform.position.x - baseLinkTf.transform.position.x, armBaseLinkTf.transform.position.z - baseLinkTf.transform.position.z);
-                    Vector2 b_aN = b_a.normalized;
-                    Vector2 t_a = new Vector2(eeGripper.transform.position.x - armBaseLinkTf.transform.position.x, eeGripper.transform.position.z - armBaseLinkTf.transform.position.z);
-
-                    float angle = Vector2.Angle(t_a, b_aN);
-
-                    Vector3 armBaseLinkPosition = pubUnityControl.arm_base_link.transform.position;
-                    Vector3 direction = eeGripper.transform.position - armBaseLinkPosition;
+                    Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
                     if (direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0)
                     {
                         visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(0.2f, 1f, 0f, 0.2f);
@@ -180,11 +171,84 @@ public class UIManager : MonoBehaviour
 
                 if (target != null)
                 {
+                    pose.position = eeGripper.transform.position;
+                    pose.rotation = eeGripper.transform.rotation;
+                    Vector3 b_a3 = new Vector3(b_aN.x, 0, b_aN.y);
+                    Vector3 b_a3Cross = Vector3.Cross(b_a3, Vector3.down);
+
+                    if (inputMng.targetZ > 0.5)
+                    {
+                        pose.position += b_a3 * targetMoveSpeed * Time.deltaTime;
+                    }
+                    else if (inputMng.targetZ < -0.5)
+                    {
+                        pose.position -= b_a3 * targetMoveSpeed * Time.deltaTime;
+                    }
+                    if (inputMng.targetX > 0.5)
+                    {
+                        pose.position += b_a3Cross * targetMoveSpeed * Time.deltaTime;
+                    }
+                    else if (inputMng.targetX < -0.5)
+                    {
+                        pose.position -= b_a3Cross * targetMoveSpeed * Time.deltaTime;
+                    }
+                    if (inputMng.targetY > 0.5)
+                    {
+                        pose.position += Vector3.up * targetMoveSpeed * Time.deltaTime;
+                    }
+                    else if (inputMng.targetY < -0.5)
+                    {
+                        pose.position -= Vector3.up * targetMoveSpeed * Time.deltaTime;
+                    }
+
+                    
+                    Quaternion xRot = Quaternion.AngleAxis(0, localArrow.l_rN);
+                    Quaternion zRot = Quaternion.AngleAxis(0, localArrow.ef_egN);
+
+                    if (inputMng.eePitch > 0.5)
+                    {
+                        xRot = Quaternion.AngleAxis(-1, localArrow.l_rN);
+
+                        //xRot += targetRotateSpeed * Time.deltaTime;
+                    }
+                    else if (inputMng.eePitch < -0.5)
+                    {
+                        xRot = Quaternion.AngleAxis(1, localArrow.l_rN);
+
+                        //xRot -= targetRotateSpeed * Time.deltaTime;
+                    }
+                    if (inputMng.eeRoll > 0.5)
+                    {
+                        zRot = Quaternion.AngleAxis(1, localArrow.ef_egN);
+
+                        //zRot += targetRotateSpeed * Time.deltaTime;
+                    }
+                    else if (inputMng.eeRoll < -0.5)
+                    {
+                        zRot = Quaternion.AngleAxis(-1, localArrow.ef_egN);
+
+                        //zRot -= targetRotateSpeed * Time.deltaTime;
+                    }
+                    //pose.rotation = Quaternion.Euler(xRot, 0, zRot);
+                    pose.rotation = xRot * zRot * pose.rotation;
+                    //Vector3 rotateDir = new Vector3(inputMng.eeRoll, 0, inputMng.eePitch);
+                    //Quaternion rotateAng = Quaternion.Euler(rotateDir * targetRotateSpeed * Time.deltaTime);
+                    //pose.rotation *= rotateAng;
+
                     AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
                 }
                 break;
             case SemiAutomaticCommands.PublishTarget:
                 break;
+        }
+    }
+
+    public void OnEeCall(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnEeCall called");
+        if (context.started)
+        {
+            localArrow.UpdateEeArrow();
         }
     }
 }
