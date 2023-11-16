@@ -255,15 +255,17 @@ public class PubUnityControl : MonoBehaviour
         var displacementPose = uIMng.eeGripper.transform.position - endEffector.transform.position;
         var displacementAngle = uIMng.eeGripper.transform.eulerAngles - endEffector.transform.eulerAngles;
         controlMsg.pose_data=new double[5];
-        controlMsg.pose_data[0] = displacementPose.z;
-        controlMsg.pose_data[1] = 0;
-        controlMsg.pose_data[2] = displacementPose.y;
+        controlMsg.pose_data[0] = displacementPose.z;//rosX
+        controlMsg.pose_data[1] = 0;//rosY
+        controlMsg.pose_data[2] = displacementPose.y;//rosZ
         //-180~180に正規化
-        var rotX = (Mathf.Repeat(displacementAngle.z + 180, 360) - 180);
-        var rotZ= (Mathf.Repeat(displacementAngle.y + 180, 360) - 180) * -1;
+        var rotZ = (Mathf.Repeat(displacementAngle.z + 180, 360) - 180);//roll-rosX
+        var rotX = (Mathf.Repeat(displacementAngle.x + 180, 360) - 180);//pitch-rosY
+        var rotY = (Mathf.Repeat(displacementAngle.y + 180, 360) - 180);//yaw-rosZ
         //度をラジアンに変換しPub
-        controlMsg.pose_data[3] = Mathf.Deg2Rad * rotX;
-        controlMsg.pose_data[4] = Mathf.Deg2Rad * rotZ;
+        controlMsg.pose_data[3] = Mathf.Deg2Rad * -rotZ;
+        controlMsg.pose_data[4] = Mathf.Deg2Rad * rotX;
+        //controlMsg.pose_data[5] = Mathf.Deg2Rad * rotY;
     }
     public void PubMoveitPose()
     {
