@@ -17,7 +17,7 @@ from moveit_commander.conversions import pose_to_list
 class telecobotUnityController:
     def __init__(self,subTopicName, pubTopicName):
         self.waist_step = 0.06
-        self.current_loop_rate = 25
+        self.current_loop_rate = 40
         self.loop_rates = {"course" : 25, "fine" : 25}
         self.tUC_msg = TelecobotUnityControl()
         self.tUC_mutex = threading.Lock()
@@ -193,8 +193,24 @@ class telecobotUnityController:
         if(msg.arm_cmd!=0):
             if(msg.arm_cmd==TelecobotUnityControl.SET_EE_CARTESIAN_TRAJECTORY):
                 print("Received pose_data from Unity side...")
+                print(msg.pose_data)
                 print("Start to calculate trajectory...")
-                self.locobot.arm.set_ee_cartesian_trajectory(x=msg.pose_data[0],y=0,z=msg.pose_data[2],roll=msg.pose_data[3],pitch=msg.pose_data[4])
+                if(abs(msg.pose_data[1])<0.01):
+                    result=self.locobot.arm.set_ee_cartesian_trajectory(x=msg.pose_data[0],y=0,z=msg.pose_data[2],roll=msg.pose_data[3],pitch=msg.pose_data[4])
+                else:
+                    result=self.locobot.arm.set_ee_cartesian_trajectory(x=msg.pose_data[0],y=msg.pose_data[1],z=msg.pose_data[2],roll=msg.pose_data[3],pitch=msg.pose_data[4])
+                if(result):
+                    print("success>>")
+                else:
+                    print("fail>>")
+                    print("Start to calculate trajectory with anothor method...")
+                    result2=self.locobot.arm.set_relative_ee_position_wrt_to_base_frame(dx=msg.pose_data[0],dy=msg.pose_data[1],dz=msg.pose_data[2])
+                    if(result2):
+                        print("success>>")
+                        print("Finish to calculate trajectory...")
+                    else:
+                        print("fail>>")
+                        print("All methods failed to calculate trajectory...")
 
             elif(msg.arm_cmd==TelecobotUnityControl.MOVEIT):
                 print("Received goal pose from Unity side...")
