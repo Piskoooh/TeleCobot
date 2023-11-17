@@ -112,7 +112,7 @@ public class InputManager : MonoBehaviour
         if (context.performed)
         {
             armHomePose = context.ReadValueAsButton();
-            if (controlMode == ControlMode.SemiAutomaticControl) semiAutoCmd = SemiAutomaticCommands.Home;
+            if (controlMode == ControlMode.SemiAutomaticControl) semiAutoCmd = SemiAutomaticCommands.Available;
         }
         else if (context.canceled)
         {
@@ -126,7 +126,7 @@ public class InputManager : MonoBehaviour
         if (context.performed)
         {
             armSleepPose = context.ReadValueAsButton();
-            if (controlMode == ControlMode.SemiAutomaticControl) semiAutoCmd = SemiAutomaticCommands.Sleep;
+            if (controlMode == ControlMode.SemiAutomaticControl) semiAutoCmd = SemiAutomaticCommands.Available;
         }
         else if (context.canceled)
         {
@@ -237,30 +237,7 @@ public class InputManager : MonoBehaviour
             tilt = 0;
         }
     }
-    public void OnCameraUp(InputAction.CallbackContext context)
-    {
-        Debug.Log("OnEeCameraUp called");
-        if (context.performed)
-        {
-            tilt = context.ReadValue<float>();
-        }
-        else if (context.canceled)
-        {
-            tilt = 0;
-        }
-    }
-    public void OnCameraDown(InputAction.CallbackContext context)
-    {
-        Debug.Log("OnEeCameraDown called");
-        if (context.performed)
-        {
-            tilt = -context.ReadValue<float>();
-        }
-        else if (context.canceled)
-        {
-            tilt = 0;
-        }
-    }
+
     public void OnRebootError(InputAction.CallbackContext context)
     {
         Debug.Log("OnRebootError called");

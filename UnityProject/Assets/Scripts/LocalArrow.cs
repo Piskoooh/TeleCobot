@@ -32,9 +32,9 @@ public class LocalArrow : MonoBehaviour
 
         defL_rN = (rightFinger.position - leftFinger.position).normalized;
         defEef_egN = (eeFinger.position - eeGripper.position).normalized;
+        defEeUpN = Vector3.Cross(defEef_egN, defL_rN).normalized;
         curL_rN = (rightFinger.position - leftFinger.position).normalized;
         curEef_egN = (eeFinger.position - eeGripper.position).normalized;
-        defEeUpN = Vector3.Cross(defEef_egN, defL_rN).normalized;
         curEeUpN = Vector3.Cross(curEef_egN, curL_rN).normalized;
     }
 }

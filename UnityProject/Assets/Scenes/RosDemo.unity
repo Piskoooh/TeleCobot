@@ -1342,22 +1342,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnCameraUp
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 780a8f3c-dcb7-4bf7-9414-b85eb70458a2
-    m_ActionName: LocobotManual1/CameraUpDown(Tilt)
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSwitchMode
         m_Mode: 0
         m_Arguments:
@@ -1590,7 +1574,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnCameraDown
+        m_MethodName: OnCameraUpDown
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1600,8 +1584,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 75ae27a7-e6ca-4190-b8eb-ed5aa96f9e5f
-    m_ActionName: LocobotSemiAuto/CameraUp(Tilt)1
+    m_ActionId: b89b0f64-7747-4301-b0f3-389cbae3b13f
+    m_ActionName: LocobotSemiAuto/CameraUpDown(Tilt)[/SwitchProControllerHID/leftStick/left,/SwitchProControllerHID/leftStick/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotSemiAuto

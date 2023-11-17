@@ -149,8 +149,6 @@ public class UIManager : MonoBehaviour
         {
             case SemiAutomaticCommands.Available:
             case SemiAutomaticCommands.Disable:
-            case SemiAutomaticCommands.Sleep:
-            case SemiAutomaticCommands.Home:
                 if (target != null) Destroy(target);
                 if (visualIndicator != null) Destroy(visualIndicator);
                 
@@ -243,9 +241,12 @@ public class UIManager : MonoBehaviour
     public void OnEeCall(InputAction.CallbackContext context)
     {
         Debug.Log("OnEeCall called");
-        if (context.started)
+        if (localArrow)
         {
-            localArrow.UpdateEeArrow();
+            if (context.started)
+            {
+                localArrow.UpdateEeArrow();
+            }
         }
     }
 }

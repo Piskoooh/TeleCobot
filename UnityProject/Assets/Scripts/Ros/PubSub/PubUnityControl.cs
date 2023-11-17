@@ -177,19 +177,7 @@ public class PubUnityControl : MonoBehaviour
     void PublishSemiAutoCmd()
     {
         // Check the pose_cmd
-        if (inputMng.semiAutoCmd == SemiAutomaticCommands.Home)
-        {
-            controlMsg.pose_cmd = TelecobotUnityControlMsg.HOME_POSE;
-            controlMsg.base_cmd = 0;
-            controlMsg.arm_cmd = 0;
-        }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.Sleep)
-        {
-            controlMsg.pose_cmd = TelecobotUnityControlMsg.SLEEP_POSE;
-            controlMsg.base_cmd = 0;
-            controlMsg.arm_cmd = 0;
-        }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.Available)
+        if (inputMng.semiAutoCmd == SemiAutomaticCommands.Available)
         {
             controlMsg.pose_cmd = 0;
             controlMsg.base_cmd = 0;
