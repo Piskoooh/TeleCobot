@@ -1342,7 +1342,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnCameraUpDown
+        m_MethodName: OnCameraUp
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1534,34 +1534,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeRoll
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 62033672}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnEeCall
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e4f91033-dbf3-4c8d-9aa9-01e4f33d1c0c
-    m_ActionName: LocobotSemiAuto/EndEffectorRoll
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEePitch
         m_Mode: 0
         m_Arguments:
@@ -1584,8 +1556,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: b3156959-3b7b-45a8-aff6-ae697addb086
+    m_ActionId: aaf69f13-fd71-4dd3-aa45-58e6cf1a56ad
     m_ActionName: LocobotSemiAuto/EndEffectorPitch
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeRoll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 62033672}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnEeCall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ffd0e7d0-cebc-4593-b6be-437c3117277e
+    m_ActionName: LocobotSemiAuto/EndEffectorRoll
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnCameraDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 75ae27a7-e6ca-4190-b8eb-ed5aa96f9e5f
+    m_ActionName: LocobotSemiAuto/CameraUp(Tilt)1
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotSemiAuto
@@ -1635,7 +1651,6 @@ MonoBehaviour:
   torqueDisable: 0
   moveBase: 0
   moveArm: 0
-  setGoalOrTarget: 0
   baseX: 0
   baseRotate: 0
   waistRotate: 0
@@ -1759,7 +1774,7 @@ MonoBehaviour:
   inputMng: {fileID: 931117680}
   uIMng: {fileID: 62033672}
   rosConnector: {fileID: 1078192550}
-  m_PublishRateHz: 30
+  m_PublishRateHz: 40
 --- !u!1 &1519185675
 GameObject:
   m_ObjectHideFlags: 0

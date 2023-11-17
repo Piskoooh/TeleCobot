@@ -774,9 +774,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CameraUpDown(Tilt)",
+                    "name": "CameraUp(Tilt)",
                     "type": "Value",
                     "id": "780a8f3c-dcb7-4bf7-9414-b85eb70458a2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "CameraDown(Tilt)",
+                    "type": "Value",
+                    "id": "75ae27a7-e6ca-4190-b8eb-ed5aa96f9e5f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -882,22 +891,22 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "EndEffectorRoll",
-                    "type": "Button",
-                    "id": "e4f91033-dbf3-4c8d-9aa9-01e4f33d1c0c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "EndEffectorPitch",
                     "type": "Value",
-                    "id": "b3156959-3b7b-45a8-aff6-ae697addb086",
+                    "id": "aaf69f13-fd71-4dd3-aa45-58e6cf1a56ad",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "EndEffectorRoll",
+                    "type": "Button",
+                    "id": "ffd0e7d0-cebc-4593-b6be-437c3117277e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -955,39 +964,6 @@
                     "action": "PanTiltHome",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "49ec0449-18e1-4fa4-b8e7-1c0d62816ba7",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraUpDown(Tilt)",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "51d0788a-e45f-443f-a958-97824bf68f53",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CameraUpDown(Tilt)",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "4dc6e7e8-7a54-4a25-9cf1-aba2409c3c5d",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CameraUpDown(Tilt)",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "One Modifier",
@@ -1432,7 +1408,7 @@
                 {
                     "name": "negative",
                     "id": "42b29a0c-8584-497a-bd45-d902c037fcd7",
-                    "path": "<Gamepad>/leftStick/down",
+                    "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1443,7 +1419,7 @@
                 {
                     "name": "positive",
                     "id": "49dfd2a1-594c-4766-9f85-f1a86dc58a4d",
-                    "path": "<Gamepad>/leftStick/up",
+                    "path": "<Gamepad>/rightStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1519,7 +1495,7 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "66cd5e6f-0dbe-4dde-9b36-d3db3f9a49b1",
+                    "id": "db612274-e001-460f-a10c-9c7013b8ab0b",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -1530,8 +1506,8 @@
                 },
                 {
                     "name": "negative",
-                    "id": "6cb47a1a-804e-4ec4-9d37-059818db4ec6",
-                    "path": "<Gamepad>/rightStick/left",
+                    "id": "e28655bd-0d17-429d-88c8-2481d47af2f9",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -1541,8 +1517,8 @@
                 },
                 {
                     "name": "positive",
-                    "id": "56a67623-00f7-4c43-a6ea-a569bd59bc0b",
-                    "path": "<Gamepad>/rightStick/right",
+                    "id": "52f18f37-ac4e-4aa3-81e0-4bef808d3fed",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -1552,7 +1528,7 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "85bb23e7-1c23-4afb-a60c-076e7977e72e",
+                    "id": "95fb5178-7745-4ed9-b246-9bd24d681061",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -1563,8 +1539,8 @@
                 },
                 {
                     "name": "negative",
-                    "id": "40a1e251-f255-4e91-9ca3-08eb3493bf8c",
-                    "path": "<Gamepad>/rightStick/down",
+                    "id": "43e6f9dc-a0e8-4a1e-a707-bb1d7b64293f",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -1574,12 +1550,78 @@
                 },
                 {
                     "name": "positive",
-                    "id": "5b3d52d7-f8aa-4fe0-aa23-c65196088ce7",
-                    "path": "<Gamepad>/rightStick/up",
+                    "id": "3f35b8e9-e4ad-4a72-bdff-881585379e1e",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "EndEffectorPitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "50f42845-8f16-4375-9cff-2cc66a431560",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraUp(Tilt)",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "ba4a798c-12e2-4f79-950d-4bbbdcb9efd7",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CameraUp(Tilt)",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "e6d9cb91-285a-49d8-8791-f52e7eff5cbc",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CameraUp(Tilt)",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "4690a36e-d9d1-44e1-bd36-1749e88b5815",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraDown(Tilt)",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "db169269-631c-4684-8b0d-8559160ad51a",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CameraDown(Tilt)",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ded3ae44-2bc6-4d18-b2f9-048ebccaf9b1",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "CameraDown(Tilt)",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

@@ -25,6 +25,9 @@ public class PubUnityControl : MonoBehaviour
     double PublishPeriodSeconds => 1.0f / m_PublishRateHz;
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
+    Vector2 b_aN => new Vector2(arm_base_link.transform.position.x - base_link.transform.position.x, arm_base_link.transform.position.z - base_link.transform.position.z).normalized;
+    Vector2 b_ee => new Vector2(endEffector.transform.position.x - base_link.transform.position.x, endEffector.transform.position.z - base_link.transform.position.z);
+    Vector2 b_eg => new Vector2(uIMng.eeGripper.transform.position.x - base_link.transform.position.x, uIMng.eeGripper.transform.position.z - base_link.transform.position.z);
     bool flag;
 
     static double MAX_BASE_X = 0.7;         // Max translational motion that the base can do is 0.7 m/s
@@ -201,8 +204,6 @@ public class PubUnityControl : MonoBehaviour
             controlMsg.end_effector_pose = null;
             controlMsg.goal_pose = null;
         }
-        //else Debug.LogWarning("publish method or unknown method.");
-
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
         {
             if(inputMng.moveBase)
@@ -213,6 +214,12 @@ public class PubUnityControl : MonoBehaviour
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.BackHome)
         {
             Debug.LogWarning("Back home method is not implemented.");
+        }
+        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishGoal)
+        {
+            controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
+            //controlMsg.pose_data=(x,y,yaw)
+            Debug.LogWarning("Method for publishing goal pose data is not implemented.");
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
         {
@@ -225,15 +232,7 @@ public class PubUnityControl : MonoBehaviour
                 }
             }
         }
-
-        // Check the base_cmd or arm_cmd
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishGoal&&inputMng.setGoalOrTarget)
-        {
-            controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
-            //controlMsg.pose_data=(x,y,yaw)
-            Debug.LogWarning("Method for publishing goal pose data is not implemented.");
-        }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget&&inputMng.setGoalOrTarget)
+        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)
         {
             //controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVEIT;
             controlMsg.arm_cmd = TelecobotUnityControlMsg.SET_EE_CARTESIAN_TRAJECTORY;
@@ -252,21 +251,25 @@ public class PubUnityControl : MonoBehaviour
     public void PubTargetPose()
     {
         //Eeの変化量をPub
-        var displacementPose = uIMng.eeGripper.transform.position - endEffector.transform.position;
+        var rEeG = base_link.transform.InverseTransformPoint(uIMng.eeGripper.transform.position);
+        var rEe = base_link.transform.InverseTransformPoint(endEffector.transform.position);
+        var diff = rEeG - rEe;
+        controlMsg.pose_data = new double[5];
+        controlMsg.pose_data[0] = diff.z;//rosX
+        controlMsg.pose_data[1] = -diff.x;//rosY
+        controlMsg.pose_data[2] = diff.y;//rosZ
+
         var displacementAngle = uIMng.eeGripper.transform.eulerAngles - endEffector.transform.eulerAngles;
-        controlMsg.pose_data=new double[5];
-        controlMsg.pose_data[0] = displacementPose.z;//rosX
-        controlMsg.pose_data[1] = 0;//rosY
-        controlMsg.pose_data[2] = displacementPose.y;//rosZ
         //-180~180に正規化
-        var rotZ = (Mathf.Repeat(displacementAngle.z + 180, 360) - 180);//roll-rosX
         var rotX = (Mathf.Repeat(displacementAngle.x + 180, 360) - 180);//pitch-rosY
         var rotY = (Mathf.Repeat(displacementAngle.y + 180, 360) - 180);//yaw-rosZ
+        var rotZ = (Mathf.Repeat(displacementAngle.z + 180, 360) - 180);//roll-rosX
         //度をラジアンに変換しPub
         controlMsg.pose_data[3] = Mathf.Deg2Rad * -rotZ;
         controlMsg.pose_data[4] = Mathf.Deg2Rad * rotX;
         //controlMsg.pose_data[5] = Mathf.Deg2Rad * rotY;
     }
+
     public void PubMoveitPose()
     {
         controlMsg.goal_pose = new PoseMsg
@@ -290,7 +293,7 @@ public class PubUnityControl : MonoBehaviour
     {
         if (rosConnector.rosConnection==RosConnection.Connect)
         {
-            //if (ShouldPublishMessage)
+            if (ShouldPublishMessage)
             {
                 //共通操作のコマンド変化をチェック
                 PublishCmd();
@@ -304,9 +307,7 @@ public class PubUnityControl : MonoBehaviour
                 {
                     PublishSemiAutoCmd();
                 }
-
                 // After checking all cmds publish all msg to /unity_control topic.
-                //Debug.LogWarning("PublishedJoyMsg!!");
                 ros.Publish(ControlTopic, controlMsg);
             }
         }

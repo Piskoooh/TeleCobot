@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     [HideInInspector]
     public bool speedInc, speedDec, speedCourse, speedFine, gripperPwmInc, gripperPwmDec, gripperOpen, gripperClose,
         armHomePose, armSleepPose, panTiltHome, rebootError, rebootAll, torqueEnable, torqueDisable,
-        moveBase, moveArm, setGoalOrTarget;
+        moveBase, moveArm;
 
     [HideInInspector]
     public float baseX, baseRotate, waistRotate, eeX, eeZ, eeRoll, eePitch, pan, tilt, targetX, targetY, targetZ;
@@ -237,7 +237,30 @@ public class InputManager : MonoBehaviour
             tilt = 0;
         }
     }
-
+    public void OnCameraUp(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnEeCameraUp called");
+        if (context.performed)
+        {
+            tilt = context.ReadValue<float>();
+        }
+        else if (context.canceled)
+        {
+            tilt = 0;
+        }
+    }
+    public void OnCameraDown(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnEeCameraDown called");
+        if (context.performed)
+        {
+            tilt = -context.ReadValue<float>();
+        }
+        else if (context.canceled)
+        {
+            tilt = 0;
+        }
+    }
     public void OnRebootError(InputAction.CallbackContext context)
     {
         Debug.Log("OnRebootError called");
@@ -339,7 +362,6 @@ public class InputManager : MonoBehaviour
         Debug.Log("OnSetGoalOrTarget called");
         if (context.performed)
         {
-            setGoalOrTarget = context.ReadValueAsButton();
             if (semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
             {
                 semiAutoCmd = SemiAutomaticCommands.PublishGoal;
@@ -348,11 +370,11 @@ public class InputManager : MonoBehaviour
             {
                 semiAutoCmd = SemiAutomaticCommands.PublishTarget;
             }
-            else Debug.LogWarning("Goal or Target is not set in the scene. Press 'Dpad-up' to set base goal or 'Dpad-down' to set arm target.");
+            else Debug.LogWarning("Goal or Target is not set in the scene. Press 'L' and 'b' to set base goal or 'L' and 'a' to set arm target.");
         }
         else if (context.canceled)
         {
-            setGoalOrTarget = false;
+            if(semiAutoCmd==SemiAutomaticCommands.PublishGoal||semiAutoCmd==SemiAutomaticCommands.PublishTarget)semiAutoCmd = SemiAutomaticCommands.Available;
         }
     }
 

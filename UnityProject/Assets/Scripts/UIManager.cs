@@ -82,8 +82,10 @@ public class UIManager : MonoBehaviour
 
             //gripperプレハブを使う時
             Pose resetPose;
-            resetPose.position = new Vector3(baseLinkTf.position.x + 0.5f * b_aN.x, baseLinkTf.position.y + 0.1f, baseLinkTf.position.z + 0.5f * b_aN.y);
-            resetPose.rotation = baseLinkTf.rotation;
+            //resetPose.position = new Vector3(baseLinkTf.position.x + 0.5f * b_aN.x, baseLinkTf.position.y + 0.1f, baseLinkTf.position.z + 0.5f * b_aN.y);
+            //resetPose.rotation = baseLinkTf.rotation;
+            resetPose.position = pubUnityControl.endEffector.transform.position;
+            resetPose.rotation = pubUnityControl.endEffector.transform.rotation;
             pose = new Pose(resetPose.position,resetPose.rotation);
             AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
         }
@@ -110,9 +112,7 @@ public class UIManager : MonoBehaviour
             Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
             if (direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0)
             {
-                //pubUnityControl.PubMoveitPose();
                 pubUnityControl.PubTargetPose();
-                inputMng.semiAutoCmd = SemiAutomaticCommands.Available;
                 return;
             }
             else
@@ -127,7 +127,7 @@ public class UIManager : MonoBehaviour
 
     /// <summary>
     /// childの座標と回転がtargetPoseと一致するように、parentを移動。
-    /// parentとchildの間に他のTransformがあっても動作するが、parentとchildは実際に親子関係である必要があり。
+    /// parentとchildの間に他のTransformがあっても動作するが、parentとchildは実際に親子関係である必要あり。
     /// </summary>
     /// <param name="parent">位置合わせの為に動かすオブジェクト</param>
     /// <param name="child">位置を合わせるオブジェクト</param>
@@ -201,39 +201,36 @@ public class UIManager : MonoBehaviour
                         pose.position -= Vector3.up * targetMoveSpeed * Time.deltaTime;
                     }
 
-                    
-                    Quaternion xRot = Quaternion.AngleAxis(0, localArrow.l_rN);
-                    Quaternion zRot = Quaternion.AngleAxis(0, localArrow.ef_egN);
+                    if (inputMng.targetX != 0 || inputMng.targetY != 0 || inputMng.targetZ != 0)
+                    {
+                        // ターゲットへの向きベクトル計算
+                        var dir = (pubUnityControl.arm_base_link.transform.position - pose.position).normalized;
+                        // ターゲットの方向への回転
+                        var lookAtRotation = Quaternion.LookRotation(-dir, Vector3.up);
+                        // 回転補正
+                        var offsetRotation = Quaternion.FromToRotation(-localArrow.defEef_egN,Vector3.forward);
+                        pose.rotation = lookAtRotation * offsetRotation;
+                    }
 
+                    Quaternion xRot = Quaternion.AngleAxis(0, localArrow.curL_rN);
+                    Quaternion zRot = Quaternion.AngleAxis(0, localArrow.curEef_egN);
                     if (inputMng.eePitch > 0.5)
                     {
-                        xRot = Quaternion.AngleAxis(-1, localArrow.l_rN);
-
-                        //xRot += targetRotateSpeed * Time.deltaTime;
+                        xRot = Quaternion.AngleAxis(-1, localArrow.curL_rN);
                     }
                     else if (inputMng.eePitch < -0.5)
                     {
-                        xRot = Quaternion.AngleAxis(1, localArrow.l_rN);
-
-                        //xRot -= targetRotateSpeed * Time.deltaTime;
+                        xRot = Quaternion.AngleAxis(1, localArrow.curL_rN);
                     }
                     if (inputMng.eeRoll > 0.5)
                     {
-                        zRot = Quaternion.AngleAxis(1, localArrow.ef_egN);
-
-                        //zRot += targetRotateSpeed * Time.deltaTime;
+                        zRot = Quaternion.AngleAxis(1, localArrow.curEef_egN);
                     }
                     else if (inputMng.eeRoll < -0.5)
                     {
-                        zRot = Quaternion.AngleAxis(-1, localArrow.ef_egN);
-
-                        //zRot -= targetRotateSpeed * Time.deltaTime;
+                        zRot = Quaternion.AngleAxis(-1, localArrow.curEef_egN);
                     }
-                    //pose.rotation = Quaternion.Euler(xRot, 0, zRot);
                     pose.rotation = xRot * zRot * pose.rotation;
-                    //Vector3 rotateDir = new Vector3(inputMng.eeRoll, 0, inputMng.eePitch);
-                    //Quaternion rotateAng = Quaternion.Euler(rotateDir * targetRotateSpeed * Time.deltaTime);
-                    //pose.rotation *= rotateAng;
 
                     AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
                 }
