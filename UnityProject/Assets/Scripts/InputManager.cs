@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 //InputSystemに入力(Action)があった際に行う処理をまとめたスクリプト
 //有効化するActionMapの切り替えもこのスクリプトのStart()とOnSwitch()で制御。
 //InputSystemについては https://learning.unity3d.jp/8070/　で学べる。
+//Unity Event Invokeを使用
 public class InputManager : MonoBehaviour
 {
     [HideInInspector]
@@ -41,6 +42,7 @@ public class InputManager : MonoBehaviour
         else controlMode = ControlMode.Unkown;
     }
 
+    //マニュアルコントロールモード単体、また両モード共通のコマンド
     public void OnGripperPwmInc(InputAction.CallbackContext context)
     {
         Debug.Log("OnGripperPwmInc called");
@@ -238,6 +240,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    //モーターのエラー時に使用する入力。1回の処理は10秒かからないが、1回の入力で複数回Pubされてしまうので入力後は30秒ほど待つ必要がある。
     public void OnRebootError(InputAction.CallbackContext context)
     {
         Debug.Log("OnRebootError called");
@@ -290,7 +293,6 @@ public class InputManager : MonoBehaviour
         }
     }
 
-
     //ActionMapの切り替え
     public void OnSwitchMode(InputAction.CallbackContext context)
     {
@@ -312,6 +314,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    //以下、SemiAutomaticモード固有の入力
     public void OnMoveBase(InputAction.CallbackContext context)
     {
         Debug.Log("OnMoveBase called");

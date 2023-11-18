@@ -57,6 +57,7 @@ public class PubUnityControl : MonoBehaviour
     }
 
     //コントローラなどの入力デバイスからの入力内容に応じてPubするメッセージを変更
+    //両モード共通のコマンドを確認
     public void PublishCmd()
     {
         // Check the speed_cmd
@@ -73,12 +74,12 @@ public class PubUnityControl : MonoBehaviour
             controlMsg.speed_toggle_cmd = TelecobotUnityControlMsg.SPEED_FINE;
         else controlMsg.speed_toggle_cmd = 0;
 
-        // Check the pan_cmd
-        //if (inputMng.pan >= 0.5)
-        //    controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CCW;
-        //else if (inputMng.pan <= 0.5)
-        //    controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CW;
-        //else controlMsg.pan_cmd = 0;
+        //Check the pan_cmd
+        if (inputMng.pan >= 0.5)
+            controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CCW;
+        else if (inputMng.pan <= 0.5)
+            controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CW;
+        else controlMsg.pan_cmd = 0;
 
         // Check the tilt_cmd
         if (inputMng.tilt >= 0.5)
@@ -130,7 +131,8 @@ public class PubUnityControl : MonoBehaviour
         else controlMsg.pose_cmd = 0;
     }
 
-    void PublishManuCmd()
+    //マニュアルモードのコマンドを確認
+    void PublishManualCmd()
     {
         // Check the base_x_cmd
         controlMsg.base_x_cmd = inputMng.baseX * MAX_BASE_X;
@@ -174,6 +176,7 @@ public class PubUnityControl : MonoBehaviour
         else controlMsg.waist_cmd = 0;
     }
 
+    //セミオートモードのコマンドを確認
     void PublishSemiAutoCmd()
     {
         // Check the pose_cmd
@@ -215,9 +218,7 @@ public class PubUnityControl : MonoBehaviour
             {
                 uIMng.CreateOrResetTarget();
                 if (uIMng.visualIndicator == null)
-                {
                     uIMng.VisualRange();
-                }
             }
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)
@@ -229,14 +230,15 @@ public class PubUnityControl : MonoBehaviour
         else Debug.LogWarning("Unknown commands. somting went wrong.");
     }
 
+    //以下、cmd以外のPubする数値を設定する関数
     //LocobotBase(Create3)
-    public void PubMoveToPose()
+    public void SetMoveToPose()
     {
 
     }
 
     //LocobotArm
-    public void PubTargetPose()
+    public void SetTargetPose()
     {
         //Eeの変化量をPub
         var rEeG = base_link.transform.InverseTransformPoint(uIMng.eeGripper.transform.position);
@@ -258,7 +260,8 @@ public class PubUnityControl : MonoBehaviour
         //controlMsg.pose_data[5] = Mathf.Deg2Rad * rotY;
     }
 
-    public void PubMoveitPose()
+    //Moveitを使用する際はこの関数を呼ぶ。SetTargetPose()を参照している部分を書き換える。
+    public void SetMoveitPose()
     {
         controlMsg.goal_pose = new PoseMsg
         {
@@ -288,7 +291,7 @@ public class PubUnityControl : MonoBehaviour
                 //マニュアル操作の場合のコマンド変化をチェック
                 if (inputMng.controlMode == ControlMode.ManualControl)
                 {
-                    PublishManuCmd();
+                    PublishManualCmd();
                 }
                 //セミオート操作の場合のコマンド変化をチェック(ゴール・ターゲット位置の確定時のみPub)
                 else if (inputMng.controlMode == ControlMode.SemiAutomaticControl)
