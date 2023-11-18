@@ -39,7 +39,6 @@ public class RosConnector : MonoBehaviour
         rosConnection = RosConnection.Disconnect;
         uI.punConnectButton.onClick.AddListener(() => punButton());
         uI.rosConnectButton.onClick.AddListener(() => rosButton());
-
     }
 
     //3秒後にPhotonに接続されているように挙動
@@ -58,18 +57,13 @@ public class RosConnector : MonoBehaviour
             try
             {
                 StartCoroutine("DummyPhotonConect");   //Photon導入前にデバックで使用
-                
             }
             catch (Exception e)
             {
                 uI.punConnection_Text.text = "PUN : Failed to Connect:" + e.Message;
             }
         }
-        else
-        {
-            uI.punConnection_Text.text = "Photon : Connected";
-        }
-
+        else uI.punConnection_Text.text = "Photon : Connected";
     }
 
     public void OnPhotonConnect() // Photonが接続されたときに呼び出される関数
@@ -79,7 +73,6 @@ public class RosConnector : MonoBehaviour
         uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
         uI.punConnectButton.interactable = true;
         uI.rosConnectButton.interactable = true;
-
     }
 
     public void DisconnectFromPun()
@@ -195,9 +188,7 @@ public class RosConnector : MonoBehaviour
             }
         }
         else
-        {
             uI.rosConnection_Text.text = "ROS : Already Disconnected";
-        }
     }
 
     public void punButton()
