@@ -47,7 +47,7 @@ class telecobotUnityController:
             self.T_yb = np.identity(4)
             self.update_T_yb()
         rospy.Subscriber(subTopicName, TelecobotUnityControl, self.callback)
-        self.move_group = moveit_commander.MoveGroupCommander("interbotix_arm")
+        # self.move_group = moveit_commander.MoveGroupCommander("interbotix_arm")
 
 
     def update_speed(self, loop_rate):
@@ -212,34 +212,34 @@ class telecobotUnityController:
                         print("fail>>")
                         print("All methods failed to calculate trajectory...")
 
-            elif(msg.arm_cmd==TelecobotUnityControl.MOVEIT):
-                print("Received goal pose from Unity side...")
-                # ターゲットとエンドエフェクタの誤差を計算
-                delta = abs(msg.end_effector_pose.position.x - msg.goal_pose.position.x) \
-                        + abs(msg.end_effector_pose.position.y - msg.goal_pose.position.y) \
-                        + abs(msg.end_effector_pose.position.z - msg.goal_pose.position.z) \
-                        + abs(msg.end_effector_pose.orientation.x - msg.goal_pose.orientation.x) \
-                        + abs(msg.end_effector_pose.orientation.y - msg.goal_pose.orientation.y) \
-                        + abs(msg.end_effector_pose.orientation.z - msg.goal_pose.orientation.z) \
-                        + abs(msg.end_effector_pose.orientation.w - msg.goal_pose.orientation.w)
-                print("delta: ", delta)
-                print("goal_pose: ", msg.goal_pose)
-                print("end_effector_pose: ", msg.end_effector_pose)
-                if delta >0.02:
-                    self.move_group.set_pose_target(msg.goal_pose)
-                    ## Now, we call the planner to compute the plan and execute it.
-                    plan = self.move_group.go(wait=True)
-                    # Calling `stop()` ensures that there is no residual movement
-                    self.move_group.stop()
-                    # It is always good to clear your targets after planning with poses.
-                    # Note: there is no equivalent function for clear_joint_value_targets()
-                    self.move_group.clear_pose_targets()
-                    if plan:
-                        print("success>>")
-                    else:
-                        print("fail>>")
-                    current_pose = self.move_group.get_current_pose().pose
-                    return all_close(msg.goal_pose, current_pose, 0.01)
+            # elif(msg.arm_cmd==TelecobotUnityControl.MOVEIT):
+            #     print("Received goal pose from Unity side...")
+            #     # ターゲットとエンドエフェクタの誤差を計算
+            #     delta = abs(msg.end_effector_pose.position.x - msg.goal_pose.position.x) \
+            #             + abs(msg.end_effector_pose.position.y - msg.goal_pose.position.y) \
+            #             + abs(msg.end_effector_pose.position.z - msg.goal_pose.position.z) \
+            #             + abs(msg.end_effector_pose.orientation.x - msg.goal_pose.orientation.x) \
+            #             + abs(msg.end_effector_pose.orientation.y - msg.goal_pose.orientation.y) \
+            #             + abs(msg.end_effector_pose.orientation.z - msg.goal_pose.orientation.z) \
+            #             + abs(msg.end_effector_pose.orientation.w - msg.goal_pose.orientation.w)
+            #     print("delta: ", delta)
+            #     print("goal_pose: ", msg.goal_pose)
+            #     print("end_effector_pose: ", msg.end_effector_pose)
+            #     if delta >0.02:
+            #         self.move_group.set_pose_target(msg.goal_pose)
+            #         ## Now, we call the planner to compute the plan and execute it.
+            #         plan = self.move_group.go(wait=True)
+            #         # Calling `stop()` ensures that there is no residual movement
+            #         self.move_group.stop()
+            #         # It is always good to clear your targets after planning with poses.
+            #         # Note: there is no equivalent function for clear_joint_value_targets()
+            #         self.move_group.clear_pose_targets()
+            #         if plan:
+            #             print("success>>")
+            #         else:
+            #             print("fail>>")
+            #         current_pose = self.move_group.get_current_pose().pose
+            #         return all_close(msg.goal_pose, current_pose, 0.01)
             self.update_T_yb()
 
         else:    
@@ -319,7 +319,7 @@ def all_close(goal, actual, tolerance):
     return True
 
 def main():
-    moveit_commander.roscpp_initialize(sys.argv)
+    # moveit_commander.roscpp_initialize(sys.argv)
     rospy.init_node('telecobot_controller')
     unityControl=telecobotUnityController("/unity_control","/telecobot_responce")
     while not rospy.is_shutdown():
