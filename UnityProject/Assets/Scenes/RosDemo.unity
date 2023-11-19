@@ -256,7 +256,10 @@ MonoBehaviour:
   eeGripper: {fileID: 0}
   localArrow: {fileID: 0}
   targetMoveSpeed: 0.5
-  targetRotateSpeed: 0.5
+  goalPrefab: {fileID: 3364802394788962328, guid: f85e4ace176f1481b97d2595d56645ee, type: 3}
+  goalMoveSpeed: 7
+  goalRotateSpeed: 5
+  goal: {fileID: 0}
 --- !u!1 &124430261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,6 +1589,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b89b0f64-7747-4301-b0f3-389cbae3b13f
     m_ActionName: LocobotSemiAuto/CameraUpDown(Tilt)[/SwitchProControllerHID/leftStick/left,/SwitchProControllerHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnBaseRotate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eb42357d-739c-4fd6-8993-7ba5c348f7bc
+    m_ActionName: LocobotSemiAuto/GoalRotate[/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotSemiAuto

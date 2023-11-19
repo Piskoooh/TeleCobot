@@ -77,7 +77,7 @@ public class PubUnityControl : MonoBehaviour
         //Check the pan_cmd
         if (inputMng.pan >= 0.5)
             controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CCW;
-        else if (inputMng.pan <= 0.5)
+        else if (inputMng.pan <= -0.5)
             controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CW;
         else controlMsg.pan_cmd = 0;
 
@@ -182,7 +182,6 @@ public class PubUnityControl : MonoBehaviour
         // Check the pose_cmd
         if (inputMng.semiAutoCmd == SemiAutomaticCommands.Available)
         {
-            controlMsg.pose_cmd = 0;
             controlMsg.base_cmd = 0;
             controlMsg.arm_cmd = 0;
         }

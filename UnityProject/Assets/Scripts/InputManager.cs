@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
         else if (currentActionMap == semiAuto)
         {
             controlMode = ControlMode.SemiAutomaticControl;
-            semiAutoCmd = SemiAutomaticCommands.Home;
+            semiAutoCmd = SemiAutomaticCommands.Available;
         }
         else controlMode = ControlMode.Unkown;
     }
@@ -237,6 +237,19 @@ public class InputManager : MonoBehaviour
         else if (context.canceled)
         {
             tilt = 0;
+        }
+    }
+
+    public void OnCameraRightLeft(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnEeCameraRightLeft called");
+        if (context.performed)
+        {
+            pan = context.ReadValue<float>();
+        }
+        else if (context.canceled)
+        {
+            pan = 0;
         }
     }
 
