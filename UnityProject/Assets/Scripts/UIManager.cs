@@ -81,13 +81,10 @@ public class UIManager : MonoBehaviour
         {
             if (target == null)
             {
-                target = Instantiate(targetPrefab, baseLinkTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
+                target = Instantiate(targetPrefab, endEffectorTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
                 target.transform.parent = baseLinkTf;
                 eeGripper = GameObject.FindGameObjectWithTag("end_effector"); //gripperプレハブを使う時
             }
-            //targetプレハブを使う時
-            //target.transform.localPosition = new Vector3(0f, 0.1f, 0.3f);
-            //target.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
 
             //gripperプレハブを使う時
             Pose resetPose;
@@ -100,9 +97,9 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"End effector is outside the specified range or with invalid y value.\n" +
-            $"Direction Magnitude: {direction.magnitude}, Angle: {angle}, Gripper Position Y: {eeGripper.transform.position.y}" +
-            $"\nReturn to Home Position.");
+            Debug.LogWarning($"End effector is outside the specified range or with invalid y value.\n" +
+            $"Direction Magnitude: {direction.magnitude}, Angle: {angle}, Gripper Position Y: {endEffectorTf.position.y}" +
+            $"\nReset arm to 'Home Position'.");
 
             inputMng.semiAutoCmd = SemiAutomaticCommands.Available;
         }
@@ -139,8 +136,8 @@ public class UIManager : MonoBehaviour
             goal = Instantiate(goalPrefab, baseLinkTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
         }
         //targetプレハブを使う時
-        goal.transform.position = new Vector3(0f, 0f, 0.3f);
-        goal.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        //goal.transform.position = new Vector3(0f, 0f, 0.3f);
+        //goal.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     public void CheckGoal()
