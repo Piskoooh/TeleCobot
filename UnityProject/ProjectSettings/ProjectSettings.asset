@@ -577,9 +577,9 @@ PlayerSettings:
   enableInternalProfiler: 0
   logObjCUncaughtExceptions: 1
   enableCrashReportAPI: 0
-  cameraUsageDescription: Use Camera for Intaractive Communication
+  cameraUsageDescription: Use Camera for Intaractive Communication.
   locationUsageDescription: 
-  microphoneUsageDescription: Use Microphone for Intaractive Communication
+  microphoneUsageDescription: Use Microphone for Intaractive Communication.
   bluetoothUsageDescription: 
   macOSTargetOSVersion: 10.13.0
   switchNMETAOverride: 
@@ -590,7 +590,6 @@ PlayerSettings:
   switchScreenResolutionBehavior: 2
   switchUseCPUProfiler: 0
   switchEnableFileSystemTrace: 0
-  switchUseGOLDLinker: 0
   switchLTOSetting: 0
   switchApplicationID: 0x01004b9000490000
   switchNSODependencies: 
