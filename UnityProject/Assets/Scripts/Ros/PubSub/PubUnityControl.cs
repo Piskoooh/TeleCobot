@@ -199,7 +199,8 @@ public class PubUnityControl : MonoBehaviour
         {
             if(inputMng.moveBase)
             {
-                Debug.LogWarning("Place Goal called but not implemented.");
+                Debug.LogWarning("Place Goal called.");
+                uIMng.CreateOrResetGoal();
             }
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.BackHome)
@@ -209,8 +210,8 @@ public class PubUnityControl : MonoBehaviour
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishGoal)
         {
             controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
-            //controlMsg.pose_data=(x,y,yaw)
-            Debug.LogWarning("Method for publishing goal pose data is not implemented.");
+            Debug.LogWarning("Check goal is called.");
+            uIMng.CheckGoal();
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
         {
@@ -234,7 +235,10 @@ public class PubUnityControl : MonoBehaviour
     //LocobotBase(Create3)
     public void SetMoveToPose()
     {
-
+        controlMsg.pose_data = new double[3];
+        controlMsg.pose_data[0] = uIMng.goal.transform.position.z; //x
+        controlMsg.pose_data[1] = -uIMng.goal.transform.position.x; //y
+        controlMsg.pose_data[2] = (Mathf.Repeat(uIMng.goal.transform.rotation.y + 180, 360) - 180) * Mathf.Deg2Rad; //Yaw
     }
 
     //LocobotArm

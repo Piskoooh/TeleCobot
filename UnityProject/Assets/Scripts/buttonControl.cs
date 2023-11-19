@@ -112,7 +112,7 @@ public class buttonControl : MonoBehaviour
             if (direction.magnitude <= 0.5f && targetObject.transform.localPosition.z > armBaseLinkPosition.z /*&& targetObject.transform.position.y > 0*/)
             {
                 var target = targetObject.transform;
-                pubUnityControl.PubMoveitPose();
+                pubUnityControl.SetMoveitPose();
                 setPosebtnPressed();
                 return;
             }

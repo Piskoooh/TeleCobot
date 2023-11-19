@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     public GameObject visualIndicator, eeGripper;
     [HideInInspector]
     public LocalArrow localArrow;
-    public float targetMoveSpeed=0.5f, targetRotateSpeed=0.5f;
+    public float targetMoveSpeed = 0.5f;
     GameObject target;
     Pose pose;
 
@@ -38,6 +38,12 @@ public class UIManager : MonoBehaviour
     Vector2 a_ee => new Vector2(endEffectorTf.transform.position.x - armBaseLinkTf.transform.position.x, endEffectorTf.transform.position.z - armBaseLinkTf.transform.position.z);
     Vector2 a_eg => new Vector2(eeGripper.transform.position.x - armBaseLinkTf.transform.position.x, eeGripper.transform.position.z - armBaseLinkTf.transform.position.z);
 
+    //ロボットベースのゴール指定に関連するUI
+    //シーン上に生成するUI
+    public GameObject goalPrefab;
+    public float goalMoveSpeed = 1f, goalRotateSpeed = 5f;
+    [HideInInspector]
+    public GameObject goal;
 
     // Start is called before the first frame update
     void Start()
@@ -70,7 +76,6 @@ public class UIManager : MonoBehaviour
     public void CreateOrResetTarget()
     {
         float angle = Vector2.Angle(a_ee, b_aN);
-
         Vector3 direction = endEffectorTf.position - armBaseLinkTf.position;
         if (direction.magnitude < 0.55f && 90 > angle &&  pubUnityControl.endEffector.transform.position.y > 0 )
         {
@@ -95,7 +100,10 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("End effector is outside the specified range or with invalid y value.\nDirection Magnitude: " + direction.magnitude + "\nReturn to Home Position.");
+            Debug.Log($"End effector is outside the specified range or with invalid y value.\n" +
+            $"Direction Magnitude: {direction.magnitude}, Angle: {angle}, Gripper Position Y: {eeGripper.transform.position.y}" +
+            $"\nReturn to Home Position.");
+
             inputMng.semiAutoCmd = SemiAutomaticCommands.Available;
         }
     }
@@ -110,7 +118,6 @@ public class UIManager : MonoBehaviour
         else
         {
             float angle = Vector2.Angle(a_eg, b_aN);
-
             Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
             if (direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0)
             {
@@ -118,12 +125,42 @@ public class UIManager : MonoBehaviour
                 return;
             }
             else
-                Debug.Log("Cannot set target outside the specified range or with invalid y value.\nDirection Magnitude: " + direction.magnitude);
+                Debug.Log($"Cannot set target. The target is outside the specified range or has an invalid y value.\n" +
+                            $"Direction Magnitude: {direction.magnitude}, Angle: {angle}, Gripper Position Y: {eeGripper.transform.position.y}");
         }
         CreateOrResetTarget();
         inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
     }
 
+    public void CreateOrResetGoal()
+    {
+        if (goal == null)
+        {
+            goal = Instantiate(goalPrefab, baseLinkTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
+        }
+        //targetプレハブを使う時
+        goal.transform.position = new Vector3(0f, 0f, 0.3f);
+        goal.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+    }
+
+    public void CheckGoal()
+    {
+        if (goal == null)
+            Debug.Log("Goal Object does not exist.");
+        else
+        {
+            //承認しない条件(できればrtabmap上にない座標にGoalがない場合に弾くようにしたい。)
+            if (goal)
+            {
+                pubUnityControl.SetMoveToPose();
+                return;
+            }
+            else
+                Debug.Log("Cannot set target. Something went wrong.");
+        }
+        CreateOrResetGoal();
+        inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
+    }
 
     /// <summary>
     /// childの座標と回転がtargetPoseと一致するように、parentを移動。
@@ -149,13 +186,16 @@ public class UIManager : MonoBehaviour
     {
         controlMode_Text.text = "ControlMode: "+playerInput.currentActionMap.name;
 
+        Vector3 b_a3 = new Vector3(b_aN.x, 0, b_aN.y);
+        Vector3 b_a3Cross = Vector3.Cross(b_a3, Vector3.down);
         switch (inputMng.semiAutoCmd)
         {
             //不要なUIを削除
             case SemiAutomaticCommands.Available:
             case SemiAutomaticCommands.Disable:
-                if (target != null) Destroy(target);
                 if (visualIndicator != null) Destroy(visualIndicator);
+                if (target != null) Destroy(target);
+                if (goal != null) Destroy(goal);
                 break;
             case SemiAutomaticCommands.PlaceTarget:
                 //範囲内ならば緑、範囲外なら赤にUIを変更する。
@@ -163,17 +203,14 @@ public class UIManager : MonoBehaviour
                 {
                     float angle = Vector2.Angle(a_eg, b_aN);
                     Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
-                    if (direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0)
-                        visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(0.2f, 1f, 0f, 0.2f);
-                    else visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(1f, 0f, 0.5f, 0.2f);
+                    bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
+                    visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
                 }
                 //コントローラからの入力値でターゲットを移動・回転
                 if (target != null)
                 {
                     pose.position = eeGripper.transform.position;
                     pose.rotation = eeGripper.transform.rotation;
-                    Vector3 b_a3 = new Vector3(b_aN.x, 0, b_aN.y);
-                    Vector3 b_a3Cross = Vector3.Cross(b_a3, Vector3.down);
                     //ロボットの進行方向に対してグリッパーが移動するように処理
                     if (inputMng.targetZ > 0.5)
                         pose.position += b_a3 * targetMoveSpeed * Time.deltaTime;
@@ -213,18 +250,49 @@ public class UIManager : MonoBehaviour
                     pose.rotation = xRot * zRot * pose.rotation;
                     AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
                 }
+                if (goal != null) Destroy(goal);
                 break;
             case SemiAutomaticCommands.PublishTarget:
                 break;
             case SemiAutomaticCommands.PlaceGoal:
+                if (visualIndicator != null) Destroy(visualIndicator);
+                if (target != null) Destroy(target);
+                if (goal != null)
+                {
+                    if (inputMng.targetZ > 0.5)
+                    {
+                        goal.transform.position += b_a3 * goalMoveSpeed * Time.deltaTime;
+                        goal.transform.rotation = Quaternion.Euler(b_a3);
+                    }
+
+                    else if (inputMng.targetZ < -0.5)
+                    {
+                        goal.transform.position -= b_a3 * goalMoveSpeed * Time.deltaTime;
+                        goal.transform.rotation = Quaternion.Euler(b_a3);
+                    }
+                    if (inputMng.targetX > 0.5)
+                    {
+                        goal.transform.position += b_a3Cross * goalMoveSpeed * Time.deltaTime;
+                        goal.transform.rotation = Quaternion.Euler(b_a3);
+                    }
+                    else if (inputMng.targetX < -0.5)
+                    {
+                        goal.transform.position -= b_a3Cross * goalMoveSpeed * Time.deltaTime;
+                        goal.transform.rotation = Quaternion.Euler(b_a3);
+                    }
+                    if (inputMng.baseRotate > 0.5 || inputMng.baseRotate < -0.5)
+                        goal.transform.Rotate(Vector3.up * Time.deltaTime * goalRotateSpeed * inputMng.baseRotate * 30, Space.World);
+                }
                 break;
             case SemiAutomaticCommands.PublishGoal:
                 break;
         }
     }
-
-    //グリッパーのロールとピッチを指定するための回転の基準となる軸の方向を取得する。
-    //InputSystemのロールとピッチのアクションにコールバックとして呼び出し設定。
+    /// <summary>
+    /// グリッパーのロールとピッチを指定するための回転の基準となる軸の方向を取得する。
+    /// InputSystemのロールとピッチのアクションにコールバックとして呼び出し設定。
+    /// </summary>
+    /// <param name="context"></param>
     public void OnEeCall(InputAction.CallbackContext context)
     {
         Debug.Log("OnEeCall called");
