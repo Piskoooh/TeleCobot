@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 
 namespace Telecobot.Control
 {
+    //JointStateをSubした際に必要なArticulationBodyの係数を設定する。
+    //ロボットの各ジョイント(関節)の剛性などを決定
+    //関の修論では使用は廃止
     public class Controller : MonoBehaviour
     {
         private ArticulationBody[] articulationChain;

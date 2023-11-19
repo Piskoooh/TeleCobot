@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//HMDを使用せずに開発を進める際にMainCameraを制御するスクリプト
+//使用するにはLocalUserのActionMapを有効化する必要がある。
 public class CameraController : MonoBehaviour
 {
     public float movementSpeed = 5.0f;

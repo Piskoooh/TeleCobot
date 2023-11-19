@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Canvas配下のButtonを制御
+//
 public class buttonControl : MonoBehaviour
 {
     public Button sleepButton, homeButton, setPoseButton, pubPoseButton, setGoalButton, pubGoalButton,
@@ -12,37 +14,42 @@ public class buttonControl : MonoBehaviour
 
     public PubUnityControl pubUnityControl;
 
+    //シーン上に生成するUIのプレハブ
     public GameObject targetPrefab;
     public GameObject visualIndicatorPrefab;
     private GameObject targetObject;
     private GameObject visualIndicator;
 
-    private ArmControlMode armControlMode;
-    private BaseControlMode baseControlMode;
-
+    //各モードを名称で管理できるようにするようにenumを定義。
+    private SemiAutomaticCommands semiAutoCmd;
+    
     // Start is called before the first frame update
     void Start()
     {
+        //ボタンが押された際にコールバックする関数を登録。
+        //コールバック：関数が実行された際にが呼び出される関数
+        //今回の場合ボタンを押されたよと報告するUnityEngine.UIに用意されている関数OnClickが実行された際に
+        //このスクリプトで定義している関数を実行するようにここで登録(AddListner())している。
         sleepButton.onClick.AddListener(() => sleepbtnPressed());
         homeButton.onClick.AddListener(() => homebtnPressed());
         setPoseButton.onClick.AddListener(() => setPosebtnPressed());
         pubPoseButton.onClick.AddListener(() => pubPosebtnPressed());
     }
-    //
+    
     void sleepbtnPressed()
     {
-        armControlMode = ArmControlMode.Sleep;
+        semiAutoCmd = SemiAutomaticCommands.Sleep;
     }
 
     void homebtnPressed()
     {
-        armControlMode = ArmControlMode.Home;
+        semiAutoCmd = SemiAutomaticCommands.Home;
 
     }
 
     void setPosebtnPressed()
     {
-        armControlMode = ArmControlMode.PlaceTarget;
+        semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
         CreateOrResetTargetObject();
         if (visualIndicator == null)
         {
@@ -52,7 +59,7 @@ public class buttonControl : MonoBehaviour
 
     void pubPosebtnPressed()
     {
-        armControlMode = ArmControlMode.PublishTarget;
+        semiAutoCmd = SemiAutomaticCommands.PublishTarget;
         PickTarget();
     }
 
@@ -105,7 +112,7 @@ public class buttonControl : MonoBehaviour
             if (direction.magnitude <= 0.5f && targetObject.transform.localPosition.z > armBaseLinkPosition.z /*&& targetObject.transform.position.y > 0*/)
             {
                 var target = targetObject.transform;
-                pubUnityControl.PubEeMoveitPose(target);
+                pubUnityControl.SetMoveitPose();
                 setPosebtnPressed();
                 return;
             }
@@ -122,9 +129,9 @@ public class buttonControl : MonoBehaviour
     //Update?????interactable???
     private void Update()
     {
-        switch (armControlMode)
+        switch (semiAutoCmd)
         {
-            case ArmControlMode.Sleep:
+            case SemiAutomaticCommands.Sleep:
                 sleepButton.interactable = false;
                 homeButton.interactable = true;
                 setPoseButton.interactable = false;
@@ -134,7 +141,7 @@ public class buttonControl : MonoBehaviour
                 if (visualIndicator != null) Destroy(visualIndicator);
                 setPoseButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
                 break;
-            case ArmControlMode.Home:
+            case SemiAutomaticCommands.Home:
                 sleepButton.interactable = true;
                 homeButton.interactable = false;
                 setPoseButton.interactable = true;
@@ -144,7 +151,7 @@ public class buttonControl : MonoBehaviour
                 if (visualIndicator != null) Destroy(visualIndicator);
                 setPoseButton.GetComponentInChildren<TMP_Text>().text = "Track \nMode";
                 break;
-            case ArmControlMode.PlaceTarget:
+            case SemiAutomaticCommands.PlaceTarget:
                 sleepButton.interactable = true;
                 homeButton.interactable = true;
                 setPoseButton.interactable = true;
@@ -161,7 +168,7 @@ public class buttonControl : MonoBehaviour
                     else visualIndicator.GetComponent<MeshRenderer>().material.color = new Color(1f, 0f, 0.5f, 0.2f);
                 }
                 break;
-            case ArmControlMode.PublishTarget:
+            case SemiAutomaticCommands.PublishTarget:
                 sleepButton.interactable = true;
                 homeButton.interactable = true;
                 setPoseButton.interactable = true;
