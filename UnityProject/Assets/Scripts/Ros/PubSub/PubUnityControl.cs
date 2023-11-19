@@ -187,7 +187,6 @@ public class PubUnityControl : MonoBehaviour
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.Disable)
         {
-            controlMsg.pose_cmd = 0;
             controlMsg.base_cmd = 0;
             controlMsg.arm_cmd = 0;
             controlMsg.pose_data = null;
@@ -224,7 +223,7 @@ public class PubUnityControl : MonoBehaviour
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)
         {
             //controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVEIT;
-            controlMsg.arm_cmd = TelecobotUnityControlMsg.SET_EE_CARTESIAN_TRAJECTORY;
+            controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVE_ARM;
             uIMng.PickTarget();
         }
         else Debug.LogWarning("Unknown commands. somting went wrong.");
@@ -305,5 +304,11 @@ public class PubUnityControl : MonoBehaviour
                 ros.Publish(ControlTopic, controlMsg);
             }
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        controlMsg.pose_cmd = TelecobotUnityControlMsg.SLEEP_POSE;
+        ros.Publish(ControlTopic, controlMsg);
     }
 }

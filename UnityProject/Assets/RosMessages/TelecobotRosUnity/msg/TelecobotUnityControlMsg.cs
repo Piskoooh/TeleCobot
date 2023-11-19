@@ -15,12 +15,11 @@ namespace RosMessageTypes.TelecobotRosUnity
 
         //  recieves commands from the unity and sends them to the robot
         public const sbyte MOVE_BASE = 29;
-        public const sbyte SET_EE_CARTESIAN_TRAJECTORY = 30;
-        public const sbyte MOVEIT = 31;
-        public const sbyte ENABLE_TORQUE = 32;
-        public const sbyte DISABLE_TORQUE = 33;
-        public const sbyte REBOOT_ERROR_MOTOR = 34;
-        public const sbyte REBOOT_ALL_MOTOR = 35;
+        public const sbyte MOVE_ARM = 30;
+        public const sbyte ENABLE_TORQUE = 31;
+        public const sbyte DISABLE_TORQUE = 32;
+        public const sbyte REBOOT_ERROR_MOTOR = 33;
+        public const sbyte REBOOT_ALL_MOTOR = 34;
         // ########################################################################################################
         public sbyte reboot_cmd;
         public sbyte motor_cmd;

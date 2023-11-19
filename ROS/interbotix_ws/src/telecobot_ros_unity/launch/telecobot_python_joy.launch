@@ -69,12 +69,7 @@
         <arg name="base_type"                         default="$(optenv INTERBOTIX_XSLOCOBOT_BASE_TYPE create3)"/>
         <arg name="threshold"                         default="0.75"/>
         <arg name="controller"                        default="ps4"/>
-    
-    <!-- interbotix_xslocobot_moveit Launch File Arguments -->
-        <!-- <arg name="external_srdf_loc"                 default=""/>
-        <arg name="dof"                               default="5"/>
-        <arg name="use_fake"                          default="$(arg use_sim)"/> -->
-
+        
     <!-- ROS-TCP-Endpoint Launch file Arguments -->
         <arg name="tcp_ip"                            default="0.0.0.0"/>
         <arg name="tcp_port"                          default="10000"/>
@@ -161,39 +156,12 @@
         <arg name="launch_driver"           value="false"/>
     </include>
 
-    <!-- <include file="$(find interbotix_xslocobot_moveit)/launch/move_group.launch" ns="$(arg robot_name)">
-        <arg name="robot_model"                       value="$(arg robot_model)"/>
-        <arg name="robot_name"                        value="$(arg robot_name)"/>
-        <arg name="show_lidar"                        value="$(arg show_lidar)"/>
-        <arg name="external_srdf_loc"                 value="$(arg external_srdf_loc)"/>
-        <arg name="dof"                               value="$(arg dof)"/>
-        <arg name="use_camera"                        value="$(arg use_camera)"/>
-        <arg name="fake_execution"                    value="$(arg use_fake)"/>
-        <arg name="publish_monitored_planning_scene"  value="true" />
-    </include> -->
-
     <include if="$(arg connect_unity)" file="$(find ros_tcp_endpoint)/launch/endpoint.launch">
         <arg name="tcp_ip"                 value="$(arg tcp_ip)"/>
         <arg name="tcp_port"               value="$(arg tcp_port)"/>
     </include>
 
     <!-- ROS node-->
-    <!-- <rosparam file="$(find interbotix_xslocobot_ros_control)/config/$(arg dof)dof_controllers.yaml" command="load" ns="$(arg robot_name)"/>
-    <rosparam file="$(find interbotix_xslocobot_ros_control)/config/hardware.yaml" command="load" ns="$(arg robot_name)"/>
-    <node
-        name="controller_spawner"
-        pkg="controller_manager"
-        type="controller_manager"
-        respawn="false"
-        output="screen"
-        ns="$(arg robot_name)"
-        args="spawn arm_controller gripper_controller"/>
-    <node
-        name="xs_hardware_interface"
-        pkg="interbotix_xs_ros_control"
-        type="xs_hardware_interface"
-        output="screen"
-        ns="$(arg robot_name)"/> -->
     <node if="$(arg connect_unity)" name="telecobot_controller" pkg="telecobot_ros_unity" type="telecobotController.py" 
         respawn="false" output="screen" ns="$(arg robot_name)">
         <rosparam command="load"                      file="$(find interbotix_xslocobot_moveit_interface)/config/$(arg robot_model).yaml"/>

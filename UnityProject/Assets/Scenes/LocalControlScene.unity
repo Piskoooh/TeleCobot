@@ -913,118 +913,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnGripperPwmInc
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 8c3a9878-0909-43cf-8cee-816d3424e6b2
-    m_ActionName: LocobotJoy/GripperPwm[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/SwitchProControllerHID2/buttonSouth,/SwitchProControllerHID4/buttonSouth,/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID1/buttonNorth,/SwitchProControllerHID2/buttonNorth,/SwitchProControllerHID4/buttonNorth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnGripperOpen
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 8bed876f-a752-448e-9325-f306e6d43943
-    m_ActionName: LocobotJoy/GripperOpen[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/SwitchProControllerHID2/buttonEast,/SwitchProControllerHID4/buttonEast]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnGripperClose
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 0bb10dbb-6d09-43b0-990c-b51a39968ee4
-    m_ActionName: LocobotJoy/GripperClose[/SwitchProControllerHID/buttonWest,/SwitchProControllerHID1/buttonWest,/SwitchProControllerHID2/buttonWest,/SwitchProControllerHID4/buttonWest]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnWaistRotate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5722c176-80b2-44ad-a9b0-029214c7b37b
-    m_ActionName: LocobotJoy/WaistRotate[/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID1/leftTrigger,/SwitchProControllerHID2/leftTrigger,/SwitchProControllerHID4/leftTrigger,/SwitchProControllerHID/rightTrigger,/SwitchProControllerHID1/rightTrigger,/SwitchProControllerHID2/rightTrigger,/SwitchProControllerHID4/rightTrigger]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnArmSleepPose
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e3125580-1a5b-4440-b5d3-1d3ee2563662
-    m_ActionName: LocobotJoy/ArmSleepPose[/SwitchProControllerHID/leftStickPress,/SwitchProControllerHID1/leftStickPress,/SwitchProControllerHID2/leftStickPress,/SwitchProControllerHID4/leftStickPress]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnArmHomePose
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f7cdc7a0-ab5e-459b-b565-02c725fb4897
-    m_ActionName: LocobotJoy/ArmHomePose[/SwitchProControllerHID/rightStickPress,/SwitchProControllerHID1/rightStickPress,/SwitchProControllerHID2/rightStickPress,/SwitchProControllerHID4/rightStickPress]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnPanTiltHome
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 796facfd-1907-4bb0-b734-4733752570f5
-    m_ActionName: LocobotJoy/PanTiltHome[/SwitchProControllerHID/start,/SwitchProControllerHID1/start,/SwitchProControllerHID2/start,/SwitchProControllerHID4/start]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSwitchMode
         m_Mode: 0
         m_Arguments:
@@ -1037,38 +925,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 96292a57-5a95-4c81-b803-c5819c97d359
     m_ActionName: LocobotJoy/SwitchMode[/SwitchProControllerHID/home,/SwitchProControllerHID1/home,/SwitchProControllerHID2/home,/SwitchProControllerHID4/home]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeX
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ded78db5-288c-4e79-9941-b97346c8b903
-    m_ActionName: LocobotJoy/EndEffectorZ(FrontBack)[/SwitchProControllerHID/leftStick/left,/SwitchProControllerHID1/leftStick/left,/SwitchProControllerHID2/leftStick/left,/SwitchProControllerHID4/leftStick/left,/SwitchProControllerHID/leftStick/right,/SwitchProControllerHID1/leftStick/right,/SwitchProControllerHID2/leftStick/right,/SwitchProControllerHID4/leftStick/right]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeZ
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6589b629-b6fd-4dc4-b491-c3339c1e452e
-    m_ActionName: LocobotJoy/EndEffectorY(UpDown)[/SwitchProControllerHID/leftStick/down,/SwitchProControllerHID1/leftStick/down,/SwitchProControllerHID2/leftStick/down,/SwitchProControllerHID4/leftStick/down,/SwitchProControllerHID/leftStick/up,/SwitchProControllerHID1/leftStick/up,/SwitchProControllerHID2/leftStick/up,/SwitchProControllerHID4/leftStick/up]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 931117680}
@@ -1101,54 +957,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6d48580e-5f69-4cf2-8bb5-000c3152437e
     m_ActionName: LocobotJoy/BaseRotate[/SwitchProControllerHID/leftShoulder,/SwitchProControllerHID1/leftShoulder,/SwitchProControllerHID2/leftShoulder,/SwitchProControllerHID4/leftShoulder,/SwitchProControllerHID/rightShoulder,/SwitchProControllerHID1/rightShoulder,/SwitchProControllerHID2/rightShoulder,/SwitchProControllerHID4/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeRoll
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e547f2ce-5753-4125-a58e-08463e222db9
-    m_ActionName: LocobotJoy/EndEffectorRoll[/SwitchProControllerHID/rightStick/left,/SwitchProControllerHID1/rightStick/left,/SwitchProControllerHID2/rightStick/left,/SwitchProControllerHID4/rightStick/left,/SwitchProControllerHID/rightStick/right,/SwitchProControllerHID1/rightStick/right,/SwitchProControllerHID2/rightStick/right,/SwitchProControllerHID4/rightStick/right]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEePitch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 104227ed-4882-400b-b41b-1d1d435f9a56
-    m_ActionName: LocobotJoy/EndEffectorPitch[/SwitchProControllerHID/rightStick/down,/SwitchProControllerHID1/rightStick/down,/SwitchProControllerHID2/rightStick/down,/SwitchProControllerHID4/rightStick/down,/SwitchProControllerHID/rightStick/up,/SwitchProControllerHID1/rightStick/up,/SwitchProControllerHID2/rightStick/up,/SwitchProControllerHID4/rightStick/up]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnCameraUpDown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 248c47e1-9e4c-490a-90e9-75c75f198ac7
-    m_ActionName: LocobotJoy/CameraUpDown(Tilt)[/SwitchProControllerHID/dpad/left,/SwitchProControllerHID1/dpad/left,/SwitchProControllerHID2/dpad/left,/SwitchProControllerHID4/dpad/left,/SwitchProControllerHID/dpad/right,/SwitchProControllerHID1/dpad/right,/SwitchProControllerHID2/dpad/right,/SwitchProControllerHID4/dpad/right]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 931117680}
@@ -1217,22 +1025,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnGripperPwmDec
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3c98b6f9-f860-49e4-9587-8c25b17c2c1c
-    m_ActionName: LocobotJoy/GripperPwmInc1[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID/buttonNorth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperPwmInc
         m_Mode: 0
         m_Arguments:
@@ -1293,54 +1085,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 25c0486a-af67-4a7a-b48b-3c06db92bf71
     m_ActionName: LocobotManual1/GripperClose
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnArmSleepPose
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 2245782e-1dbb-4626-b3d3-b124c5b34e02
-    m_ActionName: LocobotManual1/ArmSleepPose
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnArmHomePose
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: a02699bb-ae8a-40f4-831d-eddabee0ff05
-    m_ActionName: LocobotManual1/ArmHomePose
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnPanTiltHome
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 2d8f4158-caa5-44d1-98d8-897074a841d9
-    m_ActionName: LocobotManual1/PanTiltHome
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 931117680}
@@ -1473,7 +1217,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnMoveTargetX
+        m_MethodName: OnMoveX
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1489,7 +1233,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnMoveTargetY
+        m_MethodName: OnMoveY
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1505,7 +1249,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnMoveTargetZ
+        m_MethodName: OnMoveZ
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1521,7 +1265,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEePitch
+        m_MethodName: OnEePitchDown
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1549,7 +1293,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeRoll
+        m_MethodName: OnEeRollLeft
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1577,22 +1321,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 931117680}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnCameraUpDown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b89b0f64-7747-4301-b0f3-389cbae3b13f
-    m_ActionName: LocobotSemiAuto/CameraUpDown(Tilt)[/SwitchProControllerHID/leftStick/left,/SwitchProControllerHID/leftStick/right]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 931117680}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnBaseRotate
         m_Mode: 0
         m_Arguments:
@@ -1605,6 +1333,558 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: eb42357d-739c-4fd6-8993-7ba5c348f7bc
     m_ActionName: LocobotSemiAuto/GoalRotate[/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnGripperPwmInc
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a067b776-917c-472a-9cff-a8b9d8d92b97
+    m_ActionName: LocobotManual1/GripperPwmInc
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnGripperPwmDec
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b86270f9-e623-4a21-b788-aa83bf02d887
+    m_ActionName: LocobotManual1/GripperPwmDec
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnGripperOpen
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9119dcda-5983-4efc-a6af-bf83ffca17c1
+    m_ActionName: LocobotManual1/GripperOpen
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnGripperClose
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e084f919-11fa-4071-9a96-87be432577f3
+    m_ActionName: LocobotManual1/GripperClose
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnArmSleepPose
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f465fd52-a3af-4c2f-80fe-a801eeec02e2
+    m_ActionName: LocobotManual1/ArmSleepPose
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnArmHomePose
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 90c893b8-3f91-40b8-9840-b2f5e591a28f
+    m_ActionName: LocobotManual1/ArmHomePose
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnWaistRotate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b2ecce69-905e-46d3-b8c8-c0a977148919
+    m_ActionName: LocobotManual1/WaistRotate
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeX
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f5f54071-a69f-4640-a6e8-f4306c718048
+    m_ActionName: LocobotManual1/EndEffectorX(FrontBack)
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeZ
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7ce85c26-8972-410c-841f-22e4ae583847
+    m_ActionName: LocobotManual1/EndEffectorZ(UpDown)
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeRoll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 656baf4c-8f0f-4a92-9f5b-13c61b531130
+    m_ActionName: LocobotManual1/EndEffectorRoll
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEePitch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 86194682-5fee-4e8d-9dd7-246977a213f7
+    m_ActionName: LocobotManual1/EndEffectorPitch
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSwitchMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f2a20ff5-7a6d-4a22-b271-94917f846f8a
+    m_ActionName: LocobotManual1/SwitchMode[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSwitchControl
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 41820af1-6a3a-4373-8b6e-30dd8d95f25b
+    m_ActionName: LocobotManual1/SwitchControl[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnRebootError
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fd0b1f69-73de-4c22-9155-09bfb1ff1202
+    m_ActionName: LocobotManual1/RebootError
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnRebootAll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eebdbb39-f035-4dd7-b914-acd411514643
+    m_ActionName: LocobotManual1/RebootAll
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnTorqueEnable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 10981312-cc4a-4a89-800c-746e8760fdb8
+    m_ActionName: LocobotManual1/TorqueEnable
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnTorqueDisable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8b093e2a-f7e7-4b99-9bc5-0a7be9104879
+    m_ActionName: LocobotManual1/TorqueDisable
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnCameraUpDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 248c47e1-9e4c-490a-90e9-75c75f198ac7
+    m_ActionName: LocobotManualBase/CameraUpDown(Tilt)
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnCameraRightLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e581d0c3-9b40-4e50-b0fe-338cbf4e3362
+    m_ActionName: LocobotManualBase/CameraRightLeft(Pan)
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnPanTiltHome
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 796facfd-1907-4bb0-b734-4733752570f5
+    m_ActionName: LocobotManualBase/PanTiltHome
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedDec
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c33d7839-a5ad-4092-8f07-ed5e25afb4c0
+    m_ActionName: LocobotManualArm/SpeedDec
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedInc
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e56f572e-3b5e-4191-acff-3dfe0ad79481
+    m_ActionName: LocobotManualArm/SpeedInc
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedFine
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a498956a-ae39-4c5b-a6c7-b5d4b851af95
+    m_ActionName: LocobotManualArm/SpeedFine
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedCourse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bcf08dd3-e8b4-4fd6-84ef-69f82e8366dc
+    m_ActionName: LocobotManualArm/SpeedCourse
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSwitchControl
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 024e018e-579d-453b-97c8-6fd95fdc83b0
+    m_ActionName: LocobotManualBase/SwitchControl[/SwitchProControllerHID/select,/SwitchProControllerHID/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedCourse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d44d2688-9fa0-4975-a2be-553a5693e484
+    m_ActionName: LocobotManualBase/SpeedCourse
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedFine
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3a6a4e56-6ed1-47a9-880c-1eeee60e8e88
+    m_ActionName: LocobotManualBase/SpeedFine
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedInc
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 95f36437-309d-4302-a024-f3a1e57a840f
+    m_ActionName: LocobotManualBase/SpeedInc
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnSpeedDec
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e4f844f0-c53e-4bd3-9971-aac0ad447c00
+    m_ActionName: LocobotManualBase/SpeedDec
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeRollRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 62033672}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnEeCall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e190f1d8-7a01-49e3-bb9f-b08ba84287e6
+    m_ActionName: LocobotSemiAuto/EndEffectorRollRight[/DualShock4GamepadHID/leftShoulder,/SwitchProControllerHID/leftShoulder,/DualShock4GamepadHID/leftStick/right,/SwitchProControllerHID/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEePitchUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 62033672}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnEeCall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 185b85e2-d2ea-461d-9e45-994cfc862ca7
+    m_ActionName: LocobotSemiAuto/EndEffectorPitchUp[/DualShock4GamepadHID/leftShoulder,/SwitchProControllerHID/leftShoulder,/DualShock4GamepadHID/leftStick/up,/SwitchProControllerHID/leftStick/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnArmSleepPose
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 187fe25a-60cd-48f4-8731-24db80d865b9
+    m_ActionName: LocobotSemiAuto/ArmSleepPose[/DualShock4GamepadHID/leftStickPress,/SwitchProControllerHID/leftStickPress]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 931117680}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnArmHomePose
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dac68e77-8e4f-46e6-98da-7e5806e3d895
+    m_ActionName: LocobotSemiAuto/ArmHomePose[/DualShock4GamepadHID/rightStickPress,/SwitchProControllerHID/rightStickPress]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotSemiAuto
@@ -1654,6 +1934,8 @@ MonoBehaviour:
   torqueDisable: 0
   moveBase: 0
   moveArm: 0
+  loopRate: 0
+  loopRatePreset: 0
   baseX: 0
   baseRotate: 0
   waistRotate: 0
@@ -1666,8 +1948,9 @@ MonoBehaviour:
   targetX: 0
   targetY: 0
   targetZ: 0
-  controlMode: 900
-  semiAutoCmd: 999
+  controlMode: 2
+  manualCmd: 0
+  semiAutoCmd: 0
   playerInput: {fileID: 931117678}
 --- !u!1 &1016561068 stripped
 GameObject:

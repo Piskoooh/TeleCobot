@@ -5,38 +5,42 @@
 public enum PhotonConnection
 {
     //NetworkConnection
-    Connect=1,
     Disconnect=0,
+    Connect=1,
 }
 
 public enum RosConnection
 {
-    Connect=1,
     Disconnect=0,
+    Connect=1,
 }
 
 public enum ControlMode
 {
     //How to Control Locobot?
-    ManualControl = 900,
-    SemiAutomaticControl = 801,
-    Unkown=999
+    Unkown=0,
+    ManualControl = 1,
+    SemiAutomaticControl = 2
+}
+
+public enum ManualCommands
+{
+    Disable=0,
+    Arm=1,
+    Base=2
 }
 
 public enum SemiAutomaticCommands
 {
-    Disable=999,
-    Available=888,
-    //ArmPose
-    Sleep=10,
-    Home=11,
+    Disable=0,
+    Available=1,
 
     //If SemiAutomaticMode
     //Arm
-    PlaceTarget=800,
-    PublishTarget=801,
+    PlaceTarget=10,
+    PublishTarget=11,
     //Base
-    PlaceGoal=810,
-    PublishGoal=811,
-    BackHome = 812
+    PlaceGoal=20,
+    PublishGoal=21,
+    BackHome = 22
 }
