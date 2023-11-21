@@ -245,7 +245,6 @@ MonoBehaviour:
   playerInput: {fileID: 931117678}
   pubUnityControl: {fileID: 1078192555}
   inputMng: {fileID: 931117680}
-  rosConnector: {fileID: 1965038769}
   controlMode_Text: {fileID: 447872216}
   punConnection_Text: {fileID: 799384839}
   rosConnection_Text: {fileID: 1591832010}
@@ -1879,11 +1878,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1078192542}
+  - component: {fileID: 1078192550}
   - component: {fileID: 1078192553}
   - component: {fileID: 1078192555}
   - component: {fileID: 1078192554}
   m_Layer: 0
-  m_Name: PubSubManager(ROS)
+  m_Name: ROSManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1904,6 +1904,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1078192550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078192540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79e813ffdefea343973a1f8dc57afb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photonConnection: 0
+  rosConnection: 0
+  visualizationTopicsTab: {fileID: 1667113388}
+  subTF: {fileID: 1078192553}
+  pubRosClock: {fileID: 1078192554}
+  pubUnityControl: {fileID: 1078192555}
+  uI: {fileID: 62033672}
+  isDebug: 1
 --- !u!114 &1078192553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1917,7 +1937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topicName: /tf
-  rosConnector: {fileID: 1965038769}
+  Robot: {fileID: 0}
 --- !u!114 &1078192554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1933,7 +1953,7 @@ MonoBehaviour:
   m_ClockMode: 0
   m_LastSetClockMode: 0
   m_PublishRateHz: 100
-  rosConnector: {fileID: 1965038769}
+  rosConnector: {fileID: 1078192550}
 --- !u!114 &1078192555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1946,9 +1966,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31725b5e627104a54bd55714937a4d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endEffector: {fileID: 0}
+  base_link: {fileID: 0}
+  arm_base_link: {fileID: 0}
   inputMng: {fileID: 931117680}
   uIMng: {fileID: 62033672}
-  rosConnector: {fileID: 1965038769}
+  rosConnector: {fileID: 1078192550}
   m_PublishRateHz: 40
 --- !u!1 &1519185675
 GameObject:
@@ -2744,7 +2767,6 @@ GameObject:
   - component: {fileID: 1959007424}
   - component: {fileID: 1959007427}
   - component: {fileID: 1959007428}
-  - component: {fileID: 1959007429}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2877,7 +2899,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959007423}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e92af1ef8daf49cd9e07e301ab59e60, type: 3}
   m_Name: 
@@ -2888,26 +2910,6 @@ MonoBehaviour:
   minZoomFOV: 40
   maxZoomFOV: 60
   verticalRotationLimit: 60
---- !u!114 &1959007429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959007423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6acf34ff7b896426389573963d5c1c56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  rotationSpeed: 100
-  height: 1.7
-  distance: 1.5
-  minDistance: 1.5
-  maxDistance: 2
-  rotation: 60
-  offset: {x: 0, y: 1, z: -1}
 --- !u!1 &1965038765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2918,7 +2920,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1965038767}
   - component: {fileID: 1965038768}
-  - component: {fileID: 1965038769}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2953,36 +2954,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05ad9cb35161496fa7b4aa782d2f435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  photonConnection: 0
-  rosConnector: {fileID: 1965038769}
-  uI: {fileID: 62033672}
-  MyAvatar: {fileID: 0}
---- !u!114 &1965038769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965038765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b79e813ffdefea343973a1f8dc57afb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rosConnection: 0
-  photonManager: {fileID: 1965038768}
-  uI: {fileID: 62033672}
-  cameraFollow: {fileID: 1959007429}
-  visualizationTopicsTab: {fileID: 1667113388}
-  subTF: {fileID: 1078192553}
-  pubRosClock: {fileID: 1078192554}
-  pubUnityControl: {fileID: 1078192555}
-  Robot: {fileID: 0}
-  robotLinkPositions: []
-  endEffector: {fileID: 0}
-  base_link: {fileID: 0}
-  arm_base_link: {fileID: 0}
-  isDebug: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2991,8 +2962,8 @@ SceneRoots:
   - {fileID: 1546124906}
   - {fileID: 1662771293}
   - {fileID: 1661633323}
-  - {fileID: 1965038767}
   - {fileID: 1078192542}
+  - {fileID: 1965038767}
   - {fileID: 1667113390}
   - {fileID: 62033670}
   - {fileID: 931117679}

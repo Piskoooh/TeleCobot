@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
+using Photon.Realtime;
 /// <summary>
 /// UI に関する処理をここで実行
 /// </summary>
@@ -12,6 +14,7 @@ public class UIManager : MonoBehaviour
     public PlayerInput playerInput;
     public PubUnityControl pubUnityControl;
     public InputManager inputMng;
+    public RosConnector rosConnector;
 
     //ネットワーク関連のUI
     public TMP_Text controlMode_Text, punConnection_Text, rosConnection_Text;
@@ -30,9 +33,9 @@ public class UIManager : MonoBehaviour
     Pose pose;
 
     //ロボットアームのターゲット指定で使用する読み取り専用の数値
-    Transform baseLinkTf => pubUnityControl.base_link.transform;
-    Transform armBaseLinkTf => pubUnityControl.arm_base_link.transform;
-    Transform endEffectorTf => pubUnityControl.endEffector.transform;
+    Transform baseLinkTf => rosConnector.base_link.transform;
+    Transform armBaseLinkTf => rosConnector.arm_base_link.transform;
+    Transform endEffectorTf => rosConnector.endEffector.transform;
     Vector2 b_a => new Vector2(armBaseLinkTf.transform.position.x - baseLinkTf.transform.position.x, armBaseLinkTf.transform.position.z - baseLinkTf.transform.position.z);
     Vector2 b_aN => b_a.normalized;
     Vector2 a_ee => new Vector2(endEffectorTf.transform.position.x - armBaseLinkTf.transform.position.x, endEffectorTf.transform.position.z - armBaseLinkTf.transform.position.z);
@@ -60,8 +63,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void VisualRange()
     {
-        visualIndicator = Instantiate(visualIndicatorPrefab, pubUnityControl.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
-        visualIndicator.transform.parent = pubUnityControl.arm_base_link.transform;
+        visualIndicator = Instantiate(visualIndicatorPrefab, rosConnector.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
+        visualIndicator.transform.parent = rosConnector.arm_base_link.transform;
         visualIndicator.transform.localPosition = new Vector3(0f, 0f, 0f);
         visualIndicator.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
@@ -77,7 +80,7 @@ public class UIManager : MonoBehaviour
     {
         float angle = Vector2.Angle(a_ee, b_aN);
         Vector3 direction = endEffectorTf.position - armBaseLinkTf.position;
-        if (direction.magnitude < 0.55f && 90 > angle &&  pubUnityControl.endEffector.transform.position.y > 0 )
+        if (direction.magnitude < 0.55f && 90 > angle && rosConnector.endEffector.transform.position.y > 0 )
         {
             if (target == null)
             {
@@ -90,8 +93,8 @@ public class UIManager : MonoBehaviour
             Pose resetPose;
             //resetPose.position = new Vector3(baseLinkTf.position.x + 0.5f * b_aN.x, baseLinkTf.position.y + 0.1f, baseLinkTf.position.z + 0.5f * b_aN.y);
             //resetPose.rotation = baseLinkTf.rotation;
-            resetPose.position = pubUnityControl.endEffector.transform.position;
-            resetPose.rotation = pubUnityControl.endEffector.transform.rotation;
+            resetPose.position = rosConnector.endEffector.transform.position;
+            resetPose.rotation = rosConnector.endEffector.transform.rotation;
             pose = new Pose(resetPose.position,resetPose.rotation);
             AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
         }
@@ -182,107 +185,109 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         controlMode_Text.text = "ControlMode: "+playerInput.currentActionMap.name;
-
-        Vector3 b_a3 = new Vector3(b_aN.x, 0, b_aN.y);
-        Vector3 b_a3Cross = Vector3.Cross(b_a3, Vector3.down);
-        switch (inputMng.semiAutoCmd)
+        if (rosConnector.rosConnection == RosConnection.Connect)
         {
-            //不要なUIを削除
-            case SemiAutomaticCommands.Available:
-            case SemiAutomaticCommands.Disable:
-                if (visualIndicator != null) Destroy(visualIndicator);
-                if (target != null) Destroy(target);
-                if (goal != null) Destroy(goal);
-                break;
-            case SemiAutomaticCommands.PlaceTarget:
-                //範囲内ならば緑、範囲外なら赤にUIを変更する。
-                if (visualIndicator != null)
-                {
-                    float angle = Vector2.Angle(a_eg, b_aN);
-                    Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
-                    bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
-                    visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
-                }
-                //コントローラからの入力値でターゲットを移動・回転
-                if (target != null)
-                {
-                    pose.position = eeGripper.transform.position;
-                    pose.rotation = eeGripper.transform.rotation;
-                    //ロボットの進行方向に対してグリッパーが移動するように処理
-                    if (inputMng.targetZ > 0.5)
-                        pose.position += b_a3 * targetMoveSpeed * Time.deltaTime;
-                    else if (inputMng.targetZ < -0.5)
-                        pose.position -= b_a3 * targetMoveSpeed * Time.deltaTime;
-                    if (inputMng.targetX > 0.5)
-                        pose.position += b_a3Cross * targetMoveSpeed * Time.deltaTime;
-                    else if (inputMng.targetX < -0.5)
-                        pose.position -= b_a3Cross * targetMoveSpeed * Time.deltaTime;
-                    if (inputMng.targetY > 0.5)
-                        pose.position += Vector3.up * targetMoveSpeed * Time.deltaTime;
-                    else if (inputMng.targetY < -0.5)
-                        pose.position -= Vector3.up * targetMoveSpeed * Time.deltaTime;
-                    //移動する場合、グリッパーがロボットの中心を向くように処理
-                    if (inputMng.targetX != 0 || inputMng.targetY != 0 || inputMng.targetZ != 0)
+            Vector3 b_a3 = new Vector3(b_aN.x, 0, b_aN.y);
+            Vector3 b_a3Cross = Vector3.Cross(b_a3, Vector3.down);
+            switch (inputMng.semiAutoCmd)
+            {
+                //不要なUIを削除
+                case SemiAutomaticCommands.Available:
+                case SemiAutomaticCommands.Disable:
+                    if (visualIndicator != null) Destroy(visualIndicator);
+                    if (target != null) Destroy(target);
+                    if (goal != null) Destroy(goal);
+                    break;
+                case SemiAutomaticCommands.PlaceTarget:
+                    //範囲内ならば緑、範囲外なら赤にUIを変更する。
+                    if (visualIndicator != null)
                     {
-                        // ターゲットへの向きベクトル計算
-                        var dir = (pubUnityControl.arm_base_link.transform.position - pose.position).normalized;
-                        // ターゲットの方向への回転
-                        var lookAtRotation = Quaternion.LookRotation(-dir, Vector3.up);
-                        // 回転補正
-                        var offsetRotation = Quaternion.FromToRotation(-localArrow.defEef_egN,Vector3.forward);
-                        pose.rotation = lookAtRotation * offsetRotation;
+                        float angle = Vector2.Angle(a_eg, b_aN);
+                        Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
+                        bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
+                        visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
                     }
-                    //X軸方向の移動なしの場合、グリッパーのロールとピッチを指定して軌道推定が成功する可能性がある
-                    //グリッパーのロールとピッチを動かすための処理
-                    Quaternion xRot = Quaternion.AngleAxis(0, localArrow.curL_rN);
-                    Quaternion zRot = Quaternion.AngleAxis(0, localArrow.curEef_egN);
-                    if (inputMng.eePitch > 0.5)
-                        xRot = Quaternion.AngleAxis(-1, localArrow.curL_rN);
-                    else if (inputMng.eePitch < -0.5)
-                        xRot = Quaternion.AngleAxis(1, localArrow.curL_rN);
-                    if (inputMng.eeRoll > 0.5)
-                        zRot = Quaternion.AngleAxis(1, localArrow.curEef_egN);
-                    else if (inputMng.eeRoll < -0.5)
-                        zRot = Quaternion.AngleAxis(-1, localArrow.curEef_egN);
-                    pose.rotation = xRot * zRot * pose.rotation;
-                    AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
-                }
-                if (goal != null) Destroy(goal);
-                break;
-            case SemiAutomaticCommands.PublishTarget:
-                break;
-            case SemiAutomaticCommands.PlaceGoal:
-                if (visualIndicator != null) Destroy(visualIndicator);
-                if (target != null) Destroy(target);
-                if (goal != null)
-                {
-                    if (inputMng.targetZ > 0.5)
+                    //コントローラからの入力値でターゲットを移動・回転
+                    if (target != null)
                     {
-                        goal.transform.position += b_a3 * goalMoveSpeed * Time.deltaTime;
-                        goal.transform.rotation = Quaternion.Euler(b_a3);
+                        pose.position = eeGripper.transform.position;
+                        pose.rotation = eeGripper.transform.rotation;
+                        //ロボットの進行方向に対してグリッパーが移動するように処理
+                        if (inputMng.targetZ > 0.5)
+                            pose.position += b_a3 * targetMoveSpeed * Time.deltaTime;
+                        else if (inputMng.targetZ < -0.5)
+                            pose.position -= b_a3 * targetMoveSpeed * Time.deltaTime;
+                        if (inputMng.targetX > 0.5)
+                            pose.position += b_a3Cross * targetMoveSpeed * Time.deltaTime;
+                        else if (inputMng.targetX < -0.5)
+                            pose.position -= b_a3Cross * targetMoveSpeed * Time.deltaTime;
+                        if (inputMng.targetY > 0.5)
+                            pose.position += Vector3.up * targetMoveSpeed * Time.deltaTime;
+                        else if (inputMng.targetY < -0.5)
+                            pose.position -= Vector3.up * targetMoveSpeed * Time.deltaTime;
+                        //移動する場合、グリッパーがロボットの中心を向くように処理
+                        if (inputMng.targetX != 0 || inputMng.targetY != 0 || inputMng.targetZ != 0)
+                        {
+                            // ターゲットへの向きベクトル計算
+                            var dir = (rosConnector.arm_base_link.transform.position - pose.position).normalized;
+                            // ターゲットの方向への回転
+                            var lookAtRotation = Quaternion.LookRotation(-dir, Vector3.up);
+                            // 回転補正
+                            var offsetRotation = Quaternion.FromToRotation(-localArrow.defEef_egN,Vector3.forward);
+                            pose.rotation = lookAtRotation * offsetRotation;
+                        }
+                        //X軸方向の移動なしの場合、グリッパーのロールとピッチを指定して軌道推定が成功する可能性がある
+                        //グリッパーのロールとピッチを動かすための処理
+                        Quaternion xRot = Quaternion.AngleAxis(0, localArrow.curL_rN);
+                        Quaternion zRot = Quaternion.AngleAxis(0, localArrow.curEef_egN);
+                        if (inputMng.eePitch > 0.5)
+                            xRot = Quaternion.AngleAxis(-1, localArrow.curL_rN);
+                        else if (inputMng.eePitch < -0.5)
+                            xRot = Quaternion.AngleAxis(1, localArrow.curL_rN);
+                        if (inputMng.eeRoll > 0.5)
+                            zRot = Quaternion.AngleAxis(1, localArrow.curEef_egN);
+                        else if (inputMng.eeRoll < -0.5)
+                            zRot = Quaternion.AngleAxis(-1, localArrow.curEef_egN);
+                        pose.rotation = xRot * zRot * pose.rotation;
+                        AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
                     }
+                    if (goal != null) Destroy(goal);
+                    break;
+                case SemiAutomaticCommands.PublishTarget:
+                    break;
+                case SemiAutomaticCommands.PlaceGoal:
+                    if (visualIndicator != null) Destroy(visualIndicator);
+                    if (target != null) Destroy(target);
+                    if (goal != null)
+                    {
+                        if (inputMng.targetZ > 0.5)
+                        {
+                            goal.transform.position += b_a3 * goalMoveSpeed * Time.deltaTime;
+                            goal.transform.rotation = Quaternion.Euler(b_a3);
+                        }
 
-                    else if (inputMng.targetZ < -0.5)
-                    {
-                        goal.transform.position -= b_a3 * goalMoveSpeed * Time.deltaTime;
-                        goal.transform.rotation = Quaternion.Euler(b_a3);
+                        else if (inputMng.targetZ < -0.5)
+                        {
+                            goal.transform.position -= b_a3 * goalMoveSpeed * Time.deltaTime;
+                            goal.transform.rotation = Quaternion.Euler(b_a3);
+                        }
+                        if (inputMng.targetX > 0.5)
+                        {
+                            goal.transform.position += b_a3Cross * goalMoveSpeed * Time.deltaTime;
+                            goal.transform.rotation = Quaternion.Euler(b_a3);
+                        }
+                        else if (inputMng.targetX < -0.5)
+                        {
+                            goal.transform.position -= b_a3Cross * goalMoveSpeed * Time.deltaTime;
+                            goal.transform.rotation = Quaternion.Euler(b_a3);
+                        }
+                        if (inputMng.baseRotate > 0.5 || inputMng.baseRotate < -0.5)
+                            goal.transform.Rotate(Vector3.up * Time.deltaTime * goalRotateSpeed * inputMng.baseRotate * 30, Space.World);
                     }
-                    if (inputMng.targetX > 0.5)
-                    {
-                        goal.transform.position += b_a3Cross * goalMoveSpeed * Time.deltaTime;
-                        goal.transform.rotation = Quaternion.Euler(b_a3);
-                    }
-                    else if (inputMng.targetX < -0.5)
-                    {
-                        goal.transform.position -= b_a3Cross * goalMoveSpeed * Time.deltaTime;
-                        goal.transform.rotation = Quaternion.Euler(b_a3);
-                    }
-                    if (inputMng.baseRotate > 0.5 || inputMng.baseRotate < -0.5)
-                        goal.transform.Rotate(Vector3.up * Time.deltaTime * goalRotateSpeed * inputMng.baseRotate * 30, Space.World);
-                }
-                break;
-            case SemiAutomaticCommands.PublishGoal:
-                break;
+                    break;
+                case SemiAutomaticCommands.PublishGoal:
+                    break;
+            }
         }
     }
     /// <summary>

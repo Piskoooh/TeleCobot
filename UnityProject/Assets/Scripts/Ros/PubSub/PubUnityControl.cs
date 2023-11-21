@@ -7,9 +7,6 @@ using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 public class PubUnityControl : MonoBehaviour
 {
     private static readonly string ControlTopic = "/unity_control";
-    public GameObject endEffector;
-    public GameObject base_link;
-    public GameObject arm_base_link;
 
     public InputManager inputMng;
     public UIManager uIMng;
@@ -25,9 +22,9 @@ public class PubUnityControl : MonoBehaviour
     double PublishPeriodSeconds => 1.0f / m_PublishRateHz;
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
-    Vector2 b_aN => new Vector2(arm_base_link.transform.position.x - base_link.transform.position.x, arm_base_link.transform.position.z - base_link.transform.position.z).normalized;
-    Vector2 b_ee => new Vector2(endEffector.transform.position.x - base_link.transform.position.x, endEffector.transform.position.z - base_link.transform.position.z);
-    Vector2 b_eg => new Vector2(uIMng.eeGripper.transform.position.x - base_link.transform.position.x, uIMng.eeGripper.transform.position.z - base_link.transform.position.z);
+    Vector2 b_aN => new Vector2(rosConnector.arm_base_link.transform.position.x - rosConnector.base_link.transform.position.x, rosConnector.arm_base_link.transform.position.z - rosConnector.base_link.transform.position.z).normalized;
+    Vector2 b_ee => new Vector2(rosConnector.endEffector.transform.position.x - rosConnector.base_link.transform.position.x, rosConnector.endEffector.transform.position.z - rosConnector.base_link.transform.position.z);
+    Vector2 b_eg => new Vector2(uIMng.eeGripper.transform.position.x - rosConnector.base_link.transform.position.x, uIMng.eeGripper.transform.position.z - rosConnector.base_link.transform.position.z);
     bool flag;
 
     static double MAX_BASE_X = 0.7;         // Max translational motion that the base can do is 0.7 m/s
@@ -243,15 +240,15 @@ public class PubUnityControl : MonoBehaviour
     public void SetTargetPose()
     {
         //Eeの変化量をPub
-        var rEeG = base_link.transform.InverseTransformPoint(uIMng.eeGripper.transform.position);
-        var rEe = base_link.transform.InverseTransformPoint(endEffector.transform.position);
+        var rEeG = rosConnector.base_link.transform.InverseTransformPoint(uIMng.eeGripper.transform.position);
+        var rEe = rosConnector.base_link.transform.InverseTransformPoint(rosConnector.endEffector.transform.position);
         var diff = rEeG - rEe;
         controlMsg.pose_data = new double[5];
         controlMsg.pose_data[0] = diff.z;//rosX
         controlMsg.pose_data[1] = -diff.x;//rosY
         controlMsg.pose_data[2] = diff.y;//rosZ
 
-        var displacementAngle = uIMng.eeGripper.transform.eulerAngles - endEffector.transform.eulerAngles;
+        var displacementAngle = uIMng.eeGripper.transform.eulerAngles - rosConnector.endEffector.transform.eulerAngles;
         //-180~180に正規化
         var rotX = (Mathf.Repeat(displacementAngle.x + 180, 360) - 180);//pitch-rosY
         var rotY = (Mathf.Repeat(displacementAngle.y + 180, 360) - 180);//yaw-rosZ
@@ -274,10 +271,10 @@ public class PubUnityControl : MonoBehaviour
         // エンドエフェクタの位置を格納
         controlMsg.end_effector_pose = new PoseMsg
         {
-            position = endEffector.transform.position.To<FLU>(),
-            orientation = Quaternion.Euler(endEffector.transform.eulerAngles.x,
-                                            endEffector.transform.eulerAngles.y,
-                                            endEffector.transform.eulerAngles.z).To<FLU>()
+            position = rosConnector.endEffector.transform.position.To<FLU>(),
+            orientation = Quaternion.Euler(rosConnector.endEffector.transform.eulerAngles.x,
+                                            rosConnector.endEffector.transform.eulerAngles.y,
+                                            rosConnector.endEffector.transform.eulerAngles.z).To<FLU>()
         };
     }
 
@@ -308,7 +305,13 @@ public class PubUnityControl : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        controlMsg.pose_cmd = TelecobotUnityControlMsg.SLEEP_POSE;
-        ros.Publish(ControlTopic, controlMsg);
+        if (rosConnector.rosConnection == RosConnection.Connect)
+        {
+            for(int i = 0; i< 5; i++)
+            {
+            controlMsg.pose_cmd = TelecobotUnityControlMsg.SLEEP_POSE;
+            ros.Publish(ControlTopic, controlMsg);
+            }
+        }
     }
 }

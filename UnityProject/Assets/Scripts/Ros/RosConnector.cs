@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
+using Unity.Robotics.ROSTCPConnector.ROSGeometry;
+using Unity.Robotics.UrdfImporter;
 using UnityEngine.UI;
 using TMPro;
 using URV;
@@ -10,8 +12,10 @@ using URV;
 public class RosConnector : MonoBehaviour
 {
     private ROSConnection ros;
-    public PhotonConnection photonConnection;
     public RosConnection rosConnection;
+    public PhotonManager photonManager;
+    public UIManager uI;
+    public CameraFollow cameraFollow;
 
     public VisualizationTopicsTab visualizationTopicsTab;
     public SubTF subTF;
@@ -22,8 +26,16 @@ public class RosConnector : MonoBehaviour
     //public PubTelecobotArmControl pubTelecobotArmControl;
     //public PubTelecobotBaseControl pubTelecobotBaseControl;
     public PubUnityControl pubUnityControl;
+    [SerializeField] GameObject Robot;
 
-    public UIManager uI;
+    private UrdfLink[] UrdfLinkChain;
+    private int numRobotLinks = 0;
+    [HideInInspector]
+    public Transform[] robotLinkPositions;
+
+    public GameObject endEffector;
+    public GameObject base_link;
+    public GameObject arm_base_link;
 
     public bool isDebug = true;
 
@@ -35,79 +47,39 @@ public class RosConnector : MonoBehaviour
 
     private void Start()
     {
-        photonConnection = PhotonConnection.Disconnect;
         rosConnection = RosConnection.Disconnect;
-        uI.punConnectButton.onClick.AddListener(() => punButton());
         uI.rosConnectButton.onClick.AddListener(() => rosButton());
     }
 
-    //3秒後にPhotonに接続されているように挙動
-    IEnumerator DummyPhotonConect()
+    public void GetRobot()
     {
-        uI.punConnection_Text.text = "Photon : Connecting";
-        yield return new WaitForSeconds(1);
-        OnPhotonConnect();
-    }
+        Robot = GameObject.FindGameObjectWithTag("robot");
+        UrdfLinkChain = Robot.GetComponentsInChildren<UrdfLink>();
+        numRobotLinks = UrdfLinkChain.Length;
+        robotLinkPositions = new Transform[numRobotLinks];
 
-    public void ConnectToPun()
-    {
-        if (photonConnection==PhotonConnection.Disconnect)
+        for (int i = 0; i < numRobotLinks; i++)
         {
-            // PUNへの接続処理を行う
-            try
+            robotLinkPositions[i] = UrdfLinkChain[i].gameObject.transform;
+            switch (UrdfLinkChain[i].gameObject.name)
             {
-                StartCoroutine("DummyPhotonConect");   //Photon導入前にデバックで使用
-            }
-            catch (Exception e)
-            {
-                uI.punConnection_Text.text = "PUN : Failed to Connect:" + e.Message;
+                case "/base_link":
+                    base_link = UrdfLinkChain[i].gameObject;
+                    break;
+                case "/arm_base_link":
+                    arm_base_link = UrdfLinkChain[i].gameObject;
+                    break;
+                case "/ee_gripper_link":
+                    endEffector = UrdfLinkChain[i].gameObject;
+                    break;
             }
         }
-        else uI.punConnection_Text.text = "Photon : Connected";
-    }
-
-    public void OnPhotonConnect() // Photonが接続されたときに呼び出される関数
-    {
-        photonConnection = PhotonConnection.Connect;
-        uI.punConnection_Text.text = "Photon : Connected";
-        uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
-        uI.punConnectButton.interactable = true;
-        uI.rosConnectButton.interactable = true;
-    }
-
-    public void DisconnectFromPun()
-    {
-        if (photonConnection==PhotonConnection.Connect)
-        {
-            try
-            {
-                //
-                OnPhotonDisconnect();
-            }
-            catch (Exception e)
-            {
-                uI.punConnection_Text.text = "PUN : Failed to Disconnect:" + e.Message;
-            }
-        }
-        else Debug.Log("PUN : Already disconnected");
-    }
-
-    public void OnPhotonDisconnect() // Photonが切断されたときに呼び出される関数
-    {
-        if (rosConnection==RosConnection.Connect)
-        {
-            DisconnectFromROS();
-        }
-        uI.punConnectButton.interactable = true;
-        uI.rosConnectButton.interactable = false;
-        photonConnection = PhotonConnection.Disconnect;
-        uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        uI.punConnection_Text.text = "Photon : Disconnected";
+        cameraFollow.target = base_link.transform;
     }
 
     public void ConnectToROS() //ROSに接続するために呼び出す関数
     {
-        if (photonConnection==PhotonConnection.Disconnect)
+        if (photonManager.photonConnection==PhotonConnection.Disconnect)
         {
             uI.punConnection_Text.text = "Photon : Not Connected";
             uI.rosConnection_Text.text = "Connect photon before connecting to ROS";
@@ -191,18 +163,16 @@ public class RosConnector : MonoBehaviour
             uI.rosConnection_Text.text = "ROS : Already Disconnected";
     }
 
-    public void punButton()
-    {
-        uI.punConnectButton.interactable = false;
-        uI.rosConnectButton.interactable = false;
-        if (photonConnection == PhotonConnection.Disconnect) ConnectToPun();
-        else DisconnectFromPun();
-    }
     public void rosButton()
     {
         uI.punConnectButton.interactable = false;
         uI.rosConnectButton.interactable = false;
         if (rosConnection == RosConnection.Disconnect) ConnectToROS();
         else DisconnectFromROS();
+    }
+
+    private void OnApplicationQuit()
+    {
+        rosConnection = RosConnection.Disconnect;
     }
 }

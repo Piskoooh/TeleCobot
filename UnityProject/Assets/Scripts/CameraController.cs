@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-//HMDを使用せずに開発を進める際にMainCameraを制御するスクリプト
-//使用するにはLocalUserのActionMapを有効化する必要がある。
+// HMDを使用せずに開発を進める際にMainCameraを制御するスクリプト
 public class CameraController : MonoBehaviour
 {
     public float movementSpeed = 5.0f;
@@ -13,48 +12,19 @@ public class CameraController : MonoBehaviour
 
     public float verticalRotationLimit = 60.0f;
     private float currentVerticalAngle = 0.0f;
-    private Vector2 moveInput;
-    private Vector2 lookInput;
-    private float zoomInput;
     private bool mouseClicking = false;
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        moveInput = context.ReadValue<Vector2>();
-    }
-
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        lookInput = context.ReadValue<Vector2>() * mouseSensitivity;
-
-    }
-
-    public void OnZoom(InputAction.CallbackContext context)
-    {
-        zoomInput = context.ReadValue<Vector2>().y;
-    }
-
-    public void OnClick(InputAction.CallbackContext context)
-    {
-        if (context.action.triggered)
-        {
-            mouseClicking = context.ReadValueAsButton();
-        }
-        else if (context.canceled)
-        {
-            mouseClicking = false;
-        }
-    }
 
     private void Update()
     {
-        Vector3 translation = new Vector3(moveInput.x, 0, moveInput.y) * movementSpeed * Time.deltaTime;
+        // WASDキーでの移動
+        Vector3 translation = new Vector3((Keyboard.current.dKey.isPressed ? 1 : 0) - (Keyboard.current.aKey.isPressed ? 1 : 0), 0, (Keyboard.current.wKey.isPressed ? 1 : 0) - (Keyboard.current.sKey.isPressed ? 1 : 0)) * movementSpeed * Time.deltaTime;
         transform.Translate(translation);
 
-        if (mouseClicking)
+        // マウスのポインタでの視点移動
+        if (Mouse.current != null && mouseClicking)
         {
-            float horizontal = lookInput.x;
-            float vertical = lookInput.y;
+            float horizontal = Mouse.current.delta.x.ReadValue() * mouseSensitivity;
+            float vertical = Mouse.current.delta.y.ReadValue() * mouseSensitivity;
 
             transform.Rotate(Vector3.up, horizontal);
 
@@ -63,8 +33,15 @@ public class CameraController : MonoBehaviour
             transform.localEulerAngles = new Vector3(currentVerticalAngle, transform.localEulerAngles.y, 0);
         }
 
-        float zoomAmount = -zoomInput * zoomSpeed * Time.deltaTime;
+        // マウスホイールでのズーム
+        float zoomAmount = Mouse.current != null ? -Mouse.current.scroll.y.ReadValue() : 0;
+        zoomAmount *= zoomSpeed * Time.deltaTime;
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - zoomAmount, minZoomFOV, maxZoomFOV);
 
+        // マウスの左クリックの取得
+        if (Mouse.current != null)
+        {
+            mouseClicking = Mouse.current.leftButton.isPressed;
+        }
     }
 }
