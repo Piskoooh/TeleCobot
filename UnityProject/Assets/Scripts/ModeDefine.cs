@@ -1,16 +1,23 @@
-
 //場合分け管理のためにenumを使用
 //定数に名称を付与
+public enum UserType
+{
+    Remote_nonVR=0,
+    Remote_VR=1,
+    Local_AR=2,
+    Robot=3,
+}
 
 public enum PhotonConnection
 {
-    //NetworkConnection
+    //Is connected to Photon?
     Disconnect=0,
     Connect=1,
 }
 
 public enum RosConnection
 {
+    //Is connected to ROS?
     Disconnect=0,
     Connect=1,
 }
@@ -34,8 +41,6 @@ public enum SemiAutomaticCommands
 {
     Disable=0,
     Available=1,
-
-    //If SemiAutomaticMode
     //Arm
     PlaceTarget=10,
     PublishTarget=11,
