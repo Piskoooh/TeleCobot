@@ -23514,6 +23514,7 @@ GameObject:
   - component: {fileID: 2580990800113653293}
   - component: {fileID: 5450072291977491364}
   - component: {fileID: 5524881463906563447}
+  - component: {fileID: 5017042657956677514}
   m_Layer: 0
   m_Name: LocobotPun
   m_TagString: robot
@@ -23577,6 +23578,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &5017042657956677514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6acb29df4bf2234cb8f30b631f3a356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userRole: 0
 --- !u!1 &8561120743663290194
 GameObject:
   m_ObjectHideFlags: 0
