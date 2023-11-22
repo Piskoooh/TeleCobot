@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using Photon;
@@ -19,8 +20,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     //[HideInInspector]
     public GameObject MyAvatar;
-    public HashSet<GameObject> RobotList = new HashSet<GameObject>();
+    public SortedDictionary<int,GameObject> RobotDictionary = new SortedDictionary<int, GameObject>();
     public Dictionary<GameObject,Role> RoleDictionary = new Dictionary<GameObject, Role>();
+
+    public GameObject focusRobot;
+    private int focusRobotID;
+
     private void Awake()
     {
         userSettings = GameObject.Find("UserSettings").GetComponent<UserSettings>();
@@ -38,6 +43,24 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
     }
+    void Update()
+    {
+        if(RobotDictionary.Count>0)
+        {
+            if (focusRobot == null)
+            {
+                var firstRobot = RobotDictionary.First();
+                focusRobotID = firstRobot.Key;
+                focusRobot = firstRobot.Value;
+            }
+        }
+        else
+        {
+            focusRobot = null;
+            focusRobotID = 0;
+        }
+    }
+
     private void OnApplicationQuit()
     {
         photonConnection = PhotonConnection.Disconnect;
@@ -46,10 +69,65 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         uI.punConnectButton.interactable = false;
         uI.rosConnectButton.interactable = false;
-        //if (photonConnection == PhotonConnection.Disconnect) PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions(), TypedLobby.Default);
         if (photonConnection == PhotonConnection.Disconnect) PhotonNetwork.ConnectUsingSettings();
-
         else PhotonNetwork.Disconnect();
+    }
+
+    public void AddToList(GameObject gameObject, Role avatarRole,int viewID)
+    {
+        //オブジェクトとロールをディクショナリに保存
+        if (RoleDictionary.TryAdd(gameObject, avatarRole))
+        {
+            Debug.Log("Add: " + gameObject);
+        }
+        else
+        {
+            //すでに存在する場合は上書き
+            RoleDictionary[gameObject] = avatarRole;
+            Debug.Log("Update: " + gameObject);
+        }
+        //ロボットロールの場合はロボットリストに追加する
+        if (avatarRole == Role.Robot)
+        {
+            if(RobotDictionary.TryAdd(viewID, gameObject))
+            {
+                Debug.Log("Add: " + gameObject);
+            }
+            else
+            {
+                //すでに存在する場合は上書き
+                RobotDictionary[viewID] = gameObject;
+                Debug.Log("Update: " + gameObject);
+            }
+        }
+        DebugList();
+    }
+
+    public void RemoveFromList(GameObject gameObject, Role avatarRole,int viewID)
+    {
+        //オブジェクトとロールをディクショナリから削除
+        if (RoleDictionary.Remove(gameObject, out avatarRole))
+        {
+            Debug.Log("Remove: " + gameObject);
+        }
+        else
+        {
+            Debug.Log("Failed to remove: " + gameObject);
+        }
+
+        //ロボットロールの場合はロボットリストから削除する
+        if (avatarRole == Role.Robot)
+        {
+            if(RobotDictionary.Remove(viewID))
+            {
+                Debug.Log("Remove: " + gameObject);
+            }
+            else
+            {
+                Debug.Log("Failed to remove: " + gameObject);
+            }
+        }
+        DebugList();
     }
 
     public void DebugList()
@@ -58,9 +136,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Key" + pair.Key + "Value" + pair.Value);
         }
-        foreach (var gameObject in RobotList)
+        foreach (var pair1 in RobotDictionary)
         {
-            Debug.Log("RobotList:" + gameObject);
+            Debug.Log("Key" + pair1.Key + "Value" + pair1.Value);
         }
     }
 

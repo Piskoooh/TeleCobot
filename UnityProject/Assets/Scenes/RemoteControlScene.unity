@@ -2590,7 +2590,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2669,7 +2669,6 @@ MonoBehaviour:
   rosConnector: {fileID: 1965038769}
   uI: {fileID: 62033672}
   MyAvatar: {fileID: 0}
-  RobotList: []
 --- !u!114 &1965038769
 MonoBehaviour:
   m_ObjectHideFlags: 0

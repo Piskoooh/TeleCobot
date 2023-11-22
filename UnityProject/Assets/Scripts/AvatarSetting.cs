@@ -9,7 +9,9 @@ using ExitGames.Client.Photon;
 public class AvatarSetting : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    Role userRole;
+    Role avatarRole;
+    [SerializeField]
+    Camera Camera;
     GameObject networkManager;
     PhotonManager PhotonManager;
     // Start is called before the first frame update
@@ -19,10 +21,30 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
         PhotonManager = networkManager.GetComponent<PhotonManager>();
     }
 
+    private void Start()
+    {
+        if(Camera!=null)
+            if (photonView.IsMine)
+            {
+                Camera.enabled = true;
+            }
+            else
+            {
+                Camera.enabled = false;
+            }
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (Camera != null)
+        {
+            if (PhotonManager.focusRobot!=null)
+            {
+                var cameratarget = Camera.GetComponent<CameraFollow>().target;
+                if (!cameratarget)
+                    Camera.GetComponent<CameraFollow>().target = PhotonManager.focusRobot.transform;
+            }
+        }
     }
     /// <summary>
     /// プロパティが更新された際に呼ばれるコールバック
@@ -33,10 +55,10 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     {
         //このオブジェクトの所有者を取得
         var avatarOwner = PhotonView.Get(this).Owner;
-        //所有者のロールを取得し、ロールを設定
+        //所有者のロールプロパティを取得し、アバターのロールを設定
         int role = avatarOwner.GetRole();
-        userRole = (Role)role;
-        AddToList();
+        avatarRole = (Role)role;
+        PhotonManager.AddToList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -46,49 +68,7 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
         var avatarOwner = PhotonView.Get(this).Owner;
         if (avatarOwner == otherPlayer)
         {
-            RemoveFromList();
+            PhotonManager.RemoveFromList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
         }
-
     }
-
-    private void AddToList()
-    {
-        //オブジェクトとロールをディクショナリに保存
-        if (PhotonManager.RoleDictionary.TryAdd(gameObject, userRole))
-        {
-            Debug.Log("Add: " + gameObject);
-        }
-        else
-        {
-            //すでに存在する場合は上書き
-            PhotonManager.RoleDictionary[gameObject] = userRole;
-            Debug.Log("Update: " + gameObject);
-        }
-        //ロボットロールの場合はロボットリストに追加する
-        if (userRole == Role.Robot)
-        {
-            PhotonManager.RobotList.Add(gameObject);
-        }
-        PhotonManager.DebugList();
-    }
-
-    private void RemoveFromList()
-    {
-        //オブジェクトとロールをディクショナリから削除
-        if (PhotonManager.RoleDictionary.Remove(gameObject, out userRole))
-        {
-            Debug.Log("Remove: " + gameObject);
-        }
-        else
-        {
-            Debug.Log("Failed to remove: " + gameObject);
-        }
-
-        //ロボットロールの場合はロボットリストから削除する
-        if (userRole == Role.Robot)
-        {
-            PhotonManager.RobotList.Remove(gameObject);
-        }
-        PhotonManager.DebugList();
-    }   
 }
