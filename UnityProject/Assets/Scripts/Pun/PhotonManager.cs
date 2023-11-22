@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 //https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/c04ad5 を参考に作成。
 
@@ -17,10 +17,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public RosConnector rosConnector;
     public UIManager uI;
 
-
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject MyAvatar;
-
+    public HashSet<GameObject> RobotList = new HashSet<GameObject>();
+    public Dictionary<GameObject,Role> RoleDictionary = new Dictionary<GameObject, Role>();
     private void Awake()
     {
         userSettings = GameObject.Find("UserSettings").GetComponent<UserSettings>();
@@ -38,7 +38,21 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
     }
+    private void OnApplicationQuit()
+    {
+        photonConnection = PhotonConnection.Disconnect;
+    }
+    public void PunButton()
+    {
+        uI.punConnectButton.interactable = false;
+        uI.rosConnectButton.interactable = false;
+        //if (photonConnection == PhotonConnection.Disconnect) PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions(), TypedLobby.Default);
+        if (photonConnection == PhotonConnection.Disconnect) PhotonNetwork.ConnectUsingSettings();
 
+        else PhotonNetwork.Disconnect();
+    }
+
+    #region PunCallbacks
     // マスターサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnConnectedToMaster()
     {
@@ -55,12 +69,14 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             rosConnector.GetRobot();
         }
         else if (userSettings.userType == UserType.Remote_VR)
-            MyAvatar = PhotonNetwork.Instantiate("RemoteVR", Vector3.zero, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.zero, Quaternion.identity);
         else if (userSettings.userType == UserType.Remote_nonVR)
-            MyAvatar = PhotonNetwork.Instantiate("RemoteVR", Vector3.zero, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.zero, Quaternion.identity);
         else if (userSettings.userType == UserType.Local_AR)
-            MyAvatar = PhotonNetwork.Instantiate("LocalAR", Vector3.zero, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.zero, Quaternion.identity);
         else Debug.LogError("Unkown User Type. Cannot instatiate avatar.");
+        //プレイヤーロールをカスタムプロパティに登録
+        PhotonNetwork.LocalPlayer.SetRole((int)userSettings.role);
         photonConnection = PhotonConnection.Connect;
         uI.punConnection_Text.text = "Photon : Connected";
         uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
@@ -82,17 +98,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         uI.punConnection_Text.text = "Photon : Disconnected";
     }
 
-    public void PunButton()
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-        uI.punConnectButton.interactable = false;
-        uI.rosConnectButton.interactable = false;
-        //if (photonConnection == PhotonConnection.Disconnect) PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions(), TypedLobby.Default);
-        if (photonConnection == PhotonConnection.Disconnect) PhotonNetwork.ConnectUsingSettings();
+        // カスタムプロパティが更新されたプレイヤーのプレイヤー名とIDをコンソールに出力する
+        Debug.Log($"{targetPlayer.NickName}({targetPlayer.ActorNumber})");
 
-        else PhotonNetwork.Disconnect();
+        // 更新されたプレイヤーのカスタムプロパティのペアをコンソールに出力する
+        foreach (var prop in changedProps)
+        {
+            Debug.Log($"{prop.Key}: {prop.Value}");
+        }
     }
-    private void OnApplicationQuit()
-    {
-        photonConnection = PhotonConnection.Disconnect;
-    }
+    #endregion
 }
