@@ -50,7 +50,7 @@ public class UserSettings : MonoBehaviour
     //StartボタンのOnClickでコールバック
     public void StartConnecting()
     {
-#if UNITY_STANDALONE_WINDOWS
+#if UNITY_STANDALONE_WIN
         if (userType == UserType.Remote_nonVR)
             StartCoroutine(LoadAsyncScene(remoteSceneBuildIndex));
         else if (userType == UserType.Remote_VR)
