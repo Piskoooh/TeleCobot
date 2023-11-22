@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +30,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     void Start()
     {
         photonConnection = PhotonConnection.Disconnect;
-        uI.punConnectButton.onClick.AddListener(() => punButton());
+        uI.punConnectButton.onClick.AddListener(() => PunButton());
 
         // プレイヤー自身の名前を"Player"に設定する
         PhotonNetwork.NickName = userSettings.UserName.text;
@@ -82,7 +82,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         uI.punConnection_Text.text = "Photon : Disconnected";
     }
 
-    public void punButton()
+    public void PunButton()
     {
         uI.punConnectButton.interactable = false;
         uI.rosConnectButton.interactable = false;

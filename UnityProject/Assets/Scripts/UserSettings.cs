@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,7 +85,7 @@ public class UserSettings : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WINDOWS || UNITY_IOS || UNITY_ANDROID
+#if UNITY_STANDALONE_OSX || UNITY_STANDALONE_WIN || UNITY_IOS || UNITY_ANDROID
         if (UserName.text == "")
             startBtn.interactable = false;
         else
