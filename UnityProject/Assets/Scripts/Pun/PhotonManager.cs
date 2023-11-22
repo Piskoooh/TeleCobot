@@ -52,6 +52,18 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         else PhotonNetwork.Disconnect();
     }
 
+    public void DebugList()
+    {
+        foreach (var pair in RoleDictionary)
+        {
+            Debug.Log("Key" + pair.Key + "Value" + pair.Value);
+        }
+        foreach (var gameObject in RobotList)
+        {
+            Debug.Log("RobotList:" + gameObject);
+        }
+    }
+
     #region PunCallbacks
     // マスターサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnConnectedToMaster()

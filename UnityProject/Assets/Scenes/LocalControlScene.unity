@@ -2780,7 +2780,6 @@ MonoBehaviour:
   rosConnector: {fileID: 1965038769}
   uI: {fileID: 62033672}
   MyAvatar: {fileID: 0}
-  RobotList: []
 --- !u!114 &1965038769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2901,7 +2900,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4526397063076623366}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &6323983559930459367
 MonoBehaviour:
   m_ObjectHideFlags: 0
