@@ -10,20 +10,12 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     [SerializeField]
     Role userRole;
     GameObject networkManager;
-<<<<<<< HEAD
     PhotonManager PhotonManager;
     // Start is called before the first frame update
     void Start()
     {
         networkManager = GameObject.FindGameObjectWithTag("NetworkManager");
         PhotonManager = networkManager.GetComponent<PhotonManager>();
-=======
-    PhotonManager PhotonManager => networkManager.GetComponent<PhotonManager>();
-    // Start is called before the first frame update
-    void Start()
-    {
-        networkManager = GameObject.FindGameObjectWithTag("NetworkManager");
->>>>>>> ca5919d03c22bc5645b0e75c911f1996401555c9
     }
 
     // Update is called once per frame
