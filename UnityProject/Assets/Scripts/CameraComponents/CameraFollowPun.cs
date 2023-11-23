@@ -5,7 +5,7 @@ using Photon.Pun;
 public class CameraFollowPun : MonoBehaviourPun
 {
     public Transform target;  // 追従対象のオブジェクト
-    public float rotationSpeed = 5f;
+    public float rotationSpeed = 100f;
     public float height = 1.7f;  // カメラの高さ
     public float distance = 5f;  // カメラと対象の距離
     public float minDistance = 2f;  // カメラと対象の最小距離

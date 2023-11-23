@@ -6,11 +6,9 @@ using TMPro;
 using Photon;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
 
 //https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/c04ad5 を参考に作成。
-
-
+//Photonの接続状態を管理するクラス
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     UserSettings userSettings;
@@ -52,6 +50,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 var firstRobot = RobotDictionary.First();
                 focusRobotID = firstRobot.Key;
                 focusRobot = firstRobot.Value;
+                UpdateRobotFocus();
+            }
+            else if (focusRobot != null)
+            {
+                //ここにロボットが複数あったときの処理を加える。
             }
         }
         else
@@ -59,6 +62,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             focusRobot = null;
             focusRobotID = 0;
         }
+    }
+
+    private void UpdateRobotFocus()
+    {
+        rosConnector.GetRobot(focusRobot);
+        if (MyAvatar.GetComponent<CameraFollowPun>().isActiveAndEnabled)
+            MyAvatar.GetComponent<CameraFollowPun>().target = rosConnector.base_link.transform;
     }
 
     private void LateUpdate()
@@ -158,6 +168,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // ゲームサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnJoinedRoom()
     {
+        PhotonNetwork.LocalPlayer.SetRole((int)userSettings.role);
         if (userSettings.userType == UserType.Robot)
         {
             PhotonNetwork.Instantiate("LocobotPun", Vector3.zero, Quaternion.identity);
@@ -171,7 +182,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.zero, Quaternion.identity);
         else Debug.LogError("Unkown User Type. Cannot instatiate avatar.");
         //プレイヤーロールをカスタムプロパティに登録
-        PhotonNetwork.LocalPlayer.SetRole((int)userSettings.role);
         photonConnection = PhotonConnection.Connect;
         uI.punConnection_Text.text = "Photon : Connected";
         uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";

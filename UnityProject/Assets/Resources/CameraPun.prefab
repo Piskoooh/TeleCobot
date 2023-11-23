@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rotationSpeed: 5
+  rotationSpeed: 100
   height: 1.7
   distance: 5
   minDistance: 2

@@ -25,7 +25,7 @@ public class RosConnector : MonoBehaviour
     //public PubTelecobotArmControl pubTelecobotArmControl;
     //public PubTelecobotBaseControl pubTelecobotBaseControl;
     public PubUnityControl pubUnityControl;
-    [SerializeField] GameObject Robot;
+    [SerializeField] GameObject currentRobot;
 
     private UrdfLink[] UrdfLinkChain;
     private int numRobotLinks = 0;
@@ -50,27 +50,29 @@ public class RosConnector : MonoBehaviour
         uI.rosConnectButton.onClick.AddListener(() => rosButton());
     }
 
-    public void GetRobot()
+    public void GetRobot(GameObject robot)
     {
-        Robot = GameObject.FindGameObjectWithTag("robot");
-        UrdfLinkChain = Robot.GetComponentsInChildren<UrdfLink>();
-        numRobotLinks = UrdfLinkChain.Length;
-        robotLinkPositions = new Transform[numRobotLinks];
-
-        for (int i = 0; i < numRobotLinks; i++)
+        if(currentRobot != robot)
         {
-            robotLinkPositions[i] = UrdfLinkChain[i].gameObject.transform;
-            switch (UrdfLinkChain[i].gameObject.name)
+            UrdfLinkChain = robot.GetComponentsInChildren<UrdfLink>();
+            numRobotLinks = UrdfLinkChain.Length;
+            robotLinkPositions = new Transform[numRobotLinks];
+
+            for (int i = 0; i < numRobotLinks; i++)
             {
-                case "/base_link":
-                    base_link = UrdfLinkChain[i].gameObject;
-                    break;
-                case "/arm_base_link":
-                    arm_base_link = UrdfLinkChain[i].gameObject;
-                    break;
-                case "/ee_gripper_link":
-                    endEffector = UrdfLinkChain[i].gameObject;
-                    break;
+                robotLinkPositions[i] = UrdfLinkChain[i].gameObject.transform;
+                switch (UrdfLinkChain[i].gameObject.name)
+                {
+                    case "/base_link":
+                        base_link = UrdfLinkChain[i].gameObject;
+                        break;
+                    case "/arm_base_link":
+                        arm_base_link = UrdfLinkChain[i].gameObject;
+                        break;
+                    case "/ee_gripper_link":
+                        endEffector = UrdfLinkChain[i].gameObject;
+                        break;
+                }
             }
         }
     }
