@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
 
 public class AvatarSetting : MonoBehaviourPunCallbacks
 {
@@ -14,6 +13,7 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     Camera Camera;
     GameObject networkManager;
     PhotonManager PhotonManager;
+    RosConnector RosConnector;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,29 +23,42 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if(Camera!=null)
+
+    }
+    // Update is called once per frame
+    void Update()
+    {
+    }
+
+    private void SetAvatarRoll()
+    {
+        //このオブジェクトの所有者を取得
+        var avatarOwner = PhotonView.Get(this).Owner;
+        //所有者のロールプロパティを取得し、アバターのロールを設定
+        int role = avatarOwner.GetRole();
+        avatarRole = (Role)role;
+    }
+
+    private void SetAvatarCamera()
+    {
+        if (Camera != null)
             if (photonView.IsMine)
             {
                 Camera.enabled = true;
+                if (avatarRole == Role.Robot)
+                {
+                    var cf = Camera.GetComponent<CameraFollowPun>();
+                    cf.enabled = true;
+                }
+                else
+                    Camera.GetComponent<CameraControllerPun>().enabled = true;
             }
             else
             {
                 Camera.enabled = false;
             }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Camera != null)
-        {
-            if (PhotonManager.focusRobot!=null)
-            {
-                var cameratarget = Camera.GetComponent<CameraFollow>().target;
-                if (!cameratarget)
-                    Camera.GetComponent<CameraFollow>().target = PhotonManager.focusRobot.transform;
-            }
-        }
-    }
+
     /// <summary>
     /// プロパティが更新された際に呼ばれるコールバック
     /// </summary>
@@ -53,12 +66,9 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     /// <param name="changedProps"></param>更新されたプロパティ
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-        //このオブジェクトの所有者を取得
-        var avatarOwner = PhotonView.Get(this).Owner;
-        //所有者のロールプロパティを取得し、アバターのロールを設定
-        int role = avatarOwner.GetRole();
-        avatarRole = (Role)role;
+        SetAvatarRoll();
         PhotonManager.AddToList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
+        SetAvatarCamera();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

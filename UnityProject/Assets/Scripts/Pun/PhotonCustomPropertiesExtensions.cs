@@ -19,7 +19,15 @@ public static class PhotonCustomPropertiesExtension
     public static void SetRole(this Player avatar, int role)
     {
         propsToSet[ROLE] = role;
-        avatar.SetCustomProperties(propsToSet);
-        propsToSet.Clear();
+    }
+
+    // プレイヤーのカスタムプロパティを送信する
+    public static void SendProperties(this Player player)
+    {
+        if (propsToSet.Count > 0)
+        {
+            player.SetCustomProperties(propsToSet);
+            propsToSet.Clear();
+        }
     }
 }

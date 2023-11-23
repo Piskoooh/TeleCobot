@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
@@ -15,7 +15,6 @@ public class RosConnector : MonoBehaviour
     public RosConnection rosConnection;
     public PhotonManager photonManager;
     public UIManager uI;
-    public CameraFollow cameraFollow;
 
     public VisualizationTopicsTab visualizationTopicsTab;
     public SubTF subTF;
@@ -74,7 +73,6 @@ public class RosConnector : MonoBehaviour
                     break;
             }
         }
-        cameraFollow.target = base_link.transform;
     }
 
     public void ConnectToROS() //ROSに接続するために呼び出す関数

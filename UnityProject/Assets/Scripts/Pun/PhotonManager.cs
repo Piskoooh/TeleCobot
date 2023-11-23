@@ -61,6 +61,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    private void LateUpdate()
+    {
+        PhotonNetwork.LocalPlayer.SendProperties();
+    }
+
     private void OnApplicationQuit()
     {
         photonConnection = PhotonConnection.Disconnect;
@@ -87,7 +92,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log("Update: " + gameObject);
         }
         //ロボットロールの場合はロボットリストに追加する
-        if (avatarRole == Role.Robot)
+        if (avatarRole == Role.Robot&&gameObject.tag=="robot")
         {
             if(RobotDictionary.TryAdd(viewID, gameObject))
             {
@@ -155,8 +160,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         if (userSettings.userType == UserType.Robot)
         {
-            MyAvatar = PhotonNetwork.Instantiate("LocobotPun", Vector3.zero, Quaternion.identity);
-            rosConnector.GetRobot();
+            PhotonNetwork.Instantiate("LocobotPun", Vector3.zero, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.zero, Quaternion.identity);
         }
         else if (userSettings.userType == UserType.Remote_VR)
             MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.zero, Quaternion.identity);
