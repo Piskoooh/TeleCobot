@@ -866,6 +866,7 @@ GameObject:
   - component: {fileID: 7417425220502412338}
   - component: {fileID: 1049947752970926614}
   - component: {fileID: 6812910569276608634}
+  - component: {fileID: 6099297889646193314}
   m_Layer: 0
   m_Name: /right_finger_link
   m_TagString: Untagged
@@ -1003,6 +1004,22 @@ MonoBehaviour:
   jointName: right_finger
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &6099297889646193314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258090819539219680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &279872108570054939
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,6 +2029,7 @@ GameObject:
   - component: {fileID: 4603569605943472026}
   - component: {fileID: 8554950011263258358}
   - component: {fileID: 7361195671254987370}
+  - component: {fileID: 6652646498947071292}
   m_Layer: 0
   m_Name: /wrist_link
   m_TagString: Untagged
@@ -2150,6 +2168,22 @@ MonoBehaviour:
   jointName: wrist_angle
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &6652646498947071292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865892715571488574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &872476974117621546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2405,6 +2439,7 @@ GameObject:
   - component: {fileID: 2978098144913939860}
   - component: {fileID: 5660583543626543975}
   - component: {fileID: 3052820077753987378}
+  - component: {fileID: 5864334075637868296}
   m_Layer: 0
   m_Name: /upper_arm_link
   m_TagString: Untagged
@@ -2543,6 +2578,22 @@ MonoBehaviour:
   jointName: shoulder
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &5864334075637868296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909798014052051120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &917780014366817930
 GameObject:
   m_ObjectHideFlags: 0
@@ -3827,6 +3878,7 @@ GameObject:
   - component: {fileID: 4424320551757371822}
   - component: {fileID: 1399731486508295488}
   - component: {fileID: 3333407242217122966}
+  - component: {fileID: 4545259201632993871}
   m_Layer: 0
   m_Name: /left_finger_link
   m_TagString: Untagged
@@ -3964,6 +4016,22 @@ MonoBehaviour:
   jointName: left_finger
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &4545259201632993871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164811430346251654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1193795610731357943
 GameObject:
   m_ObjectHideFlags: 0
@@ -4022,6 +4090,7 @@ GameObject:
   - component: {fileID: 1018781637649512103}
   - component: {fileID: 5110595309439933217}
   - component: {fileID: 1428142302014448536}
+  - component: {fileID: 7676546882231810573}
   m_Layer: 0
   m_Name: /gripper_link
   m_TagString: Untagged
@@ -4160,6 +4229,22 @@ MonoBehaviour:
   jointName: wrist_rotate
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &7676546882231810573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200932521247970525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1211325602219412507
 GameObject:
   m_ObjectHideFlags: 0
@@ -5965,6 +6050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5863259067759782810}
   - component: {fileID: 4909799653445991989}
+  - component: {fileID: 998978066596023489}
   m_Layer: 0
   m_Name: /odom
   m_TagString: Untagged
@@ -6003,6 +6089,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsBaseLink: 1
+--- !u!114 &998978066596023489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116654311269536995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2139081076000465477
 GameObject:
   m_ObjectHideFlags: 0
@@ -12591,6 +12693,7 @@ GameObject:
   - component: {fileID: 7555442858504017053}
   - component: {fileID: 3746702753183176297}
   - component: {fileID: 4531610304358366356}
+  - component: {fileID: 3211195689508598680}
   m_Layer: 0
   m_Name: /shoulder_link
   m_TagString: Untagged
@@ -12729,6 +12832,22 @@ MonoBehaviour:
   jointName: waist
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &3211195689508598680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4411107928870026266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &4441759411386648713
 GameObject:
   m_ObjectHideFlags: 0
@@ -16088,6 +16207,7 @@ GameObject:
   - component: {fileID: 7953191237654300902}
   - component: {fileID: 915738708162014752}
   - component: {fileID: 5319328034545952480}
+  - component: {fileID: 8760404397574139326}
   m_Layer: 0
   m_Name: /pan_link
   m_TagString: Untagged
@@ -16226,6 +16346,22 @@ MonoBehaviour:
   jointName: pan
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &8760404397574139326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556927499187685076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5558247087980076209
 GameObject:
   m_ObjectHideFlags: 0
@@ -17964,6 +18100,7 @@ GameObject:
   - component: {fileID: 9128941570074268325}
   - component: {fileID: 4552247882749179415}
   - component: {fileID: 96179861402176100}
+  - component: {fileID: 5124190494107844688}
   m_Layer: 0
   m_Name: /forearm_link
   m_TagString: Untagged
@@ -18102,6 +18239,22 @@ MonoBehaviour:
   jointName: elbow
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &5124190494107844688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6552472221690510222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6627386730024035790
 GameObject:
   m_ObjectHideFlags: 0
@@ -21249,6 +21402,7 @@ GameObject:
   - component: {fileID: 7866307940016585626}
   - component: {fileID: 8563273691599938426}
   - component: {fileID: 3631243239103819292}
+  - component: {fileID: 8793855139389647127}
   m_Layer: 0
   m_Name: /base_link
   m_TagString: Untagged
@@ -21299,6 +21453,7 @@ Transform:
   - {fileID: 8955719482225782540}
   - {fileID: 4615331090817702630}
   - {fileID: 4484726420601763916}
+  - {fileID: 8467652186780080550}
   m_Father: {fileID: 5863259067759782810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1807203542279382952
@@ -21414,6 +21569,22 @@ MonoBehaviour:
   jointName: base_joint
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &8793855139389647127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7836092617014622829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7917212575867579827
 GameObject:
   m_ObjectHideFlags: 0
@@ -22323,6 +22494,7 @@ GameObject:
   - component: {fileID: 5001805572222990458}
   - component: {fileID: 3947783094436953748}
   - component: {fileID: 2645730296723037724}
+  - component: {fileID: 408112444575916638}
   m_Layer: 0
   m_Name: /tilt_link
   m_TagString: Untagged
@@ -22461,6 +22633,22 @@ MonoBehaviour:
   jointName: tilt
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &408112444575916638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8198798079729680089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8209209294038148007
 GameObject:
   m_ObjectHideFlags: 0
@@ -23288,7 +23476,6 @@ Transform:
   m_Children:
   - {fileID: 2891704376842923126}
   - {fileID: 5863259067759782810}
-  - {fileID: 8467652186780080550}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5450072291977491364
@@ -23325,7 +23512,9 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 998978066596023489}
+  - {fileID: 8793855139389647127}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -23963,6 +24152,7 @@ GameObject:
   - component: {fileID: 544834710343059619}
   - component: {fileID: 1059302387186542052}
   - component: {fileID: 2357099305727208597}
+  - component: {fileID: 2338763915001394707}
   m_Layer: 0
   m_Name: /gripper_prop_link
   m_TagString: Untagged
@@ -24100,6 +24290,22 @@ MonoBehaviour:
   jointName: gripper
   EffortLimit: 1000
   VelocityLimit: 1000
+--- !u!114 &2338763915001394707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740914235153150323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8768503294463817365
 GameObject:
   m_ObjectHideFlags: 0
@@ -25158,7 +25364,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2580990800113653293}
+    m_TransformParent: {fileID: 2645257767427119675}
     m_Modifications:
     - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_Pivot.x
