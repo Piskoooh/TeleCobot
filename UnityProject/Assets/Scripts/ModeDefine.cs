@@ -1,10 +1,21 @@
-//場合分け管理のためにenumを使用
+﻿//場合分け管理のためにenumを使用
 //定数に名称を付与
+
 public enum UserType
 {
+    //What is the type of the user?
     Remote_nonVR=0,
     Remote_VR=1,
     Local_AR=2,
+    Robot=3,
+}
+
+public enum Role
+{
+    //What is the role of the user?
+    Unkown=0,
+    Operator=1,
+    Collaborator=2,
     Robot=3,
 }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - robot
   - end_effector
+  - NetworkManager
   layers:
   - Default
   - TransparentFX
