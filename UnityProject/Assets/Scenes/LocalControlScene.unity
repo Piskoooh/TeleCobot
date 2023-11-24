@@ -2792,6 +2792,7 @@ MonoBehaviour:
   photonConnection: 0
   rosConnector: {fileID: 1965038769}
   uI: {fileID: 62033672}
+  inputManager: {fileID: 931117680}
   MyAvatar: {fileID: 0}
   focusRobot: {fileID: 0}
 --- !u!114 &1965038769
@@ -2809,12 +2810,11 @@ MonoBehaviour:
   rosConnection: 0
   photonManager: {fileID: 1965038768}
   uI: {fileID: 62033672}
-  cameraFollow: {fileID: 0}
   visualizationTopicsTab: {fileID: 1667113388}
   subTF: {fileID: 1078192553}
   pubRosClock: {fileID: 1078192554}
   pubUnityControl: {fileID: 1078192555}
-  Robot: {fileID: 0}
+  currentRobot: {fileID: 0}
   robotLinkPositions: []
   endEffector: {fileID: 0}
   base_link: {fileID: 0}

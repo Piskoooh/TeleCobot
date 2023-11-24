@@ -6,6 +6,7 @@ using TMPro;
 using Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 //https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/c04ad5 を参考に作成。
 //Photonの接続状態を管理するクラス
@@ -15,6 +16,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public PhotonConnection photonConnection;
     public RosConnector rosConnector;
     public UIManager uI;
+    public InputManager inputManager;
 
     //[HideInInspector]
     public GameObject MyAvatar;
@@ -187,6 +189,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
         uI.punConnectButton.interactable = true;
         uI.rosConnectButton.interactable = true;
+
+        if (userSettings.role == Role.Operator)
+        {
+            PhotonNetwork.CurrentRoom.SetControlMode((int)inputManager.controlMode);
+            PhotonNetwork.CurrentRoom.SetManualCmd((int)inputManager.manualCmd);
+            PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)inputManager.semiAutoCmd);
+        }
+        else
+        {
+            inputManager.controlMode = (ControlMode)PhotonNetwork.CurrentRoom.GetControlMode();
+            inputManager.manualCmd = (ManualCommands)PhotonNetwork.CurrentRoom.GetManualCmd();
+            inputManager.semiAutoCmd = (SemiAutomaticCommands)PhotonNetwork.CurrentRoom.GetSemiAutoCmd();
+        }
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -213,6 +228,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         {
             Debug.Log($"{prop.Key}: {prop.Value}");
         }
+    }
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        // 更新されたルームのカスタムプロパティのペアをコンソールに出力する
+        foreach (var prop in propertiesThatChanged)
+        {
+            Debug.Log($"{prop.Key}: {prop.Value}");
+        }
+        inputManager.controlMode = (ControlMode)PhotonNetwork.CurrentRoom.GetControlMode();
+        inputManager.manualCmd = (ManualCommands)PhotonNetwork.CurrentRoom.GetManualCmd();
+        inputManager.semiAutoCmd = (SemiAutomaticCommands)PhotonNetwork.CurrentRoom.GetSemiAutoCmd();
     }
     #endregion
 }

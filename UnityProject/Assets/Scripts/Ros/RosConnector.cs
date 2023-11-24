@@ -74,6 +74,7 @@ public class RosConnector : MonoBehaviour
                         break;
                 }
             }
+            currentRobot = robot;
         }
     }
 
