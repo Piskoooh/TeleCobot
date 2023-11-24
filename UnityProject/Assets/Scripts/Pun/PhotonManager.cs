@@ -75,7 +75,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void LateUpdate()
     {
+        //カスタムプロパティの変化したものを更新
         PhotonNetwork.LocalPlayer.SendProperties();
+        PhotonNetwork.CurrentRoom.SendProperties();
     }
 
     private void OnApplicationQuit()

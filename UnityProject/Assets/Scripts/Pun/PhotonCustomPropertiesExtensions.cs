@@ -12,7 +12,8 @@ public static class PhotonCustomPropertiesExtension
     private const string MANUAL_COMMAND = "MC";
     private const string SEMI_AUTO_COMMAND = "SAC";
 
-    private static readonly Hashtable propsToSet = new Hashtable();
+    private static readonly Hashtable playerPropsToSet = new Hashtable();
+    private static readonly Hashtable roomPropsToSet = new Hashtable();
 
     public static int GetRole(this Player avatar)
     {
@@ -21,7 +22,7 @@ public static class PhotonCustomPropertiesExtension
 
     public static void SetRole(this Player avatar, int role)
     {
-        propsToSet[ROLE] = role;
+        playerPropsToSet[ROLE] = role;
     }
 
     public static int GetControlMode(this Room currentRoom)
@@ -30,7 +31,7 @@ public static class PhotonCustomPropertiesExtension
     }
     public static void SetControlMode(this Room currentRoom, int controlMode)
     {
-        propsToSet[CONTROL_MODE] = controlMode;
+        roomPropsToSet[CONTROL_MODE] = controlMode;
     }
 
     public static int GetManualCmd(this Room currentRoom)
@@ -39,7 +40,7 @@ public static class PhotonCustomPropertiesExtension
     }
     public static void SetManualCmd(this Room currentRoom, int manualCommand)
     {
-        propsToSet[MANUAL_COMMAND] = manualCommand;
+        roomPropsToSet[MANUAL_COMMAND] = manualCommand;
     }
     public static int GetSemiAutoCmd(this Room currentRoom)
     {
@@ -47,16 +48,26 @@ public static class PhotonCustomPropertiesExtension
     }
     public static void SetSemiAutoCmd(this Room currentRoom, int semiAutoCmd)
     {
-        propsToSet[MANUAL_COMMAND] = semiAutoCmd;
+        roomPropsToSet[SEMI_AUTO_COMMAND] = semiAutoCmd;
     }
 
     // プレイヤーのカスタムプロパティを送信する
     public static void SendProperties(this Player player)
     {
-        if (propsToSet.Count > 0)
+        if (playerPropsToSet.Count > 0)
         {
-            player.SetCustomProperties(propsToSet);
-            propsToSet.Clear();
+            player.SetCustomProperties(playerPropsToSet);
+            playerPropsToSet.Clear();
+        }
+    }
+
+    // ルームのカスタムプロパティを送信する
+    public static void SendProperties(this Room room)
+    {
+        if (roomPropsToSet.Count > 0)
+        {
+            room.SetCustomProperties(roomPropsToSet);
+            roomPropsToSet.Clear();
         }
     }
 }
