@@ -13,6 +13,7 @@ using Photon.Realtime;
 public class InputManager : MonoBehaviourPunCallbacks
 {
     private SceneMaster sceneMaster;
+
     [HideInInspector]
     public bool speedInc, speedDec, speedCourse, speedFine,
         gripperPwmInc, gripperPwmDec, gripperOpen, gripperClose,
@@ -295,50 +296,65 @@ public class InputManager : MonoBehaviourPunCallbacks
     }
 
     //ActionMapの切り替え
+    //マニュアルモードにおける操作対象ベース・アームの切り替え
     public void OnSwitchControl(InputAction.CallbackContext context)
     {
-        Debug.Log("OnSwitchControl called");
-        if (context.performed)
+        if (context.started)
         {
-            if (controlMode == ControlMode.ManualControl
-                && playerInput.currentActionMap == manual_arm)
+            Debug.Log("OnSwitchControl called");
+            if (sceneMaster.userSettings.role == Role.Operator)
             {
-                Debug.Log("Switch Action Map to 'Manual Base'.");
-                playerInput.SwitchCurrentActionMap("LocobotManualBase");
-                manualCmd = ManualCommands.Base;
+                if (controlMode == ControlMode.ManualControl
+                    && playerInput.currentActionMap == manual_arm)
+                {
+                    Debug.Log("Switch Action Map to 'Manual Base'.");
+                    //playerInput.SwitchCurrentActionMap("LocobotManualBase");
+                    manualCmd = ManualCommands.Base;
+                }
+                else if (controlMode == ControlMode.ManualControl
+                    && playerInput.currentActionMap == manual_base)
+                {
+                    Debug.Log("Switch Action Map to 'Manual Arm'.");
+                    //playerInput.SwitchCurrentActionMap("LocobotManualArm");
+                    manualCmd = ManualCommands.Arm;
+                }
+                PhotonNetwork.CurrentRoom.SetManualCmd((int)manualCmd);
             }
-            else if (controlMode == ControlMode.ManualControl
-                && playerInput.currentActionMap == manual_base)
-            {
-                Debug.Log("Switch Action Map to 'Manual Arm'.");
-                playerInput.SwitchCurrentActionMap("LocobotManualArm");
-                manualCmd = ManualCommands.Arm;
-            }
+            else Debug.LogWarning("You are not authorized to operate.");
         }
     }
 
+    //セミオートモードとマニュアルモードの切り替え
     public void OnSwitchMode(InputAction.CallbackContext context)
     {
-        Debug.Log("OnSwitchMode called");
-        if (context.performed)
+        if (context.started)
         {
-            if (controlMode == ControlMode.ManualControl
-                && (playerInput.currentActionMap == manual_arm
-                || playerInput.currentActionMap == manual_base))
+            Debug.Log("OnSwitchMode called");
+            if (sceneMaster.userSettings.role == Role.Operator)
             {
-                controlMode = ControlMode.SemiAutomaticControl;
-                playerInput.SwitchCurrentActionMap("LocobotSemiAuto");
-                manualCmd = ManualCommands.Disable;
-                semiAutoCmd = SemiAutomaticCommands.Available;
+                if (controlMode == ControlMode.ManualControl
+                    && (playerInput.currentActionMap == manual_arm
+                    || playerInput.currentActionMap == manual_base))
+                {
+                    controlMode = ControlMode.SemiAutomaticControl;
+                    //playerInput.SwitchCurrentActionMap("LocobotSemiAuto");
+                    manualCmd = ManualCommands.Disable;
+                    semiAutoCmd = SemiAutomaticCommands.Available;
+                }
+                else if (controlMode == ControlMode.SemiAutomaticControl
+                    && playerInput.currentActionMap == semiAuto)
+                {
+                    controlMode = ControlMode.ManualControl;
+                    //playerInput.SwitchCurrentActionMap("LocobotManualBase");
+                    manualCmd = ManualCommands.Base;
+                    semiAutoCmd = SemiAutomaticCommands.Disable;
+                }
+                PhotonNetwork.CurrentRoom.SetControlMode((int)controlMode);
+                PhotonNetwork.CurrentRoom.SetManualCmd((int)manualCmd);
+                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                //photonView.RPC(nameof(RPCSwitchMode), RpcTarget.AllViaServer);
             }
-            else if (controlMode == ControlMode.SemiAutomaticControl
-                && playerInput.currentActionMap == semiAuto)
-            {
-                controlMode = ControlMode.ManualControl;
-                playerInput.SwitchCurrentActionMap("LocobotManualBase");
-                manualCmd = ManualCommands.Base;
-                semiAutoCmd = SemiAutomaticCommands.Disable;
-            }
+            else Debug.LogWarning("You are not authorized to operate.");
         }
     }
 
@@ -461,5 +477,12 @@ public class InputManager : MonoBehaviourPunCallbacks
         controlMode = (ControlMode)PhotonNetwork.CurrentRoom.GetControlMode();
         manualCmd = (ManualCommands)PhotonNetwork.CurrentRoom.GetManualCmd();
         semiAutoCmd = (SemiAutomaticCommands)PhotonNetwork.CurrentRoom.GetSemiAutoCmd();
+        if (controlMode == ControlMode.SemiAutomaticControl)
+            playerInput.SwitchCurrentActionMap("LocobotSemiAuto");
+        else if (controlMode == ControlMode.ManualControl && manualCmd == ManualCommands.Base)
+            playerInput.SwitchCurrentActionMap("LocobotManualBase");
+        else if (controlMode == ControlMode.ManualControl && manualCmd == ManualCommands.Arm)
+            playerInput.SwitchCurrentActionMap("LocobotManualArm");
+
     }
 }
