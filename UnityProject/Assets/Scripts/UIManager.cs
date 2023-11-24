@@ -247,9 +247,9 @@ public class UIManager : MonoBehaviour
                         else if (sceneMaster.inputMng.eePitch < -0.5)
                             xRot = Quaternion.AngleAxis(1, localArrow.curL_rN);
                         if (sceneMaster.inputMng.eeRoll > 0.5)
-                            zRot = Quaternion.AngleAxis(1, localArrow.curEef_egN);
-                        else if (sceneMaster.inputMng.eeRoll < -0.5)
                             zRot = Quaternion.AngleAxis(-1, localArrow.curEef_egN);
+                        else if (sceneMaster.inputMng.eeRoll < -0.5)
+                            zRot = Quaternion.AngleAxis(1, localArrow.curEef_egN);
                         pose.rotation = xRot * zRot * pose.rotation;
                         AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
                     }

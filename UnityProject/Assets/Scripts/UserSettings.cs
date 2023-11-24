@@ -82,9 +82,9 @@ public class UserSettings : MonoBehaviour
         else
         {
             if (userType == UserType.Remote_nonVR)
-                StartCoroutine(LoadAsyncScene(remoteSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
             else if (userType == UserType.Remote_VR)
-                StartCoroutine(LoadAsyncScene(remoteSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
             else if (userType == UserType.Robot)
                 StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
             else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");

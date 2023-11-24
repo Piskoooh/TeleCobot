@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.Rendering;
+using System;
 
 //InputSystemに入力(Action)があった際に行う処理をまとめたスクリプト
 //有効化するActionMapの切り替えはStart()とOnSwitchMode()で制御。
@@ -70,11 +72,38 @@ public class InputManager : MonoBehaviourPunCallbacks
     //マニュアルコントロールモード
     public void OnCameraUpDown(InputAction.CallbackContext context)
     {
-        Debug.Log("OnEeCameraUpDown called");
         if (context.performed)
-            tilt = context.ReadValue<float>();
+        {
+            Debug.Log("OnEeCameraUpDown called");
+            if(sceneMaster.userSettings.role == Role.Operator)
+            {
+                float f = context.ReadValue<float>();
+                photonView.RPC(nameof(CameraUpDownPun), RpcTarget.AllViaServer, f);
+            }
+            else
+            {
+                Debug.LogWarning("You are not authorized to operate.");
+            }
+        }
         else if (context.canceled)
-            tilt = 0;
+            if(sceneMaster.userSettings.role == Role.Operator)
+                photonView.RPC(nameof(CameraUpDownPun), RpcTarget.AllViaServer, 0f);
+            else
+                Debug.LogWarning("You are not authorized to operate.");
+    }
+
+    [PunRPC]
+    private void CameraUpDownPun(float value, PhotonMessageInfo info)
+    {
+        if (info.Sender.IsLocal)
+            Debug.Log("CameraUpDownPun called");
+        else if (sceneMaster.userSettings.role == Role.Robot)
+        {
+            Debug.Log($"Recieved CameraUpDownPun from {info.Sender.NickName}");
+            tilt = value;
+        }
+        else
+            Debug.Log($"Operator ( {info.Sender.NickName}, UserID: {info.Sender.UserId} ) is sending command to Robot.");
     }
 
     public void OnCameraRightLeft(InputAction.CallbackContext context)
