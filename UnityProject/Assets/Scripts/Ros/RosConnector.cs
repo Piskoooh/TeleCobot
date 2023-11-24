@@ -11,10 +11,9 @@ using URV;
 
 public class RosConnector : MonoBehaviour
 {
+    public SceneMaster sceneMaster;
     private ROSConnection ros;
     public RosConnection rosConnection;
-    public PhotonManager photonManager;
-    public UIManager uI;
 
     public VisualizationTopicsTab visualizationTopicsTab;
     public SubTF subTF;
@@ -47,7 +46,7 @@ public class RosConnector : MonoBehaviour
     private void Start()
     {
         rosConnection = RosConnection.Disconnect;
-        uI.rosConnectButton.onClick.AddListener(() => rosButton());
+        sceneMaster.uIMng.rosConnectButton.onClick.AddListener(() => rosButton());
     }
 
     public void GetRobot(GameObject robot)
@@ -80,10 +79,10 @@ public class RosConnector : MonoBehaviour
 
     public void ConnectToROS() //ROSに接続するために呼び出す関数
     {
-        if (photonManager.photonConnection==PhotonConnection.Disconnect)
+        if (sceneMaster.photonMng.photonConnection==PhotonConnection.Disconnect)
         {
-            uI.punConnection_Text.text = "Photon : Not Connected";
-            uI.rosConnection_Text.text = "Connect photon before connecting to ROS";
+            sceneMaster.uIMng.punConnection_Text.text = "Photon : Not Connected";
+            sceneMaster.uIMng.rosConnection_Text.text = "Connect photon before connecting to ROS";
         }
         else
         {
@@ -98,13 +97,13 @@ public class RosConnector : MonoBehaviour
                 }
                 catch (Exception e)
                 {
-                    uI.rosConnection_Text.text = "ROS : Failed to Connect:" + e.Message;
+                    sceneMaster.uIMng.rosConnection_Text.text = "ROS : Failed to Connect:" + e.Message;
                 }
             }
             else
             {
-                uI.punConnection_Text.text = "Photon : Connected";
-                uI.rosConnection_Text.text = "ROS : Connected";
+                sceneMaster.uIMng.punConnection_Text.text = "Photon : Connected";
+                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Connected";
             }
         }
     }
@@ -113,10 +112,10 @@ public class RosConnector : MonoBehaviour
                                //接続直後にPub/Subするメッセージはここで起動する
     {
         rosConnection = RosConnection.Connect;
-        uI.rosConnection_Text.text = "ROS : Connected";
-        uI.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
-        uI.punConnectButton.interactable = true;
-        uI.rosConnectButton.interactable = true;
+        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Connected";
+        sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        sceneMaster.uIMng.punConnectButton.interactable = true;
+        sceneMaster.uIMng.rosConnectButton.interactable = true;
 
         //visualization
         visualizationTopicsTab.OnRosConnect();
@@ -142,10 +141,10 @@ public class RosConnector : MonoBehaviour
             {
                 ros.Disconnect();
                 rosConnection = RosConnection.Disconnect;
-                uI.rosConnection_Text.text = "ROS : Disconnected";
-                uI.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-                uI.punConnectButton.interactable = true;
-                uI.rosConnectButton.interactable = true;
+                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Disconnected";
+                sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
+                sceneMaster.uIMng.punConnectButton.interactable = true;
+                sceneMaster.uIMng.rosConnectButton.interactable = true;
 
                 //Stop publish
                 pubRosClock.OnRosDisconnected();
@@ -157,17 +156,17 @@ public class RosConnector : MonoBehaviour
             }
             catch (Exception e)
             {
-                uI.rosConnection_Text.text = "ROS : Failed to Disconnect:" + e.Message;
+                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Failed to Disconnect:" + e.Message;
             }
         }
         else
-            uI.rosConnection_Text.text = "ROS : Already Disconnected";
+            sceneMaster.uIMng.rosConnection_Text.text = "ROS : Already Disconnected";
     }
 
     public void rosButton()
     {
-        uI.punConnectButton.interactable = false;
-        uI.rosConnectButton.interactable = false;
+        sceneMaster.uIMng.punConnectButton.interactable = false;
+        sceneMaster.uIMng.rosConnectButton.interactable = false;
         if (rosConnection == RosConnection.Disconnect) ConnectToROS();
         else DisconnectFromROS();
     }

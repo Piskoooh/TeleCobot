@@ -11,10 +11,8 @@ using Photon.Realtime;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-    public PlayerInput playerInput;
     public PubUnityControl pubUnityControl;
-    public InputManager inputMng;
-    public RosConnector rosConnector;
+    public SceneMaster sceneMaster;
 
     //ネットワーク関連のUI
     public TMP_Text controlMode_Text, punConnection_Text, rosConnection_Text;
@@ -33,9 +31,9 @@ public class UIManager : MonoBehaviour
     Pose pose;
 
     //ロボットアームのターゲット指定で使用する読み取り専用の数値
-    Transform baseLinkTf => rosConnector.base_link.transform;
-    Transform armBaseLinkTf => rosConnector.arm_base_link.transform;
-    Transform endEffectorTf => rosConnector.endEffector.transform;
+    Transform baseLinkTf => sceneMaster.rosConnector.base_link.transform;
+    Transform armBaseLinkTf => sceneMaster.rosConnector.arm_base_link.transform;
+    Transform endEffectorTf => sceneMaster.rosConnector.endEffector.transform;
     Vector2 b_a => new Vector2(armBaseLinkTf.transform.position.x - baseLinkTf.transform.position.x, armBaseLinkTf.transform.position.z - baseLinkTf.transform.position.z);
     Vector2 b_aN => b_a.normalized;
     Vector2 a_ee => new Vector2(endEffectorTf.transform.position.x - armBaseLinkTf.transform.position.x, endEffectorTf.transform.position.z - armBaseLinkTf.transform.position.z);
@@ -63,8 +61,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void VisualRange()
     {
-        visualIndicator = Instantiate(visualIndicatorPrefab, rosConnector.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
-        visualIndicator.transform.parent = rosConnector.arm_base_link.transform;
+        visualIndicator = Instantiate(visualIndicatorPrefab, sceneMaster.rosConnector.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
+        visualIndicator.transform.parent = sceneMaster.rosConnector.arm_base_link.transform;
         visualIndicator.transform.localPosition = new Vector3(0f, 0f, 0f);
         visualIndicator.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
@@ -80,7 +78,7 @@ public class UIManager : MonoBehaviour
     {
         float angle = Vector2.Angle(a_ee, b_aN);
         Vector3 direction = endEffectorTf.position - armBaseLinkTf.position;
-        if (direction.magnitude < 0.55f && 90 > angle && rosConnector.endEffector.transform.position.y > 0 )
+        if (direction.magnitude < 0.55f && 90 > angle && sceneMaster.rosConnector.endEffector.transform.position.y > 0 )
         {
             if (target == null)
             {
@@ -93,8 +91,8 @@ public class UIManager : MonoBehaviour
             Pose resetPose;
             //resetPose.position = new Vector3(baseLinkTf.position.x + 0.5f * b_aN.x, baseLinkTf.position.y + 0.1f, baseLinkTf.position.z + 0.5f * b_aN.y);
             //resetPose.rotation = baseLinkTf.rotation;
-            resetPose.position = rosConnector.endEffector.transform.position;
-            resetPose.rotation = rosConnector.endEffector.transform.rotation;
+            resetPose.position = sceneMaster.rosConnector.endEffector.transform.position;
+            resetPose.rotation = sceneMaster.rosConnector.endEffector.transform.rotation;
             pose = new Pose(resetPose.position,resetPose.rotation);
             AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
         }
@@ -104,7 +102,7 @@ public class UIManager : MonoBehaviour
             $"Direction Magnitude: {direction.magnitude}, Angle: {angle}, Gripper Position Y: {endEffectorTf.position.y}" +
             $"\nReset arm to 'Home Position'.");
 
-            inputMng.semiAutoCmd = SemiAutomaticCommands.Available;
+            sceneMaster.inputMng.semiAutoCmd = SemiAutomaticCommands.Available;
         }
     }
 
@@ -129,7 +127,7 @@ public class UIManager : MonoBehaviour
                             $"Direction Magnitude: {direction.magnitude}, Angle: {angle}, Gripper Position Y: {eeGripper.transform.position.y}");
         }
         CreateOrResetTarget();
-        inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
+        sceneMaster.inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
     }
 
     public void CreateOrResetGoal()
@@ -159,7 +157,7 @@ public class UIManager : MonoBehaviour
                 Debug.Log("Cannot set target. Something went wrong.");
         }
         CreateOrResetGoal();
-        inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
+        sceneMaster.inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
     }
 
     /// <summary>
@@ -179,17 +177,21 @@ public class UIManager : MonoBehaviour
 
     // Update is called once per frame
     /// <summary>
-    /// 
+    ///
     /// switch構文　semiAutoCmdの数値によって実行処理を変更。
     /// </summary>
     void Update()
     {
-        controlMode_Text.text = "ControlMode: "+playerInput.currentActionMap.name;
-        if (rosConnector.rosConnection == RosConnection.Connect)
+        if (sceneMaster.inputMng == null)
+            controlMode_Text.text = "Opetator is not in this Room. \nPlease wait for Operator to join this room.";
+        else
+            controlMode_Text.text = "ControlMode: " + sceneMaster.inputMng.playerInput.currentActionMap.name;
+
+        if (sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
         {
             Vector3 b_a3 = new Vector3(b_aN.x, 0, b_aN.y);
             Vector3 b_a3Cross = Vector3.Cross(b_a3, Vector3.down);
-            switch (inputMng.semiAutoCmd)
+            switch (sceneMaster.inputMng.semiAutoCmd)
             {
                 //不要なUIを削除
                 case SemiAutomaticCommands.Available:
@@ -213,23 +215,23 @@ public class UIManager : MonoBehaviour
                         pose.position = eeGripper.transform.position;
                         pose.rotation = eeGripper.transform.rotation;
                         //ロボットの進行方向に対してグリッパーが移動するように処理
-                        if (inputMng.targetZ > 0.5)
+                        if (sceneMaster.inputMng.targetZ > 0.5)
                             pose.position += b_a3 * targetMoveSpeed * Time.deltaTime;
-                        else if (inputMng.targetZ < -0.5)
+                        else if (sceneMaster.inputMng.targetZ < -0.5)
                             pose.position -= b_a3 * targetMoveSpeed * Time.deltaTime;
-                        if (inputMng.targetX > 0.5)
+                        if (sceneMaster.inputMng.targetX > 0.5)
                             pose.position += b_a3Cross * targetMoveSpeed * Time.deltaTime;
-                        else if (inputMng.targetX < -0.5)
+                        else if (sceneMaster.inputMng.targetX < -0.5)
                             pose.position -= b_a3Cross * targetMoveSpeed * Time.deltaTime;
-                        if (inputMng.targetY > 0.5)
+                        if (sceneMaster.inputMng.targetY > 0.5)
                             pose.position += Vector3.up * targetMoveSpeed * Time.deltaTime;
-                        else if (inputMng.targetY < -0.5)
+                        else if (sceneMaster.inputMng.targetY < -0.5)
                             pose.position -= Vector3.up * targetMoveSpeed * Time.deltaTime;
                         //移動する場合、グリッパーがロボットの中心を向くように処理
-                        if (inputMng.targetX != 0 || inputMng.targetY != 0 || inputMng.targetZ != 0)
+                        if (sceneMaster.inputMng.targetX != 0 || sceneMaster.inputMng.targetY != 0 || sceneMaster.inputMng.targetZ != 0)
                         {
                             // ターゲットへの向きベクトル計算
-                            var dir = (rosConnector.arm_base_link.transform.position - pose.position).normalized;
+                            var dir = (sceneMaster.rosConnector.arm_base_link.transform.position - pose.position).normalized;
                             // ターゲットの方向への回転
                             var lookAtRotation = Quaternion.LookRotation(-dir, Vector3.up);
                             // 回転補正
@@ -240,13 +242,13 @@ public class UIManager : MonoBehaviour
                         //グリッパーのロールとピッチを動かすための処理
                         Quaternion xRot = Quaternion.AngleAxis(0, localArrow.curL_rN);
                         Quaternion zRot = Quaternion.AngleAxis(0, localArrow.curEef_egN);
-                        if (inputMng.eePitch > 0.5)
+                        if (sceneMaster.inputMng.eePitch > 0.5)
                             xRot = Quaternion.AngleAxis(-1, localArrow.curL_rN);
-                        else if (inputMng.eePitch < -0.5)
+                        else if (sceneMaster.inputMng.eePitch < -0.5)
                             xRot = Quaternion.AngleAxis(1, localArrow.curL_rN);
-                        if (inputMng.eeRoll > 0.5)
+                        if (sceneMaster.inputMng.eeRoll > 0.5)
                             zRot = Quaternion.AngleAxis(1, localArrow.curEef_egN);
-                        else if (inputMng.eeRoll < -0.5)
+                        else if (sceneMaster.inputMng.eeRoll < -0.5)
                             zRot = Quaternion.AngleAxis(-1, localArrow.curEef_egN);
                         pose.rotation = xRot * zRot * pose.rotation;
                         AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
@@ -260,29 +262,29 @@ public class UIManager : MonoBehaviour
                     if (target != null) Destroy(target);
                     if (goal != null)
                     {
-                        if (inputMng.targetZ > 0.5)
+                        if (sceneMaster.inputMng.targetZ > 0.5)
                         {
                             goal.transform.position += b_a3 * goalMoveSpeed * Time.deltaTime;
                             goal.transform.rotation = Quaternion.Euler(b_a3);
                         }
 
-                        else if (inputMng.targetZ < -0.5)
+                        else if (sceneMaster.inputMng.targetZ < -0.5)
                         {
                             goal.transform.position -= b_a3 * goalMoveSpeed * Time.deltaTime;
                             goal.transform.rotation = Quaternion.Euler(b_a3);
                         }
-                        if (inputMng.targetX > 0.5)
+                        if (sceneMaster.inputMng.targetX > 0.5)
                         {
                             goal.transform.position += b_a3Cross * goalMoveSpeed * Time.deltaTime;
                             goal.transform.rotation = Quaternion.Euler(b_a3);
                         }
-                        else if (inputMng.targetX < -0.5)
+                        else if (sceneMaster.inputMng.targetX < -0.5)
                         {
                             goal.transform.position -= b_a3Cross * goalMoveSpeed * Time.deltaTime;
                             goal.transform.rotation = Quaternion.Euler(b_a3);
                         }
-                        if (inputMng.baseRotate > 0.5 || inputMng.baseRotate < -0.5)
-                            goal.transform.Rotate(Vector3.up * Time.deltaTime * goalRotateSpeed * inputMng.baseRotate * 30, Space.World);
+                        if (sceneMaster.inputMng.baseRotate > 0.5 || sceneMaster.inputMng.baseRotate < -0.5)
+                            goal.transform.Rotate(Vector3.up * Time.deltaTime * goalRotateSpeed * sceneMaster.inputMng.baseRotate * 30, Space.World);
                     }
                     break;
                 case SemiAutomaticCommands.PublishGoal:

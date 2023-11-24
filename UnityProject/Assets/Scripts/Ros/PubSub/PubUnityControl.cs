@@ -8,8 +8,8 @@ public class PubUnityControl : MonoBehaviour
 {
     private static readonly string ControlTopic = "/unity_control";
 
+    public SceneMaster sceneMaster;
     public InputManager inputMng;
-    public UIManager uIMng;
 
     private ROSConnection ros;
     private TelecobotUnityControlMsg controlMsg;
@@ -24,7 +24,7 @@ public class PubUnityControl : MonoBehaviour
 
     Vector2 b_aN => new Vector2(rosConnector.arm_base_link.transform.position.x - rosConnector.base_link.transform.position.x, rosConnector.arm_base_link.transform.position.z - rosConnector.base_link.transform.position.z).normalized;
     Vector2 b_ee => new Vector2(rosConnector.endEffector.transform.position.x - rosConnector.base_link.transform.position.x, rosConnector.endEffector.transform.position.z - rosConnector.base_link.transform.position.z);
-    Vector2 b_eg => new Vector2(uIMng.eeGripper.transform.position.x - rosConnector.base_link.transform.position.x, uIMng.eeGripper.transform.position.z - rosConnector.base_link.transform.position.z);
+    Vector2 b_eg => new Vector2(sceneMaster.uIMng.eeGripper.transform.position.x - rosConnector.base_link.transform.position.x, sceneMaster.uIMng.eeGripper.transform.position.z - rosConnector.base_link.transform.position.z);
     bool flag;
 
     static double MAX_BASE_X = 0.7;         // Max translational motion that the base can do is 0.7 m/s
@@ -195,7 +195,7 @@ public class PubUnityControl : MonoBehaviour
             if(inputMng.moveBase)
             {
                 Debug.LogWarning("Place Goal called.");
-                uIMng.CreateOrResetGoal();
+                sceneMaster.uIMng.CreateOrResetGoal();
             }
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.BackHome)
@@ -206,22 +206,22 @@ public class PubUnityControl : MonoBehaviour
         {
             controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
             Debug.LogWarning("Check goal is called.");
-            uIMng.CheckGoal();
+            sceneMaster.uIMng.CheckGoal();
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
         {
             if(inputMng.moveArm)
             {
-                uIMng.CreateOrResetTarget();
-                if (uIMng.visualIndicator == null)
-                    uIMng.VisualRange();
+                sceneMaster.uIMng.CreateOrResetTarget();
+                if (sceneMaster.uIMng.visualIndicator == null)
+                    sceneMaster.uIMng.VisualRange();
             }
         }
         else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)
         {
             //controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVEIT;
             controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVE_ARM;
-            uIMng.PickTarget();
+            sceneMaster.uIMng.PickTarget();
         }
         else Debug.LogWarning("Unknown commands. somting went wrong.");
     }
@@ -231,16 +231,16 @@ public class PubUnityControl : MonoBehaviour
     public void SetMoveToPose()
     {
         controlMsg.pose_data = new double[3];
-        controlMsg.pose_data[0] = uIMng.goal.transform.position.z; //x
-        controlMsg.pose_data[1] = -uIMng.goal.transform.position.x; //y
-        controlMsg.pose_data[2] = (Mathf.Repeat(uIMng.goal.transform.rotation.y + 180, 360) - 180) * Mathf.Deg2Rad; //Yaw
+        controlMsg.pose_data[0] = sceneMaster.uIMng.goal.transform.position.z; //x
+        controlMsg.pose_data[1] = -sceneMaster.uIMng.goal.transform.position.x; //y
+        controlMsg.pose_data[2] = (Mathf.Repeat(sceneMaster.uIMng.goal.transform.rotation.y + 180, 360) - 180) * Mathf.Deg2Rad; //Yaw
     }
 
     //LocobotArm
     public void SetTargetPose()
     {
         //Eeの変化量をPub
-        var rEeG = rosConnector.base_link.transform.InverseTransformPoint(uIMng.eeGripper.transform.position);
+        var rEeG = rosConnector.base_link.transform.InverseTransformPoint(sceneMaster.uIMng.eeGripper.transform.position);
         var rEe = rosConnector.base_link.transform.InverseTransformPoint(rosConnector.endEffector.transform.position);
         var diff = rEeG - rEe;
         controlMsg.pose_data = new double[5];
@@ -248,7 +248,7 @@ public class PubUnityControl : MonoBehaviour
         controlMsg.pose_data[1] = -diff.x;//rosY
         controlMsg.pose_data[2] = diff.y;//rosZ
 
-        var displacementAngle = uIMng.eeGripper.transform.eulerAngles - rosConnector.endEffector.transform.eulerAngles;
+        var displacementAngle = sceneMaster.uIMng.eeGripper.transform.eulerAngles - rosConnector.endEffector.transform.eulerAngles;
         //-180~180に正規化
         var rotX = (Mathf.Repeat(displacementAngle.x + 180, 360) - 180);//pitch-rosY
         var rotY = (Mathf.Repeat(displacementAngle.y + 180, 360) - 180);//yaw-rosZ
@@ -264,10 +264,10 @@ public class PubUnityControl : MonoBehaviour
     {
         controlMsg.goal_pose = new PoseMsg
         {
-            position = uIMng.eeGripper.transform.localPosition.To<FLU>(),
-            orientation = Quaternion.Euler(90, uIMng.eeGripper.transform.eulerAngles.y, 0).To<FLU>()
+            position = sceneMaster.uIMng.eeGripper.transform.localPosition.To<FLU>(),
+            orientation = Quaternion.Euler(90, sceneMaster.uIMng.eeGripper.transform.eulerAngles.y, 0).To<FLU>()
         };
-        
+
         // エンドエフェクタの位置を格納
         controlMsg.end_effector_pose = new PoseMsg
         {

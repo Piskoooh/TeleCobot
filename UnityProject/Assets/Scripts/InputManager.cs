@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Photon.Realtime;
 
 //InputSystemに入力(Action)があった際に行う処理をまとめたスクリプト
 //有効化するActionMapの切り替えはStart()とOnSwitchMode()で制御。
 //OnSwitchControl()
 //InputSystemについては https://learning.unity3d.jp/8070/　で学べる。
 //Unity Event Invokeを使用
-public class InputManager : MonoBehaviour
+public class InputManager : MonoBehaviourPunCallbacks
 {
+    private SceneMaster sceneMaster;
     [HideInInspector]
     public bool speedInc, speedDec, speedCourse, speedFine,
         gripperPwmInc, gripperPwmDec, gripperOpen, gripperClose,
@@ -28,6 +31,12 @@ public class InputManager : MonoBehaviour
     InputActionMap manual_arm;
     InputActionMap manual_base;
     InputActionMap semiAuto;
+
+    private void Awake()
+    {
+        sceneMaster = GameObject.Find("SceneMaster").GetComponent<SceneMaster>();
+        sceneMaster.inputMng = this;
+    }
 
     private void Start()
     {
@@ -445,5 +454,12 @@ public class InputManager : MonoBehaviour
             if (semiAutoCmd == SemiAutomaticCommands.PublishGoal
                 || semiAutoCmd == SemiAutomaticCommands.PublishTarget)
                 semiAutoCmd = SemiAutomaticCommands.Available;
+    }
+
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        controlMode = (ControlMode)PhotonNetwork.CurrentRoom.GetControlMode();
+        manualCmd = (ManualCommands)PhotonNetwork.CurrentRoom.GetManualCmd();
+        semiAutoCmd = (SemiAutomaticCommands)PhotonNetwork.CurrentRoom.GetSemiAutoCmd();
     }
 }
