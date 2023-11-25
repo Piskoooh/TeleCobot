@@ -17,8 +17,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     //[HideInInspector]
     public GameObject MyAvatar;
+    public List<int> robotList = new List<int>();
     public SortedDictionary<int,int> RobotDictionary = new SortedDictionary<int, int>();
-    public SortedDictionary<int,Role> RoleDictionary = new SortedDictionary<int, Role>();
+    public SortedDictionary<int,int> RoleDictionary = new SortedDictionary<int, int>();
 
     public GameObject focusRobot;
     private int focusRobotID;
@@ -39,28 +40,25 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         if(RobotDictionary.Count>0)
         {
-            if (focusRobot == null)
-            {
-                var firstRobot = RobotDictionary.First();
-                var pv=PhotonNetwork.GetPhotonView(firstRobot.Key);
-                focusRobot = pv.gameObject;
-                UpdateRobotFocus();
-            }
-            else if (focusRobot != null)
+            if (robotList.Count==1)
+                PhotonNetwork.CurrentRoom.SetFocusRobot(robotList[0]);
+            else
             {
                 //ここにロボットが複数あったときの処理を加える。
             }
         }
         else
         {
-            focusRobot = null;
-            focusRobotID = 0;
+            if (focusRobot != null)
+            {
+                focusRobot = null;
+                PhotonNetwork.CurrentRoom.SetFocusRobot(0);
+            }
         }
     }
 
     private void UpdateRobotFocus()
     {
-        //ロボット退出時にディクショナリから削除しないと呼ばれ続ける。
         sceneMaster.rosConnector.GetRobot(focusRobot);
         if (MyAvatar.GetComponent<CameraFollowPun>().isActiveAndEnabled)
             MyAvatar.GetComponent<CameraFollowPun>().target = sceneMaster.rosConnector.base_link.transform;
@@ -91,7 +89,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         else PhotonNetwork.Disconnect();
     }
 
-    public void AddToRoleDic(int viewID, Role avatarRole)
+    public void AddToRoleDic(int viewID, int avatarRole)
     {
         //オブジェクトとロールをディクショナリに保存
         if (RoleDictionary.TryAdd(viewID, avatarRole))
@@ -119,6 +117,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             RobotDictionary[viewID] = rosConect;
             Debug.Log($"RobotDic:  Update: {viewID} : {(RosConnection)rosConect}");
         }
+        DebugList();
     }
 
     public void RemoveFromRoleDic(int viewID)
@@ -250,8 +249,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 Debug.Log($"MANUAL_COMMAND: {(ManualCommands)prop.Value}");
             else if ((string)prop.Key == "SAC")
                 Debug.Log($"SEMI_AUTO_COMMMAND: {(SemiAutomaticCommands)prop.Value}");
+            else if ((string)prop.Key == "FR")
+                Debug.Log($"FOCUS_ROBOT: {prop.Value}");
             else
                 Debug.Log($"{prop.Key}: {prop.Value}");
+        }
+
+        focusRobotID= PhotonNetwork.CurrentRoom.GetFocusRobot();
+        if (focusRobotID != 0)
+        {
+            focusRobot = PhotonView.Find(focusRobotID).gameObject;
+            UpdateRobotFocus();
         }
     }
     #endregion

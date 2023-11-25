@@ -58,6 +58,6 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     {
         SetAvatarRoll();
         SetAvatarCamera();
-        sceneMaster.photonMng.AddToRoleDic(PhotonView.Get(this).ViewID, avatarRole);
+        sceneMaster.photonMng.AddToRoleDic(PhotonView.Get(this).ViewID, (int)avatarRole);
     }
 }

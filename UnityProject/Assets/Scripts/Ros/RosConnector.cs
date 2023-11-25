@@ -26,7 +26,7 @@ public class RosConnector : MonoBehaviourPunCallbacks
     //public PubTelecobotBaseControl pubTelecobotBaseControl;
     public PubUnityControl pubUnityControl;
     [HideInInspector]
-    public GameObject currentRobot;
+    private GameObject currentRobot;
 
     private UrdfLink[] UrdfLinkChain;
     private int numRobotLinks = 0;
@@ -53,18 +53,6 @@ public class RosConnector : MonoBehaviourPunCallbacks
             sceneMaster.uIMng.rosConnectButton.interactable = false;
         else
             sceneMaster.uIMng.rosConnectButton.interactable = true;
-    }
-
-    private void Update()
-    {
-        if (sceneMaster.userSettings.role != Role.Robot)
-        {
-            sceneMaster.uIMng.rosConnectButton.interactable = false;
-            //    if (rosConnection == RosConnection.Disconnect)
-            //        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Disconnected";
-            //    else
-            //        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Connected";
-        }
     }
 
     public void GetRobot(GameObject robot)

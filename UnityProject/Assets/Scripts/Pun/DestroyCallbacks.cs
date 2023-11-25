@@ -1,4 +1,4 @@
-using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(PhotonView))]
@@ -28,12 +28,12 @@ public class DestroyCallbacks : MonoBehaviourPun, IOnPhotonViewPreNetDestroy
         if (rootView.GetComponent<AvatarSetting>() != null)
         {
             sceneMaster.photonMng.RemoveFromRoleDic(rootView.ViewID);
-            sceneMaster.photonMng.DebugList();
         }
         if (rootView.GetComponent<RobotAvatarManager>() != null)
         {
             sceneMaster.photonMng.RemoveFromRobotDic(rootView.ViewID);
-            sceneMaster.photonMng.DebugList();
+            sceneMaster.photonMng.robotList.Remove(rootView.ViewID);
+            sceneMaster.photonMng.robotList.Sort();
         }
     }
 }

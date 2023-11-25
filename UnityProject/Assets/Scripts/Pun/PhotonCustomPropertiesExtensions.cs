@@ -8,10 +8,11 @@ using ExitGames.Client.Photon;
 public static class PhotonCustomPropertiesExtension
 {
     private const string ROLE = "R";
+    private const string ROS_CONNECTION = "RC";
     private const string CONTROL_MODE = "CM";
     private const string MANUAL_COMMAND = "MC";
     private const string SEMI_AUTO_COMMAND = "SAC";
-    private const string ROS_CONNECTION = "RC";
+    private const string FOCUS_ROBOT = "FR";
 
     private static readonly Hashtable playerPropsToSet = new Hashtable();
     private static readonly Hashtable roomPropsToSet = new Hashtable();
@@ -61,7 +62,15 @@ public static class PhotonCustomPropertiesExtension
     {
         roomPropsToSet[SEMI_AUTO_COMMAND] = semiAutoCmd;
     }
+    public static int GetFocusRobot(this Room currentRoom)
+    {
+        return (currentRoom.CustomProperties[FOCUS_ROBOT] is int focusRobot) ? focusRobot : 0;
+    }
 
+    public static void SetFocusRobot(this Room currentRoom, int focusRobot)
+    {
+        roomPropsToSet[FOCUS_ROBOT] = focusRobot;
+    }
     // プレイヤーのカスタムプロパティを送信する
     public static void SendProperties(this Player player)
     {
