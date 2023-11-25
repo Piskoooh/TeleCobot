@@ -18,10 +18,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text controlMode_Text, punConnection_Text, rosConnection_Text;
     public Button punConnectButton, rosConnectButton;
 
-    //ロボットアームのターゲット指定に関連するUI
     //シーン上に生成するUIのプレハブ
-    public GameObject targetPrefab;
-    public GameObject visualIndicatorPrefab;
     [HideInInspector]
     public GameObject visualIndicator, eeGripper;
 
@@ -40,7 +37,6 @@ public class UIManager : MonoBehaviour
 
     //ロボットベースのゴール指定に関連するUI
     //シーン上に生成するUI
-    public GameObject goalPrefab;
     public float goalMoveSpeed = 1f, goalRotateSpeed = 5f;
     [HideInInspector]
     public GameObject goal;
@@ -61,9 +57,7 @@ public class UIManager : MonoBehaviour
     public void VisualRange()
     {
         visualIndicator = PhotonNetwork.Instantiate("RangeOfArmTargetPun", sceneMaster.rosConnector.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
-        visualIndicator.transform.parent = sceneMaster.rosConnector.arm_base_link.transform;
-        visualIndicator.transform.localPosition = new Vector3(0f, 0f, 0f);
-        visualIndicator.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        sceneMaster.rosConnector.currentRobot.GetComponent<RobotAvatarManager>().CallAARVP();
     }
 
     /// <summary>
@@ -196,9 +190,9 @@ public class UIManager : MonoBehaviour
                     //不要なUIを削除
                     case SemiAutomaticCommands.Available:
                     case SemiAutomaticCommands.Disable:
-                        if (visualIndicator != null) Destroy(visualIndicator);
-                        if (target != null) Destroy(target);
-                        if (goal != null) Destroy(goal);
+                        if (visualIndicator != null) PhotonNetwork.Destroy(visualIndicator);
+                        if (target != null) PhotonNetwork.Destroy(target);
+                        if (goal != null) PhotonNetwork.Destroy(goal);
                         break;
                     case SemiAutomaticCommands.PlaceTarget:
                         //範囲内ならば緑、範囲外なら赤にUIを変更する。
@@ -253,13 +247,13 @@ public class UIManager : MonoBehaviour
                             pose.rotation = xRot * zRot * pose.rotation;
                             AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
                         }
-                        if (goal != null) Destroy(goal);
+                        if (goal != null) PhotonNetwork.Destroy(goal);
                         break;
                     case SemiAutomaticCommands.PublishTarget:
                         break;
                     case SemiAutomaticCommands.PlaceGoal:
-                        if (visualIndicator != null) Destroy(visualIndicator);
-                        if (target != null) Destroy(target);
+                        if (visualIndicator != null) PhotonNetwork.Destroy(visualIndicator);
+                        if (target != null) PhotonNetwork.Destroy(target);
                         if (goal != null)
                         {
                             if (sceneMaster.inputMng.targetZ > 0.5)

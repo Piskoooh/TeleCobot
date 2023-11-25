@@ -5,29 +5,21 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
+[RequireComponent(typeof(CameraControllerPun))]
+[RequireComponent(typeof(CameraFollowPun))]
+
 public class AvatarSetting : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     Role avatarRole;
     [SerializeField]
     Camera Camera;
-    GameObject networkManager;
-    PhotonManager PhotonManager;
-    RosConnector RosConnector;
+    [HideInInspector]
+    public SceneMaster sceneMaster;
     // Start is called before the first frame update
     void Awake()
     {
-        networkManager = GameObject.FindGameObjectWithTag("NetworkManager");
-        PhotonManager = networkManager.GetComponent<PhotonManager>();
-    }
-
-    private void Start()
-    {
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
+        sceneMaster = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
     }
 
     private void SetAvatarRoll()
@@ -54,9 +46,7 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
                     Camera.GetComponent<CameraControllerPun>().enabled = true;
             }
             else
-            {
                 Camera.enabled = false;
-            }
     }
 
     /// <summary>
@@ -67,7 +57,7 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         SetAvatarRoll();
-        PhotonManager.AddToList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
+        sceneMaster.photonMng.AddToList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
         SetAvatarCamera();
     }
 
@@ -77,8 +67,6 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
         //ロールを削除
         var avatarOwner = PhotonView.Get(this).Owner;
         if (avatarOwner == otherPlayer)
-        {
-            PhotonManager.RemoveFromList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
-        }
+            sceneMaster.photonMng.RemoveFromList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
     }
 }

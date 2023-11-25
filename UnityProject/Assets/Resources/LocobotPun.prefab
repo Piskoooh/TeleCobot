@@ -23591,6 +23591,9 @@ GameObject:
   - component: {fileID: 5524881463906563447}
   - component: {fileID: 5017042657956677514}
   - component: {fileID: 3670565771145608526}
+  - component: {fileID: 2655268761134569405}
+  - component: {fileID: 6379870832524907204}
+  - component: {fileID: 3908804929452250695}
   m_Layer: 0
   m_Name: LocobotPun
   m_TagString: robot
@@ -23688,6 +23691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatarRole: 0
   Camera: {fileID: 0}
+  sceneMaster: {fileID: 0}
 --- !u!114 &3670565771145608526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23704,6 +23708,56 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
+--- !u!114 &2655268761134569405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65289976bb4cd3648acbcabce91ac4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  mouseSensitivity: 2
+  zoomSpeed: 2
+  minZoomFOV: 40
+  maxZoomFOV: 60
+  verticalRotationLimit: 60
+--- !u!114 &6379870832524907204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27124bddfc354495dbbec67bff6958d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  rotationSpeed: 100
+  height: 1.7
+  distance: 5
+  minDistance: 2
+  maxDistance: 10
+  rotation: 45
+  offset: {x: 0, y: -1, z: -1}
+--- !u!114 &3908804929452250695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f836eb7570534e2182a696fde2676f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8561120743663290194
 GameObject:
   m_ObjectHideFlags: 0

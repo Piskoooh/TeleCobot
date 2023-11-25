@@ -40,7 +40,7 @@ public class InputManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        sceneMaster = GameObject.Find("SceneMaster").GetComponent<SceneMaster>();
+        sceneMaster = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
         sceneMaster.inputMng = this;
     }
 
@@ -200,7 +200,7 @@ public class InputManager : MonoBehaviourPunCallbacks
             if (sceneMaster.userSettings.role == Role.Operator)
                 photonView.RPC(nameof(EeZPun), RpcTarget.AllViaServer, 0f);
             else
-                Debug.LogWarning("You are not authorized to operate."); 
+                Debug.LogWarning("You are not authorized to operate.");
     }
 
     [PunRPC]
@@ -322,7 +322,7 @@ public class InputManager : MonoBehaviourPunCallbacks
             eePitch = value;
         }
         else
-            Debug.Log($"Operator ( {info.Sender.NickName}, UserID: {info.Sender.UserId} ) is sending command to Robot.");   
+            Debug.Log($"Operator ( {info.Sender.NickName}, UserID: {info.Sender.UserId} ) is sending command to Robot.");
     }
 
     public void OnWaistRotate(InputAction.CallbackContext context)

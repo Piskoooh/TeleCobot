@@ -27,7 +27,7 @@ public class LocalArrow : MonoBehaviour
 
     private void OnEnable()
     {
-        sceneMaster = GameObject.Find("SceneMaster").GetComponent<SceneMaster>();
+        sceneMaster = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>();
         sceneMaster.inputMng.localArrow = this;
 
         defL_rN = (rightFinger.position - leftFinger.position).normalized;

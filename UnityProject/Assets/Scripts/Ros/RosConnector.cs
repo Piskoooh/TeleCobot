@@ -24,7 +24,8 @@ public class RosConnector : MonoBehaviour
     //public PubTelecobotArmControl pubTelecobotArmControl;
     //public PubTelecobotBaseControl pubTelecobotBaseControl;
     public PubUnityControl pubUnityControl;
-    [SerializeField] GameObject currentRobot;
+    [HideInInspector]
+    public GameObject currentRobot;
 
     private UrdfLink[] UrdfLinkChain;
     private int numRobotLinks = 0;

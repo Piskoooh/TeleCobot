@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PhotonManager))]
+[RequireComponent(typeof(RosConnector))]
 public class SceneMaster : MonoBehaviour
 {
     public UserSettings userSettings;
@@ -12,6 +14,6 @@ public class SceneMaster : MonoBehaviour
 
     private void Awake()
     {
-        userSettings = GameObject.Find("UserSettings").GetComponent<UserSettings>();
+        userSettings = GameObject.FindGameObjectWithTag("UserSettings").GetComponent<UserSettings>();
     }
 }

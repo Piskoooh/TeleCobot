@@ -249,13 +249,9 @@ MonoBehaviour:
   rosConnection_Text: {fileID: 1591832010}
   punConnectButton: {fileID: 553302617}
   rosConnectButton: {fileID: 1761263311}
-  targetPrefab: {fileID: 5476155048807204260, guid: 370e9b4a21e8346bc973e21bd41d0ecf, type: 3}
-  visualIndicatorPrefab: {fileID: 7954621867942882770, guid: ffee025e323114bb898036a550891c75, type: 3}
   visualIndicator: {fileID: 0}
   eeGripper: {fileID: 0}
-  localArrow: {fileID: 0}
   targetMoveSpeed: 0.5
-  goalPrefab: {fileID: 3364802394788962328, guid: f85e4ace176f1481b97d2595d56645ee, type: 3}
   goalMoveSpeed: 7
   goalRotateSpeed: 5
   goal: {fileID: 0}
@@ -859,8 +855,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneMaster: {fileID: 1965038770}
-  inputMng: {fileID: 0}
-  rosConnector: {fileID: 1965038769}
   m_PublishRateHz: 40
 --- !u!1 &1519185675
 GameObject:
@@ -1657,7 +1651,7 @@ GameObject:
   - component: {fileID: 1965038769}
   m_Layer: 0
   m_Name: SceneMaster
-  m_TagString: NetworkManager
+  m_TagString: SceneMaster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
