@@ -27,6 +27,9 @@ public class InputManager : MonoBehaviourPunCallbacks
     public float baseX, baseRotate, waistRotate,
         eeX, eeZ, eeRoll, eePitch, pan, tilt, targetX, targetY, targetZ;
 
+    [HideInInspector]
+    public LocalArrow localArrow;
+
     public ControlMode controlMode = ControlMode.ManualControl;
     public ManualCommands manualCmd = ManualCommands.Disable;
     public SemiAutomaticCommands semiAutoCmd = SemiAutomaticCommands.Disable;
@@ -99,7 +102,7 @@ public class InputManager : MonoBehaviourPunCallbacks
             Debug.Log("CameraUpDownPun called");
         else if (sceneMaster.userSettings.role == Role.Robot)
         {
-            Debug.Log($"Recieved CameraUpDownPun from {info.Sender.NickName}");
+            Debug.Log($"Recieved CameraUpDownPun from {info.Sender.NickName}\n{value}");
             tilt = value;
         }
         else
@@ -499,6 +502,23 @@ public class InputManager : MonoBehaviourPunCallbacks
             if (semiAutoCmd == SemiAutomaticCommands.PublishGoal
                 || semiAutoCmd == SemiAutomaticCommands.PublishTarget)
                 semiAutoCmd = SemiAutomaticCommands.Available;
+    }
+
+    /// <summary>
+    /// グリッパーのロールとピッチを指定するための回転の基準となる軸の方向を取得する。
+    /// InputSystemのロールとピッチのアクションにコールバックとして呼び出し設定。
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnEeCall(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnEeCall called");
+        if (localArrow)
+        {
+            if (context.started)
+            {
+                localArrow.UpdateEeArrow();
+            }
+        }
     }
 
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)

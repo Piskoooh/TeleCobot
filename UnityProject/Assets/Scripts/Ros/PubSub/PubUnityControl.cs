@@ -281,7 +281,7 @@ public class PubUnityControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rosConnector.rosConnection==RosConnection.Connect)
+        if (rosConnector.rosConnection==RosConnection.Connect&&inputMng!=null)
         {
             if (ShouldPublishMessage)
             {

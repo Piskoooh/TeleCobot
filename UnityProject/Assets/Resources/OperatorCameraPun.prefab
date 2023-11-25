@@ -931,6 +931,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8720039590354554945}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeCall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ffd0e7d0-cebc-4593-b6be-437c3117277e
     m_ActionName: LocobotSemiAuto/EndEffectorRollLeft
   - m_PersistentCalls:
@@ -938,6 +950,18 @@ MonoBehaviour:
       - m_Target: {fileID: 8720039590354554945}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEeRollRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8720039590354554945}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeCall
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -963,6 +987,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8720039590354554945}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeCall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: aaf69f13-fd71-4dd3-aa45-58e6cf1a56ad
     m_ActionName: LocobotSemiAuto/EndEffectorPitchDown
   - m_PersistentCalls:
@@ -970,6 +1006,18 @@ MonoBehaviour:
       - m_Target: {fileID: 8720039590354554945}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEePitchUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8720039590354554945}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnEeCall
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1237,6 +1285,7 @@ MonoBehaviour:
   targetX: 0
   targetY: 0
   targetZ: 0
+  localArrow: {fileID: 0}
   controlMode: 2
   manualCmd: 0
   semiAutoCmd: 1

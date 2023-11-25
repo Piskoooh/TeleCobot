@@ -5,7 +5,7 @@ using UnityEngine;
 public class LocalArrow : MonoBehaviour
 {
 
-    UIManager uIMng;
+    SceneMaster sceneMaster;
     [SerializeField]
     Transform rightFinger, leftFinger, eeFinger, eeGripper;
     [HideInInspector]
@@ -15,7 +15,7 @@ public class LocalArrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void UpdateEeArrow()
@@ -27,8 +27,8 @@ public class LocalArrow : MonoBehaviour
 
     private void OnEnable()
     {
-        uIMng = GameObject.Find("UIManager").GetComponent<UIManager>();
-        uIMng.localArrow = this;
+        sceneMaster = GameObject.Find("SceneMaster").GetComponent<SceneMaster>();
+        sceneMaster.inputMng.localArrow = this;
 
         defL_rN = (rightFinger.position - leftFinger.position).normalized;
         defEef_egN = (eeFinger.position - eeGripper.position).normalized;
