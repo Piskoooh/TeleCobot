@@ -9,12 +9,9 @@ public class PubUnityControl : MonoBehaviour
     private static readonly string ControlTopic = "/unity_control";
 
     public SceneMaster sceneMaster;
-    public InputManager inputMng;
 
     private ROSConnection ros;
     private TelecobotUnityControlMsg controlMsg;
-    [SerializeField]
-    private RosConnector rosConnector;
 
     [SerializeField]
     double m_PublishRateHz = 30f;
@@ -22,9 +19,9 @@ public class PubUnityControl : MonoBehaviour
     double PublishPeriodSeconds => 1.0f / m_PublishRateHz;
     bool ShouldPublishMessage => RosClock.NowTimeInSeconds > m_LastPublishTimeSeconds + PublishPeriodSeconds;
 
-    Vector2 b_aN => new Vector2(rosConnector.arm_base_link.transform.position.x - rosConnector.base_link.transform.position.x, rosConnector.arm_base_link.transform.position.z - rosConnector.base_link.transform.position.z).normalized;
-    Vector2 b_ee => new Vector2(rosConnector.endEffector.transform.position.x - rosConnector.base_link.transform.position.x, rosConnector.endEffector.transform.position.z - rosConnector.base_link.transform.position.z);
-    Vector2 b_eg => new Vector2(sceneMaster.uIMng.eeGripper.transform.position.x - rosConnector.base_link.transform.position.x, sceneMaster.uIMng.eeGripper.transform.position.z - rosConnector.base_link.transform.position.z);
+    Vector2 b_aN => new Vector2(sceneMaster.rosConnector.arm_base_link.transform.position.x - sceneMaster.rosConnector.base_link.transform.position.x, sceneMaster.rosConnector.arm_base_link.transform.position.z - sceneMaster.rosConnector.base_link.transform.position.z).normalized;
+    Vector2 b_ee => new Vector2(sceneMaster.rosConnector.endEffector.transform.position.x - sceneMaster.rosConnector.base_link.transform.position.x, sceneMaster.rosConnector.endEffector.transform.position.z - sceneMaster.rosConnector.base_link.transform.position.z);
+    Vector2 b_eg => new Vector2(sceneMaster.uIMng.eeGripper.transform.position.x - sceneMaster.rosConnector.base_link.transform.position.x, sceneMaster.uIMng.eeGripper.transform.position.z - sceneMaster.rosConnector.base_link.transform.position.z);
     bool flag;
 
     static double MAX_BASE_X = 0.7;         // Max translational motion that the base can do is 0.7 m/s
@@ -58,72 +55,72 @@ public class PubUnityControl : MonoBehaviour
     public void PublishCmd()
     {
         // Check the speed_cmd
-        if (inputMng.speedInc)
+        if (sceneMaster.inputMng.speedInc)
             controlMsg.speed_cmd = TelecobotUnityControlMsg.SPEED_INC;
-        else if (inputMng.speedDec)
+        else if (sceneMaster.inputMng.speedDec)
             controlMsg.speed_cmd = TelecobotUnityControlMsg.SPEED_DEC;
         else controlMsg.speed_cmd = 0;
 
         // Check the speed_toggle_cmd
-        if (inputMng.speedCourse)
+        if (sceneMaster.inputMng.speedCourse)
             controlMsg.speed_toggle_cmd = TelecobotUnityControlMsg.SPEED_COURSE;
-        else if (inputMng.speedFine)
+        else if (sceneMaster.inputMng.speedFine)
             controlMsg.speed_toggle_cmd = TelecobotUnityControlMsg.SPEED_FINE;
         else controlMsg.speed_toggle_cmd = 0;
 
         //Check the pan_cmd
-        if (inputMng.pan >= 0.5)
+        if (sceneMaster.inputMng.pan >= 0.5)
             controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CCW;
-        else if (inputMng.pan <= -0.5)
+        else if (sceneMaster.inputMng.pan <= -0.5)
             controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CW;
         else controlMsg.pan_cmd = 0;
 
         // Check the tilt_cmd
-        if (inputMng.tilt >= 0.5)
+        if (sceneMaster.inputMng.tilt >= 0.5)
             controlMsg.tilt_cmd = TelecobotUnityControlMsg.TILT_DOWN;
-        else if (inputMng.tilt <= -0.5)
+        else if (sceneMaster.inputMng.tilt <= -0.5)
             controlMsg.tilt_cmd = TelecobotUnityControlMsg.TILT_UP;
         else controlMsg.tilt_cmd = 0;
 
         // Check if the camera pan-and-tilt mechanism should be reset
-        if (inputMng.panTiltHome)
+        if (sceneMaster.inputMng.panTiltHome)
         {
             controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_TILT_HOME;
             controlMsg.tilt_cmd = TelecobotUnityControlMsg.PAN_TILT_HOME;
         }
 
         // Check the gripper_cmd
-        if (inputMng.gripperClose)
+        if (sceneMaster.inputMng.gripperClose)
             controlMsg.gripper_cmd = TelecobotUnityControlMsg.GRIPPER_CLOSE;
-        else if (inputMng.gripperOpen)
+        else if (sceneMaster.inputMng.gripperOpen)
             controlMsg.gripper_cmd = TelecobotUnityControlMsg.GRIPPER_OPEN;
         else controlMsg.gripper_cmd = 0;
 
         // Check the gripper_pwm_cmd
-        if (inputMng.gripperPwmInc)
+        if (sceneMaster.inputMng.gripperPwmInc)
             controlMsg.gripper_pwm_cmd = TelecobotUnityControlMsg.GRIPPER_PWM_INC;
-        else if (inputMng.gripperPwmDec)
+        else if (sceneMaster.inputMng.gripperPwmDec)
             controlMsg.gripper_pwm_cmd = TelecobotUnityControlMsg.GRIPPER_PWM_DEC;
         else controlMsg.gripper_pwm_cmd = 0;
 
         // Check the reboot_cmd
-        if (inputMng.rebootError)
+        if (sceneMaster.inputMng.rebootError)
             controlMsg.reboot_cmd = TelecobotUnityControlMsg.REBOOT_ERROR_MOTOR;
-        else if (inputMng.rebootAll)
+        else if (sceneMaster.inputMng.rebootAll)
             controlMsg.reboot_cmd = TelecobotUnityControlMsg.REBOOT_ALL_MOTOR;
         else controlMsg.reboot_cmd = 0;
 
         // Check the motor_cmd
-        if (inputMng.torqueEnable)
+        if (sceneMaster.inputMng.torqueEnable)
             controlMsg.motor_cmd = TelecobotUnityControlMsg.ENABLE_TORQUE;
-        else if (inputMng.torqueDisable)
+        else if (sceneMaster.inputMng.torqueDisable)
             controlMsg.motor_cmd = TelecobotUnityControlMsg.DISABLE_TORQUE;
         else controlMsg.motor_cmd = 0;
 
         // Check the pose_cmd
-        if (inputMng.armHomePose)
+        if (sceneMaster.inputMng.armHomePose)
             controlMsg.pose_cmd = TelecobotUnityControlMsg.HOME_POSE;
-        else if (inputMng.armSleepPose)
+        else if (sceneMaster.inputMng.armSleepPose)
             controlMsg.pose_cmd = TelecobotUnityControlMsg.SLEEP_POSE;
         else controlMsg.pose_cmd = 0;
     }
@@ -132,43 +129,43 @@ public class PubUnityControl : MonoBehaviour
     void PublishManualCmd()
     {
         // Check the base_x_cmd
-        controlMsg.base_x_cmd = inputMng.baseX * MAX_BASE_X;
+        controlMsg.base_x_cmd = sceneMaster.inputMng.baseX * MAX_BASE_X;
 
         // Check the base_theta_cmd
-        controlMsg.base_theta_cmd = -1.0 * inputMng.baseRotate * MAX_BASE_THETA;
+        controlMsg.base_theta_cmd = -1.0 * sceneMaster.inputMng.baseRotate * MAX_BASE_THETA;
 
         // Check the ee_z_cmd
-        if (inputMng.eeZ >= 0.5)
+        if (sceneMaster.inputMng.eeZ >= 0.5)
             controlMsg.ee_z_cmd = TelecobotUnityControlMsg.EE_Z_INC;
-        else if (inputMng.eeZ <= -0.5)
+        else if (sceneMaster.inputMng.eeZ <= -0.5)
             controlMsg.ee_z_cmd = TelecobotUnityControlMsg.EE_Z_DEC;
         else controlMsg.ee_z_cmd = 0;
 
         // Check the ee_x_cmd
-        if (inputMng.eeX >= 0.5)
+        if (sceneMaster.inputMng.eeX >= 0.5)
             controlMsg.ee_x_cmd = TelecobotUnityControlMsg.EE_X_INC;
-        else if (inputMng.eeX <= -0.5)
+        else if (sceneMaster.inputMng.eeX <= -0.5)
             controlMsg.ee_x_cmd = TelecobotUnityControlMsg.EE_X_DEC;
         else controlMsg.ee_x_cmd = 0;
 
         // Check the ee_roll_cmd
-        if (inputMng.eeRoll >= 0.5)
+        if (sceneMaster.inputMng.eeRoll >= 0.5)
             controlMsg.ee_roll_cmd = TelecobotUnityControlMsg.EE_ROLL_CCW;
-        else if (inputMng.eeRoll <= -0.5)
+        else if (sceneMaster.inputMng.eeRoll <= -0.5)
             controlMsg.ee_roll_cmd = TelecobotUnityControlMsg.EE_ROLL_CW;
         else controlMsg.ee_roll_cmd = 0;
 
         // Check the ee_pitch_cmd
-        if (inputMng.eePitch >= 0.5)
+        if (sceneMaster.inputMng.eePitch >= 0.5)
             controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_DOWN;
-        else if (inputMng.eePitch <= -0.5)
+        else if (sceneMaster.inputMng.eePitch <= -0.5)
             controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_UP;
         else controlMsg.ee_pitch_cmd = 0;
 
         // Check the waist_cmd
-        if (inputMng.waistRotate >= 0.5)
+        if (sceneMaster.inputMng.waistRotate >= 0.5)
             controlMsg.waist_cmd = TelecobotUnityControlMsg.WAIST_CW;
-        else if (inputMng.waistRotate <= -0.5)
+        else if (sceneMaster.inputMng.waistRotate <= -0.5)
             controlMsg.waist_cmd = TelecobotUnityControlMsg.WAIST_CCW;
         else controlMsg.waist_cmd = 0;
     }
@@ -177,12 +174,12 @@ public class PubUnityControl : MonoBehaviour
     void PublishSemiAutoCmd()
     {
         // Check the pose_cmd
-        if (inputMng.semiAutoCmd == SemiAutomaticCommands.Available)
+        if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.Available)
         {
             controlMsg.base_cmd = 0;
             controlMsg.arm_cmd = 0;
         }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.Disable)
+        else if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.Disable)
         {
             controlMsg.base_cmd = 0;
             controlMsg.arm_cmd = 0;
@@ -190,34 +187,34 @@ public class PubUnityControl : MonoBehaviour
             controlMsg.end_effector_pose = null;
             controlMsg.goal_pose = null;
         }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
+        else if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
         {
-            if(inputMng.moveBase)
+            if(sceneMaster.inputMng.moveBase)
             {
                 Debug.LogWarning("Place Goal called.");
                 sceneMaster.uIMng.CreateOrResetGoal();
             }
         }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.BackHome)
+        else if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.BackHome)
         {
             Debug.LogWarning("Back home method is not implemented.");
         }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishGoal)
+        else if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.PublishGoal)
         {
             controlMsg.base_cmd = TelecobotUnityControlMsg.MOVE_BASE;
             Debug.LogWarning("Check goal is called.");
             sceneMaster.uIMng.CheckGoal();
         }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
+        else if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
         {
-            if(inputMng.moveArm)
+            if(sceneMaster.inputMng.moveArm)
             {
                 sceneMaster.uIMng.CreateOrResetTarget();
                 if (sceneMaster.uIMng.visualIndicator == null)
                     sceneMaster.uIMng.VisualRange();
             }
         }
-        else if (inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)
+        else if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)
         {
             //controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVEIT;
             controlMsg.arm_cmd = TelecobotUnityControlMsg.MOVE_ARM;
@@ -240,15 +237,15 @@ public class PubUnityControl : MonoBehaviour
     public void SetTargetPose()
     {
         //Eeの変化量をPub
-        var rEeG = rosConnector.base_link.transform.InverseTransformPoint(sceneMaster.uIMng.eeGripper.transform.position);
-        var rEe = rosConnector.base_link.transform.InverseTransformPoint(rosConnector.endEffector.transform.position);
+        var rEeG = sceneMaster.rosConnector.base_link.transform.InverseTransformPoint(sceneMaster.uIMng.eeGripper.transform.position);
+        var rEe = sceneMaster.rosConnector.base_link.transform.InverseTransformPoint(sceneMaster.rosConnector.endEffector.transform.position);
         var diff = rEeG - rEe;
         controlMsg.pose_data = new double[5];
         controlMsg.pose_data[0] = diff.z;//rosX
         controlMsg.pose_data[1] = -diff.x;//rosY
         controlMsg.pose_data[2] = diff.y;//rosZ
 
-        var displacementAngle = sceneMaster.uIMng.eeGripper.transform.eulerAngles - rosConnector.endEffector.transform.eulerAngles;
+        var displacementAngle = sceneMaster.uIMng.eeGripper.transform.eulerAngles - sceneMaster.rosConnector.endEffector.transform.eulerAngles;
         //-180~180に正規化
         var rotX = (Mathf.Repeat(displacementAngle.x + 180, 360) - 180);//pitch-rosY
         var rotY = (Mathf.Repeat(displacementAngle.y + 180, 360) - 180);//yaw-rosZ
@@ -271,29 +268,29 @@ public class PubUnityControl : MonoBehaviour
         // エンドエフェクタの位置を格納
         controlMsg.end_effector_pose = new PoseMsg
         {
-            position = rosConnector.endEffector.transform.position.To<FLU>(),
-            orientation = Quaternion.Euler(rosConnector.endEffector.transform.eulerAngles.x,
-                                            rosConnector.endEffector.transform.eulerAngles.y,
-                                            rosConnector.endEffector.transform.eulerAngles.z).To<FLU>()
+            position = sceneMaster.rosConnector.endEffector.transform.position.To<FLU>(),
+            orientation = Quaternion.Euler(sceneMaster.rosConnector.endEffector.transform.eulerAngles.x,
+                                            sceneMaster.rosConnector.endEffector.transform.eulerAngles.y,
+                                            sceneMaster.rosConnector.endEffector.transform.eulerAngles.z).To<FLU>()
         };
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (rosConnector.rosConnection==RosConnection.Connect&&inputMng!=null)
+        if (sceneMaster.rosConnector.rosConnection==RosConnection.Connect&&sceneMaster.inputMng!=null)
         {
             if (ShouldPublishMessage)
             {
                 //共通操作のコマンド変化をチェック
                 PublishCmd();
                 //マニュアル操作の場合のコマンド変化をチェック
-                if (inputMng.controlMode == ControlMode.ManualControl)
+                if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
                 {
                     PublishManualCmd();
                 }
                 //セミオート操作の場合のコマンド変化をチェック(ゴール・ターゲット位置の確定時のみPub)
-                else if (inputMng.controlMode == ControlMode.SemiAutomaticControl)
+                else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
                 {
                     PublishSemiAutoCmd();
                 }
@@ -305,7 +302,7 @@ public class PubUnityControl : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if (rosConnector.rosConnection == RosConnection.Connect)
+        if (sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
         {
             for(int i = 0; i< 5; i++)
             {
