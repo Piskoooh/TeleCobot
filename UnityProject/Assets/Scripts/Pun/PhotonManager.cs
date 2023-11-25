@@ -38,6 +38,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     void Update()
     {
+        //Memo:複数ロボットの際にフォーカスロボットの選択権限はOperetorに付与する。
         if(RobotDictionary.Count>0)
         {
             if (robotList.Count==1)
