@@ -10,8 +10,7 @@ using Photon.Realtime;
 
 public class AvatarSetting : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    Role avatarRole;
+    public Role avatarRole;
     [SerializeField]
     Camera Camera;
     [HideInInspector]

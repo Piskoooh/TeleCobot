@@ -63,7 +63,5 @@ public class RobotAvatarManager : MonoBehaviourPunCallbacks
     {
         SetRobotRosConnection();
         avatarSetting.sceneMaster.photonMng.AddToRobotDic(PhotonView.Get(this).ViewID, (int)robotRosConnection);
-        avatarSetting.sceneMaster.photonMng.robotList.Add(PhotonView.Get(this).ViewID);
-        avatarSetting.sceneMaster.photonMng.robotList.Sort();
     }
 }

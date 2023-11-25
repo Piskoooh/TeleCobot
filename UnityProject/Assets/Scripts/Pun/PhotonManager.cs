@@ -41,7 +41,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if(RobotDictionary.Count>0)
         {
             if (robotList.Count==1)
-                PhotonNetwork.CurrentRoom.SetFocusRobot(robotList[0]);
+                if (focusRobot != PhotonView.Find(robotList[0]).gameObject)
+                    PhotonNetwork.CurrentRoom.SetFocusRobot(robotList[0]);
             else
             {
                 //ここにロボットが複数あったときの処理を加える。

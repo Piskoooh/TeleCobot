@@ -2,7 +2,8 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PhotonView))]
-public class DestroyCallbacks : MonoBehaviourPun, IOnPhotonViewPreNetDestroy
+[RequireComponent(typeof(AvatarSetting))]
+public class CustomCallbacks : MonoBehaviourPun, IOnPhotonViewPreNetDestroy, IPunInstantiateMagicCallback
 {
     SceneMaster sceneMaster;
     private void Awake()
@@ -19,6 +20,21 @@ public class DestroyCallbacks : MonoBehaviourPun, IOnPhotonViewPreNetDestroy
     {
         // PhotonViewのコールバック対象の登録を解除する
         photonView.RemoveCallbackTarget(this);
+    }
+
+    void IPunInstantiateMagicCallback.OnPhotonInstantiate(Photon.Pun.PhotonMessageInfo info)
+    {
+        Debug.Log($"{info.Sender.NickName} が {info.photonView.name}({info.photonView.ViewID}) をインスタンス化しました");
+        if (info.photonView.GetComponent<AvatarSetting>() != null)
+        {
+            sceneMaster.photonMng.AddToRoleDic(info.photonView.ViewID, (int)info.photonView.GetComponent<AvatarSetting>().avatarRole);
+        }
+        if (info.photonView.GetComponent<RobotAvatarManager>() != null)
+        {
+            sceneMaster.photonMng.AddToRobotDic(info.photonView.ViewID, (int)info.photonView.GetComponent<RobotAvatarManager>().robotRosConnection);
+            sceneMaster.photonMng.robotList.Add(info.photonView.ViewID);
+            sceneMaster.photonMng.robotList.Sort();
+        }
     }
 
     // ネットワークオブジェクトが破棄される直前に呼ばれるコールバック
