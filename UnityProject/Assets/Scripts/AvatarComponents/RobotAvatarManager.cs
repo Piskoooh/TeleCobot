@@ -14,17 +14,17 @@ public class RobotAvatarManager : MonoBehaviourPun
         avatarSetting = GetComponent<AvatarSetting>();
     }
 
-    public void CallAARVP(GameObject vI)
+    public void CallAARVP(string vI)
     {
         photonView.RPC(nameof(AdjustArmRangeVisualizerPun), RpcTarget.AllViaServer,vI);
     }
 
     [PunRPC]
-    private void AdjustArmRangeVisualizerPun(GameObject vI, PhotonMessageInfo info)
+    private void AdjustArmRangeVisualizerPun(string vI, PhotonMessageInfo info)
     {
         if (!info.Sender.IsLocal)
         {
-            avatarSetting.sceneMaster.uIMng.visualIndicator= vI;
+            avatarSetting.sceneMaster.uIMng.visualIndicator= GameObject.FindGameObjectWithTag(vI);
         }
         avatarSetting.sceneMaster.uIMng.visualIndicator.transform.parent = avatarSetting.sceneMaster.rosConnector.arm_base_link.transform;
         avatarSetting.sceneMaster.uIMng.visualIndicator.transform.localPosition = new Vector3(0f, 0f, 0f);
