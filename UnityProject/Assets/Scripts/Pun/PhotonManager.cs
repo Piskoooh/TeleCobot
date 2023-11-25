@@ -78,7 +78,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void OnApplicationQuit()
     {
+        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
         photonConnection = PhotonConnection.Disconnect;
+        PhotonNetwork.Disconnect();
     }
 
     public void PunButton()
