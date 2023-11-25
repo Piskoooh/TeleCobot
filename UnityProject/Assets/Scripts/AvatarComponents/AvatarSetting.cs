@@ -57,16 +57,7 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         SetAvatarRoll();
-        sceneMaster.photonMng.AddToList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
         SetAvatarCamera();
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        base.OnPlayerLeftRoom(otherPlayer);
-        //ロールを削除
-        var avatarOwner = PhotonView.Get(this).Owner;
-        if (avatarOwner == otherPlayer)
-            sceneMaster.photonMng.RemoveFromList(gameObject, avatarRole, PhotonView.Get(this).ViewID);
+        sceneMaster.photonMng.AddToRoleDic(PhotonView.Get(this).ViewID, avatarRole);
     }
 }

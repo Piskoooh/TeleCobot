@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 using URV;
 using Photon.Pun;
-
+using Photon.Realtime;
 
 public class RosConnector : MonoBehaviourPunCallbacks
 {
@@ -57,8 +57,14 @@ public class RosConnector : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if(sceneMaster.userSettings.role!=Role.Robot)
+        if (sceneMaster.userSettings.role != Role.Robot)
+        {
             sceneMaster.uIMng.rosConnectButton.interactable = false;
+            //    if (rosConnection == RosConnection.Disconnect)
+            //        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Disconnected";
+            //    else
+            //        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Connected";
+        }
     }
 
     public void GetRobot(GameObject robot)
@@ -120,7 +126,7 @@ public class RosConnector : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnRosConnect() //ROS接続された時に呼び出される関数
+    private void OnRosConnect() //ROS接続された時に呼び出される関数
                                //接続直後にPub/Subするメッセージはここで起動する
     {
         rosConnection = RosConnection.Connect;
@@ -128,7 +134,7 @@ public class RosConnector : MonoBehaviourPunCallbacks
         sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
         sceneMaster.uIMng.punConnectButton.interactable = true;
         sceneMaster.uIMng.rosConnectButton.interactable = true;
-        PhotonNetwork.CurrentRoom.SetRosConnection((int)rosConnection);
+        PhotonNetwork.LocalPlayer.SetRosConnection((int)rosConnection);
 
         //visualization
         visualizationTopicsTab.OnRosConnect();
@@ -153,19 +159,7 @@ public class RosConnector : MonoBehaviourPunCallbacks
             try
             {
                 ros.Disconnect();
-                rosConnection = RosConnection.Disconnect;
-                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Disconnected";
-                sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-                sceneMaster.uIMng.punConnectButton.interactable = true;
-                sceneMaster.uIMng.rosConnectButton.interactable = true;
-                PhotonNetwork.CurrentRoom.SetRosConnection((int)rosConnection);
-
-                //Stop publish
-                pubRosClock.OnRosDisconnected();
-                //pubROSTransformTree.OnRosDisconnected();
-                //pubTelecobotArmControl.OnRosDisconnected();
-                //pubTelecobotBaseControl.OnRosDisconnected();
-                pubUnityControl.OnRosDisconnected();
+                OnRosDisconnect();
 
             }
             catch (Exception e)
@@ -175,6 +169,24 @@ public class RosConnector : MonoBehaviourPunCallbacks
         }
         else
             sceneMaster.uIMng.rosConnection_Text.text = "ROS : Already Disconnected";
+    }
+
+    private void OnRosDisconnect()
+    {
+        rosConnection = RosConnection.Disconnect;
+        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Disconnected";
+        sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
+        sceneMaster.uIMng.punConnectButton.interactable = true;
+        sceneMaster.uIMng.rosConnectButton.interactable = true;
+        PhotonNetwork.LocalPlayer.SetRosConnection((int)rosConnection);
+
+        //Stop publish
+        subTF.OnRosDisconnected();
+        pubRosClock.OnRosDisconnected();
+        //pubROSTransformTree.OnRosDisconnected();
+        //pubTelecobotArmControl.OnRosDisconnected();
+        //pubTelecobotBaseControl.OnRosDisconnected();
+        pubUnityControl.OnRosDisconnected();
     }
 
     public void rosButton()
@@ -188,17 +200,6 @@ public class RosConnector : MonoBehaviourPunCallbacks
     private void OnApplicationQuit()
     {
         rosConnection = RosConnection.Disconnect;
-    }
-
-    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
-    {
-        rosConnection=(RosConnection)PhotonNetwork.CurrentRoom.GetRosConnection();
-        if (sceneMaster.userSettings.role!=Role.Robot)
-        {
-            if(rosConnection==RosConnection.Disconnect)
-                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Disconnected";
-            else
-                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Connected";
-        }
+        PhotonNetwork.LocalPlayer.SetRosConnection((int)rosConnection);
     }
 }

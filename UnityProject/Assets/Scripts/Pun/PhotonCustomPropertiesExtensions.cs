@@ -26,6 +26,16 @@ public static class PhotonCustomPropertiesExtension
         playerPropsToSet[ROLE] = role;
     }
 
+    public static int GetRosConnection(this Player robot)
+    {
+        return (robot.CustomProperties[ROS_CONNECTION] is int rosConnection) ? rosConnection : 0;
+    }
+
+    public static void SetRosConnection(this Player robot, int rosConnection)
+    {
+        playerPropsToSet[ROS_CONNECTION] = rosConnection;
+    }
+
     public static int GetControlMode(this Room currentRoom)
     {
         return (currentRoom.CustomProperties[CONTROL_MODE] is int controlMode) ? controlMode : 0;
@@ -50,16 +60,6 @@ public static class PhotonCustomPropertiesExtension
     public static void SetSemiAutoCmd(this Room currentRoom, int semiAutoCmd)
     {
         roomPropsToSet[SEMI_AUTO_COMMAND] = semiAutoCmd;
-    }
-
-    public static int GetRosConnection(this Room currentRoom)
-    {
-        return (currentRoom.CustomProperties[ROS_CONNECTION] is int rosConnection) ? rosConnection : 0;
-    }
-
-    public static void SetRosConnection(this Room currentRoom, int rosConnection)
-    {
-        roomPropsToSet[ROS_CONNECTION] = rosConnection;
     }
 
     // プレイヤーのカスタムプロパティを送信する

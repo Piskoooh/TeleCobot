@@ -2,16 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 
 [RequireComponent(typeof(AvatarSetting))]
-public class RobotAvatarManager : MonoBehaviourPun
+public class RobotAvatarManager : MonoBehaviourPunCallbacks
 {
     AvatarSetting avatarSetting;
+    public RosConnection robotRosConnection;
 
     private void Awake()
     {
         avatarSetting = GetComponent<AvatarSetting>();
+    }
+
+    private void SetRobotRosConnection()
+    {
+        //このオブジェクトの所有者を取得
+        var avatarOwner = PhotonView.Get(this).Owner;
+        //所有者のロールプロパティを取得し、アバターのロールを設定
+        int rrc = avatarOwner.GetRosConnection();
+        robotRosConnection = (RosConnection)rrc;
     }
 
     public void CallAARVP(string vI)
@@ -41,5 +52,16 @@ public class RobotAvatarManager : MonoBehaviourPun
     {
         if(!info.Sender.IsLocal)
             avatarSetting.sceneMaster.uIMng.eeGripper = GameObject.FindGameObjectWithTag(eE);
+    }
+
+    /// <summary>
+    /// プロパティが更新された際に呼ばれるコールバック
+    /// </summary>
+    /// <param name="targetPlayer"></param>更新されたプレイヤー
+    /// <param name="changedProps"></param>更新されたプロパティ
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        SetRobotRosConnection();
+        avatarSetting.sceneMaster.photonMng.AddToRobotDic(PhotonView.Get(this).ViewID, (int)robotRosConnection);
     }
 }

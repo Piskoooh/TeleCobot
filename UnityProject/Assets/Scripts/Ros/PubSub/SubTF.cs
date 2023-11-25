@@ -24,6 +24,11 @@ public class SubTF : MonoBehaviour
         ROSConnection.GetOrCreateInstance().Subscribe<Tf>(topicName, TfUpdate);
      }
 
+    public void OnRosDisconnected()
+    {
+
+    }
+
     /// <summary>
     /// デバッグ時の文字列生成用関数
     /// </summary>
