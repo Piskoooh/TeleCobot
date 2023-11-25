@@ -19,6 +19,11 @@ public class RobotAvatarManager : MonoBehaviourPun
         photonView.RPC(nameof(AdjustArmRangeVisualizerPun), RpcTarget.AllViaServer,vI);
     }
 
+    public void CallEEA(string eE)
+    {
+        photonView.RPC(nameof(EeAttacherPun), RpcTarget.AllViaServer, eE);
+    }
+
     [PunRPC]
     private void AdjustArmRangeVisualizerPun(string vI, PhotonMessageInfo info)
     {
@@ -29,5 +34,12 @@ public class RobotAvatarManager : MonoBehaviourPun
         avatarSetting.sceneMaster.uIMng.visualIndicator.transform.parent = avatarSetting.sceneMaster.rosConnector.arm_base_link.transform;
         avatarSetting.sceneMaster.uIMng.visualIndicator.transform.localPosition = new Vector3(0f, 0f, 0f);
         avatarSetting.sceneMaster.uIMng.visualIndicator.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+    }
+
+    [PunRPC]
+    private void EeAttacherPun(string eE, PhotonMessageInfo info)
+    {
+        if(!info.Sender.IsLocal)
+            avatarSetting.sceneMaster.uIMng.eeGripper = GameObject.FindGameObjectWithTag(eE);
     }
 }

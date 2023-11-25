@@ -1,4 +1,4 @@
-using RosMessageTypes.Geometry;
+﻿using RosMessageTypes.Geometry;
 using RosMessageTypes.TelecobotRosUnity;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
@@ -278,22 +278,25 @@ public class PubUnityControl : MonoBehaviour
     {
         if (sceneMaster.rosConnector.rosConnection==RosConnection.Connect&&sceneMaster.inputMng!=null)
         {
-            if (ShouldPublishMessage)
+            if (sceneMaster.userSettings.role == Role.Robot)
             {
-                //共通操作のコマンド変化をチェック
-                PublishCmd();
-                //マニュアル操作の場合のコマンド変化をチェック
-                if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
+                if (ShouldPublishMessage)
                 {
-                    PublishManualCmd();
+                    //共通操作のコマンド変化をチェック
+                    PublishCmd();
+                    //マニュアル操作の場合のコマンド変化をチェック
+                    if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
+                    {
+                        PublishManualCmd();
+                    }
+                    //セミオート操作の場合のコマンド変化をチェック(ゴール・ターゲット位置の確定時のみPub)
+                    else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
+                    {
+                        PublishSemiAutoCmd();
+                    }
+                    // After checking all cmds publish all msg to /unity_control topic.
+                    ros.Publish(ControlTopic, controlMsg);
                 }
-                //セミオート操作の場合のコマンド変化をチェック(ゴール・ターゲット位置の確定時のみPub)
-                else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
-                {
-                    PublishSemiAutoCmd();
-                }
-                // After checking all cmds publish all msg to /unity_control topic.
-                ros.Publish(ControlTopic, controlMsg);
             }
         }
     }

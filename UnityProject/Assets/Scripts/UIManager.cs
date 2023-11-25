@@ -77,7 +77,8 @@ public class UIManager : MonoBehaviour
             {
                 target = PhotonNetwork.Instantiate("Target(gripper)Pun", endEffectorTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
                 target.transform.parent = baseLinkTf;
-                eeGripper = GameObject.FindGameObjectWithTag("end_effector"); //gripperプレハブを使う時
+                eeGripper = GameObject.FindGameObjectWithTag("end_effector");
+                sceneMaster.rosConnector.currentRobot.GetComponent<RobotAvatarManager>().CallEeA(eeGripper.tag);
             }
 
             //gripperプレハブを使う時
