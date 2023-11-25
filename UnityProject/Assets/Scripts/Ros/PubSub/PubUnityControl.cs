@@ -210,8 +210,6 @@ public class PubUnityControl : MonoBehaviour
             if(sceneMaster.inputMng.moveArm)
             {
                 sceneMaster.uIMng.CreateOrResetTarget();
-                if (sceneMaster.uIMng.visualIndicator == null)
-                    sceneMaster.uIMng.VisualRange();
             }
         }
         else if (sceneMaster.inputMng.semiAutoCmd == SemiAutomaticCommands.PublishTarget)

@@ -195,6 +195,8 @@ public class UIManager : MonoBehaviour
                         if (goal != null) PhotonNetwork.Destroy(goal);
                         break;
                     case SemiAutomaticCommands.PlaceTarget:
+                        if (visualIndicator == null)
+                            VisualRange();
                         //範囲内ならば緑、範囲外なら赤にUIを変更する。
                         if (visualIndicator != null)
                         {
