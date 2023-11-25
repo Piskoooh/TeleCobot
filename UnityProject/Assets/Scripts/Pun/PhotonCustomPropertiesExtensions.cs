@@ -11,6 +11,7 @@ public static class PhotonCustomPropertiesExtension
     private const string CONTROL_MODE = "CM";
     private const string MANUAL_COMMAND = "MC";
     private const string SEMI_AUTO_COMMAND = "SAC";
+    private const string ROS_CONNECTION = "RC";
 
     private static readonly Hashtable playerPropsToSet = new Hashtable();
     private static readonly Hashtable roomPropsToSet = new Hashtable();
@@ -49,6 +50,16 @@ public static class PhotonCustomPropertiesExtension
     public static void SetSemiAutoCmd(this Room currentRoom, int semiAutoCmd)
     {
         roomPropsToSet[SEMI_AUTO_COMMAND] = semiAutoCmd;
+    }
+
+    public static int GetRosConnection(this Room currentRoom)
+    {
+        return (currentRoom.CustomProperties[ROS_CONNECTION] is int rosConnection) ? rosConnection : 0;
+    }
+
+    public static void SetRosConnection(this Room currentRoom, int rosConnection)
+    {
+        roomPropsToSet[ROS_CONNECTION] = rosConnection;
     }
 
     // プレイヤーのカスタムプロパティを送信する

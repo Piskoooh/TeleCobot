@@ -205,7 +205,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         base.OnDisconnected(cause);
-        if (sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
+        if (sceneMaster.userSettings.role==Role.Robot&& sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
         {
             sceneMaster.rosConnector.DisconnectFromROS();
         }
@@ -241,6 +241,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 Debug.Log($"MANUAL_COMMAND: {(ManualCommands)prop.Value}");
             else if ((string)prop.Key == "SAC")
                 Debug.Log($"SEMI_AUTO_COMMMAND: {(SemiAutomaticCommands)prop.Value}");
+            else if ((string)prop.Key == "RC")
+                Debug.Log($"ROS_CONNECTION: {(RosConnection)prop.Value}");
             else
                 Debug.Log($"{prop.Key}: {prop.Value}");
         }
