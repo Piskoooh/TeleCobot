@@ -195,8 +195,6 @@ public class UIManager : MonoBehaviour
                         if (goal != null) PhotonNetwork.Destroy(goal);
                         break;
                     case SemiAutomaticCommands.PlaceTarget:
-                        if (visualIndicator == null)
-                            VisualRange();
                         //範囲内ならば緑、範囲外なら赤にUIを変更する。
                         if (visualIndicator != null)
                         {
@@ -205,6 +203,8 @@ public class UIManager : MonoBehaviour
                             bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
                             visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
                         }
+                        else if(eeGripper != null)
+                            VisualRange();
                         //コントローラからの入力値でターゲットを移動・回転
                         if (target != null)
                         {
