@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     public Button punConnectButton, rosConnectButton;
 
     //シーン上に生成するUIのプレハブ
-    [HideInInspector]
+    //[HideInInspector]
     public GameObject visualIndicator, eeGripper;
 
     public float targetMoveSpeed = 0.5f;
@@ -207,7 +207,7 @@ public class UIManager : MonoBehaviour
                             if (goal != null) PhotonNetwork.Destroy(goal);
                             break;
                         case SemiAutomaticCommands.PlaceTarget:
-                            if (eeGripper != null)
+                            if (visualIndicator==null&&eeGripper != null)
                                 VisualRange();
                             //コントローラからの入力値でターゲットを移動・回転
                             if (target != null)
