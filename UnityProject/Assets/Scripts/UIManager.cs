@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void VisualRange()
     {
-        visualIndicator = Instantiate(visualIndicatorPrefab, sceneMaster.rosConnector.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
+        visualIndicator = PhotonNetwork.Instantiate("RangeOfArmTargetPun", sceneMaster.rosConnector.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
         visualIndicator.transform.parent = sceneMaster.rosConnector.arm_base_link.transform;
         visualIndicator.transform.localPosition = new Vector3(0f, 0f, 0f);
         visualIndicator.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
@@ -81,7 +81,7 @@ public class UIManager : MonoBehaviour
         {
             if (target == null)
             {
-                target = Instantiate(targetPrefab, endEffectorTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
+                target = PhotonNetwork.Instantiate("Target(gripper)Pun", endEffectorTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
                 target.transform.parent = baseLinkTf;
                 eeGripper = GameObject.FindGameObjectWithTag("end_effector"); //gripperプレハブを使う時
             }
@@ -133,7 +133,7 @@ public class UIManager : MonoBehaviour
     {
         if (goal == null)
         {
-            goal = Instantiate(goalPrefab, baseLinkTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
+            goal = PhotonNetwork.Instantiate("Target(locobot)Pun", baseLinkTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
         }
         //targetプレハブを使う時
         //goal.transform.position = new Vector3(0f, 0f, 0.3f);
