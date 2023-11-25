@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
     public void VisualRange()
     {
         visualIndicator = PhotonNetwork.Instantiate("RangeOfArmTargetPun", sceneMaster.rosConnector.arm_base_link.transform.position, Quaternion.Euler(0f, 0f, 0f));
-        sceneMaster.rosConnector.currentRobot.GetComponent<RobotAvatarManager>().CallAARVP();
+        sceneMaster.rosConnector.currentRobot.GetComponent<RobotAvatarManager>().CallAARVP(visualIndicator);
     }
 
     /// <summary>
