@@ -19,7 +19,7 @@ public class RobotAvatarManager : MonoBehaviourPun
         photonView.RPC(nameof(AdjustArmRangeVisualizerPun), RpcTarget.AllViaServer,vI);
     }
 
-    public void CallEEA(string eE)
+    public void CallEeA(string eE)
     {
         photonView.RPC(nameof(EeAttacherPun), RpcTarget.AllViaServer, eE);
     }
