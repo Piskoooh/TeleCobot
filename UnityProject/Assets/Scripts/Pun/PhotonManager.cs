@@ -167,23 +167,23 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetRole((int)sceneMaster.userSettings.role);
         if (sceneMaster.userSettings.userType == UserType.Robot)
         {
-            PhotonNetwork.Instantiate("LocobotPun", Vector3.zero, Quaternion.identity);
-            MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.zero, Quaternion.identity);
+            PhotonNetwork.Instantiate("LocobotPun", Vector3.up, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.up, Quaternion.identity);
         }
         else if (sceneMaster.userSettings.userType == UserType.Remote_VR)
         {
-            MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.zero, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.up, Quaternion.identity);
         }
         else if (sceneMaster.userSettings.userType == UserType.Remote_nonVR)
         {
             if (sceneMaster.userSettings.role == Role.Operator)
-                MyAvatar = PhotonNetwork.Instantiate("OperatorCameraPun", Vector3.zero, Quaternion.identity);
+                MyAvatar = PhotonNetwork.Instantiate("OperatorCameraPun", Vector3.up, Quaternion.identity);
             else
-                MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.zero, Quaternion.identity);
+                MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.up, Quaternion.identity);
         }
         else if (sceneMaster.userSettings.userType == UserType.Local_AR)
         {
-            MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.zero, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.up, Quaternion.identity);
         }
         else Debug.LogError("Unkown User Type. Cannot instatiate avatar.");
         //プレイヤーロールをカスタムプロパティに登録
