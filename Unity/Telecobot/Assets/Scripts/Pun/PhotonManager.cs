@@ -7,6 +7,7 @@ using Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using UnityEngine.EventSystems;
 
 //https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/c04ad5 を参考に作成。
 //Photonの接続状態を管理するクラス
@@ -210,6 +211,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnConnected()
+    {
+        base.OnConnected();
+        if (sceneMaster.userSettings.userType == UserType.Remote_VR)
+            sceneMaster.userSettings.eventSystem.gameObject.SetActive(false);
+    }
     public override void OnDisconnected(DisconnectCause cause)
     {
         base.OnDisconnected(cause);
@@ -222,6 +229,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         photonConnection = PhotonConnection.Disconnect;
         sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
         sceneMaster.uIMng.punConnection_Text.text = "Photon : Disconnected";
+
+        if (sceneMaster.userSettings.userType == UserType.Remote_VR)
+            sceneMaster.userSettings.eventSystem.gameObject.SetActive(true);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)

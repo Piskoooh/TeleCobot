@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: 5ac43e488866b34498ac2cb95bc6f478
   - enabled: 1
-    path: Assets/Scenes/LocalControlScene.unity
+    path: Assets/Scenes/NormalControlScene.unity
     guid: 543d0222e102f07498123f4083c32908
+  - enabled: 1
+    path: Assets/Scenes/VRControlScene.unity
+    guid: 3ef7eeaddf6edb040a4dad2629654a5f
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: dccf9ab884abfe24a95baae5b4abdd12, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 949accd1b16af47f29a955ece853af9c, type: 2}

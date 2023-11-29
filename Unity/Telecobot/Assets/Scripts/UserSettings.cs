@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class UserSettings : MonoBehaviour
 {
@@ -16,14 +17,17 @@ public class UserSettings : MonoBehaviour
     public Button startBtn;
     public Canvas startCanvas;
     public Camera startCamera;
+    public EventSystem eventSystem;
 
-    //! ローカルユーザー用シーンのインデックス
+    //! ノーマルユーザー用シーンのインデックス
     [SerializeField]
-    private int localSceneBuildIndex = 1;
-    //! リモートユーザー用シーンのインデックス
+    private int normalSceneBuildIndex = 1;
+    //! VRユーザー用シーンのインデックス
     [SerializeField]
-    private int remoteSceneBuildIndex = 2;
+    private int vrSceneBuildIndex = 2;
+    //! ユーザーの種類のリスト
     List<string> userTypeList = new List<string>();
+    //! ユーザーの役割のリスト
     List<string> roleList = new List<string>();
 
     // Start is called before the first frame update
@@ -82,11 +86,11 @@ public class UserSettings : MonoBehaviour
         else
         {
             if (userType == UserType.Remote_nonVR)
-                StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
             else if (userType == UserType.Remote_VR)
-                StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(vrSceneBuildIndex));
             else if (userType == UserType.Robot)
-                StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
             else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");
         }
 
@@ -96,20 +100,20 @@ public class UserSettings : MonoBehaviour
         else
         {
             if (userType == UserType.Remote_nonVR)
-                StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
             else if (userType == UserType.Robot)
-                StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
             else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");
         }
 
 #elif UNITY_IOS
         if (userType == UserType.Local_AR)
-            StartCoroutine(LoadAsyncScene(localSceneBuildIndex));
+            StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
         else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");
 
 #elif UNITY_ANDROID
         if (userType == UserType.Remote_VR)
-            StartCoroutine(LoadAsyncScene(remoteSceneBuildIndex));
+            StartCoroutine(LoadAsyncScene(vrSceneBuildIndex));
         else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");
 
 #else
@@ -140,8 +144,6 @@ public class UserSettings : MonoBehaviour
     {
         // The Application loads the Scene in the background as the current Scene runs.
         // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
 
