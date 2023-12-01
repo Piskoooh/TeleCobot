@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.udonba.logprompter": {
+      "version": "https://github.com/udonba/Unity-LogPrompter.git?path=Assets/LogPrompter",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.textmeshpro": "3.0.6"
+      },
+      "hash": "19c52d938efac6809a8453f1361623005f8ff047"
+    },
     "com.unity.burst": {
       "version": "1.8.10",
       "depth": 1,
