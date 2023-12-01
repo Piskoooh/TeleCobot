@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Management;
@@ -25,7 +25,7 @@ public class SceneMaster : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        if (userSettings.userType == UserType.Remote_VR)
+        if (XRGeneralSettings.Instance && XRGeneralSettings.Instance.Manager.activeLoader != null)
         {
             var manualXRControl = new ManualXRControl();
             manualXRControl.StopXR();

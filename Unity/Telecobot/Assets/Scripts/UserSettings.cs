@@ -158,4 +158,11 @@ public class UserSettings : MonoBehaviour
             startCanvas.gameObject.SetActive(false);
         }
     }
+
+    public IEnumerator UnloadSceneAsync(int sceneIndex)
+    {
+        AsyncOperation async = SceneManager.UnloadSceneAsync(sceneIndex);
+        Resources.UnloadUnusedAssets();
+        yield return async;
+    }
 }

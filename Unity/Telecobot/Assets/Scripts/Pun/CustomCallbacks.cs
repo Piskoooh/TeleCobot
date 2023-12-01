@@ -29,9 +29,9 @@ public class CustomCallbacks : MonoBehaviourPun, IOnPhotonViewPreNetDestroy, IPu
         {
             sceneMaster.photonMng.AddToRoleDic(info.photonView.ViewID, (int)info.photonView.GetComponent<AvatarSetting>().avatarRole);
         }
-        if (info.photonView.GetComponent<RobotAvatarManager>() != null)
+        if (info.photonView.GetComponent<RobotAvatarSetting>() != null)
         {
-            sceneMaster.photonMng.AddToRobotDic(info.photonView.ViewID, (int)info.photonView.GetComponent<RobotAvatarManager>().robotRosConnection);
+            sceneMaster.photonMng.AddToRobotDic(info.photonView.ViewID, (int)info.photonView.GetComponent<RobotAvatarSetting>().robotRosConnection);
             sceneMaster.photonMng.robotList.Add(info.photonView.ViewID);
             sceneMaster.photonMng.robotList.Sort();
         }
@@ -45,7 +45,7 @@ public class CustomCallbacks : MonoBehaviourPun, IOnPhotonViewPreNetDestroy, IPu
         {
             sceneMaster.photonMng.RemoveFromRoleDic(rootView.ViewID);
         }
-        if (rootView.GetComponent<RobotAvatarManager>() != null)
+        if (rootView.GetComponent<RobotAvatarSetting>() != null)
         {
             sceneMaster.photonMng.RemoveFromRobotDic(rootView.ViewID);
             sceneMaster.photonMng.robotList.Remove(rootView.ViewID);

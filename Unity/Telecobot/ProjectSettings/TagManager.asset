@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SceneMaster
+  - UserSettings
+  - robot
+  - NetworkManager
+  - Teleport
   layers:
   - Default
   - TransparentFX

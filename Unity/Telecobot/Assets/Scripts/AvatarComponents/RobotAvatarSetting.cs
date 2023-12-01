@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class RobotAvatarManager : AvatarSetting
+public class RobotAvatarSetting : AvatarSetting
 {
     public RosConnection robotRosConnection;
     private void SetRobotRosConnection()

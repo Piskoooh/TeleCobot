@@ -8,6 +8,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 //https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/c04ad5 を参考に作成。
 //Photonの接続状態を管理するクラス
@@ -69,7 +71,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void LateUpdate()
     {
-        if (photonConnection == PhotonConnection.Connect)
+        if (PhotonNetwork.NetworkClientState==ClientState.Joined)
         {
             //カスタムプロパティの変化したものを更新
             PhotonNetwork.LocalPlayer.SendProperties();
@@ -79,9 +81,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     private void OnApplicationQuit()
     {
-        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
-        photonConnection = PhotonConnection.Disconnect;
-        PhotonNetwork.Disconnect();
+        if (photonConnection == PhotonConnection.Connect)
+        {
+            PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+            photonConnection = PhotonConnection.Disconnect;
+            PhotonNetwork.Disconnect();
+        }
     }
 
     public void PunButton()
@@ -219,7 +224,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
-        base.OnDisconnected(cause);
         if (sceneMaster.userSettings.role==Role.Robot&& sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
         {
             sceneMaster.rosConnector.DisconnectFromROS();
@@ -231,7 +235,18 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         sceneMaster.uIMng.punConnection_Text.text = "Photon : Disconnected";
 
         if (sceneMaster.userSettings.userType == UserType.Remote_VR)
+        {
             sceneMaster.userSettings.eventSystem.gameObject.SetActive(true);
+            StartCoroutine(sceneMaster.userSettings.UnloadSceneAsync(2));
+            var manualXRControl = new ManualXRControl();
+            manualXRControl.StopXR();
+        }
+        else
+        {
+            StartCoroutine(sceneMaster.userSettings.UnloadSceneAsync(1));
+        }
+        sceneMaster.userSettings.startCamera.gameObject.SetActive(true);
+        sceneMaster.userSettings.startCanvas.gameObject.SetActive(true);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
