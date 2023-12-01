@@ -9,6 +9,7 @@ TagManager:
   - robot
   - NetworkManager
   - Teleport
+  - VRUIs
   layers:
   - Default
   - TransparentFX

@@ -12,11 +12,20 @@ public class VRUIManager : MonoBehaviour
     //controlMode, punConnection, rosConnection, focusRobot, userListを表示する
     public TMP_Text statusText;
 
-    private RectTransform myRectTfm;
+    public Canvas[] canvases =new Canvas[5];
+    [SerializeField]
+    private GameObject rotatingUIs;
+    private Quaternion startRotation;
+    private Quaternion endRotation;
+    private float countTime;
+    private bool startRotate;
+
+    public Button right, left;
     // Start is called before the first frame update
     void Start()
     {
-        myRectTfm = GetComponent<RectTransform>();
+        right.onClick.AddListener(() => RotateObject(1));
+        left.onClick.AddListener(() => RotateObject(-1));
     }
 
     // Update is called once per frame
@@ -25,7 +34,10 @@ public class VRUIManager : MonoBehaviour
         if(Camera.main == null)
             return;
         // 自身の向きをカメラに向ける
-        myRectTfm.rotation = Quaternion.LookRotation(myRectTfm.position - Camera.main.transform.position);
+        foreach (var canvas in canvases)
+        {
+            canvas.transform.rotation = Quaternion.LookRotation(canvas.transform.position - Camera.main.transform.position);
+        }
 
         if(statusText == null)
             return;
@@ -35,7 +47,7 @@ public class VRUIManager : MonoBehaviour
             newtext+="PUNConnection: Connected\n";
         else
             newtext+="PUNConnection: Disconnected\n";
-        newtext += "------\n";
+        newtext += "-------------------\n";
         if (sceneMaster.photonMng.focusRobot != null)
         {
             var ram = sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>();
@@ -44,7 +56,7 @@ public class VRUIManager : MonoBehaviour
         }
         else
             newtext += "Robot is not connected. Wait for Robot to join.\n";
-        newtext += "------\n";
+        newtext += "-------------------\n";
         if(sceneMaster.inputMng==null)
             newtext+="Operetor is not connected. Wait for Operator to join.\n";
         else
@@ -59,14 +71,41 @@ public class VRUIManager : MonoBehaviour
             }
             newtext+="ControlMode: "+sceneMaster.inputMng.playerInput.currentActionMap.name+"\n";
         }
-        newtext += "------\n";
+        newtext += "-------------------\n";
         newtext += "UserList:\n";
         foreach (var pair in sceneMaster.photonMng.RoleDictionary)
         {
             newtext += $"UserID: {pair.Key}\nUserRole: {(Role)pair.Value}\n";
+            newtext += "-------------------\n";
         }
-        newtext += "------\n";
-        newtext += "--END OF STATUS TEXT--";
+        //newtext += "--END OF STATUS TEXT--";
         statusText.text = newtext;
+
+        UpdateUIsRotate();
+    }
+
+    // ゲームオブジェクトを指定した軸周りにスムーズに回転させるメソッド
+    void RotateObject(int direction)
+    {
+        countTime = 0f;
+        startRotation = rotatingUIs.transform.rotation;
+        endRotation = rotatingUIs.transform.rotation * Quaternion.AngleAxis(90f * direction, rotatingUIs.transform.up);
+        startRotate = true;
+    }
+
+    private void UpdateUIsRotate()
+    {
+        if (startRotate == false)
+        {
+            return;
+        }
+        countTime = Mathf.Clamp(countTime + Time.deltaTime, 0f, 0.5f);
+        float rate = countTime / 0.5f;
+        rotatingUIs.transform.rotation = Quaternion.Lerp(startRotation, endRotation, rate);
+
+        if (rate >= 1f)
+        {
+            startRotate = false;
+        }
     }
 }
