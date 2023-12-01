@@ -186,7 +186,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
         else if (sceneMaster.userSettings.userType == UserType.Remote_VR)
         {
-            MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.up, Quaternion.identity);
+            if (sceneMaster.userSettings.role == Role.Operator)
+            {
+                //MyAvatar=PhotonNetwork.Instantiate("VROperatorCameraPun",Vector3.zero,Quaternion.identity);
+                Debug.LogError("Operator is not supported yet.");
+                PhotonNetwork.Disconnect();
+                return;
+            }
+            else
+                MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.up, Quaternion.identity);
         }
         else if (sceneMaster.userSettings.userType == UserType.Remote_nonVR)
         {
@@ -197,7 +205,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
         else if (sceneMaster.userSettings.userType == UserType.Local_AR)
         {
-            MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.up, Quaternion.identity);
+            Debug.LogError("Local_AR is not supported yet.");
+            PhotonNetwork.Disconnect();
+            return;
+            // MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.up, Quaternion.identity);
         }
         else Debug.LogError("Unkown User Type. Cannot instatiate avatar.");
         //プレイヤーロールをカスタムプロパティに登録
