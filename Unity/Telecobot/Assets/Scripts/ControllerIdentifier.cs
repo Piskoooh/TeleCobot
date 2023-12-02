@@ -41,7 +41,7 @@ public class ControllerIdentifier : MonoBehaviour
         if (!inputDevice.usages.Contains(CommonUsages.LeftHand) &&
             !inputDevice.usages.Contains(CommonUsages.RightHand)) return;
 
-        if (inputDevice.displayName.Contains("HTC Vive"))
+        if (inputDevice.displayName.Contains("Vive"))
         {
             userSettings.controllerType = VRControllerType.Vive;
         }

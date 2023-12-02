@@ -76,14 +76,19 @@ public class ControllerModelSelector : MonoBehaviour
             var go = GameObject.FindGameObjectWithTag("LeftControllerPrefab");
             if (go != null)
                 InstatiatedLeftController = go.transform;
+            else
+                return;
         }
         else if(InstatiatedRightController == null)
         {
             var go = GameObject.FindGameObjectWithTag("RightControllerPrefab");
             if (go != null)
                 InstatiatedRightController = go.transform;
+            else
+                return;
         }
-        if (InstatiatedLeftController != null && InstatiatedRightController != null && flag)
+        else
+        //if (InstatiatedLeftController != null && InstatiatedRightController != null && flag)
         {
             LeftCalloutGazeController.callouts = LeftController.GetComponentsInChildren<Callout>();
             RightCalloutGazeController.callouts = RightController.GetComponentsInChildren<Callout>();

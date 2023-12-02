@@ -13,7 +13,7 @@ public class SceneMaster : MonoBehaviour
     public InputManager inputMng;
     public UIManager uIMng;
 
-    private void Awake()
+    private void OnEnable()
     {
         userSettings = GameObject.FindGameObjectWithTag("UserSettings").GetComponent<UserSettings>();
         if(userSettings.userType == UserType.Remote_VR)
