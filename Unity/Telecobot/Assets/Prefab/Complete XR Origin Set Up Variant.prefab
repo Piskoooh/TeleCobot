@@ -530,8 +530,8 @@ MonoBehaviour:
   RightCalloutGazeController: {fileID: 2770749477599959103}
   OculusTouchController: {fileID: 3855738744136269029, guid: 85badb33a99044d7fa08064a9b43ed43, type: 3}
   OculusTouchRightController: {fileID: 7720839182513384429, guid: da24a70113c5841e894588faf5a4a43d, type: 3}
-  ViveLeftController: {fileID: 0}
-  ViveRightController: {fileID: 0}
+  ViveLeftController: {fileID: 8476079087165328436, guid: c1e8e36367c5f0c468a86d08f544fc0a, type: 3}
+  ViveRightController: {fileID: 7075335082056042473, guid: fcb91e6f43c0b4741b6de11fd1493888, type: 3}
   Pico4LeftController: {fileID: 0}
   Pico4RightController: {fileID: 0}
   UniversalLeftController: {fileID: 211287923563969613, guid: ebb1989a0705e0243961051782c3fef2, type: 3}
