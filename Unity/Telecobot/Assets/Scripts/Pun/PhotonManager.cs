@@ -194,7 +194,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 return;
             }
             else
-                MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.up, Quaternion.identity);
+                MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.zero, Quaternion.identity);
         }
         else if (sceneMaster.userSettings.userType == UserType.Remote_nonVR)
         {

@@ -12,15 +12,19 @@ public class VRUIManager : MonoBehaviour
     //controlMode, punConnection, rosConnection, focusRobot, userListを表示する
     public TMP_Text statusText;
 
-    public Canvas[] canvases =new Canvas[5];
+    [HideInInspector]
+    public Transform xrOrigin;
+
     [SerializeField]
     private GameObject rotatingUIs;
+    public Button right, left;
+    public Canvas[] canvases =new Canvas[5];
+
     private Quaternion startRotation;
     private Quaternion endRotation;
     private float countTime;
     private bool startRotate;
 
-    public Button right, left;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +51,7 @@ public class VRUIManager : MonoBehaviour
             newtext+="PUNConnection: Connected\n";
         else
             newtext+="PUNConnection: Disconnected\n";
-        newtext += "-------------------\n";
+        newtext += "============\n";
         if (sceneMaster.photonMng.focusRobot != null)
         {
             var ram = sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>();
@@ -56,7 +60,7 @@ public class VRUIManager : MonoBehaviour
         }
         else
             newtext += "Robot is not connected. Wait for Robot to join.\n";
-        newtext += "-------------------\n";
+        newtext += "============\n";
         if(sceneMaster.inputMng==null)
             newtext+="Operetor is not connected. Wait for Operator to join.\n";
         else
@@ -71,17 +75,24 @@ public class VRUIManager : MonoBehaviour
             }
             newtext+="ControlMode: "+sceneMaster.inputMng.playerInput.currentActionMap.name+"\n";
         }
-        newtext += "-------------------\n";
+        newtext += "============\n";
         newtext += "UserList:\n";
         foreach (var pair in sceneMaster.photonMng.RoleDictionary)
         {
             newtext += $"UserID: {pair.Key}\nUserRole: {(Role)pair.Value}\n";
-            newtext += "-------------------\n";
+            newtext += "------------\n";
         }
+        newtext += "============\n";
         //newtext += "--END OF STATUS TEXT--";
         statusText.text = newtext;
 
         UpdateUIsRotate();
+
+        if(xrOrigin != null)
+        {
+            transform.position = xrOrigin.position;
+            transform.rotation = xrOrigin.rotation;
+        }
     }
 
     // ゲームオブジェクトを指定した軸周りにスムーズに回転させるメソッド

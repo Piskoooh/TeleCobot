@@ -10,6 +10,9 @@ TagManager:
   - NetworkManager
   - Teleport
   - VRUIs
+  - end_effector
+  - LeftControllerPrefab
+  - RightControllerPrefab
   layers:
   - Default
   - TransparentFX

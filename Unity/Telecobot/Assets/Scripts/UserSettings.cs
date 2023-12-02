@@ -11,6 +11,7 @@ public class UserSettings : MonoBehaviour
 {
     public UserType userType;
     public Role role;
+    public VRControllerType controllerType;
     public TMP_Dropdown userTypeDropdown;
     public TMP_Dropdown roleDropdown;
     public TMP_InputField UserName;

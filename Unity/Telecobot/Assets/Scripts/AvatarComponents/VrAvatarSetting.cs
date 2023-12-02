@@ -16,16 +16,16 @@ public class VrAvatarSetting : AvatarSetting
         // TeleportationProviderを各TeleportationAnchor、TeleportationAnchorに設定する
         // TeleportationAnchorとTeleportationAnchorが継承しているBaseTeleportationInteractableコンポーネントを取得し、設定。
         GameObject go = GameObject.FindGameObjectWithTag("Teleport");
-        if(go != null)
+        if (go != null)
         {
             BaseTeleportationInteractable[] btis = go.GetComponentsInChildren<BaseTeleportationInteractable>();
-            foreach(var bti in btis)
+            foreach (var bti in btis)
             {
                 bti.teleportationProvider = teleportationProvider;
             }
         }
 
-       var  vrUIs = GameObject.FindGameObjectWithTag("VRUIs");
+        GameObject.FindGameObjectWithTag("VRUIs").GetComponent<VRUIManager>().xrOrigin = xrOrigin.transform;
     }
 
     // Update is called once per frame

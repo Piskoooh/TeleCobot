@@ -60,3 +60,11 @@ public enum SemiAutomaticCommands
     PublishGoal=21,
     BackHome = 22
 }
+
+public enum VRControllerType
+{
+    Universal = 0,
+    OculusTouch = 1,
+    Vive = 2,
+    Pico4 = 3,
+}
