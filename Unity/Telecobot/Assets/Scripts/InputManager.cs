@@ -826,6 +826,7 @@ public class InputManager : MonoBehaviourPunCallbacks
                 Debug.LogWarning("You are not authorized to operate.");
     }
 
+    [PunRPC]
     private void RebootErrorPun(bool cmd, PhotonMessageInfo info)
     {
         if (info.Sender.IsLocal)
