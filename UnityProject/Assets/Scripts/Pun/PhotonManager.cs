@@ -9,123 +9,142 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 
 //https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/c04ad5 を参考に作成。
-
-
+//Photonの接続状態を管理するクラス
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
-    UserSettings userSettings;
+    public SceneMaster sceneMaster;
     public PhotonConnection photonConnection;
-    public RosConnector rosConnector;
-    public UIManager uI;
 
     //[HideInInspector]
     public GameObject MyAvatar;
-    public SortedDictionary<int,GameObject> RobotDictionary = new SortedDictionary<int, GameObject>();
-    public Dictionary<GameObject,Role> RoleDictionary = new Dictionary<GameObject, Role>();
+    public List<int> robotList = new List<int>();//RobotのPhotonViewIDのリスト
+    public SortedDictionary<int,int> RobotDictionary = new SortedDictionary<int, int>();// Key:PhotonViewID,Value:RosConnection
+    public SortedDictionary<int,int> RoleDictionary = new SortedDictionary<int, int>();// Key:PhotonViewID,Value:Role
 
     public GameObject focusRobot;
     private int focusRobotID;
-
-    private void Awake()
-    {
-        userSettings = GameObject.Find("UserSettings").GetComponent<UserSettings>();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         photonConnection = PhotonConnection.Disconnect;
-        uI.punConnectButton.onClick.AddListener(() => PunButton());
+        sceneMaster.uIMng.punConnectButton.onClick.AddListener(() => PunButton());
 
         // プレイヤー自身の名前を"Player"に設定する
-        PhotonNetwork.NickName = userSettings.UserName.text;
+        PhotonNetwork.NickName = sceneMaster.userSettings.UserName.text;
 
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
     }
     void Update()
     {
+        //Memo:複数ロボットの際にフォーカスロボットの選択権限はOperetorに付与する。
         if(RobotDictionary.Count>0)
         {
-            if (focusRobot == null)
+            if (robotList.Count==1)
+                if (focusRobot != PhotonView.Find(robotList[0]).gameObject)
+                    PhotonNetwork.CurrentRoom.SetFocusRobot(robotList[0]);
+            else
             {
-                var firstRobot = RobotDictionary.First();
-                focusRobotID = firstRobot.Key;
-                focusRobot = firstRobot.Value;
+                //ここにロボットが複数あったときの処理を加える。
             }
         }
         else
         {
-            focusRobot = null;
-            focusRobotID = 0;
+            if (focusRobot != null)
+            {
+                focusRobot = null;
+                PhotonNetwork.CurrentRoom.SetFocusRobot(0);
+            }
+        }
+    }
+
+    private void UpdateRobotFocus()
+    {
+        sceneMaster.rosConnector.GetRobot(focusRobot);
+        if (MyAvatar.GetComponent<CameraFollowPun>().isActiveAndEnabled)
+            MyAvatar.GetComponent<CameraFollowPun>().target = sceneMaster.rosConnector.base_link.transform;
+    }
+
+    private void LateUpdate()
+    {
+        if (photonConnection == PhotonConnection.Connect)
+        {
+            //カスタムプロパティの変化したものを更新
+            PhotonNetwork.LocalPlayer.SendProperties();
+            PhotonNetwork.CurrentRoom.SendProperties();
         }
     }
 
     private void OnApplicationQuit()
     {
+        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
         photonConnection = PhotonConnection.Disconnect;
+        PhotonNetwork.Disconnect();
     }
+
     public void PunButton()
     {
-        uI.punConnectButton.interactable = false;
-        uI.rosConnectButton.interactable = false;
+        sceneMaster.uIMng.punConnectButton.interactable = false;
+        sceneMaster.uIMng.rosConnectButton.interactable = false;
         if (photonConnection == PhotonConnection.Disconnect) PhotonNetwork.ConnectUsingSettings();
         else PhotonNetwork.Disconnect();
     }
 
-    public void AddToList(GameObject gameObject, Role avatarRole,int viewID)
+    public void AddToRoleDic(int viewID, int avatarRole)
     {
         //オブジェクトとロールをディクショナリに保存
-        if (RoleDictionary.TryAdd(gameObject, avatarRole))
+        if (RoleDictionary.TryAdd(viewID, avatarRole))
         {
-            Debug.Log("Add: " + gameObject);
+            Debug.Log("RoleDic:  Add: " + viewID);
         }
         else
         {
             //すでに存在する場合は上書き
-            RoleDictionary[gameObject] = avatarRole;
-            Debug.Log("Update: " + gameObject);
-        }
-        //ロボットロールの場合はロボットリストに追加する
-        if (avatarRole == Role.Robot)
-        {
-            if(RobotDictionary.TryAdd(viewID, gameObject))
-            {
-                Debug.Log("Add: " + gameObject);
-            }
-            else
-            {
-                //すでに存在する場合は上書き
-                RobotDictionary[viewID] = gameObject;
-                Debug.Log("Update: " + gameObject);
-            }
+            RoleDictionary[viewID] = avatarRole;
+            Debug.Log("RoleDic:  Update: " + viewID);
         }
         DebugList();
     }
 
-    public void RemoveFromList(GameObject gameObject, Role avatarRole,int viewID)
+    public void AddToRobotDic(int viewID,int rosConect)
     {
-        //オブジェクトとロールをディクショナリから削除
-        if (RoleDictionary.Remove(gameObject, out avatarRole))
+        if (RobotDictionary.TryAdd(viewID, rosConect))
         {
-            Debug.Log("Remove: " + gameObject);
+            Debug.Log($"RobotDic:  Add: {viewID} : {(RosConnection)rosConect}");
         }
         else
         {
-            Debug.Log("Failed to remove: " + gameObject);
+            //すでに存在する場合は上書き
+            RobotDictionary[viewID] = rosConect;
+            Debug.Log($"RobotDic:  Update: {viewID} : {(RosConnection)rosConect}");
         }
+        DebugList();
+    }
 
-        //ロボットロールの場合はロボットリストから削除する
-        if (avatarRole == Role.Robot)
+    public void RemoveFromRoleDic(int viewID)
+    {
+        //オブジェクトとロールをディクショナリから削除
+        if (RoleDictionary.Remove(viewID))
         {
-            if(RobotDictionary.Remove(viewID))
-            {
-                Debug.Log("Remove: " + gameObject);
-            }
-            else
-            {
-                Debug.Log("Failed to remove: " + gameObject);
-            }
+            Debug.Log("RoleDic:  Remove: " + viewID);
+        }
+        else
+        {
+            Debug.Log("RoleDic:  Failed to remove: " + viewID);
+        }
+        DebugList();
+    }
+
+    public void RemoveFromRobotDic(int viewID)
+    {
+        if (RobotDictionary.Remove(viewID))
+        {
+            Debug.Log("RobotDic:  Remove: " + viewID);
+        }
+        else
+        {
+            Debug.Log("RobotDic:  Failed to remove: " + viewID);
         }
         DebugList();
     }
@@ -134,11 +153,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         foreach (var pair in RoleDictionary)
         {
-            Debug.Log("Key" + pair.Key + "Value" + pair.Value);
+            Debug.Log("RoleDic:  Key" + pair.Key + "Value" + (Role)pair.Value);
         }
         foreach (var pair1 in RobotDictionary)
         {
-            Debug.Log("Key" + pair1.Key + "Value" + pair1.Value);
+            Debug.Log("RobotDic:  Key" + pair1.Key + "Value" + (RosConnection)pair1.Value);
         }
     }
 
@@ -153,39 +172,56 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // ゲームサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnJoinedRoom()
     {
-        if (userSettings.userType == UserType.Robot)
+        PhotonNetwork.LocalPlayer.SetRole((int)sceneMaster.userSettings.role);
+        if (sceneMaster.userSettings.userType == UserType.Robot)
         {
-            MyAvatar = PhotonNetwork.Instantiate("LocobotPun", Vector3.zero, Quaternion.identity);
-            rosConnector.GetRobot();
+            PhotonNetwork.Instantiate("LocobotPun", Vector3.zero, Quaternion.identity);
+            MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.up, Quaternion.identity);
         }
-        else if (userSettings.userType == UserType.Remote_VR)
-            MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.zero, Quaternion.identity);
-        else if (userSettings.userType == UserType.Remote_nonVR)
-            MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.zero, Quaternion.identity);
-        else if (userSettings.userType == UserType.Local_AR)
-            MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.zero, Quaternion.identity);
+        else if (sceneMaster.userSettings.userType == UserType.Remote_VR)
+        {
+            MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.up, Quaternion.identity);
+        }
+        else if (sceneMaster.userSettings.userType == UserType.Remote_nonVR)
+        {
+            if (sceneMaster.userSettings.role == Role.Operator)
+                MyAvatar = PhotonNetwork.Instantiate("OperatorCameraPun", Vector3.up, Quaternion.identity);
+            else
+                MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.up, Quaternion.identity);
+        }
+        else if (sceneMaster.userSettings.userType == UserType.Local_AR)
+        {
+            MyAvatar = PhotonNetwork.Instantiate("ARCameraPun", Vector3.up, Quaternion.identity);
+        }
         else Debug.LogError("Unkown User Type. Cannot instatiate avatar.");
         //プレイヤーロールをカスタムプロパティに登録
-        PhotonNetwork.LocalPlayer.SetRole((int)userSettings.role);
         photonConnection = PhotonConnection.Connect;
-        uI.punConnection_Text.text = "Photon : Connected";
-        uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
-        uI.punConnectButton.interactable = true;
-        uI.rosConnectButton.interactable = true;
+        sceneMaster.uIMng.punConnection_Text.text = "Photon : Connected";
+        sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        sceneMaster.uIMng.punConnectButton.interactable = true;
+        sceneMaster.uIMng.rosConnectButton.interactable = true;
+
+        if (sceneMaster.userSettings.role == Role.Operator)
+        {
+            var IM = MyAvatar.GetComponent<InputManager>();
+            PhotonNetwork.CurrentRoom.SetControlMode((int)IM.controlMode);
+            PhotonNetwork.CurrentRoom.SetManualCmd((int)IM.manualCmd);
+            PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)IM.semiAutoCmd);
+        }
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
         base.OnDisconnected(cause);
-        if (rosConnector.rosConnection == RosConnection.Connect)
+        if (sceneMaster.userSettings.role==Role.Robot&& sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
         {
-            rosConnector.DisconnectFromROS();
+            sceneMaster.rosConnector.DisconnectFromROS();
         }
-        uI.punConnectButton.interactable = true;
-        uI.rosConnectButton.interactable = false;
+        sceneMaster.uIMng.punConnectButton.interactable = true;
+        sceneMaster.uIMng.rosConnectButton.interactable = false;
         photonConnection = PhotonConnection.Disconnect;
-        uI.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        uI.punConnection_Text.text = "Photon : Disconnected";
+        sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
+        sceneMaster.uIMng.punConnection_Text.text = "Photon : Disconnected";
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -196,7 +232,36 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         // 更新されたプレイヤーのカスタムプロパティのペアをコンソールに出力する
         foreach (var prop in changedProps)
         {
-            Debug.Log($"{prop.Key}: {prop.Value}");
+            if ((string)prop.Key == "R")
+                Debug.Log($"Role: {(Role)prop.Value}");
+            else if ((string)prop.Key == "RC")
+                Debug.Log($"ROS_CONNECTION: {(RosConnection)prop.Value}");
+            else
+                Debug.Log($"{prop.Key}: {prop.Value}");
+        }
+    }
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        // 更新されたルームのカスタムプロパティのペアをコンソールに出力する
+        foreach (var prop in propertiesThatChanged)
+        {
+            if ((string)prop.Key == "CM")
+                Debug.Log($"CONTROL_MODE: {(ControlMode)prop.Value}");
+            else if ((string)prop.Key == "MC")
+                Debug.Log($"MANUAL_COMMAND: {(ManualCommands)prop.Value}");
+            else if ((string)prop.Key == "SAC")
+                Debug.Log($"SEMI_AUTO_COMMMAND: {(SemiAutomaticCommands)prop.Value}");
+            else if ((string)prop.Key == "FR")
+                Debug.Log($"FOCUS_ROBOT: {prop.Value}");
+            else
+                Debug.Log($"{prop.Key}: {prop.Value}");
+        }
+
+        focusRobotID= PhotonNetwork.CurrentRoom.GetFocusRobot();
+        if (focusRobotID != 0)
+        {
+            focusRobot = PhotonView.Find(focusRobotID).gameObject;
+            UpdateRobotFocus();
         }
     }
     #endregion

@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &279872108570054939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,7 +1495,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &424176557370023170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &872476974117621546
 GameObject:
   m_ObjectHideFlags: 0
@@ -2610,7 +2610,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &917780014366817930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4048,7 +4048,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &1193795610731357943
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,7 +4261,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &1211325602219412507
 GameObject:
   m_ObjectHideFlags: 0
@@ -6121,7 +6121,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &2139081076000465477
 GameObject:
   m_ObjectHideFlags: 0
@@ -6382,7 +6382,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &2245463260880919150
 GameObject:
   m_ObjectHideFlags: 0
@@ -12881,7 +12881,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &4441759411386648713
 GameObject:
   m_ObjectHideFlags: 0
@@ -13775,7 +13775,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &4695190138623607284
 GameObject:
   m_ObjectHideFlags: 0
@@ -15484,7 +15484,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &5264454332999130491
 GameObject:
   m_ObjectHideFlags: 0
@@ -16429,7 +16429,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &5558247087980076209
 GameObject:
   m_ObjectHideFlags: 0
@@ -17063,7 +17063,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &6028762694737158152
 GameObject:
   m_ObjectHideFlags: 0
@@ -17847,7 +17847,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &6381609897462304773
 GameObject:
   m_ObjectHideFlags: 0
@@ -18356,7 +18356,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &6627386730024035790
 GameObject:
   m_ObjectHideFlags: 0
@@ -21686,7 +21686,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &7917212575867579827
 GameObject:
   m_ObjectHideFlags: 0
@@ -21855,7 +21855,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &7944211460186013560
 GameObject:
   m_ObjectHideFlags: 0
@@ -22306,7 +22306,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &8103947211397491559
 GameObject:
   m_ObjectHideFlags: 0
@@ -22784,7 +22784,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &8209209294038148007
 GameObject:
   m_ObjectHideFlags: 0
@@ -23590,6 +23590,11 @@ GameObject:
   - component: {fileID: 5450072291977491364}
   - component: {fileID: 5524881463906563447}
   - component: {fileID: 5017042657956677514}
+  - component: {fileID: 3670565771145608526}
+  - component: {fileID: 2655268761134569405}
+  - component: {fileID: 6379870832524907204}
+  - component: {fileID: 3908804929452250695}
+  - component: {fileID: 5044028501245229133}
   m_Layer: 0
   m_Name: LocobotPun
   m_TagString: robot
@@ -23649,17 +23654,25 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 3670565771145608526}
   - {fileID: 998978066596023489}
   - {fileID: 8793855139389647127}
   - {fileID: 722797484248426566}
+  - {fileID: 2460945575296132648}
   - {fileID: 8760404397574139326}
+  - {fileID: 6612005677846351560}
   - {fileID: 408112444575916638}
+  - {fileID: 5255277614974771590}
   - {fileID: 3211195689508598680}
   - {fileID: 5864334075637868296}
   - {fileID: 5124190494107844688}
   - {fileID: 6652646498947071292}
   - {fileID: 7676546882231810573}
+  - {fileID: 5190966784229207581}
+  - {fileID: 5945150732428458538}
   - {fileID: 2338763915001394707}
+  - {fileID: 6308897598625259894}
+  - {fileID: 215586307776859999}
   - {fileID: 6099297889646193314}
   - {fileID: 4545259201632993871}
   sceneViewId: 0
@@ -23679,6 +23692,86 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   avatarRole: 0
   Camera: {fileID: 0}
+  sceneMaster: {fileID: 0}
+--- !u!114 &3670565771145608526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 0
+--- !u!114 &2655268761134569405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65289976bb4cd3648acbcabce91ac4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  mouseSensitivity: 2
+  zoomSpeed: 2
+  minZoomFOV: 40
+  maxZoomFOV: 60
+  verticalRotationLimit: 60
+--- !u!114 &6379870832524907204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27124bddfc354495dbbec67bff6958d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  rotationSpeed: 100
+  height: 1.7
+  distance: 5
+  minDistance: 2
+  maxDistance: 10
+  rotation: 45
+  offset: {x: 0, y: -1, z: -1}
+--- !u!114 &3908804929452250695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f836eb7570534e2182a696fde2676f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robotRosConnection: 0
+--- !u!114 &5044028501245229133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8536791143859007095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1a4107d7c6d401a9be4790325b113f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8561120743663290194
 GameObject:
   m_ObjectHideFlags: 0
@@ -24452,7 +24545,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!1 &8768503294463817365
 GameObject:
   m_ObjectHideFlags: 0

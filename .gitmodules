@@ -20,3 +20,7 @@
 	path = ROS/interbotix_ws/src/interbotix_ros_toolboxes
 	url = https://github.com/Piskoooh/interbotix_ros_toolboxes.git
 	branch = noetic
+[submodule "Unity/Telecobot/Assets/Pcx-RosPointcloud2"]
+	path = Unity/Telecobot/Assets/Pcx-RosPointcloud2
+	url = https://github.com/Piskoooh/Pcx-RosPointcloud2.git
+	branch = master
