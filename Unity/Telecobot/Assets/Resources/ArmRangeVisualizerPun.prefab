@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: b6405e495a0f04367985ca65ca618b1c, type: 2}
     - target: {fileID: 919132149155446097, guid: f08c93f47b10d4720a0fa2994e4d93d2, type: 3}
       propertyPath: m_Name
-      value: RangeOfArmTargetPun
+      value: ArmRangeVisualizerPun
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f08c93f47b10d4720a0fa2994e4d93d2, type: 3}
       propertyPath: m_TagString
