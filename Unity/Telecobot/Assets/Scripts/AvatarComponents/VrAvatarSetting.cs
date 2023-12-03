@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 public class VrAvatarSetting : AvatarSetting
 {
@@ -14,17 +18,51 @@ public class VrAvatarSetting : AvatarSetting
     [SerializeField]
     private EventSystem eventSystem;
     [SerializeField]
-    private GameObject gazeInteractor;
+    private XRUIInputModule xruiInputModule;
+    [SerializeField]
+    TrackedPoseDriver trackedPoseDriver;
+    [SerializeField]
+    private GameObject[] vRComponents;
+    [SerializeField]
+    private GameObject[] nonVRComponents;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (photonView.IsMine)
+        {
+            foreach (GameObject go in vRComponents)
+            {
+                go.SetActive(true);
+            }
+            eventSystem.enabled = true;
+            xruiInputModule.enabled = true;
+            trackedPoseDriver.enabled = true;
+            foreach (GameObject go in nonVRComponents)
+            {
+                go.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (GameObject go in nonVRComponents)
+            {
+                go.SetActive(true);
+            }
+            foreach(GameObject go in vRComponents)
+            {
+                go.SetActive(false);
+            }
+            eventSystem.enabled = false;
+            xruiInputModule.enabled = false;
+            trackedPoseDriver.enabled = false;
+        }
         // TeleportationProviderを各TeleportationAnchor、TeleportationAnchorに設定する
         // TeleportationAnchorとTeleportationAnchorが継承しているBaseTeleportationInteractableコンポーネントを取得し、設定。
-        GameObject go = GameObject.FindGameObjectWithTag("Teleport");
-        if (go != null)
+        GameObject tp = GameObject.FindGameObjectWithTag("Teleport");
+        if (tp != null)
         {
-            BaseTeleportationInteractable[] btis = go.GetComponentsInChildren<BaseTeleportationInteractable>();
+            BaseTeleportationInteractable[] btis = tp.GetComponentsInChildren<BaseTeleportationInteractable>();
             foreach (var bti in btis)
             {
                 bti.teleportationProvider = teleportationProvider;
@@ -34,12 +72,10 @@ public class VrAvatarSetting : AvatarSetting
         if (photonView.IsMine)
         {
             GameObject.FindGameObjectWithTag("VRUIs").GetComponent<VRUIManager>().xrOrigin = xrOrigin.transform;
-            eventSystem.enabled = true;
         }
         else
         {
             eventSystem.enabled = false;
-            gazeInteractor.SetActive(false);
         }
     }
 
