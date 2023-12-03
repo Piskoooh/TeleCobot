@@ -150,9 +150,9 @@ class telecobotUnityController:
             elif (msg.pan_cmd == TelecobotUnityControl.PAN_CW):
                 cam_positions[0] -= self.waist_step
 
-            if (msg.tilt_cmd == TelecobotUnityControl.TILT_UP):
+            if (msg.tilt_cmd == TelecobotUnityControl.TILT_DOWN):
                 cam_positions[1] += self.waist_step
-            elif (msg.tilt_cmd == TelecobotUnityControl.TILT_DOWN):
+            elif (msg.tilt_cmd == TelecobotUnityControl.TILT_UP):
                 cam_positions[1] -= self.waist_step
 
             self.locobot.camera.pan_tilt_move(cam_positions[0], cam_positions[1], 0.2, 0.1, 0.2, 0.1, False)
@@ -277,9 +277,9 @@ class telecobotUnityController:
                 rpy = ang.rotationMatrixToEulerAngles(T_yb[:3, :3])
 
                 # check ee_roll_cmd
-                if (msg.ee_roll_cmd == TelecobotUnityControl.EE_ROLL_CCW):
+                if (msg.ee_roll_cmd == TelecobotUnityControl.EE_ROLL_CW):
                     rpy[0] += self.rotate_step
-                elif (msg.ee_roll_cmd == TelecobotUnityControl.EE_ROLL_CW):
+                elif (msg.ee_roll_cmd == TelecobotUnityControl.EE_ROLL_CCW):
                     rpy[0] -= self.rotate_step
 
                 # check ee_pitch_cmd
