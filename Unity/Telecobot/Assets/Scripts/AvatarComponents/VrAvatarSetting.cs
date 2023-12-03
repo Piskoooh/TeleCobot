@@ -101,6 +101,15 @@ public class VrAvatarSetting : AvatarSetting
             }
 
             meshRenderer.material = material;
+
+            foreach(GameObject go in nonVRComponents)
+            {
+                MeshRenderer[] meshes = go.GetComponentsInChildren<MeshRenderer>();
+                foreach (MeshRenderer mesh in meshes)
+                {
+                    mesh.material = material;
+                }
+            }
         }
 
         // TeleportationProviderを各TeleportationAnchor、TeleportationAnchorに設定する
