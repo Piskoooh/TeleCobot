@@ -10,6 +10,9 @@ public class VrAvatarSetting : AvatarSetting
     private TeleportationProvider teleportationProvider;
     [SerializeField]
     private XROrigin xrOrigin;
+    [SerializeField]
+    private GameObject eventSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +28,11 @@ public class VrAvatarSetting : AvatarSetting
             }
         }
 
-        GameObject.FindGameObjectWithTag("VRUIs").GetComponent<VRUIManager>().xrOrigin = xrOrigin.transform;
+        if (photonView.IsMine)
+        {
+            GameObject.FindGameObjectWithTag("VRUIs").GetComponent<VRUIManager>().xrOrigin = xrOrigin.transform;
+            eventSystem.SetActive(true);
+        }
     }
 
     // Update is called once per frame
