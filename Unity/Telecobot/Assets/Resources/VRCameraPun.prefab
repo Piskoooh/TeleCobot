@@ -137,6 +137,7 @@ MonoBehaviour:
   sceneMaster: {fileID: 0}
   teleportationProvider: {fileID: 7453954238331498437}
   xrOrigin: {fileID: 8027883894668312966}
+  eventSystem: {fileID: 0}
 --- !u!114 &1068669062498243759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +242,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 341e465b320b8b442989083b2549e894, type: 2}
+    - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -17640420121853439, guid: 341e465b320b8b442989083b2549e894, type: 2}
     - target: {fileID: 4094801499644469875, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_Name
       value: Canvas
