@@ -70,16 +70,16 @@ public class PubUnityControl : MonoBehaviour
 
         //Check the pan_cmd
         if (sceneMaster.inputMng.pan >= 0.5)
-            controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CCW;
-        else if (sceneMaster.inputMng.pan <= -0.5)
             controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CW;
+        else if (sceneMaster.inputMng.pan <= -0.5)
+            controlMsg.pan_cmd = TelecobotUnityControlMsg.PAN_CCW;
         else controlMsg.pan_cmd = 0;
 
         // Check the tilt_cmd
         if (sceneMaster.inputMng.tilt >= 0.5)
-            controlMsg.tilt_cmd = TelecobotUnityControlMsg.TILT_DOWN;
-        else if (sceneMaster.inputMng.tilt <= -0.5)
             controlMsg.tilt_cmd = TelecobotUnityControlMsg.TILT_UP;
+        else if (sceneMaster.inputMng.tilt <= -0.5)
+            controlMsg.tilt_cmd = TelecobotUnityControlMsg.TILT_DOWN;
         else controlMsg.tilt_cmd = 0;
 
         // Check if the camera pan-and-tilt mechanism should be reset
@@ -150,16 +150,16 @@ public class PubUnityControl : MonoBehaviour
 
         // Check the ee_roll_cmd
         if (sceneMaster.inputMng.eeRoll >= 0.5)
-            controlMsg.ee_roll_cmd = TelecobotUnityControlMsg.EE_ROLL_CCW;
-        else if (sceneMaster.inputMng.eeRoll <= -0.5)
             controlMsg.ee_roll_cmd = TelecobotUnityControlMsg.EE_ROLL_CW;
+        else if (sceneMaster.inputMng.eeRoll <= -0.5)
+            controlMsg.ee_roll_cmd = TelecobotUnityControlMsg.EE_ROLL_CCW;
         else controlMsg.ee_roll_cmd = 0;
 
         // Check the ee_pitch_cmd
         if (sceneMaster.inputMng.eePitch >= 0.5)
-            controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_DOWN;
-        else if (sceneMaster.inputMng.eePitch <= -0.5)
             controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_UP;
+        else if (sceneMaster.inputMng.eePitch <= -0.5)
+            controlMsg.ee_pitch_cmd = TelecobotUnityControlMsg.EE_PITCH_DOWN;
         else controlMsg.ee_pitch_cmd = 0;
 
         // Check the waist_cmd
