@@ -2,19 +2,20 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
+using Unity.Robotics.ROSTCPConnector.ROSGeometry;
+using Unity.Robotics.UrdfImporter;
 using UnityEngine.UI;
 using TMPro;
 using URV;
 
+
 public class RosConnector : MonoBehaviour
 {
     private ROSConnection ros;
-    private bool punConnected = false;
-    private bool rosConnected = false;
-
-    public TMP_Text punConnectionStatusText, rosConnectionStatusText;
-    public Button punConnectButton, rosConnectButton;
-    public CanvasGroup rosUIs;
+    public RosConnection rosConnection;
+    public PhotonManager photonManager;
+    public UIManager uI;
+    public CameraFollow cameraFollow;
 
     public VisualizationTopicsTab visualizationTopicsTab;
     public SubTF subTF;
@@ -25,6 +26,16 @@ public class RosConnector : MonoBehaviour
     //public PubTelecobotArmControl pubTelecobotArmControl;
     //public PubTelecobotBaseControl pubTelecobotBaseControl;
     public PubUnityControl pubUnityControl;
+    [SerializeField] GameObject Robot;
+
+    private UrdfLink[] UrdfLinkChain;
+    private int numRobotLinks = 0;
+    [HideInInspector]
+    public Transform[] robotLinkPositions;
+
+    public GameObject endEffector;
+    public GameObject base_link;
+    public GameObject arm_base_link;
 
     public bool isDebug = true;
 
@@ -36,99 +47,46 @@ public class RosConnector : MonoBehaviour
 
     private void Start()
     {
-        punConnectionStatusText.text = "Photon : Not Connected";
-        rosConnectionStatusText.text = "Ros : Not Connected";
-        punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        rosConnectButton.interactable = false;
-        rosUIs.interactable = false;
-        punConnected = false;
-        rosConnected = false;
-        punConnectButton.onClick.AddListener(() => punButton());
-        rosConnectButton.onClick.AddListener(() => rosButton());
-
+        rosConnection = RosConnection.Disconnect;
+        uI.rosConnectButton.onClick.AddListener(() => rosButton());
     }
 
-    //3秒後にPhotonに接続されているように挙動
-    IEnumerator DummyPhotonConect()
+    public void GetRobot()
     {
-        punConnectionStatusText.text = "Photon : Connecting";
-        yield return new WaitForSeconds(1);
-        OnPhotonConnect();
-    }
+        Robot = GameObject.FindGameObjectWithTag("robot");
+        UrdfLinkChain = Robot.GetComponentsInChildren<UrdfLink>();
+        numRobotLinks = UrdfLinkChain.Length;
+        robotLinkPositions = new Transform[numRobotLinks];
 
-    public void ConnectToPun()
-    {
-        if (!punConnected)
+        for (int i = 0; i < numRobotLinks; i++)
         {
-            // PUNへの接続処理を行う
-            try
+            robotLinkPositions[i] = UrdfLinkChain[i].gameObject.transform;
+            switch (UrdfLinkChain[i].gameObject.name)
             {
-                StartCoroutine("DummyPhotonConect");   //Photon導入前にデバックで使用
-                
-            }
-            catch (Exception e)
-            {
-                punConnectionStatusText.text = "PUN : Failed to Connect:" + e.Message;
+                case "/base_link":
+                    base_link = UrdfLinkChain[i].gameObject;
+                    break;
+                case "/arm_base_link":
+                    arm_base_link = UrdfLinkChain[i].gameObject;
+                    break;
+                case "/ee_gripper_link":
+                    endEffector = UrdfLinkChain[i].gameObject;
+                    break;
             }
         }
-        else
-        {
-            punConnectionStatusText.text = "Photon : Connected";
-        }
-
-    }
-
-    public void OnPhotonConnect() // Photonが接続されたときに呼び出される関数
-    {
-        punConnected = true;
-        punConnectionStatusText.text = "Photon : Connected";
-        punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
-        punConnectButton.interactable = true;
-        rosConnectButton.interactable = true;
-
-    }
-
-    public void DisconnectFromPun()
-    {
-        if (punConnected)
-        {
-            try
-            {
-                //
-                OnPhotonDisconnect();
-            }
-            catch (Exception e)
-            {
-                punConnectionStatusText.text = "PUN : Failed to Disconnect:" + e.Message;
-            }
-        }
-        else Debug.Log("PUN : Already disconnected");
-    }
-
-    public void OnPhotonDisconnect() // Photonが切断されたときに呼び出される関数
-    {
-        if (rosConnected)
-        {
-            DisconnectFromROS();
-        }
-        punConnectButton.interactable = true;
-        rosConnectButton.interactable = false;
-        punConnected = false;
-        punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        punConnectionStatusText.text = "Photon : Disconnected";
+        cameraFollow.target = base_link.transform;
     }
 
     public void ConnectToROS() //ROSに接続するために呼び出す関数
     {
-        if (!punConnected)
+        if (photonManager.photonConnection==PhotonConnection.Disconnect)
         {
-            punConnectionStatusText.text = "Photon : Not Connected";
-            rosConnectionStatusText.text = "Connect photon before connecting to ROS";
+            uI.punConnection_Text.text = "Photon : Not Connected";
+            uI.rosConnection_Text.text = "Connect photon before connecting to ROS";
         }
         else
         {
-            if (!rosConnected)
+            if (rosConnection==RosConnection.Disconnect)
             {
                 ros = ROSConnection.GetOrCreateInstance();
                 // ROSへの接続処理を行う
@@ -139,13 +97,13 @@ public class RosConnector : MonoBehaviour
                 }
                 catch (Exception e)
                 {
-                    rosConnectionStatusText.text = "ROS : Failed to Connect:" + e.Message;
+                    uI.rosConnection_Text.text = "ROS : Failed to Connect:" + e.Message;
                 }
             }
             else
             {
-                punConnectionStatusText.text = "Photon : Connected";
-                rosConnectionStatusText.text = "ROS : Connected";
+                uI.punConnection_Text.text = "Photon : Connected";
+                uI.rosConnection_Text.text = "ROS : Connected";
             }
         }
     }
@@ -153,12 +111,11 @@ public class RosConnector : MonoBehaviour
     public void OnRosConnect() //ROS接続された時に呼び出される関数
                                //接続直後にPub/Subするメッセージはここで起動する
     {
-        rosConnected = true;
-        rosConnectionStatusText.text = "ROS : Connected";
-        rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
-        punConnectButton.interactable = true;
-        rosConnectButton.interactable = true;
-        rosUIs.interactable = true;
+        rosConnection = RosConnection.Connect;
+        uI.rosConnection_Text.text = "ROS : Connected";
+        uI.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        uI.punConnectButton.interactable = true;
+        uI.rosConnectButton.interactable = true;
 
         //visualization
         visualizationTopicsTab.OnRosConnect();
@@ -178,17 +135,16 @@ public class RosConnector : MonoBehaviour
 
     public void DisconnectFromROS()　//ROSから切断するために呼び出す関数
     {
-        if (rosConnected)
+        if (rosConnection==RosConnection.Connect)
         {
             try
             {
                 ros.Disconnect();
-                rosConnected = false;
-                rosConnectionStatusText.text = "ROS : Disconnected";
-                rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-                rosUIs.interactable = false;
-                punConnectButton.interactable = true;
-                rosConnectButton.interactable = true;
+                rosConnection = RosConnection.Disconnect;
+                uI.rosConnection_Text.text = "ROS : Disconnected";
+                uI.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
+                uI.punConnectButton.interactable = true;
+                uI.rosConnectButton.interactable = true;
 
                 //Stop publish
                 pubRosClock.OnRosDisconnected();
@@ -200,27 +156,23 @@ public class RosConnector : MonoBehaviour
             }
             catch (Exception e)
             {
-                rosConnectionStatusText.text = "ROS : Failed to Disconnect:" + e.Message;
+                uI.rosConnection_Text.text = "ROS : Failed to Disconnect:" + e.Message;
             }
         }
         else
-        {
-            rosConnectionStatusText.text = "ROS : Already Disconnected";
-        }
+            uI.rosConnection_Text.text = "ROS : Already Disconnected";
     }
 
-    public void punButton()
-    {
-        punConnectButton.interactable = false;
-        rosConnectButton.interactable = false;
-        if (punConnected == false) ConnectToPun();
-        else DisconnectFromPun();
-    }
     public void rosButton()
     {
-        punConnectButton.interactable = false;
-        rosConnectButton.interactable = false;
-        if (rosConnected == false) ConnectToROS();
+        uI.punConnectButton.interactable = false;
+        uI.rosConnectButton.interactable = false;
+        if (rosConnection == RosConnection.Disconnect) ConnectToROS();
         else DisconnectFromROS();
+    }
+
+    private void OnApplicationQuit()
+    {
+        rosConnection = RosConnection.Disconnect;
     }
 }

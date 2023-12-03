@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - robot
+  - end_effector
+  - NetworkManager
   layers:
   - Default
   - TransparentFX

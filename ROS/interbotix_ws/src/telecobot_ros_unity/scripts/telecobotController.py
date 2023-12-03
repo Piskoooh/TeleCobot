@@ -17,7 +17,7 @@ from moveit_commander.conversions import pose_to_list
 class telecobotUnityController:
     def __init__(self,subTopicName, pubTopicName):
         self.waist_step = 0.06
-        self.current_loop_rate = 40
+        self.current_loop_rate = 25
         self.loop_rates = {"course" : 25, "fine" : 25}
         self.tUC_msg = TelecobotUnityControl()
         self.tUC_mutex = threading.Lock()
@@ -47,8 +47,6 @@ class telecobotUnityController:
             self.T_yb = np.identity(4)
             self.update_T_yb()
         rospy.Subscriber(subTopicName, TelecobotUnityControl, self.callback)
-        # self.move_group = moveit_commander.MoveGroupCommander("interbotix_arm")
-
 
     def update_speed(self, loop_rate):
         self.current_loop_rate = loop_rate
@@ -191,7 +189,7 @@ class telecobotUnityController:
 
         # Check the arm_cmd
         if(msg.arm_cmd!=0):
-            if(msg.arm_cmd==TelecobotUnityControl.SET_EE_CARTESIAN_TRAJECTORY):
+            if(msg.arm_cmd==TelecobotUnityControl.MOVE_ARM):
                 print("Received pose_data from Unity side...")
                 print(msg.pose_data)
                 print("Start to calculate trajectory...")
@@ -211,35 +209,6 @@ class telecobotUnityController:
                     else:
                         print("fail>>")
                         print("All methods failed to calculate trajectory...")
-
-            # elif(msg.arm_cmd==TelecobotUnityControl.MOVEIT):
-            #     print("Received goal pose from Unity side...")
-            #     # ターゲットとエンドエフェクタの誤差を計算
-            #     delta = abs(msg.end_effector_pose.position.x - msg.goal_pose.position.x) \
-            #             + abs(msg.end_effector_pose.position.y - msg.goal_pose.position.y) \
-            #             + abs(msg.end_effector_pose.position.z - msg.goal_pose.position.z) \
-            #             + abs(msg.end_effector_pose.orientation.x - msg.goal_pose.orientation.x) \
-            #             + abs(msg.end_effector_pose.orientation.y - msg.goal_pose.orientation.y) \
-            #             + abs(msg.end_effector_pose.orientation.z - msg.goal_pose.orientation.z) \
-            #             + abs(msg.end_effector_pose.orientation.w - msg.goal_pose.orientation.w)
-            #     print("delta: ", delta)
-            #     print("goal_pose: ", msg.goal_pose)
-            #     print("end_effector_pose: ", msg.end_effector_pose)
-            #     if delta >0.02:
-            #         self.move_group.set_pose_target(msg.goal_pose)
-            #         ## Now, we call the planner to compute the plan and execute it.
-            #         plan = self.move_group.go(wait=True)
-            #         # Calling `stop()` ensures that there is no residual movement
-            #         self.move_group.stop()
-            #         # It is always good to clear your targets after planning with poses.
-            #         # Note: there is no equivalent function for clear_joint_value_targets()
-            #         self.move_group.clear_pose_targets()
-            #         if plan:
-            #             print("success>>")
-            #         else:
-            #             print("fail>>")
-            #         current_pose = self.move_group.get_current_pose().pose
-            #         return all_close(msg.goal_pose, current_pose, 0.01)
             self.update_T_yb()
 
         else:    
@@ -296,30 +265,7 @@ class telecobotUnityController:
             if (success):
                 self.T_yb = np.array(T_yb)
 
-def all_close(goal, actual, tolerance):
-    """
-    Convenience method for testing if a list of values are within a tolerance of their counterparts in another list
-    @param: goal       A list of floats, a Pose or a PoseStamped
-    @param: actual     A list of floats, a Pose or a PoseStamped
-    @param: tolerance  A float
-    @returns: bool
-    """
-    all_equal = True
-    if type(goal) is list:
-        for index in range(len(goal)):
-            if abs(actual[index] - goal[index]) > tolerance:
-                return False
-
-    elif type(goal) is geometry_msgs.msg.PoseStamped:
-        return all_close(goal.pose, actual.pose, tolerance)
-
-    elif type(goal) is geometry_msgs.msg.Pose:
-        return all_close(pose_to_list(goal), pose_to_list(actual), tolerance)
-
-    return True
-
 def main():
-    # moveit_commander.roscpp_initialize(sys.argv)
     rospy.init_node('telecobot_controller')
     unityControl=telecobotUnityController("/unity_control","/telecobot_responce")
     while not rospy.is_shutdown():

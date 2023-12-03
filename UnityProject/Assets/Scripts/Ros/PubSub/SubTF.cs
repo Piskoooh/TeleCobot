@@ -16,40 +16,13 @@ using RosQuaternion = Unity.Robotics.ROSTCPConnector.ROSGeometry.Quaternion<Unit
 public class SubTF : MonoBehaviour
 {
     [SerializeField] private string topicName = "/tf";
-    //[SerializeField] private string topicName2 = "/mobile_base/tf";
-
-    [SerializeField] GameObject Robot;
-    //[SerializeField] GameObject odom;
-
-    private UrdfLink[] UrdfLinkChain;
-
-    private int numRobotLinks = 0;
-
-    private Transform[] robotLinkPositions;
+    public RosConnector rosConnector;
 
     // Start is called before the first frame update
     public void OnRosConnect()
     {
-        if (Robot == null)
-            Robot = GameObject.FindGameObjectWithTag("robot");
-
         ROSConnection.GetOrCreateInstance().Subscribe<Tf>(topicName, TfUpdate);
-        //ROSConnection.GetOrCreateInstance().Subscribe<Tf>(topicName2, OdomTfUpdate);
-        UrdfLinkChain = Robot.GetComponentsInChildren<UrdfLink>();
-
-        numRobotLinks =UrdfLinkChain.Length;
-        
-        robotLinkPositions = new Transform[numRobotLinks];
-        Debug.Log("UrdfLinkChain.Length: " + numRobotLinks);
-
-        for (int i = 0; i < numRobotLinks; i++)
-        {
-            robotLinkPositions[i] = UrdfLinkChain[i].gameObject.transform;
-            Debug.Log($"robotLinkPositions{i} : {robotLinkPositions[i].name}");
-        }
-
-        Debug.Log(robotLinkPositions[1].name + " " + robotLinkPositions[1].localPosition + " " + robotLinkPositions[1].rotation);
-    }
+     }
 
     /// <summary>
     /// デバッグ時の文字列生成用関数
@@ -78,70 +51,63 @@ public class SubTF : MonoBehaviour
             switch (tfMessage.transforms[i].child_frame_id)
             {
                 case "locobot/odom":
-                    robotLinkPositions[0].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[0].rotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[0].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[0].rotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/base_link":
-                    robotLinkPositions[1].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[1].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[1].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[1].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/gripper_link":
-                    robotLinkPositions[18].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[18].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[18].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[18].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/wrist_link":
-                    robotLinkPositions[17].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[17].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[17].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[17].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/shoulder_link":
-                    robotLinkPositions[14].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[14].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[14].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[14].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/tilt_link":
-                    robotLinkPositions[6].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[6].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[6].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[6].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/upper_arm_link":
-                    robotLinkPositions[15].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[15].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[15].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[15].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/right_wheel":
-                    robotLinkPositions[46].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[46].rotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[46].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[46].rotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/right_finger_link":
-                    robotLinkPositions[23].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[23].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[23].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[23].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/pan_link":
-                    robotLinkPositions[5].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[5].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[5].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[5].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/left_wheel":
-                    robotLinkPositions[48].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[48].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[48].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[48].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/left_finger_link":
-                    robotLinkPositions[24].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[24].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[24].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[24].localRotation= translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/gripper_prop_link":
-                    robotLinkPositions[26].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[26].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[26].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[26].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
                 case "locobot/forearm_link":
-                    robotLinkPositions[16].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
-                    robotLinkPositions[16].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[16].localPosition = translatePos(tfMessage.transforms[i].transform.translation, tfMessage.transforms[i].child_frame_id);
+                    rosConnector.robotLinkPositions[16].localRotation = translateRot(tfMessage.transforms[i].transform.rotation, tfMessage.transforms[i].child_frame_id);
                     break;
             }
         }
-    }
-
-    void OdomTfUpdate(Tf tfMessage)
-    {
-        Debug.Log("recived odom tf");
-        //odom.transform.localPosition = translatePos(tfMessage.transforms[0].transform.translation, tfMessage.transforms[0].child_frame_id);
-        //odom.transform.localRotation = translateRot(tfMessage.transforms[0].transform.rotation, tfMessage.transforms[0].child_frame_id);
     }
 
     // 座標変換

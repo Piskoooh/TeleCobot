@@ -4,6 +4,9 @@ using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.BuiltinInterfaces;
 using RosMessageTypes.Rosgraph;
 
+//時間を管理するスクリプト。
+//Pubするスピード(Hz)を設定している”Scripts/ROS”配下のPubで始まるスクリプトがこのスクリプトを参照する。
+//また、ROS側でuse_time_sim=trueとするとこのスクリプトで発行される時間を参照するようになる。
 public class PubRosClock : MonoBehaviour
 {
     [SerializeField]
@@ -18,17 +21,17 @@ public class PubRosClock : MonoBehaviour
     double m_LastPublishTimeSeconds;
 
     ROSConnection m_ROS;
+    [SerializeField]
+    RosConnector rosConnector;
 
     double PublishPeriodSeconds => 1.0f / m_PublishRateHz;
 
     bool ShouldPublishMessage => RosClock.FrameStartTimeInSeconds - PublishPeriodSeconds > m_LastPublishTimeSeconds;
 
-    private bool isConnected = false;
     bool flag;
 
     void Start()
     {
-        isConnected = false;
         flag = false;
     }
 
@@ -69,7 +72,7 @@ public class PubRosClock : MonoBehaviour
 
     public void OnRosDisconnected()
     {
-        isConnected = false;
+
     }
 
     void PublishMessage()
@@ -87,7 +90,7 @@ public class PubRosClock : MonoBehaviour
     //常にパブリッシュし続ける
     private void Update()
     {
-        if (isConnected)
+        if (rosConnector.rosConnection==RosConnection.Connect)
         {
             if (ShouldPublishMessage)
             {

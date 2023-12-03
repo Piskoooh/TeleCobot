@@ -1,11 +1,10 @@
 # recieves commands from the unity and sends them to the robot
 int8 MOVE_BASE=29
-int8 SET_EE_CARTESIAN_TRAJECTORY=30
-int8 MOVEIT=31
-int8 ENABLE_TORQUE=32
-int8 DISABLE_TORQUE=33
-int8 REBOOT_ERROR_MOTOR=34
-int8 REBOOT_ALL_MOTOR=35
+int8 MOVE_ARM=30
+int8 ENABLE_TORQUE=31
+int8 DISABLE_TORQUE=32
+int8 REBOOT_ERROR_MOTOR=33
+int8 REBOOT_ALL_MOTOR=34
 #########################################################################################################
 int8 reboot_cmd
 int8 motor_cmd
