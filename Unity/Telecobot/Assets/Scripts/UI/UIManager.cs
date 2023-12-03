@@ -128,7 +128,7 @@ public class UIManager : MonoBehaviour
     {
         if (goal == null)
         {
-            goal = PhotonNetwork.Instantiate("TargetLocobotPun", baseLinkTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
+            goal = PhotonNetwork.Instantiate("TargetLocobotPun", baseLinkTf.position, Quaternion.Euler(0, Vector3.Angle(Vector2.up, b_aN), 0));//create
         }
         //targetプレハブを使う時
         //goal.transform.position = new Vector3(0f, 0f, 0.3f);
@@ -268,23 +268,23 @@ public class UIManager : MonoBehaviour
                                 if (sceneMaster.inputMng.targetZ > 0.5)
                                 {
                                     goal.transform.position += b_a3 * goalMoveSpeed * Time.deltaTime;
-                                    goal.transform.rotation = Quaternion.Euler(b_a3);
+                                    goal.transform.rotation = Quaternion.Euler(0,Vector3.Angle(Vector3.forward , b_a3),0);
                                 }
 
                                 else if (sceneMaster.inputMng.targetZ < -0.5)
                                 {
                                     goal.transform.position -= b_a3 * goalMoveSpeed * Time.deltaTime;
-                                    goal.transform.rotation = Quaternion.Euler(b_a3);
+                                    goal.transform.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.forward, b_a3), 0);
                                 }
                                 if (sceneMaster.inputMng.targetX > 0.5)
                                 {
                                     goal.transform.position += b_a3Cross * goalMoveSpeed * Time.deltaTime;
-                                    goal.transform.rotation = Quaternion.Euler(b_a3);
+                                    goal.transform.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.forward, b_a3), 0);
                                 }
                                 else if (sceneMaster.inputMng.targetX < -0.5)
                                 {
                                     goal.transform.position -= b_a3Cross * goalMoveSpeed * Time.deltaTime;
-                                    goal.transform.rotation = Quaternion.Euler(b_a3);
+                                    goal.transform.rotation = Quaternion.Euler(0, Vector3.Angle(Vector3.forward, b_a3), 0);
                                 }
                                 if (sceneMaster.inputMng.baseRotate > 0.5 || sceneMaster.inputMng.baseRotate < -0.5)
                                     goal.transform.Rotate(Vector3.up * Time.deltaTime * goalRotateSpeed * sceneMaster.inputMng.baseRotate * 30, Space.World);
