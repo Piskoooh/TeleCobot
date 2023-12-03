@@ -9,6 +9,8 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
 using Photon.Pun;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class VrAvatarSetting : AvatarSetting
 {
@@ -21,11 +23,23 @@ public class VrAvatarSetting : AvatarSetting
     [SerializeField]
     private XRUIInputModule xruiInputModule;
     [SerializeField]
+    private XRInputModalityManager xrInputModalityManager;
+    [SerializeField]
+    private List<ActionBasedControllerManager> actionBasedControllerManagers;
+    [SerializeField]
+    private List <ActionBasedController> actionBasedControllers;
+    [SerializeField]
+    private List <XRInteractionGroup> xrInteractionGroups;
+    [SerializeField]
     TrackedPoseDriver trackedPoseDriver;
     [SerializeField]
     private GameObject[] vRComponents;
     [SerializeField]
     private GameObject[] nonVRComponents;
+    [SerializeField]
+    private MeshRenderer meshRenderer;
+    [SerializeField]
+    private Material material;
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +50,26 @@ public class VrAvatarSetting : AvatarSetting
             {
                 go.SetActive(true);
             }
-            eventSystem.enabled = true;
-            xruiInputModule.enabled = true;
-            trackedPoseDriver.enabled = true;
             foreach (GameObject go in nonVRComponents)
             {
                 go.SetActive(false);
+            }
+            xrOrigin.enabled = true;
+            eventSystem.enabled = true;
+            xruiInputModule.enabled = true;
+            xrInputModalityManager.enabled = true;
+            trackedPoseDriver.enabled = true;
+            foreach (var abcm in actionBasedControllerManagers)
+            {
+                abcm.enabled = true;
+            }
+            foreach (var abc in actionBasedControllers)
+            {
+                abc.enabled = true;
+            }
+            foreach (var xig in xrInteractionGroups)
+            {
+                xig.enabled = true;
             }
         }
         else
@@ -54,10 +82,25 @@ public class VrAvatarSetting : AvatarSetting
             {
                 go.SetActive(false);
             }
+            xrOrigin.enabled = false;
             eventSystem.enabled = false;
             xruiInputModule.enabled = false;
+            xrInputModalityManager.enabled = false;
             trackedPoseDriver.enabled = false;
-            photonView.RPC(nameof(UpdateObservables), RpcTarget.AllViaServer);
+            foreach (var abcm in actionBasedControllerManagers)
+            {
+                abcm.enabled = false;
+            }
+            foreach (var abc in actionBasedControllers)
+            {
+                abc.enabled = false;
+            }
+            foreach (var xig in xrInteractionGroups)
+            {
+                xig.enabled = false;
+            }
+
+            meshRenderer.material = material;
         }
 
         // TeleportationProviderを各TeleportationAnchor、TeleportationAnchorに設定する
@@ -80,10 +123,5 @@ public class VrAvatarSetting : AvatarSetting
         {
             eventSystem.enabled = false;
         }
-    }
-    [PunRPC]
-    private void UpdateObservables()
-    {
-        photonView.FindObservables(true);
     }
 }
