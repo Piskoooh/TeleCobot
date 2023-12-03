@@ -137,7 +137,7 @@ MonoBehaviour:
   sceneMaster: {fileID: 0}
   teleportationProvider: {fileID: 7453954238331498437}
   xrOrigin: {fileID: 8027883894668312966}
-  eventSystem: {fileID: 2975759714220218197}
+  eventSystem: {fileID: 2975759714220218187}
 --- !u!114 &1068669062498243759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,7 +510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8189171601776884769, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8770017023981426838, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -592,11 +592,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3107153170809195608}
   m_SourcePrefab: {fileID: 100100000, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
---- !u!1 &2975759714220218197 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8189171601776884769, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+--- !u!114 &2975759714220218187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8189171601776884799, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
   m_PrefabInstance: {fileID: 6406878025943821172}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4272613638142654046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7179462289238023466, guid: 6726c69342b3cb34297219718546b4d4, type: 3}

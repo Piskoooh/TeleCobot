@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class VrAvatarSetting : AvatarSetting
@@ -11,7 +12,7 @@ public class VrAvatarSetting : AvatarSetting
     [SerializeField]
     private XROrigin xrOrigin;
     [SerializeField]
-    private GameObject eventSystem;
+    private EventSystem eventSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class VrAvatarSetting : AvatarSetting
         if (photonView.IsMine)
         {
             GameObject.FindGameObjectWithTag("VRUIs").GetComponent<VRUIManager>().xrOrigin = xrOrigin.transform;
-            eventSystem.SetActive(true);
+            eventSystem.enabled = true;
         }
     }
 
