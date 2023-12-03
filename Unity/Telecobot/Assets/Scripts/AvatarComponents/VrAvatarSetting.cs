@@ -13,6 +13,8 @@ public class VrAvatarSetting : AvatarSetting
     private XROrigin xrOrigin;
     [SerializeField]
     private EventSystem eventSystem;
+    [SerializeField]
+    private GameObject gazeInteractor;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,11 @@ public class VrAvatarSetting : AvatarSetting
         {
             GameObject.FindGameObjectWithTag("VRUIs").GetComponent<VRUIManager>().xrOrigin = xrOrigin.transform;
             eventSystem.enabled = true;
+        }
+        else
+        {
+            eventSystem.enabled = false;
+            gazeInteractor.SetActive(false);
         }
     }
 

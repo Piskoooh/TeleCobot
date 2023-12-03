@@ -138,6 +138,7 @@ MonoBehaviour:
   teleportationProvider: {fileID: 7453954238331498437}
   xrOrigin: {fileID: 8027883894668312966}
   eventSystem: {fileID: 2975759714220218187}
+  gazeInteractor: {fileID: 3264794343524394798}
 --- !u!114 &1068669062498243759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,6 +577,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6078199906529284572}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4592956391713993908, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8065324763516538291}
     - targetCorrespondingSourceObject: {fileID: 3462571325970164595, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4069480104394106869}
@@ -603,11 +607,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3264794343524394798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8477793987801566298, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+  m_PrefabInstance: {fileID: 6406878025943821172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4272613638142654046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7179462289238023466, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
   m_PrefabInstance: {fileID: 6406878025943821172}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7445778524605767616 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4592956391713993908, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+  m_PrefabInstance: {fileID: 6406878025943821172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8065324763516538291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7445778524605767616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 0
 --- !u!114 &7453954238331498437 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4582428553104524465, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
