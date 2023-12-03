@@ -8,6 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
+using Photon.Pun;
 
 public class VrAvatarSetting : AvatarSetting
 {
@@ -56,7 +57,9 @@ public class VrAvatarSetting : AvatarSetting
             eventSystem.enabled = false;
             xruiInputModule.enabled = false;
             trackedPoseDriver.enabled = false;
+            photonView.RPC(nameof(UpdateObservables), RpcTarget.AllViaServer);
         }
+
         // TeleportationProviderを各TeleportationAnchor、TeleportationAnchorに設定する
         // TeleportationAnchorとTeleportationAnchorが継承しているBaseTeleportationInteractableコンポーネントを取得し、設定。
         GameObject tp = GameObject.FindGameObjectWithTag("Teleport");
@@ -78,10 +81,9 @@ public class VrAvatarSetting : AvatarSetting
             eventSystem.enabled = false;
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    [PunRPC]
+    private void UpdateObservables()
     {
-        
+        photonView.FindObservables(true);
     }
 }
