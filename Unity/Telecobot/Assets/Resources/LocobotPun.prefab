@@ -1569,7 +1569,6 @@ Transform:
   m_Children:
   - {fileID: 6690505953544515538}
   - {fileID: 6554880686609677139}
-  - {fileID: 2819144473791794132}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4130670386094217471
@@ -8473,6 +8472,7 @@ Transform:
   - {fileID: 5162553696735977922}
   - {fileID: 8324563668473370853}
   - {fileID: 3330078876929642316}
+  - {fileID: 2819144473791794132}
   m_Father: {fileID: 8029672407905927760}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5225627389868805553
@@ -20917,7 +20917,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8029672407905927760}
+    m_TransformParent: {fileID: 6554880686609677139}
     m_Modifications:
     - target: {fileID: 24354399918560668, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_PresetInfoIsWorld
