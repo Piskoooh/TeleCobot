@@ -508,9 +508,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8189171601776884769, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 8189171601776884799, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8770017023981426838, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6406878025943821172}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
