@@ -62,64 +62,16 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7313654230448209575, guid: a2850f2d18d8995438c8cf7dbae482e6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8752780672917330067}
+      addedObject: {fileID: 8739750182360665627}
     - targetCorrespondingSourceObject: {fileID: 7313654230448209575, guid: a2850f2d18d8995438c8cf7dbae482e6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8739750182360665627}
+      addedObject: {fileID: 8752780672917330067}
   m_SourcePrefab: {fileID: 100100000, guid: a2850f2d18d8995438c8cf7dbae482e6, type: 3}
 --- !u!1 &3029506789709955106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7313654230448209575, guid: a2850f2d18d8995438c8cf7dbae482e6, type: 3}
   m_PrefabInstance: {fileID: 5725668980743356037}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8752780672917330067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3029506789709955106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7993edfa4b7284a0fbe617fc630418dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedInc: 0
-  speedDec: 0
-  speedCourse: 0
-  speedFine: 0
-  gripperPwmInc: 0
-  gripperPwmDec: 0
-  gripperOpen: 0
-  gripperClose: 0
-  armHomePose: 0
-  armSleepPose: 0
-  panTiltHome: 0
-  rebootError: 0
-  rebootAll: 0
-  torqueEnable: 0
-  torqueDisable: 0
-  moveBase: 0
-  moveArm: 0
-  loopRate: 0
-  loopRatePreset: 0
-  baseX: 0
-  baseRotate: 0
-  waistRotate: 0
-  eeX: 0
-  eeZ: 0
-  eeRoll: 0
-  eePitch: 0
-  pan: 0
-  tilt: 0
-  targetX: 0
-  targetY: 0
-  targetZ: 0
-  localArrow: {fileID: 0}
-  controlMode: 1
-  manualCmd: 0
-  semiAutoCmd: 0
-  playerInput: {fileID: 8739750182360665627}
 --- !u!114 &8739750182360665627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,6 +1075,54 @@ MonoBehaviour:
     m_ActionName: LocobotSemiAuto/ArmHomePose[/DualShock4GamepadHID/leftStickPress]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: LocobotManualArm
+  m_DefaultActionMap: LocobotSemiAuto
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8752780672917330067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3029506789709955106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7993edfa4b7284a0fbe617fc630418dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedInc: 0
+  speedDec: 0
+  speedCourse: 0
+  speedFine: 0
+  gripperPwmInc: 0
+  gripperPwmDec: 0
+  gripperOpen: 0
+  gripperClose: 0
+  armHomePose: 0
+  armSleepPose: 0
+  panTiltHome: 0
+  rebootError: 0
+  rebootAll: 0
+  torqueEnable: 0
+  torqueDisable: 0
+  moveBase: 0
+  moveArm: 0
+  loopRate: 0
+  loopRatePreset: 0
+  baseX: 0
+  baseRotate: 0
+  waistRotate: 0
+  eeX: 0
+  eeZ: 0
+  eeRoll: 0
+  eePitch: 0
+  pan: 0
+  tilt: 0
+  targetX: 0
+  targetY: 0
+  targetZ: 0
+  localArrow: {fileID: 0}
+  controlMode: 0
+  manualCmd: 0
+  semiAutoCmd: 0
+  playerInput: {fileID: 8739750182360665627}

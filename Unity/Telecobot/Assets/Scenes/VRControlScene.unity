@@ -899,6 +899,7 @@ MonoBehaviour:
   - {fileID: 458310553}
   - {fileID: 1743729095}
   - {fileID: 30043166}
+  arrowUIs: {fileID: 1442442554}
 --- !u!1 &384829815
 GameObject:
   m_ObjectHideFlags: 0
@@ -3361,6 +3362,7 @@ GameObject:
   - component: {fileID: 1442442551}
   - component: {fileID: 1442442553}
   - component: {fileID: 1442442552}
+  - component: {fileID: 1442442554}
   m_Layer: 5
   m_Name: ArrowUIs
   m_TagString: Untagged
@@ -3428,6 +3430,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442442550}
   m_CullTransparentMesh: 1
+--- !u!225 &1442442554
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442442550}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1458151208
 GameObject:
   m_ObjectHideFlags: 0
@@ -6858,7 +6872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 552
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_SizeDelta.y
@@ -6866,7 +6880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 276
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -187,12 +187,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         else if (sceneMaster.userSettings.userType == UserType.Remote_VR)
         {
             if (sceneMaster.userSettings.role == Role.Operator)
-            {
-                //MyAvatar=PhotonNetwork.Instantiate("VROperatorCameraPun",Vector3.zero,Quaternion.identity);
-                Debug.LogError("Operator is not supported yet.");
-                PhotonNetwork.Disconnect();
-                return;
-            }
+                MyAvatar=PhotonNetwork.Instantiate("VROperatorCameraPun",Vector3.zero,Quaternion.identity);
             else
                 MyAvatar = PhotonNetwork.Instantiate("VRCameraPun", Vector3.zero, Quaternion.identity);
         }
@@ -217,14 +212,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
         sceneMaster.uIMng.punConnectButton.interactable = true;
         sceneMaster.uIMng.rosConnectButton.interactable = true;
-
-        if (sceneMaster.userSettings.role == Role.Operator)
-        {
-            var IM = MyAvatar.GetComponent<InputManager>();
-            PhotonNetwork.CurrentRoom.SetControlMode((int)IM.controlMode);
-            PhotonNetwork.CurrentRoom.SetManualCmd((int)IM.manualCmd);
-            PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)IM.semiAutoCmd);
-        }
     }
 
     public override void OnConnected()

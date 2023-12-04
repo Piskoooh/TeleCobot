@@ -1165,7 +1165,7 @@ MonoBehaviour:
     m_ActionName: LocobotSemiAuto/ArmHomePose[/DualShock4GamepadHID/leftStickPress]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: LocobotManualArm
+  m_DefaultActionMap: LocobotSemiAuto
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &6356457136438605189
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   targetY: 0
   targetZ: 0
   localArrow: {fileID: 0}
-  controlMode: 1
+  controlMode: 2
   manualCmd: 0
   semiAutoCmd: 0
   playerInput: {fileID: 5442246504545379740}

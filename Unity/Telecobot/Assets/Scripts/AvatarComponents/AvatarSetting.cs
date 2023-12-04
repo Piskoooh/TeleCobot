@@ -48,6 +48,17 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
                 Camera.enabled = false;
     }
 
+    private void SetInputSystem()
+    {
+        if (avatarRole == Role.Operator)
+        {
+            var IM = this.GetComponent<InputManager>();
+            PhotonNetwork.CurrentRoom.SetControlMode((int)IM.controlMode);
+            PhotonNetwork.CurrentRoom.SetManualCmd((int)IM.manualCmd);
+            PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)IM.semiAutoCmd);
+        }
+    }
+
     /// <summary>
     /// プロパティが更新された際に呼ばれるコールバック
     /// </summary>
@@ -57,6 +68,7 @@ public class AvatarSetting : MonoBehaviourPunCallbacks
     {
         SetAvatarRoll();
         SetAvatarCamera();
+        SetInputSystem();
         sceneMaster.photonMng.AddToRoleDic(PhotonView.Get(this).ViewID, (int)avatarRole);
     }
 }
