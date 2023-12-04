@@ -1,250 +1,174 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1811810101330088363
-GameObject:
+--- !u!1001 &3544857453560538745
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1477368660958182280}
-  - component: {fileID: 77179917649266937}
-  - component: {fileID: 8539363119190778976}
-  - component: {fileID: 9180399605445741400}
-  - component: {fileID: 4528501514953070939}
-  - component: {fileID: 5984786549933249188}
-  - component: {fileID: 1476946609967800865}
-  - component: {fileID: 4590924226521815989}
-  - component: {fileID: 7575096585887444064}
-  - component: {fileID: 6538310073934303160}
-  - component: {fileID: 8720039590354554945}
-  - component: {fileID: 8455986801529160982}
-  m_Layer: 0
-  m_Name: OperatorCameraPun
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1477368660958182280
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2477736380690317507}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.6890002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.000000029802319
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9659258
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.2588191
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_Name
+      value: steam_controller_02_freeman
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620097623351478840, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f0917ad8cd19f64f88d6a3aa4ccfa72, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+--- !u!4 &3943856330563010962 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+  m_PrefabInstance: {fileID: 3544857453560538745}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
+--- !u!1001 &3841992392304747148
+PrefabInstance:
+  m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14804034, y: 0.8008608, z: -0.22096992, w: -0.53654295}
-  m_LocalPosition: {x: 0.8, y: 0.9, z: 0.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2994289726752032847}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 30.85, y: 247.64099, z: 0}
---- !u!20 &77179917649266937
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1916196901263394924, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: m_Name
+      value: CameraOperatorPun
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245543263587738108, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      propertyPath: sceneViewId
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3943856330563010962}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1916196901263394924, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5442246504545379740}
+    - targetCorrespondingSourceObject: {fileID: 1916196901263394924, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6356457136438605189}
+  m_SourcePrefab: {fileID: 100100000, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+--- !u!4 &2477736380690317507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+  m_PrefabInstance: {fileID: 3841992392304747148}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!81 &8539363119190778976
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!1 &3442664727955745504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1916196901263394924, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+  m_PrefabInstance: {fileID: 3841992392304747148}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 0
---- !u!114 &9180399605445741400
+--- !u!114 &5442246504545379740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
---- !u!114 &4528501514953070939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 5984786549933249188}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &5984786549933249188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
---- !u!114 &1476946609967800865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6acb29df4bf2234cb8f30b631f3a356, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avatarRole: 0
-  Camera: {fileID: 77179917649266937}
-  sceneMaster: {fileID: 0}
---- !u!114 &4590924226521815989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65289976bb4cd3648acbcabce91ac4e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 5
-  mouseSensitivity: 2
-  zoomSpeed: 2
-  minZoomFOV: 40
-  maxZoomFOV: 60
-  verticalRotationLimit: 60
---- !u!114 &7575096585887444064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27124bddfc354495dbbec67bff6958d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  rotationSpeed: 100
-  height: 1.7
-  distance: 5
-  minDistance: 2
-  maxDistance: 10
-  rotation: 45
-  offset: {x: 0, y: -1, z: -1}
---- !u!114 &6538310073934303160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
+  m_GameObject: {fileID: 3442664727955745504}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -265,7 +189,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnArmSleepPose
         m_Mode: 0
@@ -278,10 +202,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: f465fd52-a3af-4c2f-80fe-a801eeec02e2
-    m_ActionName: LocobotManualArm/ArmSleepPose
+    m_ActionName: LocobotManualArm/ArmSleepPose[/DualShock4GamepadHID/rightStickPress]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnArmHomePose
         m_Mode: 0
@@ -294,10 +218,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 90c893b8-3f91-40b8-9840-b2f5e591a28f
-    m_ActionName: LocobotManualArm/ArmHomePose
+    m_ActionName: LocobotManualArm/ArmHomePose[/DualShock4GamepadHID/leftStickPress]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperPwmInc
         m_Mode: 0
@@ -310,10 +234,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: a067b776-917c-472a-9cff-a8b9d8d92b97
-    m_ActionName: LocobotManualArm/GripperPwmInc
+    m_ActionName: LocobotManualArm/GripperPwmInc[/DualShock4GamepadHID/buttonNorth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperPwmDec
         m_Mode: 0
@@ -326,10 +250,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: b86270f9-e623-4a21-b788-aa83bf02d887
-    m_ActionName: LocobotManualArm/GripperPwmDec
+    m_ActionName: LocobotManualArm/GripperPwmDec[/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperOpen
         m_Mode: 0
@@ -342,10 +266,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 9119dcda-5983-4efc-a6af-bf83ffca17c1
-    m_ActionName: LocobotManualArm/GripperOpen
+    m_ActionName: LocobotManualArm/GripperOpen[/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperClose
         m_Mode: 0
@@ -358,10 +282,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: e084f919-11fa-4071-9a96-87be432577f3
-    m_ActionName: LocobotManualArm/GripperClose
+    m_ActionName: LocobotManualArm/GripperClose[/DualShock4GamepadHID/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnWaistRotate
         m_Mode: 0
@@ -374,10 +298,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: b2ecce69-905e-46d3-b8c8-c0a977148919
-    m_ActionName: LocobotManualArm/WaistRotate
+    m_ActionName: LocobotManualArm/WaistRotate[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEePitch
         m_Mode: 0
@@ -390,10 +314,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 86194682-5fee-4e8d-9dd7-246977a213f7
-    m_ActionName: LocobotManualArm/EndEffectorPitch
+    m_ActionName: LocobotManualArm/EndEffectorPitch[/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/rightStick/up]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEeRoll
         m_Mode: 0
@@ -406,10 +330,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 656baf4c-8f0f-4a92-9f5b-13c61b531130
-    m_ActionName: LocobotManualArm/EndEffectorRoll
+    m_ActionName: LocobotManualArm/EndEffectorRoll[/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/rightStick/right]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEeZ
         m_Mode: 0
@@ -422,10 +346,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 7ce85c26-8972-410c-841f-22e4ae583847
-    m_ActionName: LocobotManualArm/EndEffectorZ(UpDown)
+    m_ActionName: LocobotManualArm/EndEffectorZ(UpDown)[/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/up]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEeX
         m_Mode: 0
@@ -438,10 +362,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: f5f54071-a69f-4640-a6e8-f4306c718048
-    m_ActionName: LocobotManualArm/EndEffectorX(FrontBack)
+    m_ActionName: LocobotManualArm/EndEffectorX(FrontBack)[/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSwitchControl
         m_Mode: 0
@@ -454,10 +378,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 41820af1-6a3a-4373-8b6e-30dd8d95f25b
-    m_ActionName: LocobotManualArm/SwitchControl
+    m_ActionName: LocobotManualArm/SwitchControl[/DualShock4GamepadHID/select,/DualShock4GamepadHID/start,/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSwitchMode
         m_Mode: 0
@@ -470,10 +394,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: f2a20ff5-7a6d-4a22-b271-94917f846f8a
-    m_ActionName: LocobotManualArm/SwitchMode
+    m_ActionName: LocobotManualArm/SwitchMode[/DualShock4GamepadHID/select,/DualShock4GamepadHID/rightStickPress,/Keyboard/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnRebootError
         m_Mode: 0
@@ -486,10 +410,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: fd0b1f69-73de-4c22-9155-09bfb1ff1202
-    m_ActionName: LocobotManualArm/RebootError
+    m_ActionName: LocobotManualArm/RebootError[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnRebootAll
         m_Mode: 0
@@ -502,10 +426,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: eebdbb39-f035-4dd7-b914-acd411514643
-    m_ActionName: LocobotManualArm/RebootAll
+    m_ActionName: LocobotManualArm/RebootAll[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnTorqueEnable
         m_Mode: 0
@@ -518,10 +442,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 10981312-cc4a-4a89-800c-746e8760fdb8
-    m_ActionName: LocobotManualArm/TorqueEnable
+    m_ActionName: LocobotManualArm/TorqueEnable[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnTorqueDisable
         m_Mode: 0
@@ -534,10 +458,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 8b093e2a-f7e7-4b99-9bc5-0a7be9104879
-    m_ActionName: LocobotManualArm/TorqueDisable
+    m_ActionName: LocobotManualArm/TorqueDisable[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonNorth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedDec
         m_Mode: 0
@@ -553,7 +477,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualArm/SpeedDec
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedInc
         m_Mode: 0
@@ -569,7 +493,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualArm/SpeedInc
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedFine
         m_Mode: 0
@@ -585,7 +509,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualArm/SpeedFine
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedCourse
         m_Mode: 0
@@ -601,7 +525,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualArm/SpeedCourse
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnBaseX
         m_Mode: 0
@@ -614,10 +538,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: a2581191-c073-49a3-9ec2-5d85ea481d1a
-    m_ActionName: LocobotManualBase/BaseX
+    m_ActionName: LocobotManualBase/BaseX[/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/up]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnBaseRotate
         m_Mode: 0
@@ -630,10 +554,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 6d48580e-5f69-4cf2-8bb5-000c3152437e
-    m_ActionName: LocobotManualBase/BaseRotate
+    m_ActionName: LocobotManualBase/BaseRotate[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnCameraUpDown
         m_Mode: 0
@@ -646,10 +570,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 248c47e1-9e4c-490a-90e9-75c75f198ac7
-    m_ActionName: LocobotManualBase/CameraUpDown(Tilt)
+    m_ActionName: LocobotManualBase/CameraUpDown(Tilt)[/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/rightStick/up,/Keyboard/g,/Keyboard/t]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnCameraRightLeft
         m_Mode: 0
@@ -662,10 +586,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: e581d0c3-9b40-4e50-b0fe-338cbf4e3362
-    m_ActionName: LocobotManualBase/CameraRightLeft(Pan)
+    m_ActionName: LocobotManualBase/CameraRightLeft(Pan)[/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/rightStick/right,/Keyboard/f,/Keyboard/h]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnPanTiltHome
         m_Mode: 0
@@ -678,10 +602,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 796facfd-1907-4bb0-b734-4733752570f5
-    m_ActionName: LocobotManualBase/PanTiltHome
+    m_ActionName: LocobotManualBase/PanTiltHome[/DualShock4GamepadHID/start]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSwitchControl
         m_Mode: 0
@@ -694,10 +618,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 024e018e-579d-453b-97c8-6fd95fdc83b0
-    m_ActionName: LocobotManualBase/SwitchControl
+    m_ActionName: LocobotManualBase/SwitchControl[/DualShock4GamepadHID/select,/DualShock4GamepadHID/start,/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSwitchMode
         m_Mode: 0
@@ -710,10 +634,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 96292a57-5a95-4c81-b803-c5819c97d359
-    m_ActionName: LocobotManualBase/SwitchMode[/Keyboard/x]
+    m_ActionName: LocobotManualBase/SwitchMode[/DualShock4GamepadHID/select,/DualShock4GamepadHID/rightStickPress,/Keyboard/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnRebootError
         m_Mode: 0
@@ -726,10 +650,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: fd1dda4a-0b84-4dad-999c-9e9e2ea06d72
-    m_ActionName: LocobotManualBase/RebootError
+    m_ActionName: LocobotManualBase/RebootError[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnRebootAll
         m_Mode: 0
@@ -742,10 +666,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 3c7e3cc4-56cc-4fee-8570-22f3c0b073d6
-    m_ActionName: LocobotManualBase/RebootAll
+    m_ActionName: LocobotManualBase/RebootAll[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnTorqueEnable
         m_Mode: 0
@@ -758,10 +682,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 6616c010-0dc9-43de-acd6-6b4aaa5c9190
-    m_ActionName: LocobotManualBase/TorqueEnable
+    m_ActionName: LocobotManualBase/TorqueEnable[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnTorqueDisable
         m_Mode: 0
@@ -774,10 +698,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 545f064f-a31f-49b6-a1be-625620c977b3
-    m_ActionName: LocobotManualBase/TorqueDisable
+    m_ActionName: LocobotManualBase/TorqueDisable[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonNorth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedCourse
         m_Mode: 0
@@ -793,7 +717,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualBase/SpeedCourse
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedFine
         m_Mode: 0
@@ -809,7 +733,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualBase/SpeedFine
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedInc
         m_Mode: 0
@@ -825,7 +749,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualBase/SpeedInc
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSpeedDec
         m_Mode: 0
@@ -841,7 +765,7 @@ MonoBehaviour:
     m_ActionName: LocobotManualBase/SpeedDec
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperPwmInc
         m_Mode: 0
@@ -854,10 +778,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: b299e38a-4f8a-4991-9a8c-424f4737f650
-    m_ActionName: LocobotSemiAuto/GripperPwmInc
+    m_ActionName: LocobotSemiAuto/GripperPwmInc[/DualShock4GamepadHID/buttonNorth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperPwmDec
         m_Mode: 0
@@ -870,10 +794,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 493377e0-c17f-4e25-9d5e-8a2f88df532b
-    m_ActionName: LocobotSemiAuto/GripperPwmDec
+    m_ActionName: LocobotSemiAuto/GripperPwmDec[/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperOpen
         m_Mode: 0
@@ -886,10 +810,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 17497bb5-5b17-4e15-9d8d-126d3ee049ff
-    m_ActionName: LocobotSemiAuto/GripperOpen
+    m_ActionName: LocobotSemiAuto/GripperOpen[/DualShock4GamepadHID/buttonEast,/Keyboard/o]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnGripperClose
         m_Mode: 0
@@ -902,10 +826,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 25c0486a-af67-4a7a-b48b-3c06db92bf71
-    m_ActionName: LocobotSemiAuto/GripperClose
+    m_ActionName: LocobotSemiAuto/GripperClose[/DualShock4GamepadHID/buttonWest,/Keyboard/p]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnMoveArm
         m_Mode: 0
@@ -918,24 +842,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 1486a314-b7b6-4f8b-a4d9-28368182f0fc
-    m_ActionName: LocobotSemiAuto/MoveArm[/Keyboard/v]
+    m_ActionName: LocobotSemiAuto/MoveArm[/Keyboard/v,/DualShock4GamepadHID/leftShoulder,/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEeRollLeft
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8720039590354554945}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeCall
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -949,21 +861,9 @@ MonoBehaviour:
     m_ActionName: LocobotSemiAuto/EndEffectorRollLeft
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEeRollRight
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8720039590354554945}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeCall
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -977,21 +877,9 @@ MonoBehaviour:
     m_ActionName: LocobotSemiAuto/EndEffectorRollRight
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEePitchDown
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8720039590354554945}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeCall
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1005,21 +893,9 @@ MonoBehaviour:
     m_ActionName: LocobotSemiAuto/EndEffectorPitchDown
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnEePitchUp
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8720039590354554945}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: OnEeCall
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1033,7 +909,7 @@ MonoBehaviour:
     m_ActionName: LocobotSemiAuto/EndEffectorPitchUp
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnMoveZ
         m_Mode: 0
@@ -1046,10 +922,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ea0b7a18-3fbd-4071-89be-fc5a93c89266
-    m_ActionName: LocobotSemiAuto/MoveZ[/Keyboard/s,/Keyboard/w]
+    m_ActionName: LocobotSemiAuto/MoveZ[/Keyboard/s,/Keyboard/w,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/leftStick/up]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnMoveY
         m_Mode: 0
@@ -1062,10 +938,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 173b6381-4cab-4e4b-a667-4d46a2c39722
-    m_ActionName: LocobotSemiAuto/MoveY[/Keyboard/e,/Keyboard/q]
+    m_ActionName: LocobotSemiAuto/MoveY[/Keyboard/e,/Keyboard/q,/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/rightStick/up]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnMoveX
         m_Mode: 0
@@ -1078,10 +954,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 1db5b171-95d6-4634-b426-34cba39774d4
-    m_ActionName: LocobotSemiAuto/MoveX[/Keyboard/a,/Keyboard/d]
+    m_ActionName: LocobotSemiAuto/MoveX[/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/leftStick/right]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnMoveBase
         m_Mode: 0
@@ -1094,10 +970,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: d7f0d0ea-8a87-4339-b694-8f89b03ae02e
-    m_ActionName: LocobotSemiAuto/MoveBase[/Keyboard/b]
+    m_ActionName: LocobotSemiAuto/MoveBase[/Keyboard/b,/DualShock4GamepadHID/leftShoulder,/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnBaseRotate
         m_Mode: 0
@@ -1110,10 +986,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: eb42357d-739c-4fd6-8993-7ba5c348f7bc
-    m_ActionName: LocobotSemiAuto/BaseRotate
+    m_ActionName: LocobotSemiAuto/BaseRotate[/DualShock4GamepadHID/leftTrigger,/DualShock4GamepadHID/rightTrigger,/Keyboard/z,/Keyboard/c]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSetGoalOrTarget
         m_Mode: 0
@@ -1126,10 +1002,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 322fa553-eaef-4b2f-9085-53c87297dfbd
-    m_ActionName: LocobotSemiAuto/SetGoalOrTarget[/Keyboard/enter]
+    m_ActionName: LocobotSemiAuto/SetGoalOrTarget[/Keyboard/enter,/DualShock4GamepadHID/leftShoulder,/DualShock4GamepadHID/rightShoulder]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnRebootError
         m_Mode: 0
@@ -1142,10 +1018,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 0586d11c-c105-42dd-a81b-e6e2deb0c6c0
-    m_ActionName: LocobotSemiAuto/RebootError
+    m_ActionName: LocobotSemiAuto/RebootError[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnRebootAll
         m_Mode: 0
@@ -1158,10 +1034,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 3e767ea6-4571-4d45-8dbb-4e85067fed50
-    m_ActionName: LocobotSemiAuto/RebootAll
+    m_ActionName: LocobotSemiAuto/RebootAll[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnTorqueEnable
         m_Mode: 0
@@ -1174,10 +1050,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 407d7176-bcb2-4116-91ed-0585b8c80dd3
-    m_ActionName: LocobotSemiAuto/TorqueEnable
+    m_ActionName: LocobotSemiAuto/TorqueEnable[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnTorqueDisable
         m_Mode: 0
@@ -1190,10 +1066,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: a14093da-0765-4aa0-8283-03ee8e033479
-    m_ActionName: LocobotSemiAuto/TorqueDisable
+    m_ActionName: LocobotSemiAuto/TorqueDisable[/DualShock4GamepadHID/select,/DualShock4GamepadHID/buttonNorth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnSwitchMode
         m_Mode: 0
@@ -1206,10 +1082,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 85a4d360-be0c-4908-a086-50ebb2854c07
-    m_ActionName: LocobotSemiAuto/SwitchMode
+    m_ActionName: LocobotSemiAuto/SwitchMode[/DualShock4GamepadHID/select,/DualShock4GamepadHID/rightStickPress,/Keyboard/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnArmSleepPose
         m_Mode: 0
@@ -1222,10 +1098,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 187fe25a-60cd-48f4-8731-24db80d865b9
-    m_ActionName: LocobotSemiAuto/ArmSleepPose
+    m_ActionName: LocobotSemiAuto/ArmSleepPose[/DualShock4GamepadHID/rightStickPress]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8720039590354554945}
+      - m_Target: {fileID: 6356457136438605189}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnArmHomePose
         m_Mode: 0
@@ -1238,19 +1114,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: dac68e77-8e4f-46e6-98da-7e5806e3d895
-    m_ActionName: LocobotSemiAuto/ArmHomePose
+    m_ActionName: LocobotSemiAuto/ArmHomePose[/DualShock4GamepadHID/leftStickPress]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotManualArm
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8720039590354554945
+--- !u!114 &6356457136438605189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
+  m_GameObject: {fileID: 3442664727955745504}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7993edfa4b7284a0fbe617fc630418dd, type: 3}
@@ -1288,133 +1164,7 @@ MonoBehaviour:
   targetY: 0
   targetZ: 0
   localArrow: {fileID: 0}
-  controlMode: 2
+  controlMode: 1
   manualCmd: 0
-  semiAutoCmd: 1
-  playerInput: {fileID: 6538310073934303160}
---- !u!114 &8455986801529160982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811810101330088363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a1a4107d7c6d401a9be4790325b113f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &4074488551779696634
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1477368660958182280}
-    m_Modifications:
-    - target: {fileID: 24354399918560668, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.971
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 341e465b320b8b442989083b2549e894, type: 2}
-    - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -17640420121853439, guid: 341e465b320b8b442989083b2549e894, type: 2}
-    - target: {fileID: 4094801499644469875, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
---- !u!224 &2994289726752032847 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-  m_PrefabInstance: {fileID: 4074488551779696634}
-  m_PrefabAsset: {fileID: 0}
+  semiAutoCmd: 0
+  playerInput: {fileID: 5442246504545379740}
