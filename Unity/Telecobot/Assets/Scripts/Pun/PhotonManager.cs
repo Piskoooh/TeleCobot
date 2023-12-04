@@ -199,7 +199,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         else if (sceneMaster.userSettings.userType == UserType.Remote_nonVR)
         {
             if (sceneMaster.userSettings.role == Role.Operator)
-                MyAvatar = PhotonNetwork.Instantiate("OperatorCameraPun", Vector3.up, Quaternion.identity);
+                MyAvatar = PhotonNetwork.Instantiate("CameraOperatorPun", Vector3.up, Quaternion.identity);
             else
                 MyAvatar = PhotonNetwork.Instantiate("CameraPun", Vector3.up, Quaternion.identity);
         }
