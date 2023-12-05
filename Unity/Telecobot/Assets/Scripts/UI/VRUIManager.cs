@@ -25,6 +25,9 @@ public class VRUIManager : MonoBehaviour
     private float countTime;
     private bool startRotate;
     [SerializeField]
+    private CanvasGroup arrowUIs;
+
+    [SerializeField]
     TMP_Text focusRobotText;
 
     // Start is called before the first frame update
@@ -45,7 +48,8 @@ public class VRUIManager : MonoBehaviour
             canvas.transform.rotation = Quaternion.LookRotation(canvas.transform.position - Camera.main.transform.position);
         }
 
-        if(statusText == null)
+        #region StatusUI
+        if (statusText == null)
             return;
         //controlMode, punConnection, rosConnection, focusRobot, userListを表示
         string newtext = "";
@@ -92,6 +96,9 @@ public class VRUIManager : MonoBehaviour
         newtext += "============\n";
         //newtext += "--END OF STATUS TEXT--";
         statusText.text = newtext;
+        #endregion
+
+
 
         UpdateUIsRotate();
 
@@ -109,6 +116,7 @@ public class VRUIManager : MonoBehaviour
         startRotation = rotatingUIs.transform.rotation;
         endRotation = rotatingUIs.transform.rotation * Quaternion.AngleAxis(90f * direction, rotatingUIs.transform.up);
         startRotate = true;
+        arrowUIs.interactable = false;
     }
 
     private void UpdateUIsRotate()
@@ -123,6 +131,7 @@ public class VRUIManager : MonoBehaviour
 
         if (rate >= 1f)
         {
+            arrowUIs.interactable = true;
             startRotate = false;
         }
     }
