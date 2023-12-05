@@ -24,6 +24,8 @@ public class VRUIManager : MonoBehaviour
     private Quaternion endRotation;
     private float countTime;
     private bool startRotate;
+    [SerializeField]
+    TMP_Text focusRobotText;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +59,7 @@ public class VRUIManager : MonoBehaviour
             var ram = sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>();
             newtext += $"FocusRobotID: {ram.photonView.ViewID}" +
                 $"\nROS Network: {(RosConnection)ram.robotRosConnection}\n";
+            focusRobotText.text = $"ID : {ram.photonView.ViewID}";
         }
         else
             newtext += "Robot is not connected. Wait for Robot to join.\n";
@@ -73,7 +76,11 @@ public class VRUIManager : MonoBehaviour
                     break;
                 }
             }
-            newtext+="ControlMode: "+sceneMaster.inputMng.playerInput.currentActionMap.name+"\n";
+            newtext += "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
+            if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
+                newtext += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
+            else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
+                newtext += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
         }
         newtext += "============\n";
         newtext += "UserList:\n";

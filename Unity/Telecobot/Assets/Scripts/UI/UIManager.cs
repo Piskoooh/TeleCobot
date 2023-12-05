@@ -180,7 +180,11 @@ public class UIManager : MonoBehaviour
             controlMode_Text.text = "Opetator is not in this Room. \nPlease wait for Operator to join this room.";
         else
         {
-            controlMode_Text.text = "ControlMode: " + sceneMaster.inputMng.playerInput.currentActionMap.name;
+            controlMode_Text.text = "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
+            if(sceneMaster.inputMng.controlMode==ControlMode.ManualControl)
+                controlMode_Text.text += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
+            else if(sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
+                controlMode_Text.text += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
         }
             //範囲内ならば緑、範囲外なら赤にUIを変更する。
         if (visualIndicator != null)
