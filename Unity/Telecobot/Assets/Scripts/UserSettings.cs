@@ -9,9 +9,12 @@ using UnityEngine.EventSystems;
 
 public class UserSettings : MonoBehaviour
 {
+    [Tooltip("StartSceneのDropDownで設定")]
     public UserType userType;
+    [Tooltip("StartSceneのDropDownで設定")]
     public Role role;
-    public VRControllerType controllerType;
+    [Tooltip("ControllerIdentifier.csで自動設定")]
+    public VRControllerType VRControllerType;
     public TMP_Dropdown userTypeDropdown;
     public TMP_Dropdown roleDropdown;
     public TMP_InputField UserName;
@@ -21,10 +24,10 @@ public class UserSettings : MonoBehaviour
     public EventSystem eventSystem;
 
     //! ノーマルユーザー用シーンのインデックス
-    [SerializeField]
+    [SerializeField,Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
     private int normalSceneBuildIndex = 1;
     //! VRユーザー用シーンのインデックス
-    [SerializeField]
+    [SerializeField, Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
     private int vrSceneBuildIndex = 2;
     //! ユーザーの種類のリスト
     List<string> userTypeList = new List<string>();

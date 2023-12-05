@@ -44,6 +44,8 @@ public class VrAvatarSetting : AvatarSetting
     // Start is called before the first frame update
     void Start()
     {
+        //VRアバターをアバターの所有権者側で生成された場合はVR関連のコンポーネントを有効化し、ダミーのVRコントローラーのモデルを無効化
+        //アバターを所有権を持たないユーザーのシーンで生成された場合はVR関連のコンポーネントを無効化し、ダミーのVRコントローラーのモデルを有効化
         if (photonView.IsMine)
         {
             foreach (GameObject go in vRComponents)
@@ -102,7 +104,7 @@ public class VrAvatarSetting : AvatarSetting
 
             meshRenderer.material = material;
 
-            foreach(GameObject go in nonVRComponents)
+            foreach (GameObject go in nonVRComponents)
             {
                 MeshRenderer[] meshes = go.GetComponentsInChildren<MeshRenderer>();
                 foreach (MeshRenderer mesh in meshes)
