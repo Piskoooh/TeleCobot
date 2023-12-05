@@ -37,6 +37,11 @@ public class VRUIManager : MonoBehaviour
     {
         right.onClick.AddListener(() => RotateObject(1));
         left.onClick.AddListener(() => RotateObject(-1));
+        //SleepPoseBtn.GetComponent<OnScreenButtonIsPressed>().sceneMaster = this.sceneMaster;
+        //HomePoseBtn.GetComponent<OnScreenButtonIsPressed>().sceneMaster = this.sceneMaster;
+        //ArmControlBtn.GetComponent<OnScreenButtonIsPressed>().sceneMaster = this.sceneMaster;
+        //BaseControlBtn.GetComponent<OnScreenButtonIsPressed>().sceneMaster = this.sceneMaster;
+        //RegisetrBtn.GetComponent<OnScreenButtonIsPressed>().sceneMaster = this.sceneMaster;
     }
 
     // Update is called once per frame

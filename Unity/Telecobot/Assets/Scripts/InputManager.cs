@@ -948,95 +948,136 @@ public class InputManager : MonoBehaviourPunCallbacks
     #region VRコントローラーで操作するUIからの制御
     #region セミオートマモード
 
-    public void OnMoveBaseVR()
+    public void OnMoveBaseVR(bool b)
     {
-        Debug.Log("OnMoveBaseVR called");
-        if (sceneMaster.userSettings.role == Role.Operator)
+        if (b)
         {
-            photonView.RPC(nameof(MoveBasePun), RpcTarget.AllViaServer, true);
-            if (controlMode == ControlMode.SemiAutomaticControl)
+            Debug.Log("OnMoveBaseVR called");
+            if (sceneMaster.userSettings.role == Role.Operator)
             {
-                semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
-                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                photonView.RPC(nameof(MoveBasePun), RpcTarget.AllViaServer, true);
+                if (controlMode == ControlMode.SemiAutomaticControl)
+                {
+                    semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
+                    PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("You are not authorized to operate.");
             }
         }
-        else
+        else if (!b)
+            if (sceneMaster.userSettings.role == Role.Operator)
+                photonView.RPC(nameof(MoveBasePun), RpcTarget.AllViaServer, false);
+            else
+                Debug.LogWarning("You are not authorized to operate.");
+    }
+
+    public void OnMoveArmVR(bool b)
+    {
+        if (b)
         {
-            Debug.LogWarning("You are not authorized to operate.");
+            Debug.Log("OnMoveArmVR called");
+            if (sceneMaster.userSettings.role == Role.Operator)
+            {
+                photonView.RPC(nameof(MoveArmPun), RpcTarget.AllViaServer, true);
+                if (controlMode == ControlMode.SemiAutomaticControl)
+                {
+                    semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
+                    PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("You are not authorized to operate.");
+            }
+        }
+        else if (!b)
+            if (sceneMaster.userSettings.role == Role.Operator)
+                photonView.RPC(nameof(MoveArmPun), RpcTarget.AllViaServer, false);
+            else
+                Debug.LogWarning("You are not authorized to operate.");
+    }
+
+    public void OnSetTargetOrGoalVR(bool b)
+    {
+        if (b)
+        {
+            Debug.Log("OnSetTargetOrGoalVR called");
+            if (sceneMaster.userSettings.role == Role.Operator)
+            {
+                if (semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
+                {
+                    semiAutoCmd = SemiAutomaticCommands.PublishGoal;
+                    PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                }
+                else if (semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
+                {
+                    semiAutoCmd = SemiAutomaticCommands.PublishTarget;
+                    PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                }
+                else Debug.LogWarning("Goal or Target is not set in the scene. " +
+                                   "Press 'L' and 'b' to set base goal or 'L' and 'a' to set arm target.");
+            }
+            else
+            {
+                Debug.LogWarning("You are not authorized to operate.");
+            }
         }
     }
 
-    public void OnMoveArmVR()
+    public void OnArmHomePoseVR(bool b)
     {
-        Debug.Log("OnMoveArmVR called");
-        if (sceneMaster.userSettings.role == Role.Operator)
+        if (b)
         {
-            photonView.RPC(nameof(MoveArmPun), RpcTarget.AllViaServer, true);
-            if (controlMode == ControlMode.SemiAutomaticControl)
+            Debug.Log("OnArmHomePoseVR called");
+            if (sceneMaster.userSettings.role == Role.Operator)
             {
-                semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
-                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                photonView.RPC(nameof(ArmHomePosePun), RpcTarget.AllViaServer, true);
+                if (controlMode == ControlMode.SemiAutomaticControl)
+                {
+                    semiAutoCmd = SemiAutomaticCommands.Available;
+                    PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("You are not authorized to operate.");
             }
         }
-        else
-        {
-            Debug.LogWarning("You are not authorized to operate.");
-        }
+        else if (!b)
+            if (sceneMaster.userSettings.role == Role.Operator)
+                photonView.RPC(nameof(ArmHomePosePun), RpcTarget.AllViaServer, false);
+            else
+                Debug.LogWarning("You are not authorized to operate.");
     }
 
-    public void OnSetTargetOrGoalVR()
+    public void OnArmSleepPoseVR(bool b)
     {
-        Debug.Log("OnSetTargetOrGoalVR called");
-        if (sceneMaster.userSettings.role == Role.Operator)
+        if (b)
         {
-            if (semiAutoCmd == SemiAutomaticCommands.PlaceGoal)
+            Debug.Log("OnArmSleepPoseVR called");
+            if (sceneMaster.userSettings.role == Role.Operator)
             {
-                semiAutoCmd = SemiAutomaticCommands.PublishGoal;
-                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                photonView.RPC(nameof(ArmSleepPosePun), RpcTarget.AllViaServer, true);
+                if (controlMode == ControlMode.SemiAutomaticControl)
+                {
+                    semiAutoCmd = SemiAutomaticCommands.Available;
+                    PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                }
             }
-            else if (semiAutoCmd == SemiAutomaticCommands.PlaceTarget)
+            else
             {
-                semiAutoCmd = SemiAutomaticCommands.PublishTarget;
-                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
-            }
-            else Debug.LogWarning("Goal or Target is not set in the scene. " +
-                               "Press 'L' and 'b' to set base goal or 'L' and 'a' to set arm target.");
-        }
-    }
-
-    public void OnArmHomePoseVR()
-    {
-        Debug.Log("OnArmHomePoseVR called");
-        if (sceneMaster.userSettings.role == Role.Operator)
-        {
-            photonView.RPC(nameof(ArmHomePosePun), RpcTarget.AllViaServer, true);
-            if (controlMode == ControlMode.SemiAutomaticControl)
-            {
-                semiAutoCmd = SemiAutomaticCommands.Available;
-                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+                Debug.LogWarning("You are not authorized to operate.");
             }
         }
-        else
+        else if (!b)
         {
-            Debug.LogWarning("You are not authorized to operate.");
-        }
-    }
-
-    public void OnArmSleepPoseVR()
-    {
-        Debug.Log("OnArmSleepPoseVR called");
-        if (sceneMaster.userSettings.role == Role.Operator)
-        {
-            photonView.RPC(nameof(ArmSleepPosePun), RpcTarget.AllViaServer, true);
-            if (controlMode == ControlMode.SemiAutomaticControl)
-            {
-                semiAutoCmd = SemiAutomaticCommands.Available;
-                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("You are not authorized to operate.");
+            if (sceneMaster.userSettings.role == Role.Operator)
+                photonView.RPC(nameof(ArmSleepPosePun), RpcTarget.AllViaServer, false);
+            else
+                Debug.LogWarning("You are not authorized to operate.");
         }
     }
 
