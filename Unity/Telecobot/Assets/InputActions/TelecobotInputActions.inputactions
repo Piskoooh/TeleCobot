@@ -1574,18 +1574,18 @@
             "id": "d3211df8-985a-4e21-b41a-514461e442a5",
             "actions": [
                 {
-                    "name": "ArmHomePose",
+                    "name": "ArmSleepPose",
                     "type": "Button",
-                    "id": "dac68e77-8e4f-46e6-98da-7e5806e3d895",
+                    "id": "187fe25a-60cd-48f4-8731-24db80d865b9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ArmSleepPose",
+                    "name": "ArmHomePose",
                     "type": "Button",
-                    "id": "187fe25a-60cd-48f4-8731-24db80d865b9",
+                    "id": "dac68e77-8e4f-46e6-98da-7e5806e3d895",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -2380,28 +2380,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2cdd16f2-155b-45ef-a727-b838bf52471e",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ArmHomePose",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dde001e6-2ceb-456e-a065-e06f7019d761",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ArmHomePose",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "503e7f3a-cf90-4fa7-be32-5a7c525a4e51",
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
@@ -2454,6 +2432,28 @@
                     "action": "SwitchMode",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2cdd16f2-155b-45ef-a727-b838bf52471e",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ArmHomePose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dde001e6-2ceb-456e-a065-e06f7019d761",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "ArmHomePose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
