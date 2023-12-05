@@ -44,22 +44,22 @@ public class ControllerModelSelector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(userSettings.controllerType == VRControllerType.OculusTouch)
+        if(userSettings.VRControllerType == VRControllerType.OculusTouch)
         {
             LeftController.modelPrefab = OculusTouchController;
             RightController.modelPrefab = OculusTouchRightController;
         }
-        else if(userSettings.controllerType == VRControllerType.Vive)
+        else if(userSettings.VRControllerType == VRControllerType.Vive)
         {
             LeftController.modelPrefab = ViveLeftController;
             RightController.modelPrefab = ViveRightController;
         }
-        else if(userSettings.controllerType == VRControllerType.Pico4)
+        else if(userSettings.VRControllerType == VRControllerType.Pico4)
         {
             LeftController.modelPrefab = Pico4LeftController;
             RightController.modelPrefab = Pico4RightController;
         }
-        else if(userSettings.controllerType == VRControllerType.Universal)
+        else if(userSettings.VRControllerType == VRControllerType.Universal)
         {
             LeftController.modelPrefab = UniversalLeftController;
             RightController.modelPrefab = UniversalRightController;

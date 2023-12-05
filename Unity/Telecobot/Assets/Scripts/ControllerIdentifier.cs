@@ -43,17 +43,17 @@ public class ControllerIdentifier : MonoBehaviour
 
         if (inputDevice.displayName.Contains("Vive"))
         {
-            userSettings.controllerType = VRControllerType.Vive;
+            userSettings.VRControllerType = VRControllerType.Vive;
         }
         else if (inputDevice.displayName.Contains("Touch"))
         {
-            userSettings.controllerType = VRControllerType.OculusTouch;
+            userSettings.VRControllerType = VRControllerType.OculusTouch;
         }
         else if (inputDevice.displayName.Contains("Pico"))
         {
-            userSettings.controllerType = VRControllerType.Pico4;
+            userSettings.VRControllerType = VRControllerType.Pico4;
         }
         else
-            userSettings.controllerType = VRControllerType.Universal;
+            userSettings.VRControllerType = VRControllerType.Universal;
     }
 }
