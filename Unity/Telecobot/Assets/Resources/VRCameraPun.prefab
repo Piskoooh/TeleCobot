@@ -54,7 +54,7 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 1
+  observableSearch: 2
   ObservedComponents:
   - {fileID: 4069480104394106869}
   - {fileID: 1119582909321816998}
@@ -116,6 +116,7 @@ MonoBehaviour:
   avatarRole: 0
   Camera: {fileID: 0}
   sceneMaster: {fileID: 0}
+  controllerType: 2
   teleportationProvider: {fileID: 7453954238331498437}
   xrOrigin: {fileID: 8027883894668312966}
   eventSystem: {fileID: 2975759714220218187}

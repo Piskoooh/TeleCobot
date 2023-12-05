@@ -28,6 +28,8 @@ public class VRUIManager : MonoBehaviour
     private CanvasGroup arrowUIs;
 
     [SerializeField]
+    Button SleepPoseBtn, HomePoseBtn, ArmControlBtn, BaseControlBtn, RegisetrBtn, focusBefore, focusAfter;
+    [SerializeField]
     TMP_Text focusRobotText;
 
     // Start is called before the first frame update
