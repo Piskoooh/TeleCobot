@@ -13,6 +13,7 @@ TagManager:
   - end_effector
   - LeftControllerPrefab
   - RightControllerPrefab
+  - vI
   layers:
   - Default
   - TransparentFX
