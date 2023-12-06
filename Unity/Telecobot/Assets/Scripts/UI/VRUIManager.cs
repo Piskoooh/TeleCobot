@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class VRUIManager : MonoBehaviour
 {
@@ -25,12 +26,15 @@ public class VRUIManager : MonoBehaviour
     private float countTime;
     private bool startRotate;
     [SerializeField]
-    private CanvasGroup arrowUIs;
+    private CanvasGroup arrowUIs, semiAutomaticControlUI;
 
     [SerializeField]
     Button SleepPoseBtn, HomePoseBtn, ArmControlBtn, BaseControlBtn, RegisetrBtn, focusBefore, focusAfter;
     [SerializeField]
-    TMP_Text focusRobotText;
+    TMP_Text moveDescriptionText,focusRobotText;
+
+    [SerializeField]
+    private InputAction action;
 
     // Start is called before the first frame update
     void Start()
@@ -105,7 +109,29 @@ public class VRUIManager : MonoBehaviour
         statusText.text = newtext;
         #endregion
 
+        #region RemoteControlUI
 
+        if(sceneMaster.userSettings.role == Role.Operator)
+        {
+            if (sceneMaster.photonMng.focusRobot != null)
+            {
+                semiAutomaticControlUI.interactable = true;
+                semiAutomaticControlUI.blocksRaycasts = true;
+            }
+            else
+            {
+                semiAutomaticControlUI.interactable = false;
+                semiAutomaticControlUI.blocksRaycasts = false;
+                moveDescriptionText.text = "Robot is not connected. Wait for Robot to join.";
+            }
+        }
+        else
+        {
+            semiAutomaticControlUI.interactable = false;
+            semiAutomaticControlUI.blocksRaycasts = false;
+            moveDescriptionText.text = "You are not authorized to use this UI.";
+        }
+        #endregion
 
         UpdateUIsRotate();
 
@@ -142,4 +168,32 @@ public class VRUIManager : MonoBehaviour
             startRotate = false;
         }
     }
+
+    #region UIの表示非表示
+    private void OnEnable()
+    {
+        action.started += UIVisual;
+
+        action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        action.started -= UIVisual;
+
+        action.Disable();
+    }
+
+    private void UIVisual(InputAction.CallbackContext context)
+    {
+        if (rotatingUIs.activeSelf)
+        {
+            rotatingUIs.SetActive(false);
+        }
+        else
+        {
+            rotatingUIs.SetActive(true);
+        }
+    }
+    #endregion
 }

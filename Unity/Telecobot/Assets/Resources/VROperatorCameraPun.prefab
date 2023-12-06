@@ -1073,6 +1073,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: dac68e77-8e4f-46e6-98da-7e5806e3d895
     m_ActionName: LocobotSemiAuto/ArmHomePose[/DualShock4GamepadHID/leftStickPress]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e7435a69-2b51-466a-9775-fdafb65cb71d
+    m_ActionName: LocobotManualBase/ArmSleepPose[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c167ee8-f6c2-4175-a815-c89089305e9c
+    m_ActionName: LocobotManualBase/ArmHomePose[/Keyboard/2]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotSemiAuto
