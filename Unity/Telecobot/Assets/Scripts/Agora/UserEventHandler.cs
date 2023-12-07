@@ -54,7 +54,8 @@ internal class UserEventHandler : IRtcEngineEventHandler
         var gos = GameObject.Find("VideoCanvas").gameObject.GetComponentsInChildren<VideoSurface>();
         foreach (var go in gos)
         {
-            AgoraManager.Destroy(go.gameObject);
+            if(go.gameObject.name!="0")
+                AgoraManager.Destroy(go.gameObject);
         }
     }
     public override void OnRtcStats(RtcConnection connection, RtcStats rtcStats)
@@ -120,7 +121,14 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnUserEnableLocalVideo(RtcConnection connection, uint remoteUid, bool enabled)
     {
         base.OnUserEnableLocalVideo(connection, remoteUid, enabled);
-        AgoraManager.DestroyVideoView(remoteUid);
+        if (enabled)
+        {
+            AgoraManager.MakeVideoView(remoteUid,agoraManager.GetChannelName());
+        }
+        else
+        {
+            AgoraManager.DestroyVideoView(remoteUid);
+        }
     }
     public override void OnRemoteVideoStats(RtcConnection connection, RemoteVideoStats stats)
     {
