@@ -1,6 +1,6 @@
 ﻿using Agora_RTC_Plugin.API_Example;
 using Agora.Rtc;
-
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,16 +32,16 @@ public class AgoraManager : MonoBehaviour
     private DeviceInfo[] audioRecordingDeviceInfos;
     private DeviceInfo[] audioPlaybackDeviceInfos;
     private DeviceInfo[] videoDeviceInfos;
-    private const int DEVICE_INDEX = 0;
 
     //接続しているデバイスの名前を選択するためのテキスト
+    public Toggle micToggle;
+    public bool prevMicToggle;
+    public Toggle camToggle;
+    public bool prevCamToggle;
     public TMP_Dropdown micDevices;
     public TMP_Dropdown speakerDevices;
     public TMP_Dropdown camDevices;
-    private CameraCapturerConfiguration camConfig;
-    private ChannelMediaOptions options;
 
-    bool isPreviewing = false;
     bool isStreaming = false;
     [SerializeField] Button streamingBtn;
     // Start is called before the first frame update
@@ -52,6 +52,11 @@ public class AgoraManager : MonoBehaviour
         speakerDevices.onValueChanged.AddListener(SetSpeakerDevice);
         camDevices.onValueChanged.AddListener(SetCamDevice);
         streamingBtn.onClick.AddListener(OnStreamClick);
+        micToggle.isOn = true;
+        camToggle.isOn = true;
+        prevMicToggle = false;
+        prevCamToggle = false;
+        isStreaming = false;
     }
     void Start()
     {
@@ -66,15 +71,66 @@ public class AgoraManager : MonoBehaviour
 #endif
         }
     }
-
     // Update is called once per frame
     void Update()
     {
-        if(isStreaming||isPreviewing)
+        //デバイスの使用許可をリクエスト
+        PermissionHelper.RequestMicrophonePermission();
+        PermissionHelper.RequestCameraPermission();
+
+        //前のフレームでの値から変化した場合に処理を実行
+        if(prevCamToggle!=camToggle.isOn)
         {
-            PermissionHelper.RequestMicrophonePermission();
-            PermissionHelper.RequestCameraPermission();
+            //カメラ使用する場合
+            if(camToggle.isOn)
+            {
+                camDevices.interactable = true;
+                rtcEngine.EnableLocalVideo(true);
+                if (!isStreaming)
+                {
+                    OnStartPreview();
+                }
+            }
+            //カメラ使用しない場合
+            else
+            {
+                camDevices.interactable = false;
+                rtcEngine.EnableLocalVideo(false);
+                if (!isStreaming)
+                {
+                    OnStopPreview();
+                }
+            }
         }
+        //前のフレームでの値から変化した場合に処理を実行
+        if(prevMicToggle!=micToggle.isOn)
+        {
+            //マイク使用する場合
+            if(micToggle.isOn)
+            {
+                micDevices.interactable = true;
+                rtcEngine.EnableLocalAudio(true);
+            }
+            //マイク使用しない場合
+            else
+            {
+                micDevices.interactable = false;
+                rtcEngine.EnableLocalAudio(false);
+            }
+        }
+
+        if (!isStreaming)
+        {
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StartStream";
+        }
+        else
+        {
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StopStream";
+        }
+
+        //次フレームで変化を検出するために現フレームの値を保存
+        prevCamToggle = camToggle.isOn;
+        prevMicToggle = micToggle.isOn;
     }
     private void OnDestroy()
     {
@@ -85,57 +141,7 @@ public class AgoraManager : MonoBehaviour
         rtcEngine.Dispose();
     }
 
-    public void OnStreamClick()
-    {
-        if (isStreaming)
-        {
-            OnStopStream();
-            isStreaming = false;
-        }
-        else
-        {
-            OnStartStream();
-            isStreaming = true;
-        }
-    }
-
-    public void OnStartStream()
-    {
-        rtcEngine.JoinChannel(_token, _channelName);
-    }
-
-    public void OnStopStream()
-    {
-        rtcEngine.LeaveChannel();
-    }
-
-    public void OnStartPreview()
-    {
-        rtcEngine.StartPreview();
-    }
-
-    public void OnStopPreview()
-    {
-        rtcEngine.StopPreview();
-    }
-
-    public void StartPublish()
-    {
-        var options = new ChannelMediaOptions();
-        options.publishMicrophoneTrack.SetValue(true);
-        options.publishCameraTrack.SetValue(true);
-        var nRet = rtcEngine.UpdateChannelMediaOptions(options);
-        Debug.Log("UpdateChannelMediaOptions: " + nRet);
-    }
-
-    public void StopPublish()
-    {
-        var options = new ChannelMediaOptions();
-        options.publishMicrophoneTrack.SetValue(false);
-        options.publishCameraTrack.SetValue(false);
-        var nRet = rtcEngine.UpdateChannelMediaOptions(options);
-        Debug.Log("UpdateChannelMediaOptions: " + nRet);
-    }
+    #region --init method--
     private bool CheckAppId()
     {
         if(_appID.Length > 10)
@@ -184,6 +190,67 @@ public class AgoraManager : MonoBehaviour
     {
         return _channelName;
     }
+    #endregion
+
+    #region --conection method--
+    public void OnStreamClick()
+    {
+        if (isStreaming)
+        {
+            OnStopStream();
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StartStream";
+            isStreaming = false;
+        }
+        else
+        {
+            OnStartStream();
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StopStream";
+            isStreaming = true;
+        }
+    }
+
+    public void OnStartStream()
+    {
+        rtcEngine.JoinChannel(_token, _channelName, "", (uint)PhotonNetwork.LocalPlayer.ActorNumber);
+        MakeVideoView(0, "");
+        //MakeVideoView((uint)PhotonNetwork.LocalPlayer.ActorNumber, _channelName);
+
+    }
+
+    public void OnStopStream()
+    {
+        rtcEngine.LeaveChannel();
+    }
+
+    public void OnStartPreview()
+    {
+        rtcEngine.StartPreview();
+        MakeVideoView(0, "");
+    }
+
+    public void OnStopPreview()
+    {
+        rtcEngine.StopPreview();
+    }
+
+    public void StartPublish()
+    {
+        var options = new ChannelMediaOptions();
+        options.publishMicrophoneTrack.SetValue(true);
+        options.publishCameraTrack.SetValue(true);
+        var nRet = rtcEngine.UpdateChannelMediaOptions(options);
+        Debug.Log("UpdateChannelMediaOptions: " + nRet);
+    }
+
+    public void StopPublish()
+    {
+        var options = new ChannelMediaOptions();
+        options.publishMicrophoneTrack.SetValue(false);
+        options.publishCameraTrack.SetValue(false);
+        var nRet = rtcEngine.UpdateChannelMediaOptions(options);
+        Debug.Log("UpdateChannelMediaOptions: " + nRet);
+    }
+    #endregion
 
     #region --device Method--
     private void CallDeviceManagerApi()
@@ -292,7 +359,116 @@ public class AgoraManager : MonoBehaviour
         if (audioDeviceManager != null) audioDeviceManager.SetPlaybackDeviceVolume(100);
     }
     #endregion
+
+    #region --video render ui--
+
+    internal static void MakeVideoView(uint uid, string channelId = "")
+    {
+        var go = GameObject.Find(uid.ToString());
+        if (!ReferenceEquals(go, null))
+        {
+            return; // reuse
+        }
+
+        // create a GameObject and assign to this new user
+        var videoSurface = MakeImageSurface(uid.ToString());
+        if (ReferenceEquals(videoSurface, null)) return;
+        // configure videoSurface
+        if (uid == 0)
+        {
+            videoSurface.SetForUser(uid, channelId);
+        }
+        else
+        {
+            videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+        }
+
+        videoSurface.OnTextureSizeModify += (int width, int height) =>
+        {
+            float scale = (float)height / (float)width;
+            videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
+            Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+        };
+
+        videoSurface.SetEnable(true);
+    }
+
+    // VIDEO TYPE 1: 3D Object
+    private static VideoSurface MakePlaneSurface(string goName)
+    {
+        var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
+
+        if (go == null)
+        {
+            return null;
+        }
+
+        go.name = goName;
+        var mesh = go.GetComponent<MeshRenderer>();
+        if (mesh != null)
+        {
+            Debug.LogWarning("VideoSureface update shader");
+            mesh.material = new Material(Shader.Find("Unlit/Texture"));
+        }
+        // set up transform
+        go.transform.Rotate(-90.0f, 0.0f, 0.0f);
+        go.transform.position = Vector3.zero;
+        go.transform.localScale = new Vector3(0.25f, 0.5f, 0.5f);
+
+        // configure videoSurface
+        var videoSurface = go.AddComponent<VideoSurface>();
+        return videoSurface;
+    }
+
+    // Video TYPE 2: RawImage
+    private static VideoSurface MakeImageSurface(string goName)
+    {
+        GameObject go = new GameObject();
+
+        if (go == null)
+        {
+            return null;
+        }
+
+        go.name = goName;
+        // to be renderered onto
+        go.AddComponent<RawImage>();
+        // make the object draggable
+        go.AddComponent<UIElementDrag>();
+        var canvas = GameObject.Find("VideoCanvas");
+        if (canvas != null)
+        {
+            go.transform.parent = canvas.transform;
+            Debug.Log("add video view");
+        }
+        else
+        {
+            Debug.Log("Canvas is null video view");
+        }
+
+        // set up transform
+        go.transform.Rotate(0f, 0.0f, 180.0f);
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localScale = new Vector3(2f, 3f, 1f);
+
+        // configure videoSurface
+        var videoSurface = go.AddComponent<VideoSurface>();
+        return videoSurface;
+    }
+
+    internal static void DestroyVideoView(uint uid)
+    {
+        var go = GameObject.Find(uid.ToString());
+        if (!ReferenceEquals(go, null))
+        {
+            Destroy(go);
+        }
+    }
+
+    #endregion
 }
+
+#region --Request Permisson--
 public class PermissionHelper
 {
     public static void RequestMicrophonePermission()
@@ -315,3 +491,4 @@ public class PermissionHelper
 #endif
     }
 }
+#endregion
