@@ -51,6 +51,11 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnLeaveChannel(RtcConnection connection, RtcStats stats)
     {
         Debug.Log("OnLeaveChannel");
+        var gos = GameObject.Find("VideoCanvas").gameObject.GetComponentsInChildren<VideoSurface>();
+        foreach (var go in gos)
+        {
+            AgoraManager.Destroy(go.gameObject);
+        }
     }
     public override void OnRtcStats(RtcConnection connection, RtcStats rtcStats)
     {
@@ -103,17 +108,19 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
     {
         Debug.Log(string.Format("OnUserJoined uid: {0} elapsed: {1}", uid, elapsed));
-        // Save the remote user ID in a variable.
+        AgoraManager.MakeVideoView(uid,agoraManager.GetChannelName());
     }
 
     public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
     {
         Debug.Log(string.Format("OnUserOffLine uid: {0}, reason: {1}", uid,
             (int)reason));
+        AgoraManager.DestroyVideoView(uid);
     }
     public override void OnUserEnableLocalVideo(RtcConnection connection, uint remoteUid, bool enabled)
     {
         base.OnUserEnableLocalVideo(connection, remoteUid, enabled);
+        AgoraManager.DestroyVideoView(remoteUid);
     }
     public override void OnRemoteVideoStats(RtcConnection connection, RemoteVideoStats stats)
     {

@@ -8798,6 +8798,7 @@ MonoBehaviour:
   speakerDevices: {fileID: 467929838}
   camDevices: {fileID: 679534216}
   streamingBtn: {fileID: 1149300222}
+  camSlash: {fileID: 21300000, guid: 541b2511ccac7cb43bb18e2a82f46ae2, type: 3}
 --- !u!1 &2048101357
 GameObject:
   m_ObjectHideFlags: 0
@@ -9851,7 +9852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 402
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_SizeDelta.y
@@ -9859,7 +9860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 201
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358160809937143452, guid: 0cbc0856f0fb8d84a81be5dea463c369, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -6115,6 +6115,7 @@ MonoBehaviour:
   speakerDevices: {fileID: 1588014491}
   camDevices: {fileID: 128904213}
   streamingBtn: {fileID: 709060158}
+  camSlash: {fileID: 21300000, guid: 541b2511ccac7cb43bb18e2a82f46ae2, type: 3}
 --- !u!1 &1965711306
 GameObject:
   m_ObjectHideFlags: 0

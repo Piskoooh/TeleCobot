@@ -44,7 +44,9 @@ public class AgoraManager : MonoBehaviour
 
     bool isStreaming = false;
     [SerializeField] Button streamingBtn;
-    // Start is called before the first frame update
+
+    Component renderer;
+    public Sprite camSlash;
 
     void Awake()
     {
@@ -86,6 +88,7 @@ public class AgoraManager : MonoBehaviour
             {
                 camDevices.interactable = true;
                 rtcEngine.EnableLocalVideo(true);
+                MakeVideoView(0, "");
                 if (!isStreaming)
                 {
                     OnStartPreview();
@@ -96,6 +99,11 @@ public class AgoraManager : MonoBehaviour
             {
                 camDevices.interactable = false;
                 rtcEngine.EnableLocalVideo(false);
+                var go = GameObject.Find("0");
+                if (!ReferenceEquals(go, null))
+                {
+                    Destroy(go);
+                }
                 if (!isStreaming)
                 {
                     OnStopPreview();
@@ -212,9 +220,6 @@ public class AgoraManager : MonoBehaviour
     public void OnStartStream()
     {
         rtcEngine.JoinChannel(_token, _channelName, "", (uint)PhotonNetwork.LocalPlayer.ActorNumber);
-        MakeVideoView(0, "");
-        //MakeVideoView((uint)PhotonNetwork.LocalPlayer.ActorNumber, _channelName);
-
     }
 
     public void OnStopStream()
@@ -367,6 +372,7 @@ public class AgoraManager : MonoBehaviour
         var go = GameObject.Find(uid.ToString());
         if (!ReferenceEquals(go, null))
         {
+            go.GetComponent<VideoSurface>().SetEnable(true);
             return; // reuse
         }
 
@@ -465,6 +471,20 @@ public class AgoraManager : MonoBehaviour
         }
     }
 
+     void ApplyTexture(VideoSurface videoSurface,Texture2D texture)
+    {
+        renderer = videoSurface.GetComponent<Renderer>();
+        if(renderer!=null)
+        {
+            var rd = renderer as Renderer;
+            rd.material.mainTexture = texture;
+        }
+        else
+        {
+            var rd = videoSurface.GetComponent<RawImage>();
+            rd.texture = texture;
+        }
+    }
     #endregion
 }
 
