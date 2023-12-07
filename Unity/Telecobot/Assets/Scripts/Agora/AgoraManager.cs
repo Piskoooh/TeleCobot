@@ -483,13 +483,13 @@ public class AgoraManager : MonoBehaviour
         if(focusrobot != null)
         {
             go.transform.parent= focusrobot.transform;
-            go.transform.localRotation= Quaternion.Euler(0, 0, 0);
+            go.transform.localRotation= Quaternion.Euler(0, 0, 180);
             go.transform.localPosition = Vector3.up;
             go.transform.localScale = Vector3.one * 100;
         }
         else
         {
-            go.transform.Rotate(0f, 0.0f, 180.0f);
+            go.transform.Rotate(0.0f, 0.0f, 180.0f);
             go.transform.localPosition = Vector3.zero;
             go.transform.localScale = Vector3.one*100;
         }

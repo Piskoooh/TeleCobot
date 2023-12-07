@@ -14,6 +14,7 @@ TagManager:
   - LeftControllerPrefab
   - RightControllerPrefab
   - vI
+  - sphere100
   layers:
   - Default
   - TransparentFX

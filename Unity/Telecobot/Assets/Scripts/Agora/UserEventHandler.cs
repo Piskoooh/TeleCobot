@@ -57,6 +57,12 @@ internal class UserEventHandler : IRtcEngineEventHandler
             if(go.gameObject.name!="0")
                 AgoraManager.Destroy(go.gameObject);
         }
+        var gos2 = GameObject.FindGameObjectsWithTag("sphere100");
+        foreach (var go in gos2)
+        {
+            if (go.gameObject.name != "0")
+                AgoraManager.Destroy(go);
+        }
     }
     public override void OnRtcStats(RtcConnection connection, RtcStats rtcStats)
     {
