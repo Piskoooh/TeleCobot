@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
+using Agora.Rtc;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
@@ -69,6 +70,11 @@ public class VRUIManager : MonoBehaviour
         else
             newtext+="PUNConnection: Disconnected\n";
         newtext += "============\n";
+        if (sceneMaster.agoraMng.rtcEngine != null)
+        {
+            newtext+=$"AgoraConnection: {sceneMaster.agoraMng.rtcEngine.GetConnectionState()}\n";
+        }
+        newtext += "============\n";
         if (sceneMaster.photonMng.focusRobot != null)
         {
             var ram = sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>();
@@ -101,6 +107,7 @@ public class VRUIManager : MonoBehaviour
         newtext += "UserList:\n";
         foreach (var pair in sceneMaster.photonMng.RoleDictionary)
         {
+            newtext += "------------\n";
             newtext += $"UserID: {pair.Key}\nUserRole: {(Role)pair.Value}\n";
             newtext += "------------\n";
         }

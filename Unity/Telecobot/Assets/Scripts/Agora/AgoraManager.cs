@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 public class AgoraManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class AgoraManager : MonoBehaviour
     private string _channelName = "";
     internal IRtcEngine rtcEngine;
 
+    public SceneMaster sceneMaster;
     //接続せれているデバイスを管理
     private IAudioDeviceManager audioDeviceManager;
     private IVideoDeviceManager videoDeviceManager;
@@ -41,15 +43,18 @@ public class AgoraManager : MonoBehaviour
     public TMP_Dropdown micDevices;
     public TMP_Dropdown speakerDevices;
     public TMP_Dropdown camDevices;
+    public TMP_Text statusText;
+    [SerializeField]
+    private GameObject sphere100Temp;
+    static GameObject sphere100;
 
+    static GameObject focusrobot;
     bool isStreaming = false;
     [SerializeField] Button streamingBtn;
 
-    Component renderer;
-    public Sprite camSlash;
-
     void Awake()
     {
+        sphere100 = sphere100Temp;
         micDevices.onValueChanged.AddListener(SetMicDevice);
         speakerDevices.onValueChanged.AddListener(SetSpeakerDevice);
         camDevices.onValueChanged.AddListener(SetCamDevice);
@@ -88,7 +93,7 @@ public class AgoraManager : MonoBehaviour
             {
                 camDevices.interactable = true;
                 rtcEngine.EnableLocalVideo(true);
-                MakeVideoView(0, "");
+                MakeVideoView(0,sceneMaster.userSettings.sceneBuildIndex);
                 if (!isStreaming)
                 {
                     OnStartPreview();
@@ -136,9 +141,21 @@ public class AgoraManager : MonoBehaviour
             streamingBtn.GetComponentInChildren<TMP_Text>().text = "StopStream";
         }
 
+        if(sceneMaster.photonMng.focusRobot != null)
+        {
+            focusrobot = sceneMaster.photonMng.focusRobot;
+        }
+        else
+        {
+            focusrobot = null;
+        }
+
         //次フレームで変化を検出するために現フレームの値を保存
         prevCamToggle = camToggle.isOn;
         prevMicToggle = micToggle.isOn;
+
+        if(statusText!=null)
+            statusText.text = "Status: " + rtcEngine.GetConnectionState();
     }
     private void OnDestroy()
     {
@@ -187,6 +204,7 @@ public class AgoraManager : MonoBehaviour
         rtcEngine.EnableVideo();
         VideoEncoderConfiguration config = new VideoEncoderConfiguration();
         config.dimensions = new VideoDimensions(640, 360);
+        //config.dimensions = new VideoDimensions(1920, 960);
         config.frameRate = 15;
         config.bitrate = 0;
         rtcEngine.SetVideoEncoderConfiguration(config);
@@ -197,6 +215,11 @@ public class AgoraManager : MonoBehaviour
     internal string GetChannelName()
     {
         return _channelName;
+    }
+
+    internal int GetSceneIndex()
+    {
+        return sceneMaster.userSettings.sceneBuildIndex;
     }
     #endregion
 
@@ -230,7 +253,7 @@ public class AgoraManager : MonoBehaviour
     public void OnStartPreview()
     {
         rtcEngine.StartPreview();
-        MakeVideoView(0, "");
+        MakeVideoView(0, sceneMaster.userSettings.sceneBuildIndex);
     }
 
     public void OnStopPreview()
@@ -367,7 +390,7 @@ public class AgoraManager : MonoBehaviour
 
     #region --video render ui--
 
-    internal static void MakeVideoView(uint uid, string channelId = "")
+    internal static void MakeVideoView(uint uid,int sceneIndex, string channelId = "")
     {
         var go = GameObject.Find(uid.ToString());
         if (!ReferenceEquals(go, null))
@@ -375,10 +398,22 @@ public class AgoraManager : MonoBehaviour
             go.GetComponent<VideoSurface>().SetEnable(true);
             return; // reuse
         }
-
+        VideoSurface videoSurface = null;
         // create a GameObject and assign to this new user
-        var videoSurface = MakeImageSurface(uid.ToString());
+        if (sceneIndex == 1)
+        {
+            videoSurface = MakeImageSurface(uid.ToString());
+        }
+        else if (sceneIndex == 2)
+        {
+            videoSurface = MakeSphereSurface(uid.ToString());
+        }
+        else
+        {
+            videoSurface = MakePlaneSurface(uid.ToString());
+        }
         if (ReferenceEquals(videoSurface, null)) return;
+
         // configure videoSurface
         if (uid == 0)
         {
@@ -388,14 +423,15 @@ public class AgoraManager : MonoBehaviour
         {
             videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
         }
-
-        videoSurface.OnTextureSizeModify += (int width, int height) =>
+        if (sceneIndex != 2)
         {
-            float scale = (float)height / (float)width;
-            videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
-            Debug.Log("OnTextureSizeModify: " + width + "  " + height);
-        };
-
+            videoSurface.OnTextureSizeModify += (int width, int height) =>
+            {
+                float scale = (float)height / (float)width;
+                videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
+                Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+            };
+        }
         videoSurface.SetEnable(true);
     }
 
@@ -426,7 +462,44 @@ public class AgoraManager : MonoBehaviour
         return videoSurface;
     }
 
-    // Video TYPE 2: RawImage
+    // VIDEO TYPE 2: 3D Object
+    private static VideoSurface MakeSphereSurface(string goName)
+    {
+        var go = GameObject.Instantiate<GameObject>(sphere100);
+
+        if (go == null)
+        {
+            return null;
+        }
+
+        go.name = goName;
+        var mesh = go.GetComponent<MeshRenderer>();
+        if (mesh != null)
+        {
+            Debug.LogWarning("VideoSureface update shader");
+            mesh.material = new Material(Shader.Find("Unlit/Texture"));
+        }
+        // set up transform
+        if(focusrobot != null)
+        {
+            go.transform.parent= focusrobot.transform;
+            go.transform.localRotation= Quaternion.Euler(0, 0, 0);
+            go.transform.localPosition = Vector3.up;
+            go.transform.localScale = Vector3.one * 100;
+        }
+        else
+        {
+            go.transform.Rotate(0f, 0.0f, 180.0f);
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localScale = Vector3.one*100;
+        }
+
+        // configure videoSurface
+        var videoSurface = go.AddComponent<VideoSurface>();
+        return videoSurface;
+    }
+
+    // Video TYPE 3: RawImage
     private static VideoSurface MakeImageSurface(string goName)
     {
         GameObject go = new GameObject();
@@ -468,21 +541,6 @@ public class AgoraManager : MonoBehaviour
         if (!ReferenceEquals(go, null))
         {
             Destroy(go);
-        }
-    }
-
-     void ApplyTexture(VideoSurface videoSurface,Texture2D texture)
-    {
-        renderer = videoSurface.GetComponent<Renderer>();
-        if(renderer!=null)
-        {
-            var rd = renderer as Renderer;
-            rd.material.mainTexture = texture;
-        }
-        else
-        {
-            var rd = videoSurface.GetComponent<RawImage>();
-            rd.texture = texture;
         }
     }
     #endregion

@@ -12,6 +12,7 @@ public class SceneMaster : MonoBehaviour
     public RosConnector rosConnector;
     public InputManager inputMng;
     public UIManager uIMng;
+    public AgoraManager agoraMng;
 
     private void OnEnable()
     {

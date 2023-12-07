@@ -22,6 +22,7 @@ public class UserSettings : MonoBehaviour
     public Canvas startCanvas;
     public Camera startCamera;
     public EventSystem eventSystem;
+    public int sceneBuildIndex;
 
     //! ノーマルユーザー用シーンのインデックス
     [SerializeField,Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
@@ -150,6 +151,7 @@ public class UserSettings : MonoBehaviour
         // This is particularly good for creating loading screens.
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+        sceneBuildIndex = sceneIndex;
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
@@ -167,6 +169,7 @@ public class UserSettings : MonoBehaviour
     {
         AsyncOperation async = SceneManager.UnloadSceneAsync(sceneIndex);
         Resources.UnloadUnusedAssets();
+        sceneBuildIndex = 0;
         yield return async;
     }
 }

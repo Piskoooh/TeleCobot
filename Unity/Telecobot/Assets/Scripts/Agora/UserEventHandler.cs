@@ -109,7 +109,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
     {
         Debug.Log(string.Format("OnUserJoined uid: {0} elapsed: {1}", uid, elapsed));
-        AgoraManager.MakeVideoView(uid,agoraManager.GetChannelName());
+        AgoraManager.MakeVideoView(uid, agoraManager.GetSceneIndex(), agoraManager.GetChannelName());
     }
 
     public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
@@ -123,7 +123,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
         base.OnUserEnableLocalVideo(connection, remoteUid, enabled);
         if (enabled)
         {
-            AgoraManager.MakeVideoView(remoteUid,agoraManager.GetChannelName());
+            AgoraManager.MakeVideoView(remoteUid, agoraManager.GetSceneIndex(), agoraManager.GetChannelName());
         }
         else
         {
