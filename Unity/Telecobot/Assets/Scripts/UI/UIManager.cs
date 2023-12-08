@@ -195,7 +195,7 @@ public class UIManager : MonoBehaviour
             visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
         }
 
-        if (sceneMaster.userSettings.role == Role.Robot)
+        if (sceneMaster.userSettings.role == Role.Robot||sceneMaster.userSettings.role==Role.Operator)
         {
             if (sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
             {
@@ -208,15 +208,15 @@ public class UIManager : MonoBehaviour
                         case SemiAutomaticCommands.Available:
                         case SemiAutomaticCommands.Disable:
                             //不要なUIを削除
-                            if (visualIndicator != null) PhotonNetwork.Destroy(visualIndicator);
-                            if (target != null) PhotonNetwork.Destroy(target);
-                            if (goal != null) PhotonNetwork.Destroy(goal);
+                            if (visualIndicator != null&& visualIndicator.GetPhotonView().IsMine) PhotonNetwork.Destroy(visualIndicator);
+                            if (target != null&&target.GetPhotonView().IsMine) PhotonNetwork.Destroy(target);
+                            if (goal != null && goal.GetPhotonView().IsMine) PhotonNetwork.Destroy(goal);
                             break;
                         case SemiAutomaticCommands.PlaceTarget:
                             if (visualIndicator==null&&eeGripper != null)
                                 VisualRange();
                             //コントローラからの入力値でターゲットを移動・回転
-                            if (target != null)
+                            if (target != null && target.GetPhotonView().IsMine)
                             {
                                 pose.position = eeGripper.transform.position;
                                 pose.rotation = eeGripper.transform.rotation;
@@ -258,16 +258,16 @@ public class UIManager : MonoBehaviour
                                     zRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curEef_egN);
                                 pose.rotation = xRot * zRot * pose.rotation;
                                 AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
-                                if (goal != null)
+                                if (goal != null && goal.GetPhotonView().IsMine)
                                     PhotonNetwork.Destroy(goal);
                             }
                             break;
                         case SemiAutomaticCommands.PublishTarget:
                             break;
                         case SemiAutomaticCommands.PlaceGoal:
-                            if (visualIndicator != null) PhotonNetwork.Destroy(visualIndicator);
-                            if (target != null) PhotonNetwork.Destroy(target);
-                            if (goal != null)
+                            if (visualIndicator != null && visualIndicator.GetPhotonView().IsMine) PhotonNetwork.Destroy(visualIndicator);
+                            if (target != null && target.GetPhotonView().IsMine) PhotonNetwork.Destroy(target);
+                            if (goal != null && goal.GetPhotonView().IsMine)
                             {
                                 if (sceneMaster.inputMng.targetZ > 0.5)
                                 {
@@ -300,7 +300,10 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-        else
+
+
+
+        if (sceneMaster.userSettings.role != Role.Robot)
         {
             sceneMaster.uIMng.rosConnectButton.interactable = false;
             if(sceneMaster.photonMng.focusRobot != null)

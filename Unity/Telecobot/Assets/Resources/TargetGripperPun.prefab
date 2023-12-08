@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 617444012235707382}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /gripper_bar_link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2015957920326961734}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2068738161185027096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6949329516101254589}
   - component: {fileID: 1486592302526556649}
   - component: {fileID: 4767241410803719907}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_8_gripper_bar_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6993944025026987772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4216368439509076781}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_8_gripper_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7386937086140104503}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5092991909477013649}
   - component: {fileID: 1812453465935999949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_7_gripper_prop_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3337065534601288996}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /gripper_prop_link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4301926396879938544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_8_gripper_bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5990093442686511133}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2511966958697809235}
   - component: {fileID: 6298535035234502804}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_10_ar_tag_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 7325920154433344165}
   - component: {fileID: 45435812551759565}
   - component: {fileID: 5300308361493070641}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 1608127641110158335}
   - component: {fileID: 5210631701119747310}
   - component: {fileID: 5716067197752373922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_7_gripper_prop_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,7 +656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8771852964416331764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,7 +688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3528069626245775130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /ee_gripper_link
   m_TagString: end_effector
   m_Icon: {fileID: 0}
@@ -721,7 +721,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3101240634808224902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5544071385169222511}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8959822802233029806}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /ee_arm_link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +826,7 @@ GameObject:
   - component: {fileID: 7930750062274885250}
   - component: {fileID: 1163394707192649430}
   - component: {fileID: 7794614818288487104}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_8_gripper_bar_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 625499435528907325}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -999,7 +999,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9056062330658812770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1031,7 +1031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8556581106781496385}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /right_finger_link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 8226978266415242177}
   - component: {fileID: 9178742120557975383}
   - component: {fileID: 5634523046177769167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1325,7 +1325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2145676198187031584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1356,7 +1356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3406116631731358584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1388,7 +1388,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 248726930120680568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1420,7 +1420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4045617242674749767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_6_gripper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1452,7 +1452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1514356867827697882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1484,7 +1484,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4862837144014824739}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1515,7 +1515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8282192613293544713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1547,7 +1547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5174586929781912148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1579,7 +1579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3210105226332639788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1611,7 +1611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8573908180108191001}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1643,7 +1643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5957785220228099243}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1675,7 +1675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8922821629635487904}
   - component: {fileID: 774459490060092668}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /fingers_link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1735,7 +1735,7 @@ GameObject:
   - component: {fileID: 3201700646138759112}
   - component: {fileID: 6790557451311294171}
   - component: {fileID: 8157015757580963956}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_6_gripper_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1812,7 +1812,7 @@ GameObject:
   - component: {fileID: 7746546622056586742}
   - component: {fileID: 70989276485745741}
   - component: {fileID: 1023261647156996054}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_10_ar_tag_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1893,7 +1893,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7652991732440213365}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1925,7 +1925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7035630395611304378}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1957,7 +1957,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5165631859910758978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1989,7 +1989,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8693069575625536742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2021,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4594087330450801299}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2053,7 +2053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5707543841391433112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2085,7 +2085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 821822202501552569}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2123,7 +2123,7 @@ GameObject:
   - component: {fileID: 6454777241695384288}
   - component: {fileID: 4345829531852015099}
   - component: {fileID: -8553110295530595124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TargetGripperPun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2445,7 +2445,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6494386173222746485}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2477,7 +2477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2977166292531456557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /ar_tag_link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2510,7 +2510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4639250925266630485}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: /left_finger_link
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2543,7 +2543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7589046622773913836}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2577,7 +2577,7 @@ GameObject:
   - component: {fileID: 3341499386349021859}
   - component: {fileID: 292438680527834269}
   - component: {fileID: 7126885989283657217}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2668,7 +2668,7 @@ GameObject:
   - component: {fileID: 6942808203221934935}
   - component: {fileID: 4634564575417967317}
   - component: {fileID: 605868977524919393}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_9_gripper_finger_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2919,7 +2919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3069153926607197711}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2952,7 +2952,7 @@ GameObject:
   - component: {fileID: 3407953344240709621}
   - component: {fileID: 281117787515671880}
   - component: {fileID: 2056355834939153695}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_6_gripper_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3033,7 +3033,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1795024492724923647}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_10_ar_tag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3065,7 +3065,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5108087656200209294}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unnamed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3097,7 +3097,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2680015470856259245}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_6_gripper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3129,7 +3129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6779515034770101234}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3161,7 +3161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1917320353381676503}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_10_ar_tag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3193,7 +3193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 883627433486910110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_7_gripper_prop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3225,7 +3225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8922348454650197721}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collisions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3257,7 +3257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4068206080037623782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3288,7 +3288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1622376974838356935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mobile_wx200_7_gripper_prop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
