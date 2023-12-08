@@ -54,6 +54,9 @@ public class AgoraManager : MonoBehaviour
 
     void Awake()
     {
+    }
+    void Start()
+    {
         sphere100 = sphere100Temp;
         micDevices.onValueChanged.AddListener(SetMicDevice);
         speakerDevices.onValueChanged.AddListener(SetSpeakerDevice);
@@ -64,9 +67,7 @@ public class AgoraManager : MonoBehaviour
         prevMicToggle = false;
         prevCamToggle = false;
         isStreaming = false;
-    }
-    void Start()
-    {
+
         LoadAssetData();
         if (CheckAppId())
         {
@@ -160,6 +161,9 @@ public class AgoraManager : MonoBehaviour
     private void OnDestroy()
     {
         Debug.Log("OnDestroy");
+        var go = GameObject.Find("0");
+        if (go)
+            Destroy(go);
         if (rtcEngine == null) return;
         rtcEngine.InitEventHandler(null);
         rtcEngine.LeaveChannel();
@@ -552,20 +556,20 @@ public class PermissionHelper
     public static void RequestMicrophonePermission()
     {
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
-	if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
-	{                 
-		Permission.RequestUserPermission(Permission.Microphone);
-	}
+    if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+    {                 
+        Permission.RequestUserPermission(Permission.Microphone);
+    }
 #endif
     }
 
     public static void RequestCameraPermission()
     {
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
-	if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
-	{                 
-		Permission.RequestUserPermission(Permission.Camera);
-	}
+    if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+    {                 
+        Permission.RequestUserPermission(Permission.Camera);
+    }
 #endif
     }
 }

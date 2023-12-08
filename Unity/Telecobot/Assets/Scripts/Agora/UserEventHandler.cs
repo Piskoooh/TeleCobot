@@ -51,17 +51,24 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnLeaveChannel(RtcConnection connection, RtcStats stats)
     {
         Debug.Log("OnLeaveChannel");
-        var gos = GameObject.Find("VideoCanvas").gameObject.GetComponentsInChildren<VideoSurface>();
-        foreach (var go in gos)
+        var vc = GameObject.Find("VideoCanvas").gameObject;
+        if (vc)
         {
-            if(go.gameObject.name!="0")
-                AgoraManager.Destroy(go.gameObject);
+            var gos = vc.GetComponentsInChildren<VideoSurface>();
+            foreach (var go in gos)
+            {
+                if (go.gameObject.name != "0")
+                    AgoraManager.Destroy(go.gameObject);
+            }
         }
-        var gos2 = GameObject.FindGameObjectsWithTag("sphere100");
-        foreach (var go in gos2)
+        else
         {
-            if (go.gameObject.name != "0")
-                AgoraManager.Destroy(go);
+            var gos2 = GameObject.FindGameObjectsWithTag("sphere100");
+            foreach (var go in gos2)
+            {
+                if (go.gameObject.name != "0")
+                    AgoraManager.Destroy(go);
+            }
         }
     }
     public override void OnRtcStats(RtcConnection connection, RtcStats rtcStats)
