@@ -5669,7 +5669,7 @@ GameObject:
   - component: {fileID: 6119766245709021846}
   - component: {fileID: 1212036830426225714}
   - component: {fileID: -6997581218662015069}
-  - component: {fileID: 6112887747175985973}
+  - component: {fileID: 3211512715003589391}
   m_Layer: 0
   m_Name: TargetLocobotPun
   m_TagString: Untagged
@@ -5714,6 +5714,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5138142622368295052}
+  - {fileID: 3211512715003589391}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5835,10 +5836,22 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TargetOnGround, Assembly-CSharp
-        m_MethodName: OnGrab
+      - m_Target: {fileID: 8289697705586562307}
+        m_TargetAssemblyTypeName: Photon.Pun.PhotonView, PhotonUnityNetworking
+        m_MethodName: RequestOwnership
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3211512715003589391}
+        m_TargetAssemblyTypeName: ManageOwnership, Assembly-CSharp
+        m_MethodName: ChangeOwnerShipState
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5849,7 +5862,19 @@ MonoBehaviour:
         m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3211512715003589391}
+        m_TargetAssemblyTypeName: ManageOwnership, Assembly-CSharp
+        m_MethodName: ChangeOwnerShipState
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -5948,7 +5973,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &6112887747175985973
+--- !u!114 &3211512715003589391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5957,7 +5982,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4984004086808564207}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77c7a3afac914f84bb9d8f037663aa9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1be71a1d1d648784d8e45e920b2b3018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5018614425445108078
