@@ -2125,7 +2125,7 @@ GameObject:
   - component: {fileID: -8553110295530595124}
   m_Layer: 8
   m_Name: TargetGripperPun
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

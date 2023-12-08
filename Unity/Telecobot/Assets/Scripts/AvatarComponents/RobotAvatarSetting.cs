@@ -14,6 +14,7 @@ public class RobotAvatarSetting : AvatarSetting
         //所有者のロールプロパティを取得し、アバターのロールを設定
         int rrc = avatarOwner.GetRosConnection();
         robotRosConnection = (RosConnection)rrc;
+        sceneMaster.rosConnector.rosConnection = robotRosConnection;
     }
 
     public void CallAARVP(string vI)
@@ -21,9 +22,14 @@ public class RobotAvatarSetting : AvatarSetting
         photonView.RPC(nameof(AdjustArmRangeVisualizerPun), RpcTarget.AllViaServer,vI);
     }
 
-    public void CallEeA(string eE)
+    public void CallEeA(string eE,string target)
     {
-        photonView.RPC(nameof(EeAttacherPun), RpcTarget.AllViaServer, eE);
+        photonView.RPC(nameof(EeAttacherPun), RpcTarget.AllViaServer, eE,target);
+    }
+
+    public void CallSetG(string tR)
+    {
+        photonView.RPC(nameof(TargetRobotPun), RpcTarget.AllViaServer, tR);
     }
 
     [PunRPC]
@@ -39,10 +45,22 @@ public class RobotAvatarSetting : AvatarSetting
     }
 
     [PunRPC]
-    private void EeAttacherPun(string eE, PhotonMessageInfo info)
+    private void EeAttacherPun(string eE, string target, PhotonMessageInfo info)
     {
-        if(!info.Sender.IsLocal)
+        if (!info.Sender.IsLocal)
+        {
             sceneMaster.uIMng.eeGripper = GameObject.FindGameObjectWithTag(eE);
+            sceneMaster.uIMng.target = GameObject.FindGameObjectWithTag(target);
+        }
+    }
+
+    [PunRPC]
+    private void TargetRobotPun(string g, PhotonMessageInfo info)
+    {
+        if (!info.Sender.IsLocal)
+        {
+            sceneMaster.uIMng.goal = GameObject.FindGameObjectWithTag(g);
+        }
     }
 
     /// <summary>

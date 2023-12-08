@@ -23,7 +23,8 @@ public class UIManager : MonoBehaviour
     public GameObject visualIndicator, eeGripper;
 
     public float targetMoveSpeed = 0.5f;
-    GameObject target;
+    [HideInInspector]
+    public GameObject target;
     Pose pose;
 
     //ロボットアームのターゲット指定で使用する読み取り専用の数値
@@ -78,7 +79,7 @@ public class UIManager : MonoBehaviour
                 target = PhotonNetwork.Instantiate("TargetGripperPun", endEffectorTf.position, Quaternion.Euler(0f, 0f, 0f)); //create
                 target.transform.parent = baseLinkTf;
                 eeGripper = GameObject.FindGameObjectWithTag("end_effector");
-                sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>().CallEeA("end_effector");
+                sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>().CallEeA("end_effector",target.tag);
             }
 
             //gripperプレハブを使う時
@@ -97,6 +98,7 @@ public class UIManager : MonoBehaviour
             $"\nReset arm to 'Home Position'.");
 
             sceneMaster.inputMng.semiAutoCmd = SemiAutomaticCommands.Available;
+            PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)sceneMaster.inputMng.semiAutoCmd);
         }
     }
 
@@ -122,6 +124,7 @@ public class UIManager : MonoBehaviour
         }
         CreateOrResetTarget();
         sceneMaster.inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceTarget;
+        PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)sceneMaster.inputMng.semiAutoCmd);
     }
 
     public void CreateOrResetGoal()
@@ -129,6 +132,7 @@ public class UIManager : MonoBehaviour
         if (goal == null)
         {
             goal = PhotonNetwork.Instantiate("TargetLocobotPun", baseLinkTf.position, Quaternion.Euler(0, Vector3.Angle(Vector2.up, b_aN), 0));//create
+            sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>().CallSetG(goal.tag);
         }
         //targetプレハブを使う時
         //goal.transform.position = new Vector3(0f, 0f, 0.3f);
@@ -152,6 +156,7 @@ public class UIManager : MonoBehaviour
         }
         CreateOrResetGoal();
         sceneMaster.inputMng.semiAutoCmd = SemiAutomaticCommands.PlaceGoal;
+        PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)sceneMaster.inputMng.semiAutoCmd);
     }
 
     /// <summary>

@@ -60,6 +60,21 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6265530153790799122}
   m_SourcePrefab: {fileID: 100100000, guid: bc7c1c841fcce427f815a11c8717db40, type: 3}
+--- !u!65 &168453139789742415 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7352709717746118582, guid: bc7c1c841fcce427f815a11c8717db40, type: 3}
+  m_PrefabInstance: {fileID: 7231766929053478649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &168891283321654497 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7351106108991889944, guid: bc7c1c841fcce427f815a11c8717db40, type: 3}
+  m_PrefabInstance: {fileID: 7231766929053478649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &169858174055626745 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7351863261155711232, guid: bc7c1c841fcce427f815a11c8717db40, type: 3}
+  m_PrefabInstance: {fileID: 7231766929053478649}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3367815981826273951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5395461329245248614, guid: bc7c1c841fcce427f815a11c8717db40, type: 3}
@@ -85,11 +100,14 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders:
   - {fileID: 6693007074879961369}
+  - {fileID: 168891283321654497}
+  - {fileID: 168453139789742415}
+  - {fileID: 169858174055626745}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_FocusMode: 1

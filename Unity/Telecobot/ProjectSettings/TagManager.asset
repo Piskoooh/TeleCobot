@@ -15,6 +15,7 @@ TagManager:
   - RightControllerPrefab
   - vI
   - sphere100
+  - Target
   layers:
   - Default
   - TransparentFX

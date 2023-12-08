@@ -1025,6 +1025,13 @@ public class InputManager : MonoBehaviourPunCallbacks
                 Debug.LogWarning("You are not authorized to operate.");
             }
         }
+        else if(!b)
+            if (semiAutoCmd == SemiAutomaticCommands.PublishGoal
+                               || semiAutoCmd == SemiAutomaticCommands.PublishTarget)
+            {
+                semiAutoCmd = SemiAutomaticCommands.Available;
+                PhotonNetwork.CurrentRoom.SetSemiAutoCmd((int)semiAutoCmd);
+            }
     }
 
     public void OnArmHomePoseVR(bool b)
