@@ -232,16 +232,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
         sceneMaster.uIMng.punConnection_Text.text = "Photon : Disconnected";
 
+        StartCoroutine(sceneMaster.userSettings.UnloadSceneAsync(sceneMaster.userSettings.CurrentSceneBuildIndex));
         if (sceneMaster.userSettings.userType == UserType.Remote_VR)
         {
             sceneMaster.userSettings.eventSystem.gameObject.SetActive(true);
-            StartCoroutine(sceneMaster.userSettings.UnloadSceneAsync(2));
             var manualXRControl = new ManualXRControl();
             manualXRControl.StopXR();
-        }
-        else
-        {
-            StartCoroutine(sceneMaster.userSettings.UnloadSceneAsync(1));
         }
         sceneMaster.userSettings.startCamera.gameObject.SetActive(true);
         sceneMaster.userSettings.startCanvas.gameObject.SetActive(true);
