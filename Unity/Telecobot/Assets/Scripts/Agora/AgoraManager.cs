@@ -94,7 +94,7 @@ public class AgoraManager : MonoBehaviour
             {
                 camDevices.interactable = true;
                 rtcEngine.EnableLocalVideo(true);
-                MakeVideoView(0,sceneMaster.userSettings.sceneBuildIndex);
+                MakeVideoView(0,sceneMaster.userSettings.CurrentSceneBuildIndex);
                 if (!isStreaming)
                 {
                     OnStartPreview();
@@ -161,9 +161,14 @@ public class AgoraManager : MonoBehaviour
     private void OnDestroy()
     {
         Debug.Log("OnDestroy");
-        var go = GameObject.Find("0");
-        if (go)
-            Destroy(go);
+        var vs = GameObject.FindGameObjectsWithTag("VideoSurface");
+        if (vs != null)
+        {
+            foreach (var go in vs)
+            {
+                AgoraManager.Destroy(go);
+            }
+        }
         if (rtcEngine == null) return;
         rtcEngine.InitEventHandler(null);
         rtcEngine.LeaveChannel();
@@ -223,7 +228,7 @@ public class AgoraManager : MonoBehaviour
 
     internal int GetSceneIndex()
     {
-        return sceneMaster.userSettings.sceneBuildIndex;
+        return sceneMaster.userSettings.CurrentSceneBuildIndex;
     }
     #endregion
 
@@ -257,7 +262,7 @@ public class AgoraManager : MonoBehaviour
     public void OnStartPreview()
     {
         rtcEngine.StartPreview();
-        MakeVideoView(0, sceneMaster.userSettings.sceneBuildIndex);
+        MakeVideoView(0, sceneMaster.userSettings.CurrentSceneBuildIndex);
     }
 
     public void OnStopPreview()
@@ -359,7 +364,7 @@ public class AgoraManager : MonoBehaviour
         SetMicDevice(0);
         SetSpeakerDevice(0);
         SetCamDevice(0);
-        //SetCurrentDeviceVolume();
+        SetCurrentDeviceVolume();
     }
     public void SetMicDevice(int value)
     {
@@ -388,7 +393,7 @@ public class AgoraManager : MonoBehaviour
     private void SetCurrentDeviceVolume()
     {
         if (audioDeviceManager != null) audioDeviceManager.SetRecordingDeviceVolume(100);
-        if (audioDeviceManager != null) audioDeviceManager.SetPlaybackDeviceVolume(100);
+        //if (audioDeviceManager != null) audioDeviceManager.SetPlaybackDeviceVolume(100);
     }
     #endregion
 
@@ -404,11 +409,11 @@ public class AgoraManager : MonoBehaviour
         }
         VideoSurface videoSurface = null;
         // create a GameObject and assign to this new user
-        if (sceneIndex == 1)
+        if (uid<100)
         {
             videoSurface = MakeImageSurface(uid.ToString());
         }
-        else if (sceneIndex == 2)
+        else if (uid>=100)
         {
             videoSurface = MakeSphereSurface(uid.ToString());
         }
@@ -417,6 +422,7 @@ public class AgoraManager : MonoBehaviour
             videoSurface = MakePlaneSurface(uid.ToString());
         }
         if (ReferenceEquals(videoSurface, null)) return;
+        videoSurface.gameObject.tag = "VideoSurface";
 
         // configure videoSurface
         if (uid == 0)
@@ -427,14 +433,26 @@ public class AgoraManager : MonoBehaviour
         {
             videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
         }
-        if (sceneIndex != 2)
+        if (uid<100)
         {
-            videoSurface.OnTextureSizeModify += (int width, int height) =>
+            if (sceneIndex != 2)
             {
-                float scale = (float)height / (float)width;
-                videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
-                Debug.Log("OnTextureSizeModify: " + width + "  " + height);
-            };
+                videoSurface.OnTextureSizeModify += (int width, int height) =>
+                {
+                    float scale = (float)height / (float)width;
+                    videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
+                    Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+                };
+            }
+            else
+            {
+                videoSurface.OnTextureSizeModify += (int width, int height) =>
+                {
+                    float scale = (float)height / (float)width;
+                    videoSurface.transform.localScale = new Vector3(-1, 1 * scale, 1);
+                    Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+                };
+            }
         }
         videoSurface.SetEnable(true);
     }
@@ -487,13 +505,13 @@ public class AgoraManager : MonoBehaviour
         if(focusrobot != null)
         {
             go.transform.parent= focusrobot.transform;
-            go.transform.localRotation= Quaternion.Euler(0, 0, 180);
+            go.transform.localRotation= Quaternion.Euler(0, 90, 180);
             go.transform.localPosition = Vector3.up;
             go.transform.localScale = Vector3.one * 100;
         }
         else
         {
-            go.transform.Rotate(0.0f, 0.0f, 180.0f);
+            go.transform.Rotate(0.0f, 90.0f, 180.0f);
             go.transform.localPosition = Vector3.zero;
             go.transform.localScale = Vector3.one*100;
         }
@@ -557,7 +575,7 @@ public class PermissionHelper
     {
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
     if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
-    {                 
+    {
         Permission.RequestUserPermission(Permission.Microphone);
     }
 #endif
@@ -567,7 +585,7 @@ public class PermissionHelper
     {
 #if (UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
     if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
-    {                 
+    {
         Permission.RequestUserPermission(Permission.Camera);
     }
 #endif

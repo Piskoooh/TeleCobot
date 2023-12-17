@@ -7,15 +7,18 @@ TagManager:
   - SceneMaster
   - UserSettings
   - robot
-  - NetworkManager
   - Teleport
   - VRUIs
   - end_effector
   - LeftControllerPrefab
   - RightControllerPrefab
   - vI
+<<<<<<< HEAD
   - sphere100
   - Target
+=======
+  - VideoSurface
+>>>>>>> Unity17-AgoraStreaming
   layers:
   - Default
   - TransparentFX

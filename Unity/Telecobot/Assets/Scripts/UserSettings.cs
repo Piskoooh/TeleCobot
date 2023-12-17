@@ -22,7 +22,7 @@ public class UserSettings : MonoBehaviour
     public Canvas startCanvas;
     public Camera startCamera;
     public EventSystem eventSystem;
-    public int sceneBuildIndex;
+    public int CurrentSceneBuildIndex;
 
     //! ノーマルユーザー用シーンのインデックス
     [SerializeField,Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
@@ -30,6 +30,7 @@ public class UserSettings : MonoBehaviour
     //! VRユーザー用シーンのインデックス
     [SerializeField, Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
     private int vrSceneBuildIndex = 2;
+
     //! ユーザーの種類のリスト
     List<string> userTypeList = new List<string>();
     //! ユーザーの役割のリスト
@@ -151,7 +152,7 @@ public class UserSettings : MonoBehaviour
         // This is particularly good for creating loading screens.
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
-        sceneBuildIndex = sceneIndex;
+        CurrentSceneBuildIndex = sceneIndex;
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
@@ -169,7 +170,7 @@ public class UserSettings : MonoBehaviour
     {
         AsyncOperation async = SceneManager.UnloadSceneAsync(sceneIndex);
         Resources.UnloadUnusedAssets();
-        sceneBuildIndex = 0;
+        CurrentSceneBuildIndex = 0;
         yield return async;
     }
 }

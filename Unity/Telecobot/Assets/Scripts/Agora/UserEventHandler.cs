@@ -51,20 +51,10 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnLeaveChannel(RtcConnection connection, RtcStats stats)
     {
         Debug.Log("OnLeaveChannel");
-        var vc = GameObject.Find("VideoCanvas").gameObject;
-        if (vc)
+        var vs = GameObject.FindGameObjectsWithTag("VideoSurface");
+        if (vs != null)
         {
-            var gos = vc.GetComponentsInChildren<VideoSurface>();
-            foreach (var go in gos)
-            {
-                if (go.gameObject.name != "0")
-                    AgoraManager.Destroy(go.gameObject);
-            }
-        }
-        else
-        {
-            var gos2 = GameObject.FindGameObjectsWithTag("sphere100");
-            foreach (var go in gos2)
+            foreach (var go in vs)
             {
                 if (go.gameObject.name != "0")
                     AgoraManager.Destroy(go);
@@ -91,7 +81,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnNetworkQuality(RtcConnection connection, uint remoteUid, int txQuality, int rxQuality)
     {
         // Use downlink network quality to update the network status
-        Debug.Log (rxQuality);
+        Debug.Log ("TXquality: "+(QUALITY_TYPE)txQuality+ "\nRXquality: "+(QUALITY_TYPE)rxQuality);
     }
     public override void OnUplinkNetworkInfoUpdated(UplinkNetworkInfo info)
     {
