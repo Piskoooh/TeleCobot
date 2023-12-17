@@ -431,6 +431,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4134505312059479865}
     m_Modifications:
+    - target: {fileID: 437621715205113727, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_PhysicsLayerMask.m_Bits
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 442906098434447936, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Parameters.widthMultiplier
       value: 0.015
@@ -467,6 +471,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 928402690886096689, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1573481213733547699, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -495,6 +503,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2607312474088619353, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147483689
+      objectReference: {fileID: 0}
     - target: {fileID: 2616060505272200132, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -521,15 +533,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2616060505962760273, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853412522427425234, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147483689
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871854916312727126, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2871854916312727126, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2871854916312727128, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871854916312727129, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2871854916312727129, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Parameters.widthMultiplier
       value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871854916312727130, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2989791903514672412, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Parameters.widthMultiplier
@@ -667,9 +699,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8189171601776884799, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 8376481945309099658, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
+      propertyPath: m_PhysicsLayerMask.m_Bits
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8575046591034035823, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Enabled
@@ -799,7 +831,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6406878025943821172}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
