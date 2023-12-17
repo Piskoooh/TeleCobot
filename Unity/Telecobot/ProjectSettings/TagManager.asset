@@ -7,14 +7,13 @@ TagManager:
   - SceneMaster
   - UserSettings
   - robot
-  - NetworkManager
   - Teleport
   - VRUIs
   - end_effector
   - LeftControllerPrefab
   - RightControllerPrefab
   - vI
-  - sphere100
+  - VideoSurface
   layers:
   - Default
   - TransparentFX
