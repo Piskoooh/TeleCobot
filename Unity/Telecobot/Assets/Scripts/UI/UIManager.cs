@@ -202,7 +202,7 @@ public class UIManager : MonoBehaviour
 
         if (sceneMaster.userSettings.role == Role.Robot||sceneMaster.userSettings.role==Role.Operator)
         {
-            if (sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
+            if (sceneMaster.photonMng.focusRobot!=null)
             {
                 Vector3 b_a3 = new Vector3(b_aN.x, 0, b_aN.y);
                 Vector3 b_a3Cross = Vector3.Cross(b_a3, Vector3.down);

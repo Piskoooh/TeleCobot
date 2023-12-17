@@ -13,22 +13,19 @@ TagManager:
   - LeftControllerPrefab
   - RightControllerPrefab
   - vI
-<<<<<<< HEAD
-  - sphere100
-  - Target
-=======
   - VideoSurface
->>>>>>> Unity17-AgoraStreaming
+  - Target
+  - sphere100
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Target
   - Water
   - UI
   - Robot
   - 
-  - Target
+  - 
   - 
   - 
   - 

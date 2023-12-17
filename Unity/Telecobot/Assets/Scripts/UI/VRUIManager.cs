@@ -124,6 +124,7 @@ public class VRUIManager : MonoBehaviour
             {
                 semiAutomaticControlUI.interactable = true;
                 semiAutomaticControlUI.blocksRaycasts = true;
+                moveDescriptionText.text = "Move the dummy model to position where you want to move the robot.";
             }
             else
             {

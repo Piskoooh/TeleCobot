@@ -431,29 +431,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4134505312059479865}
     m_Modifications:
-    - target: {fileID: 239103479429138164, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 437621715205113727, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_PhysicsLayerMask.m_Bits
-      value: 257
-      objectReference: {fileID: 0}
     - target: {fileID: 442906098434447936, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Parameters.widthMultiplier
       value: 0.015
       objectReference: {fileID: 0}
-    - target: {fileID: 442906098434447939, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 442906098434447951, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 554942880680482358, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 875682424766248415, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -511,14 +495,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2498955950260642541, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2607312474088619353, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_RaycastMask.m_Bits
-      value: 2147483937
-      objectReference: {fileID: 0}
     - target: {fileID: 2616060505272200132, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -547,10 +523,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2853412522427425234, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_RaycastMask.m_Bits
-      value: 2147483937
-      objectReference: {fileID: 0}
     - target: {fileID: 2871854916312727126, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 4
@@ -558,10 +530,6 @@ PrefabInstance:
     - target: {fileID: 2871854916312727129, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Parameters.widthMultiplier
       value: 0.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 2871854916312727130, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2989791903514672412, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Parameters.widthMultiplier
@@ -659,14 +627,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6396743587534923916, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6589785594443461639, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7179462289238023466, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -709,18 +669,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8189171601776884799, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8376481945309099658, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_PhysicsLayerMask.m_Bits
-      value: 257
-      objectReference: {fileID: 0}
-    - target: {fileID: 8475227832468170691, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8477793987801566298, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8575046591034035823, guid: 6726c69342b3cb34297219718546b4d4, type: 3}
