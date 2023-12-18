@@ -8,6 +8,9 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
+#if(UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
+using UnityEngine.Android;
+#endif
 
 public class AgoraManager : MonoBehaviour
 {

@@ -54,6 +54,14 @@ public class UserSettings : MonoBehaviour
         roleDropdown.ClearOptions();
         roleDropdown.AddOptions(roleList);
         ChangeDefaultUserName();
+#if UNITY_ANDROID
+        userTypeDropdown.value = 1;
+        ChangeDefaultUserName();
+        roleDropdown.value = 1;
+        ChangeRole();
+        StartConnecting();
+#endif
+
     }
 
     //DropdownのOnValueChangedでコールバック
@@ -171,6 +179,9 @@ public class UserSettings : MonoBehaviour
         AsyncOperation async = SceneManager.UnloadSceneAsync(sceneIndex);
         Resources.UnloadUnusedAssets();
         CurrentSceneBuildIndex = 0;
+#if UNITY_ANDROID
+        Application.Quit();
+#endif
         yield return async;
     }
 }
