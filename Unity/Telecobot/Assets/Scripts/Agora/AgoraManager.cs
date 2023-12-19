@@ -503,19 +503,9 @@ public class AgoraManager : MonoBehaviour
             mesh.material = new Material(Shader.Find("Unlit/Texture"));
         }
         // set up transform
-        if(focusBaseLink != null)
-        {
-            go.transform.parent= focusBaseLink.transform;
-            go.transform.localRotation= Quaternion.Euler(0, 90, 180);
-            go.transform.localPosition = Vector3.up;
-            go.transform.localScale = Vector3.one * 100;
-        }
-        else
-        {
-            go.transform.Rotate(0.0f, 90.0f, 180.0f);
-            go.transform.localPosition = Vector3.zero;
-            go.transform.localScale = Vector3.one*100;
-        }
+        go.transform.Rotate(0.0f, 90.0f, 180.0f);
+        go.transform.localPosition = Vector3.zero;
+        go.transform.localScale = Vector3.one*5000;
 
         // configure videoSurface
         var videoSurface = go.AddComponent<VideoSurface>();
