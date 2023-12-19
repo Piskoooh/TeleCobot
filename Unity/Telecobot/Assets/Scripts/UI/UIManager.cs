@@ -304,7 +304,7 @@ public class UIManager : MonoBehaviour
             }
 
             //範囲内ならば緑、範囲外なら赤にUIを変更する。
-            if (visualIndicator != null)
+            if (sceneMaster.inputMng.semiAutoCmd==SemiAutomaticCommands.PlaceTarget && visualIndicator != null)
             {
                 float angle = Vector2.Angle(a_eg, b_aN);
                 Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
