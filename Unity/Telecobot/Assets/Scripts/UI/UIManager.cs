@@ -241,8 +241,8 @@ public class UIManager : MonoBehaviour
                                 else if (sceneMaster.inputMng.targetY < -0.5)
                                     pose.position -= Vector3.up * targetMoveSpeed * Time.deltaTime;
                                 //移動する場合、グリッパーがロボットの中心を向くように処理
-                                if (sceneMaster.inputMng.targetX != 0 || sceneMaster.inputMng.targetY != 0 || sceneMaster.inputMng.targetZ != 0)
-                                {
+                                //if (sceneMaster.inputMng.targetX != 0 || sceneMaster.inputMng.targetY != 0 || sceneMaster.inputMng.targetZ != 0)
+                                //{
                                     // ターゲットへの向きベクトル計算
                                     var dir = (sceneMaster.rosConnector.arm_base_link.transform.position - pose.position).normalized;
                                     // ターゲットの方向への回転
@@ -250,20 +250,20 @@ public class UIManager : MonoBehaviour
                                     // 回転補正
                                     var offsetRotation = Quaternion.FromToRotation(-sceneMaster.inputMng.localArrow.defEef_egN, Vector3.forward);
                                     pose.rotation = lookAtRotation * offsetRotation;
-                                }
+                                //}
                                 //X軸方向の移動なしの場合、グリッパーのロールとピッチを指定して軌道推定が成功する可能性がある
                                 //グリッパーのロールとピッチを動かすための処理
-                                Quaternion xRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curL_rN);
-                                Quaternion zRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curEef_egN);
-                                if (sceneMaster.inputMng.eePitch > 0.5)
-                                    xRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curL_rN);
-                                else if (sceneMaster.inputMng.eePitch < -0.5)
-                                    xRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curL_rN);
-                                if (sceneMaster.inputMng.eeRoll > 0.5)
-                                    zRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curEef_egN);
-                                else if (sceneMaster.inputMng.eeRoll < -0.5)
-                                    zRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curEef_egN);
-                                pose.rotation = xRot * zRot * pose.rotation;
+                                //Quaternion xRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curL_rN);
+                                //Quaternion zRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curEef_egN);
+                                //if (sceneMaster.inputMng.eePitch > 0.5)
+                                //    xRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curL_rN);
+                                //else if (sceneMaster.inputMng.eePitch < -0.5)
+                                //    xRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curL_rN);
+                                //if (sceneMaster.inputMng.eeRoll > 0.5)
+                                //    zRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curEef_egN);
+                                //else if (sceneMaster.inputMng.eeRoll < -0.5)
+                                //    zRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curEef_egN);
+                                //pose.rotation = xRot * zRot * pose.rotation;
                                 AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
                                 if (goal != null && goal.GetPhotonView().IsMine)
                                     PhotonNetwork.Destroy(goal);
