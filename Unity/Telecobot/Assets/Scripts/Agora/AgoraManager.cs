@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class AgoraManager : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class AgoraManager : MonoBehaviour
     private GameObject sphere100Temp;
     static GameObject sphere100;
 
-    static GameObject focusrobot;
+    static GameObject focusBaseLink;
     bool isStreaming = false;
     [SerializeField] Button streamingBtn;
 
@@ -144,11 +145,11 @@ public class AgoraManager : MonoBehaviour
 
         if(sceneMaster.photonMng.focusRobot != null)
         {
-            focusrobot = sceneMaster.photonMng.focusRobot;
+            focusBaseLink = sceneMaster.rosConnector.base_link;
         }
         else
         {
-            focusrobot = null;
+            focusBaseLink = null;
         }
 
         //次フレームで変化を検出するために現フレームの値を保存
@@ -502,9 +503,9 @@ public class AgoraManager : MonoBehaviour
             mesh.material = new Material(Shader.Find("Unlit/Texture"));
         }
         // set up transform
-        if(focusrobot != null)
+        if(focusBaseLink != null)
         {
-            go.transform.parent= focusrobot.transform;
+            go.transform.parent= focusBaseLink.transform;
             go.transform.localRotation= Quaternion.Euler(0, 90, 180);
             go.transform.localPosition = Vector3.up;
             go.transform.localScale = Vector3.one * 100;
