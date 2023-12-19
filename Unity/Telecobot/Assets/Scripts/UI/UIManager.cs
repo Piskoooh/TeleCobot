@@ -135,7 +135,7 @@ public class UIManager : MonoBehaviour
     {
         if (goal == null)
         {
-            goal = PhotonNetwork.Instantiate("TargetLocobotPun", baseLinkTf.position, Quaternion.Euler(0, Vector3.Angle(Vector2.up, b_aN), 0));//create
+            goal = PhotonNetwork.Instantiate("TargetLocobotPun", baseLinkTf.position, Quaternion.Euler(0, baseLinkTf.eulerAngles.y, 0));//create
             sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>().CallSetG(goal.tag);
         }
         //targetプレハブを使う時
@@ -185,17 +185,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (sceneMaster.inputMng == null)
-            controlMode_Text.text = "Opetator is not in this Room. \nPlease wait for Operator to join this room.";
-        else
-        {
-            controlMode_Text.text = "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
-            if(sceneMaster.inputMng.controlMode==ControlMode.ManualControl)
-                controlMode_Text.text += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
-            else if(sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
-                controlMode_Text.text += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
-        }
-
         if (sceneMaster.userSettings.role == Role.Robot||sceneMaster.userSettings.role==Role.Operator)
         {
             if (sceneMaster.photonMng.focusRobot!=null)
@@ -303,13 +292,23 @@ public class UIManager : MonoBehaviour
                 }
             }
 
-            //範囲内ならば緑、範囲外なら赤にUIを変更する。
-            if (sceneMaster.inputMng.semiAutoCmd==SemiAutomaticCommands.PlaceTarget && visualIndicator != null)
+            if (sceneMaster.inputMng == null)
+                controlMode_Text.text = "Opetator is not in this Room. \nPlease wait for Operator to join this room.";
+            else
             {
-                float angle = Vector2.Angle(a_eg, b_aN);
-                Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
-                bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
-                visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
+                controlMode_Text.text = "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
+                if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
+                    controlMode_Text.text += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
+                else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
+                    controlMode_Text.text += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
+                //範囲内ならば緑、範囲外なら赤にUIを変更する。
+                if (sceneMaster.inputMng.semiAutoCmd==SemiAutomaticCommands.PlaceTarget && visualIndicator != null)
+                {
+                    float angle = Vector2.Angle(a_eg, b_aN);
+                    Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
+                    bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
+                    visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
+                }
             }
         }
 

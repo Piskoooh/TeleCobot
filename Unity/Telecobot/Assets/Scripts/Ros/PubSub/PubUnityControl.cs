@@ -228,7 +228,7 @@ public class PubUnityControl : MonoBehaviour
         controlMsg.pose_data = new double[3];
         controlMsg.pose_data[0] = sceneMaster.uIMng.goal.transform.position.z; //x
         controlMsg.pose_data[1] = -sceneMaster.uIMng.goal.transform.position.x; //y
-        controlMsg.pose_data[2] = (Mathf.Repeat(sceneMaster.uIMng.goal.transform.eulerAngles.y + 180, 360) - 180) * Mathf.Deg2Rad; //Yaw
+        controlMsg.pose_data[2] = -(Mathf.Repeat(sceneMaster.uIMng.goal.transform.eulerAngles.y + 180, 360) - 180) * Mathf.Deg2Rad; //Yaw
     }
 
     //LocobotArm
