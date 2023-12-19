@@ -195,14 +195,6 @@ public class UIManager : MonoBehaviour
             else if(sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
                 controlMode_Text.text += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
         }
-            //範囲内ならば緑、範囲外なら赤にUIを変更する。
-        if (visualIndicator != null)
-        {
-            float angle = Vector2.Angle(a_eg, b_aN);
-            Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
-            bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
-            visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
-        }
 
         if (sceneMaster.userSettings.role == Role.Robot||sceneMaster.userSettings.role==Role.Operator)
         {
@@ -217,7 +209,11 @@ public class UIManager : MonoBehaviour
                         case SemiAutomaticCommands.Available:
                         case SemiAutomaticCommands.Disable:
                             //不要なUIを削除
-                            if (visualIndicator != null&& visualIndicator.GetPhotonView().IsMine) PhotonNetwork.Destroy(visualIndicator);
+                            if (visualIndicator != null && visualIndicator.GetPhotonView().IsMine)
+                            {
+                                PhotonNetwork.Destroy(visualIndicator);
+                                visualIndicator = null;
+                            }
                             if (target != null&&target.GetPhotonView().IsMine) PhotonNetwork.Destroy(target);
                             if (goal != null && goal.GetPhotonView().IsMine) PhotonNetwork.Destroy(goal);
                             break;
@@ -265,9 +261,9 @@ public class UIManager : MonoBehaviour
                                 //    zRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curEef_egN);
                                 //pose.rotation = xRot * zRot * pose.rotation;
                                 AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
-                                if (goal != null && goal.GetPhotonView().IsMine)
-                                    PhotonNetwork.Destroy(goal);
                             }
+                            if (goal != null && goal.GetPhotonView().IsMine)
+                                PhotonNetwork.Destroy(goal);
                             break;
                         case SemiAutomaticCommands.PublishTarget:
                             break;
@@ -305,6 +301,15 @@ public class UIManager : MonoBehaviour
                             break;
                     }
                 }
+            }
+
+            //範囲内ならば緑、範囲外なら赤にUIを変更する。
+            if (visualIndicator != null)
+            {
+                float angle = Vector2.Angle(a_eg, b_aN);
+                Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
+                bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
+                visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
             }
         }
 
