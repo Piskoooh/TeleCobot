@@ -70,6 +70,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void CreateOrResetTarget()
     {
+        if (visualIndicator == null)
+        {
+            VisualRange();
+        }
         float angle = Vector2.Angle(a_ee, b_aN);
         Vector3 direction = endEffectorTf.position - armBaseLinkTf.position;
         if (direction.magnitude < 0.55f && 90 > angle && sceneMaster.rosConnector.endEffector.transform.position.y > 0 )
@@ -218,8 +222,6 @@ public class UIManager : MonoBehaviour
                             if (goal != null && goal.GetPhotonView().IsMine) PhotonNetwork.Destroy(goal);
                             break;
                         case SemiAutomaticCommands.PlaceTarget:
-                            if (visualIndicator==null&&eeGripper != null)
-                                VisualRange();
                             //コントローラからの入力値でターゲットを移動・回転
                             if (target != null && target.GetPhotonView().IsMine)
                             {
