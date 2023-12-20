@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraPun
       objectReference: {fileID: 0}
+    - target: {fileID: 3154655342138611776, guid: 882575cf913e7624390574fe606d309c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.29
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6597478223233392456, guid: 882575cf913e7624390574fe606d309c, type: 3}
     - {fileID: 8086041740343218506, guid: 882575cf913e7624390574fe606d309c, type: 3}
@@ -207,10 +211,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1671908197734556239}
     m_Modifications:
-    - target: {fileID: 24354399918560668, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -290,10 +290,6 @@ PrefabInstance:
     - target: {fileID: 1226851997778540469, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
-      propertyPath: m_fontAsset
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4094801499644469875, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_Name

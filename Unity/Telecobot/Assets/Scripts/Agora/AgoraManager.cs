@@ -49,6 +49,10 @@ public class AgoraManager : MonoBehaviour
     private GameObject sphere100Temp;
     static GameObject sphere100;
 
+    [SerializeField]
+    private GameObject imageSurfaceTemp;
+    static GameObject imageSurface;
+
     static GameObject focusBaseLink;
     bool isStreaming = false;
     [SerializeField] Button streamingBtn;
@@ -59,6 +63,7 @@ public class AgoraManager : MonoBehaviour
     void Start()
     {
         sphere100 = sphere100Temp;
+        imageSurface = imageSurfaceTemp;
         micDevices.onValueChanged.AddListener(SetMicDevice);
         speakerDevices.onValueChanged.AddListener(SetSpeakerDevice);
         camDevices.onValueChanged.AddListener(SetCamDevice);
@@ -405,10 +410,13 @@ public class AgoraManager : MonoBehaviour
         var go = GameObject.Find(uid.ToString());
         if (!ReferenceEquals(go, null))
         {
-            go.GetComponent<VideoSurface>().SetEnable(true);
+            var cvs = go.GetComponent<CustomVideoSurface>();
+            if (!cvs)
+                cvs = go.GetComponentInChildren<CustomVideoSurface>();
+            cvs.SetEnable(true);
             return; // reuse
         }
-        VideoSurface videoSurface = null;
+        CustomVideoSurface videoSurface = null;
         // create a GameObject and assign to this new user
         if (uid<100)
         {
@@ -436,30 +444,17 @@ public class AgoraManager : MonoBehaviour
         }
         if (uid<100)
         {
-            if (sceneIndex != 2)
+            videoSurface.OnTextureSizeModify += (int width, int height) =>
             {
-                videoSurface.OnTextureSizeModify += (int width, int height) =>
-                {
-                    float scale = (float)height / (float)width;
-                    videoSurface.transform.localScale = new Vector3(-5, 5 * scale, 1);
-                    Debug.Log("OnTextureSizeModify: " + width + "  " + height);
-                };
-            }
-            else
-            {
-                videoSurface.OnTextureSizeModify += (int width, int height) =>
-                {
-                    float scale = (float)height / (float)width;
-                    videoSurface.transform.localScale = new Vector3(-1, 1 * scale, 1);
-                    Debug.Log("OnTextureSizeModify: " + width + "  " + height);
-                };
-            }
+                videoSurface.transform.localScale = new Vector3(-1, 1, 1);
+            };
+
         }
         videoSurface.SetEnable(true);
     }
 
     // VIDEO TYPE 1: 3D Object
-    private static VideoSurface MakePlaneSurface(string goName)
+    private static CustomVideoSurface MakePlaneSurface(string goName)
     {
         var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
 
@@ -481,12 +476,12 @@ public class AgoraManager : MonoBehaviour
         go.transform.localScale = new Vector3(0.25f, 0.5f, 0.5f);
 
         // configure videoSurface
-        var videoSurface = go.AddComponent<VideoSurface>();
+        var videoSurface = go.AddComponent<CustomVideoSurface>();
         return videoSurface;
     }
 
     // VIDEO TYPE 2: 3D Object
-    private static VideoSurface MakeSphereSurface(string goName)
+    private static CustomVideoSurface MakeSphereSurface(string goName)
     {
         var go = GameObject.Instantiate<GameObject>(sphere100);
 
@@ -500,7 +495,7 @@ public class AgoraManager : MonoBehaviour
         if (mesh != null)
         {
             Debug.LogWarning("VideoSureface update shader");
-            mesh.material = new Material(Shader.Find("Unlit/Texture"));
+            mesh.material = new Material(Shader.Find("Custom/UnlitTransparent"));
         }
         // set up transform
         go.transform.Rotate(0.0f, 90.0f, 180.0f);
@@ -508,43 +503,44 @@ public class AgoraManager : MonoBehaviour
         go.transform.localScale = Vector3.one*5000;
 
         // configure videoSurface
-        var videoSurface = go.AddComponent<VideoSurface>();
+        var videoSurface = go.AddComponent<CustomVideoSurface>();
         return videoSurface;
     }
 
     // Video TYPE 3: RawImage
-    private static VideoSurface MakeImageSurface(string goName)
+    private static CustomVideoSurface MakeImageSurface(string goName)
     {
-        GameObject go = new GameObject();
-
-        if (go == null)
-        {
-            return null;
-        }
-
-        go.name = goName;
-        // to be renderered onto
-        go.AddComponent<RawImage>();
-        // make the object draggable
-        go.AddComponent<UIElementDrag>();
         var canvas = GameObject.Find("VideoCanvas");
+        GameObject go = null;
         if (canvas != null)
         {
-            go.transform.parent = canvas.transform;
+            go = GameObject.Instantiate(imageSurface,canvas.transform);
             Debug.Log("add video view");
+
+            if (go == null)
+            {
+                return null;
+            }
+
+            go.name = goName;
         }
         else
         {
             Debug.Log("Canvas is null video view");
+            return null;
         }
 
         // set up transform
-        go.transform.Rotate(0f, 0.0f, 180.0f);
-        go.transform.localPosition = Vector3.zero;
-        go.transform.localScale = new Vector3(2f, 3f, 1f);
+        var ri = go.GetComponentInChildren<RawImage>();
+        ri.transform.localEulerAngles = new Vector3(0f, 0f, 180f);
 
+        var tmp = go.GetComponentInChildren<TMP_Text>();
+        if (tmp != null)
+        {
+            tmp.text = "UserID:" + goName;
+        }
         // configure videoSurface
-        var videoSurface = go.AddComponent<VideoSurface>();
+        var videoSurface = ri.AddComponent<CustomVideoSurface>();
         return videoSurface;
     }
 
