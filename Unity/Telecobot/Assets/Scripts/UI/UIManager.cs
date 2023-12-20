@@ -70,6 +70,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void CreateOrResetTarget()
     {
+        if (visualIndicator == null)
+        {
+            VisualRange();
+        }
         float angle = Vector2.Angle(a_ee, b_aN);
         Vector3 direction = endEffectorTf.position - armBaseLinkTf.position;
         if (direction.magnitude < 0.55f && 90 > angle && sceneMaster.rosConnector.endEffector.transform.position.y > 0 )
@@ -131,7 +135,7 @@ public class UIManager : MonoBehaviour
     {
         if (goal == null)
         {
-            goal = PhotonNetwork.Instantiate("TargetLocobotPun", baseLinkTf.position, Quaternion.Euler(0, Vector3.Angle(Vector2.up, b_aN), 0));//create
+            goal = PhotonNetwork.Instantiate("TargetLocobotPun", baseLinkTf.position, Quaternion.Euler(0, baseLinkTf.eulerAngles.y, 0));//create
             sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>().CallSetG(goal.tag);
         }
         //targetプレハブを使う時
@@ -181,25 +185,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (sceneMaster.inputMng == null)
-            controlMode_Text.text = "Opetator is not in this Room. \nPlease wait for Operator to join this room.";
-        else
-        {
-            controlMode_Text.text = "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
-            if(sceneMaster.inputMng.controlMode==ControlMode.ManualControl)
-                controlMode_Text.text += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
-            else if(sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
-                controlMode_Text.text += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
-        }
-            //範囲内ならば緑、範囲外なら赤にUIを変更する。
-        if (visualIndicator != null)
-        {
-            float angle = Vector2.Angle(a_eg, b_aN);
-            Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
-            bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
-            visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
-        }
-
         if (sceneMaster.userSettings.role == Role.Robot||sceneMaster.userSettings.role==Role.Operator)
         {
             if (sceneMaster.photonMng.focusRobot!=null)
@@ -213,13 +198,15 @@ public class UIManager : MonoBehaviour
                         case SemiAutomaticCommands.Available:
                         case SemiAutomaticCommands.Disable:
                             //不要なUIを削除
-                            if (visualIndicator != null&& visualIndicator.GetPhotonView().IsMine) PhotonNetwork.Destroy(visualIndicator);
+                            if (visualIndicator != null && visualIndicator.GetPhotonView().IsMine)
+                            {
+                                PhotonNetwork.Destroy(visualIndicator);
+                                visualIndicator = null;
+                            }
                             if (target != null&&target.GetPhotonView().IsMine) PhotonNetwork.Destroy(target);
                             if (goal != null && goal.GetPhotonView().IsMine) PhotonNetwork.Destroy(goal);
                             break;
                         case SemiAutomaticCommands.PlaceTarget:
-                            if (visualIndicator==null&&eeGripper != null)
-                                VisualRange();
                             //コントローラからの入力値でターゲットを移動・回転
                             if (target != null && target.GetPhotonView().IsMine)
                             {
@@ -239,8 +226,8 @@ public class UIManager : MonoBehaviour
                                 else if (sceneMaster.inputMng.targetY < -0.5)
                                     pose.position -= Vector3.up * targetMoveSpeed * Time.deltaTime;
                                 //移動する場合、グリッパーがロボットの中心を向くように処理
-                                if (sceneMaster.inputMng.targetX != 0 || sceneMaster.inputMng.targetY != 0 || sceneMaster.inputMng.targetZ != 0)
-                                {
+                                //if (sceneMaster.inputMng.targetX != 0 || sceneMaster.inputMng.targetY != 0 || sceneMaster.inputMng.targetZ != 0)
+                                //{
                                     // ターゲットへの向きベクトル計算
                                     var dir = (sceneMaster.rosConnector.arm_base_link.transform.position - pose.position).normalized;
                                     // ターゲットの方向への回転
@@ -248,24 +235,24 @@ public class UIManager : MonoBehaviour
                                     // 回転補正
                                     var offsetRotation = Quaternion.FromToRotation(-sceneMaster.inputMng.localArrow.defEef_egN, Vector3.forward);
                                     pose.rotation = lookAtRotation * offsetRotation;
-                                }
+                                //}
                                 //X軸方向の移動なしの場合、グリッパーのロールとピッチを指定して軌道推定が成功する可能性がある
                                 //グリッパーのロールとピッチを動かすための処理
-                                Quaternion xRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curL_rN);
-                                Quaternion zRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curEef_egN);
-                                if (sceneMaster.inputMng.eePitch > 0.5)
-                                    xRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curL_rN);
-                                else if (sceneMaster.inputMng.eePitch < -0.5)
-                                    xRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curL_rN);
-                                if (sceneMaster.inputMng.eeRoll > 0.5)
-                                    zRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curEef_egN);
-                                else if (sceneMaster.inputMng.eeRoll < -0.5)
-                                    zRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curEef_egN);
-                                pose.rotation = xRot * zRot * pose.rotation;
+                                //Quaternion xRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curL_rN);
+                                //Quaternion zRot = Quaternion.AngleAxis(0, sceneMaster.inputMng.localArrow.curEef_egN);
+                                //if (sceneMaster.inputMng.eePitch > 0.5)
+                                //    xRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curL_rN);
+                                //else if (sceneMaster.inputMng.eePitch < -0.5)
+                                //    xRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curL_rN);
+                                //if (sceneMaster.inputMng.eeRoll > 0.5)
+                                //    zRot = Quaternion.AngleAxis(-1, sceneMaster.inputMng.localArrow.curEef_egN);
+                                //else if (sceneMaster.inputMng.eeRoll < -0.5)
+                                //    zRot = Quaternion.AngleAxis(1, sceneMaster.inputMng.localArrow.curEef_egN);
+                                //pose.rotation = xRot * zRot * pose.rotation;
                                 AlignChildByMoveParent(target.transform, eeGripper.transform, pose);
-                                if (goal != null && goal.GetPhotonView().IsMine)
-                                    PhotonNetwork.Destroy(goal);
                             }
+                            if (goal != null && goal.GetPhotonView().IsMine)
+                                PhotonNetwork.Destroy(goal);
                             break;
                         case SemiAutomaticCommands.PublishTarget:
                             break;
@@ -302,6 +289,25 @@ public class UIManager : MonoBehaviour
                         case SemiAutomaticCommands.PublishGoal:
                             break;
                     }
+                }
+            }
+
+            if (sceneMaster.inputMng == null)
+                controlMode_Text.text = "Opetator is not in this Room. \nPlease wait for Operator to join this room.";
+            else
+            {
+                controlMode_Text.text = "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
+                if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
+                    controlMode_Text.text += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
+                else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
+                    controlMode_Text.text += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
+                //範囲内ならば緑、範囲外なら赤にUIを変更する。
+                if (sceneMaster.inputMng.semiAutoCmd==SemiAutomaticCommands.PlaceTarget && visualIndicator != null)
+                {
+                    float angle = Vector2.Angle(a_eg, b_aN);
+                    Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
+                    bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
+                    visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
                 }
             }
         }

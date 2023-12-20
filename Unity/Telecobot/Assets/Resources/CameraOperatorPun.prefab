@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
       propertyPath: m_LocalPosition.z
@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 3620097623351478840, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2f0917ad8cd19f64f88d6a3aa4ccfa72, type: 2}
+      objectReference: {fileID: 2100000, guid: ec4d6407cfaa0ca4884253867163d723, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1163,6 +1163,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: dac68e77-8e4f-46e6-98da-7e5806e3d895
     m_ActionName: LocobotSemiAuto/ArmHomePose[/DualShock4GamepadHID/leftStickPress]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e7435a69-2b51-466a-9775-fdafb65cb71d
+    m_ActionName: LocobotManualBase/ArmSleepPose[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7c167ee8-f6c2-4175-a815-c89089305e9c
+    m_ActionName: LocobotManualBase/ArmHomePose[/Keyboard/2]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LocobotSemiAuto
