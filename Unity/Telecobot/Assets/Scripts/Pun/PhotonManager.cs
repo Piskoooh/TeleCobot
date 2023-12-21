@@ -9,7 +9,6 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 //https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/c04ad5 を参考に作成。
 //Photonの接続状態を管理するクラス
@@ -99,6 +98,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void AddToRoleDic(int viewID, int avatarRole)
     {
+#if UNITY_2021_3_OR_NEWER
         //オブジェクトとロールをディクショナリに保存
         if (RoleDictionary.TryAdd(viewID, avatarRole))
         {
@@ -110,11 +110,29 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             RoleDictionary[viewID] = avatarRole;
             Debug.Log("RoleDic:  Update: " + viewID);
         }
+#else
+        // オブジェクトとロールをディクショナリに保存
+
+        // キーが存在しない場合は新しいキーとして追加
+        if (!RoleDictionary.ContainsKey(viewID))
+        {
+            RoleDictionary.Add(viewID, avatarRole);
+            Debug.Log("RoleDic: Add: " + viewID);
+        }
+        else
+        {
+            // すでに存在する場合は上書き
+            RoleDictionary[viewID] = avatarRole;
+            Debug.Log("RoleDic: Update: " + viewID);
+        }
+#endif
         DebugList();
     }
 
     public void AddToRobotDic(int viewID,int rosConect)
     {
+#if UNITY_2021_3_OR_NEWER
+        // ロボットのIDとROS接続状態をディクショナリに保存
         if (RobotDictionary.TryAdd(viewID, rosConect))
         {
             Debug.Log($"RobotDic:  Add: {viewID} : {(RosConnection)rosConect}");
@@ -125,6 +143,22 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             RobotDictionary[viewID] = rosConect;
             Debug.Log($"RobotDic:  Update: {viewID} : {(RosConnection)rosConect}");
         }
+#else
+        // ロボットのIDとROS接続状態をディクショナリに保存
+
+        // キーが存在しない場合は新しいキーとして追加
+        if (!RobotDictionary.ContainsKey(viewID))
+        {
+            RobotDictionary.Add(viewID, rosConect);
+            Debug.Log($"RobotDic: Add: {viewID} : {(RosConnection)rosConect}");
+        }
+        else
+        {
+            // すでに存在する場合は上書き
+            RobotDictionary[viewID] = rosConect;
+            Debug.Log($"RobotDic: Update: {viewID} : {(RosConnection)rosConect}");
+        }
+#endif
         DebugList();
     }
 
@@ -217,9 +251,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnConnected()
     {
         base.OnConnected();
-        if (sceneMaster.userSettings.userType == UserType.Remote_VR)
-            sceneMaster.userSettings.eventSystem.gameObject.SetActive(false);
     }
+
     public override void OnDisconnected(DisconnectCause cause)
     {
         if (sceneMaster.userSettings.role==Role.Robot&& sceneMaster.rosConnector.rosConnection == RosConnection.Connect)
@@ -233,14 +266,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         sceneMaster.uIMng.punConnection_Text.text = "Photon : Disconnected";
 
         StartCoroutine(sceneMaster.userSettings.UnloadSceneAsync(sceneMaster.userSettings.CurrentSceneBuildIndex));
+#if !UNITY_ANDROID
         if (sceneMaster.userSettings.userType == UserType.Remote_VR)
         {
-            sceneMaster.userSettings.eventSystem.gameObject.SetActive(true);
             var manualXRControl = new ManualXRControl();
             manualXRControl.StopXR();
         }
+#endif
         sceneMaster.userSettings.startCamera.gameObject.SetActive(true);
-        sceneMaster.userSettings.startCanvas.gameObject.SetActive(true);
+        foreach(Canvas canvas in sceneMaster.userSettings.startCanvas)
+            canvas.gameObject.SetActive(true);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)

@@ -30,7 +30,9 @@ public class ControllerModelSelector : MonoBehaviour
     private Transform InstatiatedLeftController;
     private Transform InstatiatedRightController;
 
+    [SerializeField]
     private UserSettings userSettings;
+
     bool flag;
 
     private void OnEnable()
@@ -39,6 +41,7 @@ public class ControllerModelSelector : MonoBehaviour
     }
     private void Awake()
     {
+        if(userSettings == null)
         userSettings = GameObject.FindGameObjectWithTag("SceneMaster").GetComponent<SceneMaster>().userSettings;
     }
     // Start is called before the first frame update

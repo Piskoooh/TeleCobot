@@ -9,19 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: 5ac43e488866b34498ac2cb95bc6f478
   - enabled: 1
-    path: Assets/Scenes/NormalControlScene.unity
-    guid: 543d0222e102f07498123f4083c32908
-  - enabled: 1
     path: Assets/Scenes/VRControlScene.unity
     guid: 3ef7eeaddf6edb040a4dad2629654a5f
   - enabled: 1
-    path: Assets/Agora-RTC-Plugin/API-Example/HomeScene.unity
-    guid: afbde366e660d4272b8d45e2d7d96f50
-  - enabled: 1
-    path: Assets/Agora-RTC-Plugin/API-Example/Examples/Basic/JoinChannelVideo/BasicVideoCallScene.unity
-    guid: 3f201b178f99f4b41a325391c1b284b8
+    path: Assets/Scenes/NormalControlScene.unity
+    guid: 543d0222e102f07498123f4083c32908
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: dccf9ab884abfe24a95baae5b4abdd12, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 949accd1b16af47f29a955ece853af9c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6b01ea2d2cb9f76499b965f82d169cb4, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 9d2fa3ef07b065c498afebf767f2aa7c, type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 860d73b59a24f214eab9ce55f4e96375, type: 2}

@@ -8,13 +8,9 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
-<<<<<<< HEAD
 #if(UNITY_2018_3_OR_NEWER && UNITY_ANDROID)
 using UnityEngine.Android;
 #endif
-=======
-using Unity.VisualScripting;
->>>>>>> origin/Unity19-nonVR
 
 public class AgoraManager : MonoBehaviour
 {
@@ -74,10 +70,10 @@ public class AgoraManager : MonoBehaviour
         speakerDevices.onValueChanged.AddListener(SetSpeakerDevice);
         camDevices.onValueChanged.AddListener(SetCamDevice);
         streamingBtn.onClick.AddListener(OnStreamClick);
-        micToggle.isOn = true;
-        camToggle.isOn = true;
-        prevMicToggle = false;
-        prevCamToggle = false;
+        micToggle.isOn = false;
+        camToggle.isOn = false;
+        prevMicToggle = true;
+        prevCamToggle = true;
         isStreaming = false;
 
         LoadAssetData();
@@ -546,7 +542,7 @@ public class AgoraManager : MonoBehaviour
             tmp.text = "UserID:" + goName;
         }
         // configure videoSurface
-        var videoSurface = ri.AddComponent<CustomVideoSurface>();
+        var videoSurface = ri.gameObject.AddComponent<CustomVideoSurface>();
         return videoSurface;
     }
 

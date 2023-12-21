@@ -19,23 +19,28 @@ public class UserSettings : MonoBehaviour
     public TMP_Dropdown roleDropdown;
     public TMP_InputField UserName;
     public Button startBtn;
-    public Canvas startCanvas;
-    public Camera startCamera;
-    public EventSystem eventSystem;
+    public Canvas[] startCanvas;
+    public GameObject startCamera;
     public int CurrentSceneBuildIndex;
 
-    //! ノーマルユーザー用シーンのインデックス
-    [SerializeField,Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
-    private int normalSceneBuildIndex = 1;
     //! VRユーザー用シーンのインデックス
     [SerializeField, Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
-    private int vrSceneBuildIndex = 2;
+    private int vrSceneBuildIndex = 1;
+    //! ノーマルユーザー用シーンのインデックス
+    [SerializeField,Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
+    private int normalSceneBuildIndex = 2;
 
     //! ユーザーの種類のリスト
     List<string> userTypeList = new List<string>();
     //! ユーザーの役割のリスト
     List<string> roleList = new List<string>();
 
+    private void Awake()
+    {
+        userTypeDropdown.onValueChanged.AddListener(delegate { ChangeDefaultUserName(); });
+        roleDropdown.onValueChanged.AddListener(delegate { ChangeDefaultUserName(); });
+        startBtn.onClick.AddListener(() => StartConnecting());
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -54,14 +59,6 @@ public class UserSettings : MonoBehaviour
         roleDropdown.ClearOptions();
         roleDropdown.AddOptions(roleList);
         ChangeDefaultUserName();
-#if UNITY_ANDROID
-        userTypeDropdown.value = 1;
-        ChangeDefaultUserName();
-        roleDropdown.value = 1;
-        ChangeRole();
-        StartConnecting();
-#endif
-
     }
 
     //DropdownのOnValueChangedでコールバック
@@ -170,7 +167,8 @@ public class UserSettings : MonoBehaviour
         if (asyncLoad.isDone)
         {
             startCamera.gameObject.SetActive(false);
-            startCanvas.gameObject.SetActive(false);
+            foreach (Canvas canvas in startCanvas)
+                canvas.gameObject.SetActive(false);
         }
     }
 
@@ -179,9 +177,6 @@ public class UserSettings : MonoBehaviour
         AsyncOperation async = SceneManager.UnloadSceneAsync(sceneIndex);
         Resources.UnloadUnusedAssets();
         CurrentSceneBuildIndex = 0;
-#if UNITY_ANDROID
-        Application.Quit();
-#endif
         yield return async;
     }
 }

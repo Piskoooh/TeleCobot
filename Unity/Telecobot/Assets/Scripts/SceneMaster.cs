@@ -17,11 +17,13 @@ public class SceneMaster : MonoBehaviour
     private void OnEnable()
     {
         userSettings = GameObject.FindGameObjectWithTag("UserSettings").GetComponent<UserSettings>();
+#if !UNITY_ANDROID
         if(userSettings.userType == UserType.Remote_VR)
         {
             var manualXRControl = new ManualXRControl();
             StartCoroutine(manualXRControl.StartXRCoroutine());
         }
+#endif
     }
 
     private void OnApplicationQuit()
