@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class UserSettings : MonoBehaviour
 {
@@ -26,14 +25,17 @@ public class UserSettings : MonoBehaviour
     //! VRユーザー用シーンのインデックス
     [SerializeField, Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
     private int vrSceneBuildIndex = 1;
-    //! ノーマルユーザー用シーンのインデックス
+    //! ロボット用シーンのインデックス
     [SerializeField,Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
-    private int normalSceneBuildIndex = 2;
+    private int robotSceneBuildIndex = 2;
+    //! 非VRユーザー用シーンのインデックス
+    [SerializeField, Tooltip("BuildSettingsのScenesInBuildでチェックされたシーンに付与される番号と一致させる")]
+    private int nonvrSceneBuildIndex = 3;
 
     //! ユーザーの種類のリスト
-    List<string> userTypeList = new List<string>();
+    List<string> userTypeList = new();
     //! ユーザーの役割のリスト
-    List<string> roleList = new List<string>();
+    List<string> roleList = new();
 
     private void Awake()
     {
@@ -97,11 +99,11 @@ public class UserSettings : MonoBehaviour
         else
         {
             if (userType == UserType.Remote_nonVR)
-                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(nonvrSceneBuildIndex));
             else if (userType == UserType.Remote_VR)
                 StartCoroutine(LoadAsyncScene(vrSceneBuildIndex));
             else if (userType == UserType.Robot)
-                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(robotSceneBuildIndex));
             else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");
         }
 
@@ -111,15 +113,15 @@ public class UserSettings : MonoBehaviour
         else
         {
             if (userType == UserType.Remote_nonVR)
-                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(nonvrSceneBuildIndex));
             else if (userType == UserType.Robot)
-                StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
+                StartCoroutine(LoadAsyncScene(robotSceneBuildIndex));
             else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");
         }
 
 #elif UNITY_IOS
         if (userType == UserType.Local_AR)
-            StartCoroutine(LoadAsyncScene(normalSceneBuildIndex));
+            StartCoroutine(LoadAsyncScene(nonvrSceneBuildIndex));
         else Debug.LogError("It is not allowed to choose current selected user type in your platform.\nPlease select different user type.");
 
 #elif UNITY_ANDROID

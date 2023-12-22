@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 77179917649266937, guid: 882575cf913e7624390574fe606d309c, type: 3}
+      propertyPath: field of view
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 1477368660958182280, guid: 882575cf913e7624390574fe606d309c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -150,11 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65289976bb4cd3648acbcabce91ac4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableMovement: 0
+  enableMouseRotation: 0
+  enableZoom: 0
   movementSpeed: 5
   mouseSensitivity: 2
   zoomSpeed: 2
   minZoomFOV: 40
-  maxZoomFOV: 60
+  maxZoomFOV: 120
   verticalRotationLimit: 60
 --- !u!114 &5560613872967725048
 MonoBehaviour:

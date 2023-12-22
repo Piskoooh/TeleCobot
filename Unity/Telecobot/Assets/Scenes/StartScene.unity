@@ -1014,7 +1014,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 238ebc58f4c41bd42a4d7f121710012c, type: 2}
+  - {fileID: 2100000, guid: ca8b6a1df45732c43a6291d615d70d15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1390,7 +1390,8 @@ MonoBehaviour:
   startCamera: {fileID: 584177022}
   CurrentSceneBuildIndex: 0
   vrSceneBuildIndex: 1
-  normalSceneBuildIndex: 2
+  robotSceneBuildIndex: 2
+  nonvrSceneBuildIndex: 3
 --- !u!4 &1555238682
 Transform:
   m_ObjectHideFlags: 0

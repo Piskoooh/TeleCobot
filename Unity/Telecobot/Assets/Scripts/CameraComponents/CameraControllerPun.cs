@@ -2,9 +2,12 @@
 using UnityEngine.InputSystem;
 using Photon.Pun;
 
-// HMDを使用せずに開発を進める際にMainCameraを制御するスクリプト
 public class CameraControllerPun : MonoBehaviourPun
 {
+    public bool enableMovement = true;
+    public bool enableMouseRotation = true;
+    public bool enableZoom = true;
+
     public float movementSpeed = 5.0f;
     public float mouseSensitivity = 2.0f;
     public float zoomSpeed = 2.0f;
@@ -19,17 +22,19 @@ public class CameraControllerPun : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-
             // WASDキーでの移動
-            Vector3 translation = new Vector3(
-                (Keyboard.current.rightArrowKey.isPressed ? 1 : 0) - (Keyboard.current.leftArrowKey.isPressed ? 1 : 0),
-                0,
-                (Keyboard.current.upArrowKey.isPressed ? 1 : 0) - (Keyboard.current.downArrowKey.isPressed ? 1 : 0))
-                * movementSpeed * Time.deltaTime;
-            transform.Translate(translation);
+            if (enableMovement)
+            {
+                Vector3 translation = new Vector3(
+                    (Keyboard.current.rightArrowKey.isPressed ? 1 : 0) - (Keyboard.current.leftArrowKey.isPressed ? 1 : 0),
+                    0,
+                    (Keyboard.current.upArrowKey.isPressed ? 1 : 0) - (Keyboard.current.downArrowKey.isPressed ? 1 : 0))
+                    * movementSpeed * Time.deltaTime;
+                transform.Translate(translation);
+            }
 
             // マウスのポインタでの視点移動
-            if (Mouse.current != null && mouseClicking)
+            if (enableMouseRotation && Mouse.current != null && mouseClicking)
             {
                 float horizontal = Mouse.current.delta.x.ReadValue() * mouseSensitivity;
                 float vertical = Mouse.current.delta.y.ReadValue() * mouseSensitivity;
@@ -42,9 +47,12 @@ public class CameraControllerPun : MonoBehaviourPun
             }
 
             // マウスホイールでのズーム
-            float zoomAmount = Mouse.current != null ? -Mouse.current.scroll.y.ReadValue() : 0;
-            zoomAmount *= zoomSpeed * Time.deltaTime;
-            Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - zoomAmount, minZoomFOV, maxZoomFOV);
+            if (enableZoom)
+            {
+                float zoomAmount = Mouse.current != null ? -Mouse.current.scroll.y.ReadValue() : 0;
+                zoomAmount *= zoomSpeed * Time.deltaTime;
+                Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - zoomAmount, minZoomFOV, maxZoomFOV);
+            }
 
             // マウスの左クリックの取得
             if (Mouse.current != null)

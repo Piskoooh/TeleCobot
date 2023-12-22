@@ -452,6 +452,11 @@ public class AgoraManager : MonoBehaviour
             };
 
         }
+        if (sceneIndex == 3)
+        {
+            if (uid >= 100)
+                videoSurface.transform.position = new Vector3(0, 1, 25);
+        }
         videoSurface.SetEnable(true);
     }
 

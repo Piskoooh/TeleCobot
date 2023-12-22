@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2477736380690317507}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
@@ -71,17 +72,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: steam_controller_02_freeman
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3620097623351478840, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ec4d6407cfaa0ca4884253867163d723, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+--- !u!4 &3943856330563010962 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3176c49e59198834cbcd0cddfd225184, type: 3}
+  m_PrefabInstance: {fileID: 3544857453560538745}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3841992392304747148
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
@@ -133,6 +147,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1671908197734556239, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3943856330563010962}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1916196901263394924, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5442246504545379740}
+    - targetCorrespondingSourceObject: {fileID: 1916196901263394924, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6356457136438605189}
   m_SourcePrefab: {fileID: 100100000, guid: 93d537fb2c1bdcc448ddac03adf9cfc1, type: 3}
 --- !u!4 &2477736380690317507 stripped
 Transform:
