@@ -8,7 +8,7 @@ using Unity.Robotics.ROSTCPConnector.MessageGeneration;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using UnityEngine;
 
-public class OccupancyGridDefaultVisualizer : BaseVisualFactory<OccupancyGridMsg>
+public class OccupacyGridDefaultVisualizer : BaseVisualFactory<OccupancyGridMsg>
 {
     static readonly int k_Color0 = Shader.PropertyToID("_Color0");
     static readonly int k_Color100 = Shader.PropertyToID("_Color100");
@@ -56,13 +56,13 @@ public class OccupancyGridDefaultVisualizer : BaseVisualFactory<OccupancyGridMsg
         float m_LastDrawingFrameTime = -1;
 
         Drawing3d m_Drawing;
-        OccupancyGridDefaultVisualizer m_Settings;
+        OccupacyGridDefaultVisualizer m_Settings;
         OccupancyGridMsg m_Message;
 
         public uint Width => m_Message.info.width;
         public uint Height => m_Message.info.height;
 
-        public OccupancyGridVisual(string topic, OccupancyGridDefaultVisualizer settings)
+        public OccupancyGridVisual(string topic, OccupacyGridDefaultVisualizer settings)
         {
             m_Topic = topic;
             m_Settings = settings;
