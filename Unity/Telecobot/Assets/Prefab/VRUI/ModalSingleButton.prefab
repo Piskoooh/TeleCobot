@@ -234,8 +234,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Test Modal Window
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 341e465b320b8b442989083b2549e894, type: 2}
-  m_sharedMaterial: {fileID: -17640420121853439, guid: 341e465b320b8b442989083b2549e894, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
+  m_sharedMaterial: {fileID: -17640420121853439, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -369,8 +369,8 @@ MonoBehaviour:
   m_text: Use a modal to inform the user of something, or to have them confirm something.
     Generally keep text short.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 341e465b320b8b442989083b2549e894, type: 2}
-  m_sharedMaterial: {fileID: -17640420121853439, guid: 341e465b320b8b442989083b2549e894, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
+  m_sharedMaterial: {fileID: -17640420121853439, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -448,6 +448,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -20
       objectReference: {fileID: 0}
+    - target: {fileID: 2823965070839912846, guid: e5db301629853dd4a99835fa70099d79, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
+    - target: {fileID: 2823965070839912846, guid: e5db301629853dd4a99835fa70099d79, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -17640420121853439, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
     - target: {fileID: 3356991306335605903, guid: e5db301629853dd4a99835fa70099d79, type: 3}
       propertyPath: m_Text
       value: Confirm

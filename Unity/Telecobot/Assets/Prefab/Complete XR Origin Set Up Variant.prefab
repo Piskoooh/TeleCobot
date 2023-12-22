@@ -536,6 +536,7 @@ MonoBehaviour:
   Pico4RightController: {fileID: 0}
   UniversalLeftController: {fileID: 211287923563969613, guid: ebb1989a0705e0243961051782c3fef2, type: 3}
   UniversalRightController: {fileID: 2744841055058917420, guid: bd3c5a584a15fd541b04585911608c6a, type: 3}
+  userSettings: {fileID: 0}
 --- !u!4 &4154049534067976231 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7161851849281282612, guid: 895f6f3c2d334633b5800312285058d2, type: 3}

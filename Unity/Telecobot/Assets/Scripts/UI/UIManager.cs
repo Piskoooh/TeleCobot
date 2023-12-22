@@ -45,10 +45,10 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        punConnection_Text.text = "Photon : Not Connected";
-        rosConnection_Text.text = "Ros : Not Connected";
-        punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
+        punConnection_Text.text = "Photon : オフラン";
+        rosConnection_Text.text = "Ros : オフライン";
+        punConnectButton.GetComponentInChildren<TMP_Text>().text = "接続する";
+        rosConnectButton.GetComponentInChildren<TMP_Text>().text = "接続する";
         rosConnectButton.interactable = false;
     }
 
@@ -293,14 +293,14 @@ public class UIManager : MonoBehaviour
             }
 
             if (sceneMaster.inputMng == null)
-                controlMode_Text.text = "Opetator is not in this Room. \nPlease wait for Operator to join this room.";
+                controlMode_Text.text = "オペレータが接続していません。 \nオペレータが参加するまで待機してください。";
             else
             {
-                controlMode_Text.text = "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
+                controlMode_Text.text = "操作モード: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
                 if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
-                    controlMode_Text.text += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
+                    controlMode_Text.text += "操作対象 :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
                 else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
-                    controlMode_Text.text += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
+                    controlMode_Text.text += "操作状態 :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
                 //範囲内ならば緑、範囲外なら赤にUIを変更する。
                 if (sceneMaster.inputMng.semiAutoCmd==SemiAutomaticCommands.PlaceTarget && visualIndicator != null)
                 {
@@ -320,11 +320,11 @@ public class UIManager : MonoBehaviour
             if(sceneMaster.photonMng.focusRobot != null)
             {
                 var ram = sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>();
-                rosConnection_Text.text = $"FocusRobotID: {ram.photonView.ViewID}" +
-                    $"\nROS Network: {(RosConnection)ram.robotRosConnection}";
+                rosConnection_Text.text = $"操作中ロボットID: {ram.photonView.ViewID}" +
+                    $"\nROSネットワーク: {(RosConnection)ram.robotRosConnection}";
             }
             else
-                rosConnection_Text.text = "FocusRobotID: 0\nROS Network: Disconnect";
+                rosConnection_Text.text = "操作中ロボットID: 0\nROSネットワーク　:オフライン";
         }
     }
 }

@@ -77,8 +77,8 @@ MonoBehaviour:
     Vertical and horizontal
     scrolling are both supported.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
+  m_sharedMaterial: {fileID: -17640420121853439, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1458,8 +1458,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Network Status
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
+  m_sharedMaterial: {fileID: -17640420121853439, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -66,49 +66,49 @@ public class VRUIManager : MonoBehaviour
         //controlMode, punConnection, rosConnection, focusRobot, userListを表示
         string newtext = "";
         if(PhotonNetwork.IsConnected)
-            newtext+="PUNConnection: Connected\n";
+            newtext+="PUNネットワーク:　オンライン\n";
         else
-            newtext+="PUNConnection: Disconnected\n";
+            newtext+="PUNネットワーク: オフライン\n";
         newtext += "============\n";
         if (sceneMaster.agoraMng.rtcEngine != null)
         {
-            newtext+=$"AgoraConnection: {sceneMaster.agoraMng.rtcEngine.GetConnectionState()}\n";
+            newtext+=$"Agoraネットワーク: {sceneMaster.agoraMng.rtcEngine.GetConnectionState()}\n";
         }
         newtext += "============\n";
         if (sceneMaster.photonMng.focusRobot != null)
         {
             var ram = sceneMaster.photonMng.focusRobot.GetComponent<RobotAvatarSetting>();
-            newtext += $"FocusRobotID: {ram.photonView.ViewID}" +
-                $"\nROS Network: {(RosConnection)ram.robotRosConnection}\n";
+            newtext += $"操作対象ロボットID: {ram.photonView.ViewID}" +
+                $"\nROS ネットワーク: {(RosConnection)ram.robotRosConnection}\n";
             focusRobotText.text = $"ID : {ram.photonView.ViewID}";
         }
         else
-            newtext += "Robot is not connected. Wait for Robot to join.\n";
+            newtext += "ロボットが接続していません。ロボットが接続するまで待機してください。\n";
         newtext += "============\n";
         if(sceneMaster.inputMng==null)
-            newtext+="Operetor is not connected. Wait for Operator to join.\n";
+            newtext+="オペレータが接続していません。 オペレータが接続するまで待機してください。\n";
         else
         {
             foreach (var pair in sceneMaster.photonMng.RoleDictionary)
             {
                 if (pair.Value == (int)Role.Operator)
                 {
-                    newtext += $"OperatorID: {pair.Key}\n";
+                    newtext += $"オペレータID: {pair.Key}\n";
                     break;
                 }
             }
-            newtext += "ControlMode: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
+            newtext += "操作モード: " + (ControlMode)sceneMaster.inputMng.controlMode + "\n";
             if (sceneMaster.inputMng.controlMode == ControlMode.ManualControl)
-                newtext += "ControlingTarget :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
+                newtext += "操作対象 :" + (ManualCommands)sceneMaster.inputMng.manualCmd + "\n";
             else if (sceneMaster.inputMng.controlMode == ControlMode.SemiAutomaticControl)
-                newtext += "Controling :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
+                newtext += "操作状態 :" + (SemiAutomaticCommands)sceneMaster.inputMng.semiAutoCmd + "\n";
         }
         newtext += "============\n";
-        newtext += "UserList:\n";
+        newtext += "ユーザリスト:\n";
         foreach (var pair in sceneMaster.photonMng.RoleDictionary)
         {
             newtext += "------------\n";
-            newtext += $"UserID: {pair.Key}\nUserRole: {(Role)pair.Value}\n";
+            newtext += $"ユーザID: {pair.Key}\nユーザ役割: {(Role)pair.Value}\n";
             newtext += "------------\n";
         }
         newtext += "============\n";
@@ -124,20 +124,20 @@ public class VRUIManager : MonoBehaviour
             {
                 semiAutomaticControlUI.interactable = true;
                 semiAutomaticControlUI.blocksRaycasts = true;
-                moveDescriptionText.text = "Move the dummy model to position where you want to move the robot.";
+                moveDescriptionText.text = "表示されたモデルをロボットの移動先に動かしてください。";
             }
             else
             {
                 semiAutomaticControlUI.interactable = false;
                 semiAutomaticControlUI.blocksRaycasts = false;
-                moveDescriptionText.text = "Robot is not connected. Wait for Robot to join.";
+                moveDescriptionText.text = "ロボットが参加していません。ロボットが参加するまで待機してください。";
             }
         }
         else
         {
             semiAutomaticControlUI.interactable = false;
             semiAutomaticControlUI.blocksRaycasts = false;
-            moveDescriptionText.text = "You are not authorized to use this UI.";
+            moveDescriptionText.text = "このパネルを操作する権限を持っていません。";
         }
         #endregion
 

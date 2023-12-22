@@ -143,11 +143,11 @@ public class AgoraManager : MonoBehaviour
 
         if (!isStreaming)
         {
-            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StartStream";
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "ストリーム開始";
         }
         else
         {
-            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StopStream";
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "ストリーム終了";
         }
 
         if(sceneMaster.photonMng.focusRobot != null)
@@ -164,7 +164,7 @@ public class AgoraManager : MonoBehaviour
         prevMicToggle = micToggle.isOn;
 
         if(statusText!=null)
-            statusText.text = "Status: " + rtcEngine.GetConnectionState();
+            statusText.text = "ステータス: " + rtcEngine.GetConnectionState();
     }
     private void OnDestroy()
     {
@@ -246,13 +246,13 @@ public class AgoraManager : MonoBehaviour
         if (isStreaming)
         {
             OnStopStream();
-            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StartStream";
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "ストリーム開始";
             isStreaming = false;
         }
         else
         {
             OnStartStream();
-            streamingBtn.GetComponentInChildren<TMP_Text>().text = "StopStream";
+            streamingBtn.GetComponentInChildren<TMP_Text>().text = "ストリーム終了";
             isStreaming = true;
         }
     }
@@ -544,7 +544,7 @@ public class AgoraManager : MonoBehaviour
         var tmp = go.GetComponentInChildren<TMP_Text>();
         if (tmp != null)
         {
-            tmp.text = "UserID:" + goName;
+            tmp.text = "ユーザID:" + goName;
         }
         // configure videoSurface
         var videoSurface = ri.gameObject.AddComponent<CustomVideoSurface>();

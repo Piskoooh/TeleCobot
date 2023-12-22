@@ -242,8 +242,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         else Debug.LogError("Unkown User Type. Cannot instatiate avatar.");
         //プレイヤーロールをカスタムプロパティに登録
         photonConnection = PhotonConnection.Connect;
-        sceneMaster.uIMng.punConnection_Text.text = "Photon : Connected";
-        sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        sceneMaster.uIMng.punConnection_Text.text = "Photon : オンライン";
+        sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "切断する";
         sceneMaster.uIMng.punConnectButton.interactable = true;
         sceneMaster.uIMng.rosConnectButton.interactable = true;
     }
@@ -262,8 +262,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         sceneMaster.uIMng.punConnectButton.interactable = true;
         sceneMaster.uIMng.rosConnectButton.interactable = false;
         photonConnection = PhotonConnection.Disconnect;
-        sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
-        sceneMaster.uIMng.punConnection_Text.text = "Photon : Disconnected";
+        sceneMaster.uIMng.punConnectButton.GetComponentInChildren<TMP_Text>().text = "接続する";
+        sceneMaster.uIMng.punConnection_Text.text = "Photon : オフライン";
 
         StartCoroutine(sceneMaster.userSettings.UnloadSceneAsync(sceneMaster.userSettings.CurrentSceneBuildIndex));
 #if !UNITY_ANDROID

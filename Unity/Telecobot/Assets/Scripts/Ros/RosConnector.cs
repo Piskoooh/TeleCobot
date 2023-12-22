@@ -87,8 +87,8 @@ public class RosConnector : MonoBehaviourPunCallbacks
     {
         if (sceneMaster.photonMng.photonConnection==PhotonConnection.Disconnect)
         {
-            sceneMaster.uIMng.punConnection_Text.text = "Photon : Not Connected";
-            sceneMaster.uIMng.rosConnection_Text.text = "Connect photon before connecting to ROS";
+            sceneMaster.uIMng.punConnection_Text.text = "Photon : オフライン";
+            sceneMaster.uIMng.rosConnection_Text.text = "ROS接続前にPhotonに接続してください";
         }
         else
         {
@@ -103,13 +103,13 @@ public class RosConnector : MonoBehaviourPunCallbacks
                 }
                 catch (Exception e)
                 {
-                    sceneMaster.uIMng.rosConnection_Text.text = "ROS : Failed to Connect:" + e.Message;
+                    sceneMaster.uIMng.rosConnection_Text.text = "ROS : 接続失敗:" + e.Message;
                 }
             }
             else
             {
-                sceneMaster.uIMng.punConnection_Text.text = "Photon : Connected";
-                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Connected";
+                sceneMaster.uIMng.punConnection_Text.text = "Photon : オンライン";
+                sceneMaster.uIMng.rosConnection_Text.text = "ROS : オンライン";
             }
         }
     }
@@ -118,8 +118,8 @@ public class RosConnector : MonoBehaviourPunCallbacks
                                //接続直後にPub/Subするメッセージはここで起動する
     {
         rosConnection = RosConnection.Connect;
-        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Connected";
-        sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Disconnect";
+        sceneMaster.uIMng.rosConnection_Text.text = "ROS : オンライン";
+        sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "切断する";
         sceneMaster.uIMng.punConnectButton.interactable = true;
         sceneMaster.uIMng.rosConnectButton.interactable = true;
         PhotonNetwork.LocalPlayer.SetRosConnection((int)rosConnection);
@@ -152,18 +152,18 @@ public class RosConnector : MonoBehaviourPunCallbacks
             }
             catch (Exception e)
             {
-                sceneMaster.uIMng.rosConnection_Text.text = "ROS : Failed to Disconnect:" + e.Message;
+                sceneMaster.uIMng.rosConnection_Text.text = "ROS : 切断失敗:" + e.Message;
             }
         }
         else
-            sceneMaster.uIMng.rosConnection_Text.text = "ROS : Already Disconnected";
+            sceneMaster.uIMng.rosConnection_Text.text = "ROS : 切断";
     }
 
     private void OnRosDisconnect()
     {
         rosConnection = RosConnection.Disconnect;
-        sceneMaster.uIMng.rosConnection_Text.text = "ROS : Disconnected";
-        sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "Connect";
+        sceneMaster.uIMng.rosConnection_Text.text = "ROS : オフライン";
+        sceneMaster.uIMng.rosConnectButton.GetComponentInChildren<TMP_Text>().text = "接続する";
         sceneMaster.uIMng.punConnectButton.interactable = true;
         sceneMaster.uIMng.rosConnectButton.interactable = true;
         PhotonNetwork.LocalPlayer.SetRosConnection((int)rosConnection);

@@ -1658,6 +1658,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65289976bb4cd3648acbcabce91ac4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableMovement: 1
+  enableMouseRotation: 1
+  enableZoom: 1
   movementSpeed: 5
   mouseSensitivity: 2
   zoomSpeed: 2
@@ -21162,11 +21165,11 @@ PrefabInstance:
     - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 341e465b320b8b442989083b2549e894, type: 2}
+      objectReference: {fileID: 11400000, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
     - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -17640420121853439, guid: 341e465b320b8b442989083b2549e894, type: 2}
+      objectReference: {fileID: -17640420121853439, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
     - target: {fileID: 4094801499644469875, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_Name
       value: Canvas

@@ -298,6 +298,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
+    - target: {fileID: 2535217285491315975, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -17640420121853439, guid: 09b80dbbba0ea45f2832f04cd302c7db, type: 2}
     - target: {fileID: 4094801499644469875, guid: 6dfe72634b75375489c6d4fac93a5859, type: 3}
       propertyPath: m_Name
       value: Canvas
