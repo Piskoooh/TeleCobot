@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
         }
         float angle = Vector2.Angle(a_ee, b_aN);
         Vector3 direction = endEffectorTf.position - armBaseLinkTf.position;
-        if (direction.magnitude < 0.55f && 90 > angle && sceneMaster.rosConnector.endEffector.transform.position.y > 0 )
+        if (direction.magnitude < 0.55f && 90 > angle && sceneMaster.rosConnector.endEffector.transform.position.y > -0.4 )
         {
             if (target == null)
             {
@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
         {
             float angle = Vector2.Angle(a_eg, b_aN);
             Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
-            if (direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0)
+            if (direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > -0.4)
             {
                 pubUnityControl.SetTargetPose();
                 return;
@@ -306,7 +306,7 @@ public class UIManager : MonoBehaviour
                 {
                     float angle = Vector2.Angle(a_eg, b_aN);
                     Vector3 direction = eeGripper.transform.position - armBaseLinkTf.position;
-                    bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > 0;
+                    bool isInRange = direction.magnitude < 0.55f && 90 > angle && eeGripper.transform.position.y > -0.4;
                     visualIndicator.GetComponent<MeshRenderer>().material.color = isInRange ? new Color(0.2f, 1f, 0f, 0.2f) : new Color(1f, 0f, 0.5f, 0.2f);
                 }
             }
